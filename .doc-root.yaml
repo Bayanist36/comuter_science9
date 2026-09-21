@@ -1,0 +1,8 @@
+syntax: XML
+lfs:
+  auto: true
+  exclude: []
+supportedLanguages: []
+properties: []
+title: Информатика 9 класс
+description: курс по информатике для 9 класса
