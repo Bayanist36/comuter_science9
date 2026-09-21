@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Как устроен Интернет · Информатика 9 класс · Урок 1</title>
+
+<!-- ШРИФТЫ -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+<!-- REVEAL.JS 6 CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@6/dist/reveal.css">
+
+<style>
+/* ===== ТОКЕНЫ ===== */
+:root{
+  --bg:#070B18; --surface:#101A3C; --ink:#EEF3FF; --muted:#A9B6DC;
+  --accent-1:#38E1FF; --accent-2:#8B7CFF; --accent-3:#FF6EC7;
+  --grad-main:linear-gradient(120deg,#38E1FF,#8B7CFF 52%,#FF6EC7);
+  --font-display:'Unbounded',sans-serif; --font-body:'Manrope',sans-serif; --font-mono:'JetBrains Mono',monospace;
+  /* переменные темы reveal.js: без них базовый reveal.css красит деку в белое */
+  --r-background-color:#070B18;
+  --r-main-font:'Manrope',sans-serif;
+  --r-main-font-size:26px;
+  --r-main-color:#EEF3FF;
+  --r-heading-font:'Unbounded',sans-serif;
+  --r-heading-color:#EEF3FF;
+  --r-heading-line-height:1.08;
+  --r-heading-letter-spacing:normal;
+  --r-heading-text-transform:none;
+  --r-heading-text-shadow:none;
+  --r-heading-font-weight:800;
+  --r-heading1-size:2.4em;
+  --r-heading2-size:1.55em;
+  --r-heading3-size:1.15em;
+  --r-heading4-size:1em;
+  --r-block-margin:18px;
+  --r-heading-margin:0 0 18px 0;
+  --r-link-color:#38E1FF;
+  --r-link-color-dark:#8B7CFF;
+  --r-link-color-hover:#FF6EC7;
+  --r-selection-background-color:rgba(255,110,199,.45);
+  --r-selection-color:#071120;
+}
+/* ===== ФОН ДЕКИ: принудительно тёмный, поверх дефолтов reveal ===== */
+html{background:#070B18}
+body, body.reveal-viewport{background:#070B18 !important}
+.reveal{background:transparent}
+.reveal .slides section{color:var(--ink)}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg)}
+body{font-family:var(--font-body);color:var(--ink)}
+
+/* ===== ФОНОВЫЙ ДЕКОР ===== */
+#bg-decor{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.glow{position:absolute;border-radius:50%;filter:blur(90px)}
+#glow-a{width:720px;height:720px;left:-200px;top:-240px;background:radial-gradient(circle,rgba(56,225,255,.30),transparent 65%)}
+#glow-b{width:780px;height:780px;right:-260px;bottom:-280px;background:radial-gradient(circle,rgba(255,110,199,.24),transparent 65%)}
+#glow-c{width:560px;height:560px;left:36%;top:52%;background:radial-gradient(circle,rgba(139,124,255,.22),transparent 62%)}
+#bg-grid{position:absolute;inset:0;
+  background-image:linear-gradient(rgba(148,163,214,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(148,163,214,.06) 1px,transparent 1px);
+  background-size:64px 64px;
+  -webkit-mask-image:radial-gradient(ellipse at 50% 42%,#000 28%,transparent 76%);
+          mask-image:radial-gradient(ellipse at 50% 42%,#000 28%,transparent 76%)}
+#bg-noise{position:absolute;inset:-60%;width:220%;height:220%;opacity:.05;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/></filter><rect width='300' height='300' filter='url(%23n)' opacity='0.7'/></svg>");
+  animation:grain 9s steps(8) infinite}
+@keyframes grain{0%{transform:translate(0,0)}25%{transform:translate(-2%,3%)}50%{transform:translate(3%,-2%)}75%{transform:translate(-3%,-3%)}100%{transform:translate(0,0)}}
+
+.reveal{position:relative;z-index:2;font-family:var(--font-body);font-size:26px;color:var(--ink)}
+.reveal ::selection{background:rgba(255,110,199,.4)}
+.reveal .controls{color:var(--accent-1)}
+.reveal .progress{background:rgba(139,124,255,.22);color:var(--accent-3)}
+.reveal .slides section{text-align:left;overflow:hidden}
+
+/* ===== ТИПОГРАФИКА ===== */
+.reveal h1,.reveal h2,.reveal h3{font-family:var(--font-display);font-weight:800;line-height:1.06;margin:0;text-transform:none;color:var(--ink);text-shadow:none;letter-spacing:normal}
+.reveal .h-title{font-size:80px}
+.reveal .h-ch{font-size:60px;max-width:760px}
+.reveal .h2{font-size:52px;max-width:1060px}
+.kicker{display:inline-flex;align-items:center;gap:10px;font-size:24px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-1)}
+.kicker::before{content:"";width:14px;height:14px;border-radius:50%;background:var(--grad-main);box-shadow:0 0 16px rgba(56,225,255,.9)}
+.lead{font-size:30px;font-weight:600;line-height:1.45}
+.small{font-size:24px;color:var(--muted);line-height:1.45}
+.src{font-size:24px;font-style:italic;color:var(--muted);opacity:.85}
+.mono{font-family:var(--font-mono)}
+.grad-text{background:var(--grad-main);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+@supports not ((-webkit-background-clip:text) or (background-clip:text)){
+  .grad-text,.bignum{background:none;color:var(--accent-2);-webkit-text-fill-color:currentColor}
+}
+.grad-underline{height:9px;width:190px;border-radius:8px;background:var(--grad-main);margin-top:18px;box-shadow:0 6px 26px rgba(139,124,255,.45)}
+.hi-c{color:var(--accent-1)} .hi-v{color:var(--accent-2)} .hi-p{color:var(--accent-3)}
+strong{color:var(--ink)}
+
+/* ===== РАСКЛАДКИ ===== */
+.wrap{position:relative;height:100%;padding:46px 58px 42px;display:flex;flex-direction:column}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.split-46{display:grid;grid-template-columns:46% 1fr;gap:40px;align-items:center}
+.split-40{display:grid;grid-template-columns:40% 1fr;gap:40px;align-items:center}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.grow{flex:1;display:flex;flex-direction:column;justify-content:center;min-height:0}
+.row{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.foot{margin-top:auto;padding-top:14px;display:flex;justify-content:space-between;align-items:flex-end;gap:24px}
+
+/* ===== КОМПОНЕНТЫ ===== */
+.card{background:linear-gradient(160deg,rgba(24,34,76,.92),rgba(11,17,42,.94));border:1px solid rgba(139,124,255,.30);border-radius:22px;padding:24px 26px;box-shadow:0 20px 54px rgba(2,5,18,.5)}
+.card .ct{font-family:var(--font-display);font-weight:600;font-size:26px;margin:0 0 10px}
+.card .cd{font-size:24px;color:var(--muted);line-height:1.42;margin:0}
+.num-badge{width:64px;height:64px;border-radius:50%;background:var(--grad-main);color:#071120;font-family:var(--font-display);font-weight:800;font-size:26px;display:flex;align-items:center;justify-content:center;flex:none}
+.chip{display:inline-flex;align-items:center;gap:10px;padding:8px 18px;border-radius:999px;border:1px solid rgba(56,225,255,.42);background:rgba(56,225,255,.08);font-size:24px;font-weight:600}
+.chip.pink{border-color:rgba(255,110,199,.45);background:rgba(255,110,199,.08)}
+.chip.violet{border-color:rgba(139,124,255,.5);background:rgba(139,124,255,.10)}
+.chip .dot{width:10px;height:10px;border-radius:50%;background:var(--accent-1);box-shadow:0 0 10px var(--accent-1)}
+.chip.pink .dot{background:var(--accent-3);box-shadow:0 0 10px var(--accent-3)}
+.chip.violet .dot{background:var(--accent-2);box-shadow:0 0 10px var(--accent-2)}
+.defbox{border-left:6px solid var(--accent-2);background:linear-gradient(120deg,rgba(56,225,255,.10),rgba(139,124,255,.08) 52%,rgba(255,110,199,.08));padding:20px 28px;border-radius:0 18px 18px 0;font-size:27px;line-height:1.45}
+.bignum{font-family:var(--font-display);font-weight:800;font-size:72px;line-height:1;background:var(--grad-main);-webkit-background-clip:text;background-clip:text;color:transparent}
+.terminal{background:#050912;border:1px solid rgba(56,225,255,.35);border-radius:16px;overflow:hidden}
+.terminal .tbar{display:flex;gap:8px;align-items:center;padding:10px 16px;background:rgba(56,225,255,.07);border-bottom:1px solid rgba(56,225,255,.18)}
+.terminal .tbar i{width:12px;height:12px;border-radius:50%;display:block}
+.terminal pre{margin:0;padding:16px 22px;font-family:var(--font-mono);font-size:24px;line-height:1.5;color:#BFE9FF;white-space:pre}
+.terminal .g{color:#7DF9C9}.terminal .p{color:#FF9AD5}.terminal .dim{color:#7C8BB4}
+.ghost{position:absolute;z-index:0;font-family:var(--font-display);font-weight:800;font-size:400px;line-height:1;color:transparent;-webkit-text-stroke:2px rgba(139,124,255,.16);user-select:none;pointer-events:none}
+.octets{display:flex;align-items:center;gap:10px}
+.octet{font-family:var(--font-mono);font-weight:600;font-size:44px;padding:10px 22px;border-radius:16px;background:rgba(56,225,255,.08);border:2px solid rgba(56,225,255,.5)}
+.octet-dot{font-size:44px;font-weight:800;color:var(--accent-3)}
+.bits{display:flex;gap:8px}
+.bit{width:52px;height:56px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-weight:600;font-size:30px;border:2px solid rgba(139,124,255,.4);background:rgba(139,124,255,.08);color:var(--muted)}
+.bit.on{border-color:var(--accent-1);background:rgba(56,225,255,.14);color:var(--accent-1)}
+.conv-eq{font-family:var(--font-mono);font-size:34px;font-weight:600}
+.live-dot{width:14px;height:14px;border-radius:50%;background:var(--accent-3);box-shadow:0 0 14px var(--accent-3);animation:pulse 1.8s ease-in-out infinite;flex:none}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.5);opacity:.55}}
+.flow{stroke-dasharray:12 10;animation:flowmove 2.6s linear infinite}
+@keyframes flowmove{to{stroke-dashoffset:-88}}
+.iconbox{width:74px;height:74px;flex:none}
+.vicon{width:70px;height:70px}
+.legend{display:flex;gap:22px;align-items:center;font-size:24px;color:var(--muted);margin-bottom:6px}
+.legend .sw{width:26px;height:10px;border-radius:6px;display:inline-block;margin-right:8px;vertical-align:middle}
+.illus svg,.iconbox svg,.vicon svg{width:100%;height:auto;display:block}
+.chart svg{width:100%;height:auto;display:block}
+.chart .grid line{stroke:rgba(169,182,220,.13)}
+.chart .val{fill:#EEF3FF;font-family:'Manrope',sans-serif;font-weight:800}
+
+/* ===== ЗАПАСНОЙ РЕЖИМ (если CDN недоступен) ===== */
+#cdn-error{display:none;position:fixed;z-index:99;top:16px;left:50%;transform:translateX(-50%);background:#FF6EC7;color:#071120;font-weight:800;font-family:var(--font-body);font-size:20px;padding:14px 26px;border-radius:14px;max-width:80vw;text-align:center}
+body.no-reveal #cdn-error{display:block}
+body.no-reveal .reveal{position:static}
+body.no-reveal .slides{width:auto!important;height:auto!important;transform:none!important;zoom:1!important}
+body.no-reveal .slides section{position:relative!important;display:block!important;opacity:1!important;visibility:visible!important;width:auto!important;height:auto!important;max-width:1200px;margin:30px auto;padding:20px;border:1px solid rgba(139,124,255,.3);border-radius:16px}
+body.no-reveal .ghost{display:none}
+body.no-reveal aside.notes{display:none}
+
+@media (prefers-reduced-motion: reduce){#bg-noise,.live-dot,.flow{animation:none !important}}
+</style>
+</head>
+<body>
+
+<div id="bg-decor" aria-hidden="true">
+  <div class="glow" id="glow-a"></div><div class="glow" id="glow-b"></div><div class="glow" id="glow-c"></div>
+  <div id="bg-grid"></div><div id="bg-noise"></div>
+</div>
+
+<div id="cdn-error">Не удалось загрузить библиотеки презентации (нужен доступ в интернет к CDN). Ниже — текстовая версия слайдов.</div>
+
+<div class="reveal">
+<div class="slides">
+
+<!-- 1. ТИТУЛ -->
+<section id="s-title" data-title="Титул">
+  <div class="wrap">
+    <div class="split" style="flex:1;align-items:center">
+      <div style="max-width:620px">
+        <div class="kicker" data-anim>Информатика · 9 класс · Урок 1</div>
+        <h1 class="h-title" style="margin:22px 0 6px"><span data-anim style="display:block">Как устроен</span><span data-anim class="grad-text" style="display:block">Интернет</span></h1>
+        <div class="grad-underline" data-anim></div>
+        <p class="lead" data-anim style="margin:24px 0 20px">Глобальная сеть, IP-адреса узлов и большие данные</p>
+        <div class="row" data-stagger>
+          <span class="chip"><span class="dot"></span>Раздел 1 · Цифровая грамотность</span>
+          <span class="chip violet"><span class="dot"></span>Тема 1.1</span>
+        </div>
+      </div>
+      <div id="illus-title" class="illus" style="max-width:520px" aria-hidden="true"></div>
+    </div>
+    <div class="foot"><span class="small" data-anim>По Федеральной рабочей программе · 34 ч (1 ч/нед)</span><span class="small mono hi-c" data-anim>tcp/ip · ipv4 · ipv6 · big data</span></div>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> начинаем год с сети, в которой мы все живём.</p>
+    <ul>
+      <li>Приветствие и «контракт» на год: четыре раздела — цифровая грамотность, теория, программирование, ИТ; сегодня старт первого.</li>
+      <li>Правило урока: меньше зубрёжки — больше понимания; каждая тема заканчивается практикой.</li>
+      <li>Провокация: «Вы пользуетесь этим каждый день — но знаете, как оно устроено внутри?»</li>
+    </ul>
+    <p><b>Переход:</b> «Посмотрим на маршрут сегодняшнего урока».</p>
+    <p><i>Тайминг: ~90 с</i></p>
+  </aside>
+</section>
+
+<!-- 2. МАРШРУТ -->
+<section id="s-roadmap" data-title="Маршрут урока">
+  <div class="wrap">
+    <div class="kicker" data-anim>План</div>
+    <h2 class="h2" data-anim style="margin:12px 0 6px">Маршрут урока</h2>
+    <div class="grad-underline" data-anim style="margin-bottom:34px"></div>
+    <div class="grid3" data-stagger>
+      <div class="card"><div class="row" style="margin-bottom:14px"><span class="num-badge">01</span><span class="chip"><span class="dot"></span>8 мин</span></div><h3 class="ct">Сеть сетей</h3><p class="cd">Как устроен Интернет: узлы, маршрутизаторы, серверы и пакеты данных</p></div>
+      <div class="card"><div class="row" style="margin-bottom:14px"><span class="num-badge">02</span><span class="chip violet"><span class="dot"></span>8 мин</span></div><h3 class="ct">Адрес каждого</h3><p class="cd">Что такое IP-адрес, зачем нужны IPv4 и IPv6, как перевести адрес в двоичный код</p></div>
+      <div class="card"><div class="row" style="margin-bottom:14px"><span class="num-badge">03</span><span class="chip pink"><span class="dot"></span>7 мин</span></div><h3 class="ct">Океан данных</h3><p class="cd">Большие данные: три «V» и почему лента соцсети знает вас так хорошо</p></div>
+    </div>
+    <div class="row" style="margin-top:28px" data-anim>
+      <span class="chip pink"><span class="dot"></span>Практика · 9 мин: найдём свой IP-адрес</span>
+      <span class="chip violet"><span class="dot"></span>Рефлексия + домашнее задание</span>
+    </div>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> три остановки — сеть, адрес, данные.</p>
+    <ul>
+      <li>Теория блоками 7–8 минут, затем 9 минут практики: ЭОР edsoo.ru и парные карточки.</li>
+      <li>Каждый блок завершается мини-заданием, «потеряться» не получится.</li>
+      <li>Финал — приём «незаконченное предложение» и домашнее задание с творческим выбором.</li>
+    </ul>
+    <p><b>Переход:</b> «А начнём с вопроса-разминки».</p>
+    <p><i>Тайминг: ~60 с</i></p>
+  </aside>
+</section>
+
+<!-- 3. МАСШТАБ + D3 -->
+<section id="s-scale" data-title="Масштаб сети" data-chart="users">
+  <div class="wrap">
+    <div class="kicker" data-anim>Разминка</div>
+    <h2 class="h2" data-anim style="margin:10px 0 22px">Сколько устройств в сети прямо сейчас?</h2>
+    <div class="split-46" style="flex:1">
+      <div>
+        <div class="card" style="margin-bottom:20px" data-anim><div class="bignum"><span id="cnt-users">0,0</span> млрд</div><p class="cd" style="margin-top:8px">пользователей Интернета в мире</p></div>
+        <div class="card" data-anim><div class="bignum"><span id="cnt-dev">0</span>+ млрд</div><p class="cd" style="margin-top:8px">устройств подключено к сети</p></div>
+        <p class="small" data-anim style="margin-top:18px"><span class="live-dot" style="display:inline-block;margin-right:10px"></span>Каждую секунду: миллионы сообщений, видео, покупок</p>
+      </div>
+      <div data-anim>
+        <div class="legend"><span><span class="sw" style="background:var(--grad-main)"></span>Пользователи Интернета, млрд</span></div>
+        <div id="chart-users" class="chart"></div>
+        <p class="src" style="margin-top:6px">Источник: оценки урока, по данным последних лет</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> масштаб сети больше, чем кажется.</p>
+    <ul>
+      <li>Сначала спросите класс и запишите гипотезы на доске (обычно называют 5–7 или 20 млрд) — готовый ответ не давайте, это формирует познавательные УУД.</li>
+      <li>Факты из сценария: более 5 млрд пользователей и свыше 15 млрд устройств.</li>
+      <li>Ключевые слова фиксируем на доске: адрес, маршрут, протокол, сеть.</li>
+      <li>Проблемный вопрос: как смартфон находит нужный сайт среди миллиардов устройств и почему данные не «заблудятся»?</li>
+    </ul>
+    <p><b>Переход:</b> «Чтобы ответить — заглянем под капот сети».</p>
+    <p><i>Тайминг: ~150 с (с обсуждением гипотез)</i></p>
+  </aside>
+</section>
+
+<!-- 4. РАЗДЕЛИТЕЛЬ 01 -->
+<section id="s-ch1" data-title="Глава 1" data-background-gradient="linear-gradient(140deg, rgba(56,225,255,0.10), rgba(139,124,255,0.04) 45%, rgba(255,110,199,0.07))">
+  <div class="wrap">
+    <div class="ghost" style="right:20px;top:60px" aria-hidden="true">01</div>
+    <div class="split" style="flex:1;align-items:center">
+      <div>
+        <div class="kicker" data-anim>Глава 1</div>
+        <h2 class="h-ch" data-anim style="margin:16px 0 10px">Глобальная сеть Интернет</h2>
+        <div class="grad-underline" data-anim></div>
+        <p class="lead" data-anim style="margin-top:24px">Не один компьютер и не один кабель — а миллионы сетей, говорящих на одном языке протоколов</p>
+      </div>
+      <div id="illus-mesh" class="illus" style="max-width:460px" aria-hidden="true"></div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> Интернет — это сеть сетей.</p>
+    <ul>
+      <li>Короткая пауза: пусть 1–2 ученика скажут, что такое Интернет, до определения («соцсеть», «сайты», «вай-фай» — части, а не целое).</li>
+      <li>Подчеркните: мы пользуемся этим ежедневно, но редко задумываемся об устройстве.</li>
+    </ul>
+    <p><b>Переход:</b> «Вот точное определение — и схема пути ваших данных».</p>
+    <p><i>Тайминг: ~30 с</i></p>
+  </aside>
+</section>
+
+<!-- 5. АНАТОМИЯ ИНТЕРНЕТА -->
+<section id="s-anatomy" data-title="Анатомия Интернета">
+  <div class="wrap">
+    <div class="kicker" data-anim>Определение</div>
+    <h2 class="h2" data-anim style="margin:10px 0 16px">Анатомия Интернета</h2>
+    <div class="defbox" data-anim><strong>Интернет</strong> <span class="mono small hi-c">(International Network)</span> — глобальная система объединённых компьютерных сетей, построенная на базе стека протоколов <strong class="hi-v">TCP/IP</strong></div>
+    <div class="grow"><div id="illus-chain" class="illus" data-anim aria-hidden="true"></div></div>
+    <p class="small" data-anim>Пакеты идут «по цепочке», но маршрут может меняться: узел перегружен или отказал — данные пойдут другим путём</p>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> Интернет держится на адресах и протоколах.</p>
+    <ul>
+      <li>Пройдите цепочку: ваш компьютер → маршрутизатор → провайдер → магистральный канал → сервер. Если есть техническая возможность — покажите утилиту <b>tracert</b>: через какие узлы реально идёт пакет.</li>
+      <li>Вопрос: что будет, если один маршрутизатор сломается? — трафик перестроят, в этом живучесть сети.</li>
+      <li>Протокол — как ПДД: единые правила, чтобы все узлы понимали друг друга.</li>
+    </ul>
+    <p><b>Переход:</b> «Кто есть кто в сети — четыре роли».</p>
+    <p><i>Тайминг: ~240 с</i></p>
+  </aside>
+</section>
+
+<!-- 6. РОЛИ -->
+<section id="s-roles" data-title="Роли сети">
+  <div class="wrap">
+    <div class="kicker" data-anim>Понятия</div>
+    <h2 class="h2" data-anim style="margin:10px 0 26px">Кто есть кто в сети</h2>
+    <div class="grid4" data-stagger>
+      <div class="card"><div class="iconbox" data-icon="node"></div><h3 class="ct" style="margin-top:14px">Узел</h3><p class="cd">Любое устройство с уникальным адресом: компьютер, сервер, смартфон, умный телевизор</p></div>
+      <div class="card"><div class="iconbox" data-icon="router"></div><h3 class="ct" style="margin-top:14px">Маршрутизатор</h3><p class="cd">Перенаправляет пакеты между сегментами сети, выбирая оптимальный маршрут</p></div>
+      <div class="card"><div class="iconbox" data-icon="server"></div><h3 class="ct" style="margin-top:14px">Сервер</h3><p class="cd">Мощный компьютер: хранит данные и предоставляет услуги (веб-, почтовый, файловый)</p></div>
+      <div class="card"><div class="iconbox" data-icon="client"></div><h3 class="ct" style="margin-top:14px">Клиент</h3><p class="cd">Запрашивает данные у сервера: ваш браузер, почтовый клиент, приложение</p></div>
+    </div>
+    <div class="defbox" data-anim style="margin-top:26px">Вопрос классу: ваш телефон прямо сейчас — клиент или сервер? <span class="hi-p">А когда раздаёте с него интернет — он уже работает как узел-маршрутизатор!</span></div>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> у каждого устройства в сети своя роль.</p>
+    <ul>
+      <li>Узел — самое широкое понятие: умный чайник с Wi-Fi тоже узел, у него есть адрес.</li>
+      <li>Маршрутизатор — «регулировщик»: данные не производит, а решает, куда отправить дальше.</li>
+      <li>Серверы отвечают на миллионы запросов в сутки — отсюда требования к надёжности.</li>
+      <li>Обсудите вопрос слайда: роли не постоянны, устройство может совмещать их.</li>
+    </ul>
+    <p><b>Переход:</b> «А как именно данные путешествуют между ними?»</p>
+    <p><i>Тайминг: ~180 с</i></p>
+  </aside>
+</section>
+
+<!-- 7. ПАКЕТЫ -->
+<section id="s-packets" data-title="Пакетная передача">
+  <div class="wrap">
+    <div class="kicker" data-anim>Принцип</div>
+    <h2 class="h2" data-anim style="margin:10px 0 24px">Данные едут… пакетами</h2>
+    <div class="split-46" style="flex:1">
+      <div>
+        <div class="card" style="margin-bottom:16px" data-anim><p class="cd"><strong class="hi-c">Пакет</strong> — небольшой фрагмент файла + адрес отправителя и адрес получателя</p></div>
+        <div class="card" style="margin-bottom:16px" data-anim><p class="cd">Пакеты одного файла могут идти <strong class="hi-p">разными маршрутами</strong> — так сеть обходит перегруженные участки</p></div>
+        <div class="card" data-anim><p class="cd">На стороне получателя пакеты <strong class="hi-v">собираются воедино</strong> и проверяются на потери</p></div>
+        <p class="small" data-anim style="margin-top:16px">Аналогия: переезд — мебель едет в подписанных коробках разными машинами, а собирается уже в новой квартире</p>
+      </div>
+      <div id="illus-packets" class="illus" data-anim aria-hidden="true"></div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> файлы режут на пакеты — так надёжнее и быстрее.</p>
+    <ul>
+      <li>Вопрос из сценария: почему не отправлять файл целиком? Ожидаемый ответ: надёжность, скорость, обход перегрузок.</li>
+      <li>Если бы файл шёл целиком, один обрыв линии означал бы пересылку заново, а канал был бы занят надолго.</li>
+      <li>Потерялся один пакет — пересылают только его, а не весь файл.</li>
+    </ul>
+    <p><b>Переход:</b> «Но как среди миллиардов устройств найти получателя? По адресу!»</p>
+    <p><i>Тайминг: ~180 с</i></p>
+  </aside>
+</section>
+
+<!-- 8. РАЗДЕЛИТЕЛЬ 02 -->
+<section id="s-ch2" data-title="Глава 2" data-background-gradient="linear-gradient(140deg, rgba(139,124,255,0.10), rgba(56,225,255,0.04) 50%, rgba(255,110,199,0.06))">
+  <div class="wrap">
+    <div class="ghost" style="right:20px;top:60px" aria-hidden="true">02</div>
+    <div class="split" style="flex:1;align-items:center">
+      <div>
+        <div class="kicker" data-anim>Глава 2</div>
+        <h2 class="h-ch" data-anim style="margin:16px 0 10px">IP-адрес — паспорт устройства</h2>
+        <div class="grad-underline" data-anim></div>
+        <p class="lead" data-anim style="margin-top:24px">Чтобы каждый пакет нашёл адресата, у каждого узла должен быть уникальный адрес</p>
+      </div>
+      <div id="illus-stamp" class="illus" style="max-width:460px" aria-hidden="true"></div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> адрес — обязательное условие доставки.</p>
+    <ul>
+      <li>Аналогия с почтой: город → улица → дом → квартира; сетевые адреса тоже иерархичны.</li>
+      <li>Интрига: версий адреса две, и старой уже «тесно».</li>
+    </ul>
+    <p><b>Переход:</b> «Запишем определение и разберём адрес по битам».</p>
+    <p><i>Тайминг: ~30 с</i></p>
+  </aside>
+</section>
+
+<!-- 9. АНАТОМИЯ IP -->
+<section id="s-ip" data-title="Анатомия IP">
+  <div class="wrap">
+    <div class="kicker" data-anim>Версия IPv4</div>
+    <h2 class="h2" data-anim style="margin:10px 0 16px">Анатомия IP-адреса</h2>
+    <div class="defbox" data-anim><strong>IP-адрес</strong> <span class="mono small hi-c">(Internet Protocol address)</span> — уникальный числовой идентификатор устройства в компьютерной сети, работающей по протоколу IP <span class="small">(запись в тетрадь)</span></div>
+    <div class="grow" style="justify-content:center;gap:26px">
+      <div class="row" data-stagger style="gap:14px">
+        <span class="octet">192</span><span class="octet-dot">.</span>
+        <span class="octet">168</span><span class="octet-dot">.</span>
+        <span class="octet">0</span><span class="octet-dot">.</span>
+        <span class="octet">1</span>
+        <span class="chip violet" style="margin-left:16px"><span class="dot"></span>4 числа от 0 до 255 · всего 32 бита</span>
+      </div>
+      <div data-anim>
+        <p class="small" style="margin:0 0 12px">Вспоминаем 8 класс: как компьютер видит число <strong class="hi-c mono">192</strong>?</p>
+        <div class="row" style="gap:26px">
+          <div class="bits">
+            <div class="bit on">1</div><div class="bit on">1</div><div class="bit">0</div><div class="bit">0</div>
+            <div class="bit">0</div><div class="bit">0</div><div class="bit">0</div><div class="bit">0</div>
+          </div>
+          <span class="conv-eq">192<sub>10</sub> = <span class="hi-p">11000000</span><sub>2</sub></span>
+        </div>
+      </div>
+    </div>
+    <p class="small" data-anim>Четыре октета по 8 бит = 32 бита. Вопрос: может ли октет быть 999? — Нет: максимум 255 (11111111₂)</p>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> IPv4 — это 32 бита, записанные четырьмя десятичными числами.</p>
+    <ul>
+      <li>Межпредметная связь с 8 классом: ученики сами переводят 192 в двоичную систему (128+64); кто быстрее — пишет на доске.</li>
+      <li>Именно в двоичном виде компьютер и «видит» IP-адрес; точки — только для читаемости.</li>
+      <li>Закрепите границу октета: 255 = 11111111₂, поэтому адрес 999.1.1.1 невозможен.</li>
+      <li>Сколько всего комбинаций? 2³² ≈ 4,3 млрд — к этому числу вернёмся на следующем слайде.</li>
+    </ul>
+    <p><b>Переход:</b> «4,3 миллиарда адресов. Много ли это? Смотрим на цифры».</p>
+    <p><i>Тайминг: ~240 с</i></p>
+  </aside>
+</section>
+
+<!-- 10. IPv4 vs IPv6 + D3 -->
+<section id="s-v4v6" data-title="IPv4 против IPv6" data-chart="ipv4">
+  <div class="wrap">
+    <div class="kicker" data-anim>Проблема</div>
+    <h2 class="h2" data-anim style="margin:10px 0 18px">Почему IPv4 закончился?</h2>
+    <div class="row" style="margin-bottom:18px" data-stagger>
+      <div class="card" style="flex:1"><p class="cd mono" style="margin:0 0 6px;color:var(--accent-1)">IPv4 · 32 бита</p><div class="bignum" style="font-size:52px">≈ 4,3 млрд</div><p class="cd" style="margin-top:6px">пример: 192.168.0.1 — 4 числа от 0 до 255</p></div>
+      <div class="card" style="flex:1"><p class="cd mono" style="margin:0 0 6px;color:var(--accent-3)">IPv6 · 128 бит</p><div class="bignum" style="font-size:52px">≈ 340 × 10³⁶</div><p class="cd" style="margin-top:6px">8 групп по 4 шестнадцатеричных цифры: 2001:0db8:…:7334</p></div>
+    </div>
+    <div data-anim>
+      <div class="legend"><span><span class="sw" style="background:linear-gradient(90deg,#38E1FF,#8B7CFF)"></span>Счёт на миллиарды</span></div>
+      <div id="chart-ipv4" class="chart"></div>
+      <p class="src">Пул IPv4 исчерпан: устройств в сети уже в разы больше, чем адресов</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> адресов старой версии физически меньше, чем устройств.</p>
+    <ul>
+      <li>По графику: 4,3 млрд адресов — меньше, чем людей на Земле, и в разы меньше, чем подключённых устройств.</li>
+      <li>Вопрос из сценария: «Почему адресов IPv4 стало не хватать? Что пришло им на смену?» — рост числа устройств, переход на IPv6.</li>
+      <li>IPv6 даёт адреса «с запасом на века»; переход постепенный, сеть долго работает в двойном режиме.</li>
+    </ul>
+    <p><b>Переход:</b> «А какой адрес у вас — публичный или локальный?»</p>
+    <p><i>Тайминг: ~210 с</i></p>
+  </aside>
+</section>
+
+<!-- 11. ПУБЛИЧНЫЙ / ЛОКАЛЬНЫЙ -->
+<section id="s-publoc" data-title="Публичный и локальный">
+  <div class="wrap">
+    <div class="kicker" data-anim>Два режима</div>
+    <h2 class="h2" data-anim style="margin:10px 0 18px">Публичный и локальный адреса</h2>
+    <div class="split" style="margin-bottom:18px">
+      <div class="card" data-anim><h3 class="ct"><span class="hi-c">Публичный (внешний)</span></h3><p class="cd">Виден в Интернете, уникален в глобальной сети. Свой внешний адрес можно узнать на сервисе <strong>2ip.ru</strong></p></div>
+      <div class="card" data-anim><h3 class="ct"><span class="hi-v">Локальный (частный)</span></h3><p class="cd">Используется внутри домашней или корпоративной сети, например <span class="mono hi-v">192.168.1.1</span> или <span class="mono hi-v">10.0.0.5</span></p></div>
+    </div>
+    <div class="terminal" data-anim>
+      <div class="tbar"><i style="background:#FF6EC7"></i><i style="background:#FFD166"></i><i style="background:#7DF9C9"></i></div>
+      <pre>C:\&gt; <span class="g">ipconfig</span>   <span class="dim">(Windows; Linux/Mac — ifconfig)</span>
+   IPv4-адрес. . . . . . . . . . . : <span class="p">192.168.0.104</span>  <span class="dim">← ваш локальный</span>
+   Основной шлюз . . . . . . . . . : 192.168.0.1    <span class="dim">← ваш роутер</span></pre>
+    </div>
+    <p class="small" data-anim style="margin-top:14px"><strong>Практика:</strong> введите <span class="mono">ipconfig</span> — какой адрес видите? Это ваш локальный. Внешний проверим на <span class="mono">2ip.ru</span></p>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> у устройства обычно два адреса: внутренний и внешний.</p>
+    <ul>
+      <li>Практический элемент сценария: если есть компьютерный класс — ученики вводят ipconfig/ifconfig сами; если нет — демонстрация на компьютере учителя.</li>
+      <li>NAT-аналогия: у компании один внешний телефонный номер, внутри — добавочные; так и роутер «раздаёт» один публичный адрес устройствам.</li>
+      <li>Сравните адреса соседей: они из диапазона 192.168.0.х — значит, за одним роутером; внешний у всех один.</li>
+    </ul>
+    <p><b>Переход:</b> «Каждую секунду все эти устройства оставляют горы данных…»</p>
+    <p><i>Тайминг: ~240 с (с практикой)</i></p>
+  </aside>
+</section>
+
+<!-- 12. РАЗДЕЛИТЕЛЬ 03 -->
+<section id="s-ch3" data-title="Глава 3" data-background-gradient="linear-gradient(140deg, rgba(255,110,199,0.10), rgba(139,124,255,0.04) 50%, rgba(56,225,255,0.06))">
+  <div class="wrap">
+    <div class="ghost" style="right:20px;top:60px" aria-hidden="true">03</div>
+    <div class="split" style="flex:1;align-items:center">
+      <div>
+        <div class="kicker" data-anim>Глава 3</div>
+        <h2 class="h-ch" data-anim style="margin:16px 0 10px">Большие данные</h2>
+        <div class="grad-underline" data-anim></div>
+        <p class="lead" data-anim style="margin-top:24px">Каждый клик, лайк и шаг с телефоном оставляет след — и эти следы уже не сосчитать вручную</p>
+      </div>
+      <div id="illus-eq" class="illus" style="max-width:480px" aria-hidden="true"></div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> Интернет — гигантская фабрика данных.</p>
+    <ul>
+      <li>Спросите: какие данные вы сами создали сегодня с утра? Поиск, музыка, геолокация, переписка.</li>
+      <li>Каждый день генерируются колоссальные объёмы: посты, запросы, данные датчиков, видео, транзакции.</li>
+    </ul>
+    <p><b>Переход:</b> «У больших данных есть три фирменных признака».</p>
+    <p><i>Тайминг: ~30 с</i></p>
+  </aside>
+</section>
+
+<!-- 13. ТРИ V -->
+<section id="s-3v" data-title="Три V">
+  <div class="wrap">
+    <div class="kicker" data-anim>Определение · запись в тетрадь</div>
+    <h2 class="h2" data-anim style="margin:10px 0 16px">Три «V» больших данных</h2>
+    <div class="defbox" data-anim style="margin-bottom:24px"><strong>Большие данные</strong> — совокупности данных столь большого объёма и сложности, что традиционные способы обработки к ним неприменимы</div>
+    <div class="grid3" data-stagger>
+      <div class="card"><div class="vicon" data-vicon="volume"></div><h3 class="ct" style="margin-top:12px">Volume · Объём</h3><p class="cd">Невозможно обработать на одном компьютере за разумное время</p></div>
+      <div class="card"><div class="vicon" data-vicon="velocity"></div><h3 class="ct" style="margin-top:12px">Velocity · Скорость</h3><p class="cd">Поступают непрерывно и в реальном времени</p></div>
+      <div class="card"><div class="vicon" data-vicon="variety"></div><h3 class="ct" style="margin-top:12px">Variety · Разнообразие</h3><p class="cd">Разная структура: текст, видео, числа, геолокация</p></div>
+    </div>
+    <p class="small" data-anim style="margin-top:22px">Для обработки: <strong>распределённые вычисления</strong>, <strong>машинное обучение</strong>, <strong>облачные хранилища</strong></p>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> большие данные = объём + скорость + разнообразие.</p>
+    <ul>
+      <li>Подчеркните: «большие данные» — не просто «много файлов», а данные, к которым неприменимы традиционные способы обработки.</li>
+      <li>Volume: ни один компьютер не справится в одиночку; Velocity: счёт на секунды — вчерашние пробки бесполезны; Variety: всё вперемешку.</li>
+      <li>Мини-вопрос: какие «V» задействованы у навигатора? — все три.</li>
+    </ul>
+    <p><b>Переход:</b> «Кто же генерирует эти данные?»</p>
+    <p><i>Тайминг: ~210 с</i></p>
+  </aside>
+</section>
+
+<!-- 14. ИСТОЧНИКИ + D3 -->
+<section id="s-zetta" data-title="Источники данных" data-chart="zetta">
+  <div class="wrap">
+    <div class="kicker" data-anim>Масштаб</div>
+    <h2 class="h2" data-anim style="margin:10px 0 18px">Кто генерирует большие данные?</h2>
+    <div class="split-40" style="flex:1">
+      <div>
+        <div class="card" data-anim><div class="bignum"><span id="cnt-zb">0</span> ЗБ</div><p class="cd" style="margin-top:8px">оценка годового объёма данных в мире: 1 ЗБ = 1 трлн гигабайт</p></div>
+        <p class="small" data-anim style="margin:16px 0 12px">Источники из сценария урока:</p>
+        <div class="row" data-stagger style="gap:12px">
+          <span class="chip"><span class="dot"></span>ВКонтакте · Telegram</span>
+          <span class="chip violet"><span class="dot"></span>Поисковики</span>
+          <span class="chip pink"><span class="dot"></span>Банки</span>
+          <span class="chip"><span class="dot"></span>Устройства IoT</span>
+          <span class="chip violet"><span class="dot"></span>Видеосервисы</span>
+        </div>
+      </div>
+      <div data-anim>
+        <div class="legend"><span><span class="sw" style="background:linear-gradient(90deg,#FF6EC7,#8B7CFF)"></span>Создано данных за год, зеттабайт</span></div>
+        <div id="chart-zetta" class="chart"></div>
+        <p class="src">Объёмы растут кратно каждые несколько лет</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> данные растут быстрее, чем наше умение их осмыслять.</p>
+    <ul>
+      <li>Разберите таблицу источников: соцсети — миллиарды сообщений, фото и лайков ежедневно; поисковики — миллиарды запросов; банки — транзакции; IoT — телеметрия датчиков; видеосервисы — просмотры и рекомендации.</li>
+      <li>По графику: счёт уже идёт на зеттабайты и растёт кратно.</li>
+      <li>Чтобы почувствовать масштаб: по триллиону гигабайт на зеттабайт — диски пришлось бы считать грузовиками.</li>
+    </ul>
+    <p><b>Переход:</b> «А где с этими данными сталкивается обычный девятиклассник?»</p>
+    <p><i>Тайминг: ~180 с</i></p>
+  </aside>
+</section>
+
+<!-- 15. ДАННЫЕ ВОКРУГ ТЕБЯ -->
+<section id="s-life" data-title="Данные вокруг тебя">
+  <div class="wrap">
+    <div class="kicker" data-anim>Связь с жизнью</div>
+    <h2 class="h2" data-anim style="margin:10px 0 22px">Большие данные вокруг тебя</h2>
+    <div class="split" style="flex:1">
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div class="card" data-anim><h3 class="ct">📱 Лента рекомендаций</h3><p class="cd">Рекомендации в ленте новостей или музыке — результат анализа больших данных о вашем поведении</p></div>
+        <div class="card" data-anim><h3 class="ct">🗺️ Навигатор с пробками</h3><p class="cd">Маршрут строится по данным о перемещении тысяч автомобилей</p></div>
+        <div class="card" data-anim><h3 class="ct">🎧 Плейлист под настроение</h3><p class="cd">Сервис сравнивает ваши прослушивания с миллионами похожих пользователей</p></div>
+      </div>
+      <div class="card" data-anim style="border-color:rgba(255,110,199,.5)">
+        <h3 class="ct"><span class="hi-p">⚠ А в чём риски?</span></h3>
+        <p class="cd" style="margin-bottom:12px"><strong>Приватность</strong> — не все данные о вас должны быть публичными</p>
+        <p class="cd" style="margin-bottom:12px"><strong>Цифровой след</strong> — действия в сети сохраняются надолго</p>
+        <p class="cd" style="margin-bottom:16px"><strong>Утечки данных</strong> — базы иногда попадают в чужие руки</p>
+        <span class="chip pink"><span class="dot"></span>Как защититься — следующий урок</span>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> каждый из нас уже живёт внутри больших данных.</p>
+    <ul>
+      <li>Вопрос для обсуждения из сценария: какие риски связаны со сбором больших данных о пользователях?</li>
+      <li>Краткое обсуждение: приватность, цифровой след, утечки — без страшилок.</li>
+      <li>Пропедевтика: тема информационной безопасности будет подробно изучаться на следующих уроках.</li>
+    </ul>
+    <p><b>Переход:</b> «Соберём главное в одну сеть знаний».</p>
+    <p><i>Тайминг: ~210 с</i></p>
+  </aside>
+</section>
+
+<!-- 16. СБОРКА ЗНАНИЙ -->
+<section id="s-recap" data-title="Сборка знаний">
+  <div class="wrap">
+    <div class="kicker" data-anim>Рефлексия</div>
+    <h2 class="h2" data-anim style="margin:10px 0 20px">Соберём сеть знаний</h2>
+    <div class="row" data-stagger style="gap:14px;margin-bottom:26px">
+      <span class="chip"><span class="dot"></span>сеть сетей</span>
+      <span class="chip violet"><span class="dot"></span>узел</span>
+      <span class="chip pink"><span class="dot"></span>маршрутизатор</span>
+      <span class="chip"><span class="dot"></span>сервер · клиент</span>
+      <span class="chip violet"><span class="dot"></span>пакет</span>
+      <span class="chip pink"><span class="dot"></span>IPv4 · 32 бита</span>
+      <span class="chip"><span class="dot"></span>IPv6 · 128 бит</span>
+      <span class="chip violet"><span class="dot"></span>Volume</span>
+      <span class="chip pink"><span class="dot"></span>Velocity</span>
+      <span class="chip"><span class="dot"></span>Variety</span>
+    </div>
+    <div class="grid3" data-stagger>
+      <div class="card"><p class="cd mono hi-c" style="margin:0 0 8px">«Сегодня я узнал(а), что…»</p><p class="cd" style="margin:0">продолжите фразу одним понятием урока</p></div>
+      <div class="card"><p class="cd mono hi-v" style="margin:0 0 8px">«Меня удивило, что…»</p><p class="cd" style="margin:0">самый неожиданный факт или цифра</p></div>
+      <div class="card"><p class="cd mono hi-p" style="margin:0 0 8px">«Мне хотелось бы подробнее узнать о…»</p><p class="cd" style="margin:0">тема для следующего урока или проекта</p></div>
+    </div>
+    <p class="small" data-anim style="margin-top:22px">На следующем уроке: <strong>угрозы в глобальной сети, правила аутентификации и защита личной информации</strong></p>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> проверяем, что «сеть знаний» собрана.</p>
+    <ul>
+      <li>Ученики называют ключевые понятия, учитель фиксирует на доске: сеть сетей; узел, маршрутизатор, сервер, клиент; пакетная передача; IPv4/IPv6; три V.</li>
+      <li>«Незаконченное предложение» — 2–3 ученика устно.</li>
+      <li>Если что-то «провисло» — вернуться на пару минут, а не идти дальше.</li>
+    </ul>
+    <p><b>Переход:</b> «И пара слов о домашнем задании».</p>
+    <p><i>Тайминг: ~120 с</i></p>
+  </aside>
+</section>
+
+<!-- 17. ДОМАШНЕЕ ЗАДАНИЕ -->
+<section id="s-hw" data-title="Домашнее задание">
+  <div class="wrap">
+    <div class="kicker" data-anim>Дома</div>
+    <h2 class="h2" data-anim style="margin:10px 0 20px">Домашнее задание</h2>
+    <div class="split" style="flex:1">
+      <div class="card" data-anim style="border-color:rgba(56,225,255,.5)">
+        <h3 class="ct"><span class="hi-c">Обязательная часть</span></h3>
+        <p class="cd" style="margin-bottom:12px">📖 Изучить § 1 учебника «Глобальная сеть Интернет. IP-адреса. Большие данные»</p>
+        <p class="cd">✍️ Письменно ответить на вопросы после параграфа</p>
+      </div>
+      <div class="card" data-anim style="border-color:rgba(255,110,199,.5)">
+        <h3 class="ct"><span class="hi-p">Творческая часть — на выбор</span></h3>
+        <p class="cd" style="margin-bottom:12px">🎤 Мини-сообщение (5–7 предложений): «Как большие данные используются в образовании / медицине / транспорте»</p>
+        <p class="cd">🔎 Определить свой локальный и публичный IP, записать и кратко пояснить различие</p>
+      </div>
+    </div>
+    <div class="terminal" data-anim style="margin-top:22px">
+      <div class="tbar"><i style="background:#FF6EC7"></i><i style="background:#FFD166"></i><i style="background:#7DF9C9"></i></div>
+      <pre><span class="dim"># шпаргалка для творческого задания</span>
+C:\&gt; <span class="g">ipconfig</span>      <span class="dim">→ локальный адрес</span>
+     <span class="g">2ip.ru</span>       <span class="dim">→ публичный адрес</span></pre>
+    </div>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> база обязательна, творчество — по желанию, но самое интересное.</p>
+    <ul>
+      <li>Обязательная часть проверяется на следующем уроке вместе с темой безопасности.</li>
+      <li>Творческие задания можно зачесть как устный ответ; результаты по IP принесите — сравним адреса класса.</li>
+      <li>Напомните про ЭОР: <b>m.edsoo.ru/R0N9Z9R6D</b> — интерактивные задания для самопроверки.</li>
+    </ul>
+    <p><b>Переход:</b> «И финальный аккорд».</p>
+    <p><i>Тайминг: ~90 с</i></p>
+  </aside>
+</section>
+
+<!-- 18. ФИНАЛ -->
+<section id="s-final" data-title="Финал" data-background-gradient="linear-gradient(140deg, rgba(56,225,255,0.10), rgba(139,124,255,0.06) 50%, rgba(255,110,199,0.10))">
+  <div class="wrap" style="justify-content:center;text-align:center">
+    <div class="kicker" style="justify-content:center" data-anim>Вывод урока</div>
+    <h2 data-anim style="font-family:var(--font-display);font-weight:800;font-size:64px;line-height:1.12;max-width:1000px;margin:20px auto 0">Кто понимает сеть —<br><span class="grad-text">контролирует свой цифровой след</span></h2>
+    <div class="grad-underline" data-anim style="margin:26px auto"></div>
+    <div class="row" data-stagger style="justify-content:center;margin-top:26px">
+      <span class="chip"><span class="dot"></span>Сегодня: ipconfig → локальный · 2ip.ru → публичный</span>
+      <span class="chip violet"><span class="dot"></span>Следующий урок: информационная безопасность</span>
+    </div>
+    <p class="lead" data-anim style="margin-top:36px">Спасибо за урок! Вопросы?</p>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> понимание сети — начало цифровой грамотности.</p>
+    <ul>
+      <li>Три вывода вслух: Интернет — сеть сетей; у каждого узла уникальный IP; большие данные описываются тремя V.</li>
+      <li>Call to action: прямо сегодня найдите свой локальный и публичный IP — это одна минута.</li>
+      <li>Анонс: следующий урок — угрозы, аутентификация, защита личной информации.</li>
+      <li>Резерв Q&A: (1) «Может ли у двух устройств быть одинаковый IP?» — в одной локальной сети нет, будет конфликт; за роутером устройства делят один публичный адрес. (2) «Почему сразу не перешли на IPv6?» — дорого и нужна совместимость, переход постепенный. (3) «Большие данные — это слежка?» — чаще это обезличенные массивы для сервиса; главное — регулирование и личная цифровая гигиена, о чём следующий урок.</li>
+    </ul>
+    <p><i>Тайминг: ~60 с + вопросы</i></p>
+  </aside>
+</section>
+
+</div><!-- /.slides -->
+</div><!-- /.reveal -->
+
+<!-- БИБЛИОТЕКИ -->
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@6/dist/reveal.js" onerror="window.__revealCDNFailed=true"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@6/dist/plugin/notes/notes.js" onerror="window.__notesFailed=true"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@6/dist/plugin/zoom/zoom.js" onerror="window.__zoomFailed=true"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<script src="https://cdn.jsdelivr.net/npm/@svgdotjs/svg.js@3/dist/svg.min.js"></script>
+
+<script>
+/* ===== 0. ДОСТУПНОСТЬ И УСТОЙЧИВОСТЬ ===== */
+const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const $  = (s, el=document) => el.querySelector(s);
+const $$ = (s, el=document) => Array.from(el.querySelectorAll(s));
+const HAS = { gsap: typeof gsap!=='undefined', d3: typeof d3!=='undefined', svg: typeof SVG!=='undefined', reveal: typeof Reveal!=='undefined' };
+console.info('[deck] библиотеки:', HAS);
+
+function staticCounters(){
+  const set=(id,v)=>{const el=$(id); if(el) el.textContent=v;};
+  set('#cnt-users','5,6'); set('#cnt-dev','15'); set('#cnt-zb','181');
+}
+function fallbackMode(err){
+  console.error('[deck] запасной режим:', err);
+  document.body.classList.add('no-reveal');
+  staticCounters();
+}
+
+/* ===== 1. ИЛЛЮСТРАЦИИ SVG.js ===== */
+const ILL = {};
+
+function buildIllusTitle(){
+  const box=$('#illus-title'); if(!box||!HAS.svg) return;
+  const d=SVG().addTo(box).viewbox('0 0 560 560');
+  const gLin=d.gradient('linear',a=>{a.stop(0,'#38E1FF');a.stop(.55,'#8B7CFF');a.stop(1,'#FF6EC7');});
+  const gRad=d.gradient('radial',a=>{a.stop(0,'rgba(56,225,255,.16)');a.stop(1,'rgba(10,15,38,.95)');});
+  const root=d.group();
+  root.circle(500).cx(280).cy(280).fill('none').stroke({color:'rgba(139,124,255,.14)',width:2,dasharray:'3 12'});
+  const globe=d.group();
+  globe.circle(300).cx(280).cy(280).fill(gRad).stroke({width:2.5,color:gLin});
+  [[300,120],[300,220]].forEach(s=>globe.ellipse(s[0],s[1]).cx(280).cy(280).fill('none').stroke({color:'rgba(139,124,255,.30)',width:1.4}));
+  [[120,300],[220,300]].forEach(s=>globe.ellipse(s[0],s[1]).cx(280).cy(280).fill('none').stroke({color:'rgba(56,225,255,.28)',width:1.4}));
+  const P=[[170,210],[250,140],[360,170],[410,260],[330,380],[210,390],[150,300],[300,260]];
+  const E=[[0,1],[1,2],[2,3],[3,4],[4,5],[5,6],[6,0],[1,7],[7,4],[7,6],[7,2]];
+  const links=d.group();
+  E.forEach(e=>links.line(P[e[0]][0],P[e[0]][1],P[e[1]][0],P[e[1]][1]).stroke({color:'rgba(56,225,255,.45)',width:1.6}));
+  const nodes=d.group();
+  P.forEach((p,i)=>{
+    nodes.circle(i===7?18:14).cx(p[0]).cy(p[1]).fill('none').stroke({color:'rgba(255,110,199,.4)',width:1.5});
+    nodes.circle(i===7?10:8).cx(p[0]).cy(p[1]).fill(['#FF6EC7','#38E1FF','#8B7CFF'][i%3]);
+  });
+  const pkts=d.group();
+  [[210,175],[385,215],[255,325]].forEach(p=>pkts.circle(9).cx(p[0]).cy(p[1]).fill('#EEF3FF').stroke({color:'#38E1FF',width:3}));
+  const t1=d.group().rotate(-8,90,90);
+  t1.rect(96,36).radius(10).move(42,72).fill('rgba(56,225,255,.10)').stroke({color:'rgba(56,225,255,.5)',width:1.5});
+  t1.text('10110').font({family:'JetBrains Mono',size:20,weight:600}).fill('#38E1FF').move(66,80);
+  const t2=d.group().rotate(6,470,70);
+  t2.rect(96,36).radius(10).move(418,52).fill('rgba(255,110,199,.10)').stroke({color:'rgba(255,110,199,.5)',width:1.5});
+  t2.text('TCP/IP').font({family:'JetBrains Mono',size:20,weight:600}).fill('#FF6EC7').move(438,60);
+  root.add(globe).add(links).add(nodes).add(pkts).add(t1).add(t2);
+  ILL.title={globe,links,nodes,pkts};
+}
+
+function buildIllusMesh(){
+  const box=$('#illus-mesh'); if(!box||!HAS.svg) return;
+  const d=SVG().addTo(box).viewbox('0 0 520 360');
+  const N=[[70,90],[180,50],[320,70],[450,110],[90,210],[230,170],[370,190],[470,260],[140,300],[300,300]];
+  const E=[[0,1],[1,2],[2,3],[0,4],[1,5],[2,5],[2,6],[3,6],[3,7],[4,5],[4,8],[5,6],[5,9],[6,7],[8,9]];
+  const links=d.group();
+  E.forEach(e=>links.line(N[e[0]][0],N[e[0]][1],N[e[1]][0],N[e[1]][1]).stroke({color:'rgba(56,225,255,.35)',width:1.5}));
+  const nodes=d.group();
+  N.forEach((p,i)=>{
+    if(i%3===0) nodes.circle(26).cx(p[0]).cy(p[1]).fill('none').stroke({color:'rgba(139,124,255,.35)',width:1.5});
+    nodes.circle(i%2?12:16).cx(p[0]).cy(p[1]).fill(['#38E1FF','#FF6EC7','#8B7CFF'][i%3]);
+  });
+  ILL.mesh={links,nodes};
+}
+
+function buildIllusChain(){
+  const box=$('#illus-chain'); if(!box||!HAS.svg) return;
+  const d=SVG().addTo(box).viewbox('0 0 1120 260');
+  const cy=150;
+  const gLin=d.gradient('linear',a=>{a.stop(0,'#38E1FF');a.stop(1,'#FF6EC7');});
+  d.line(70,cy,1050,cy).stroke({color:'rgba(169,182,220,.4)',width:2,dasharray:'2 10'});
+  const st=d.group();
+  st.rect(64,44).radius(6).move(58,86).fill('rgba(56,225,255,.08)').stroke({color:'#38E1FF',width:3});
+  st.line(90,130,90,148).stroke({color:'#38E1FF',width:3});
+  st.line(72,150,108,150).stroke({color:'#38E1FF',width:3});
+  st.rect(68,26).radius(10).move(296,122).fill('rgba(139,124,255,.10)').stroke({color:'#8B7CFF',width:3});
+  st.line(312,122,302,100).stroke({color:'#8B7CFF',width:3});
+  st.line(348,122,358,100).stroke({color:'#8B7CFF',width:3});
+  st.path('M314 96 Q330 78 346 96').fill('none').stroke({color:'#FF6EC7',width:3});
+  st.circle(6).cx(330).cy(135).fill('#FF6EC7');
+  st.rect(52,66).move(534,84).fill('rgba(56,225,255,.07)').stroke({color:'#38E1FF',width:3});
+  [[544,94],[562,94],[544,112],[562,112],[544,130],[562,130]].forEach(p=>st.rect(10,10).move(p[0],p[1]).fill('rgba(56,225,255,.55)'));
+  st.line(560,84,560,70).stroke({color:'#38E1FF',width:3});
+  st.rect(88,12).radius(6).move(746,124).fill(gLin);
+  st.rect(48,62).radius(5).move(1006,88).fill('rgba(255,110,199,.07)').stroke({color:'#FF6EC7',width:3});
+  [104,122,140].forEach(y=>st.line(1012,y,1048,y).stroke({color:'rgba(255,110,199,.6)',width:2}));
+  st.circle(5).cx(1046).cy(97).fill('#38E1FF');
+  [['Ваше устройство',90],['Маршрутизатор',330],['Провайдер',560],['Магистральный канал',790],['Сервер',1030]]
+    .forEach(l=>d.text(l[0]).font({family:'Manrope',size:24,weight:700,anchor:'middle'}).fill('#A9B6DC').move(l[1],196));
+  const pkt=d.circle(18).cx(90).cy(cy).fill('#FF6EC7').stroke({color:'#EEF3FF',width:3});
+  ILL.chain={pkt};
+}
+
+function buildIllusPackets(){
+  const box=$('#illus-packets'); if(!box||!HAS.svg) return;
+  const d=SVG().addTo(box).viewbox('0 0 520 360');
+  const c1='#38E1FF',c2='#8B7CFF',c3='#FF6EC7';
+  const paths=[
+    d.path('M60,180 C 160,60 360,60 460,120').stroke({color:c1,width:4,fill:'none'}).addClass('flow'),
+    d.path('M60,180 C 190,180 330,180 460,180').stroke({color:c2,width:4,fill:'none'}).addClass('flow'),
+    d.path('M60,180 C 160,300 360,300 460,240').stroke({color:c3,width:4,fill:'none'}).addClass('flow')
+  ];
+  const left=d.group();
+  left.rect(70,90).radius(12).move(20,135).fill('rgba(56,225,255,.08)').stroke({color:c1,width:3});
+  left.circle(8).cx(55).cy(205).fill(c1);
+  d.text('клиент').font({family:'Manrope',size:24,weight:700,anchor:'middle'}).fill('#A9B6DC').move(55,242);
+  const right=d.group();
+  right.rect(64,90).radius(8).move(436,135).fill('rgba(255,110,199,.08)').stroke({color:c3,width:3});
+  [158,180,202].forEach(y=>right.line(446,y,490,y).stroke({color:'rgba(255,110,199,.6)',width:2.5}));
+  d.text('сервер').font({family:'Manrope',size:24,weight:700,anchor:'middle'}).fill('#A9B6DC').move(468,242);
+  const pkts=d.group();
+  [[230,84,c1],[260,180,c2],[230,276,c3]].forEach(p=>pkts.circle(14).cx(p[0]).cy(p[1]).fill(p[2]).stroke({color:'#EEF3FF',width:2.5}));
+  ILL.packets={paths,pkts};
+}
+
+function buildIllusStamp(){
+  const box=$('#illus-stamp'); if(!box||!HAS.svg) return;
+  const d=SVG().addTo(box).viewbox('0 0 460 340');
+  const g=d.gradient('linear',a=>{a.stop(0,'#38E1FF');a.stop(.55,'#8B7CFF');a.stop(1,'#FF6EC7');});
+  const gr=d.group().rotate(-5,230,170);
+  gr.rect(400,280).radius(22).move(30,30).fill('rgba(16,26,60,.75)').stroke({color:g,width:3,dasharray:'14 10'});
+  gr.text('INTERNET PROTOCOL').font({family:'Unbounded',size:20,weight:600,anchor:'middle',letterSpacing:4}).fill('#A9B6DC').move(230,66);
+  gr.text('IP').font({family:'Unbounded',size:120,weight:800,anchor:'middle'}).fill(g).move(230,190);
+  gr.text('192.168.0.1').font({family:'JetBrains Mono',size:30,weight:600,anchor:'middle'}).fill('#38E1FF').move(230,240);
+  gr.text('11000000.10101000.00000000.00000001').font({family:'JetBrains Mono',size:15,anchor:'middle'}).fill('rgba(169,182,220,.85)').move(230,276);
+  [[52,52,'#FF6EC7'],[410,64,'#38E1FF'],[404,268,'#FF6EC7']].forEach(p=>{
+    gr.path(`M${p[0]} ${p[1]-12} L${p[0]+4} ${p[1]-4} L${p[0]+12} ${p[1]} L${p[0]+4} ${p[1]+4} L${p[0]} ${p[1]+12} L${p[0]-4} ${p[1]+4} L${p[0]-12} ${p[1]} L${p[0]-4} ${p[1]-4} Z`).fill(p[2]);
+  });
+  ILL.stamp={gr};
+}
+
+function buildIllusEq(){
+  const box=$('#illus-eq'); if(!box||!HAS.svg) return;
+  const d=SVG().addTo(box).viewbox('0 0 520 300');
+  const g=d.gradient('linear',a=>{a.stop(0,'#38E1FF');a.stop(.55,'#8B7CFF');a.stop(1,'#FF6EC7');});
+  const H=[60,110,170,90,210,140,240,120,190,80,150,220,100];
+  const bars=H.map((h,i)=>d.rect(22,h).radius(10).move(20+i*38,280-h).fill(g).opacity(.9));
+  ILL.eq={bars};
+}
+
+function buildRoleIcon(box,type){
+  if(!HAS.svg) return;
+  const d=SVG().addTo(box).viewbox('0 0 96 96');
+  const c='#38E1FF',v='#8B7CFF',p='#FF6EC7';
+  if(type==='node'){
+    d.rect(60,40).radius(6).move(18,20).fill('rgba(56,225,255,.08)').stroke({color:c,width:3});
+    d.line(48,60,48,72).stroke({color:c,width:3}); d.line(34,76,62,76).stroke({color:c,width:3});
+    d.circle(10).cx(48).cy(40).fill(p);
+  } else if(type==='router'){
+    d.rect(56,20).radius(9).move(20,54).fill('rgba(139,124,255,.10)').stroke({color:v,width:3});
+    d.line(34,54,26,34).stroke({color:v,width:3}); d.line(62,54,70,34).stroke({color:v,width:3});
+    d.path('M34 30 Q48 14 62 30').fill('none').stroke({color:p,width:3});
+    d.circle(6).cx(48).cy(64).fill(p);
+  } else if(type==='server'){
+    d.rect(48,60).radius(5).move(24,18).fill('rgba(255,110,199,.07)').stroke({color:p,width:3});
+    [34,50,66].forEach(y=>d.line(30,y,66,y).stroke({color:'rgba(255,110,199,.6)',width:2.5}));
+    d.circle(5).cx(62).cy(26).fill(c);
+  } else {
+    d.rect(28,58).radius(7).move(36,20).fill('rgba(56,225,255,.08)').stroke({color:c,width:3});
+    d.circle(5).cx(50).cy(68).fill(c);
+    d.line(8,48,26,48).stroke({color:v,width:3});
+    d.path('M20 42 L30 48 L20 54').fill('none').stroke({color:v,width:3});
+  }
+}
+
+function buildVIcon(box,type){
+  if(!HAS.svg) return;
+  const d=SVG().addTo(box).viewbox('0 0 80 80');
+  const g=d.gradient('linear',a=>{a.stop(0,'#38E1FF');a.stop(1,'#FF6EC7');});
+  if(type==='volume'){
+    [22,40,58].forEach((y,i)=>d.ellipse(56,18).cx(40).cy(y).fill(i===0?g:'none').stroke({color:'#38E1FF',width:2.5}));
+    d.line(12,22,12,58).stroke({color:'#38E1FF',width:2.5});
+    d.line(68,22,68,58).stroke({color:'#38E1FF',width:2.5});
+  } else if(type==='velocity'){
+    d.polygon('46,4 16,46 34,46 28,76 64,30 44,30 54,4').fill(g);
+  } else {
+    d.circle(24).cx(24).cy(24).fill('#38E1FF');
+    d.rect(26,26).radius(5).move(40,38).fill('rgba(139,124,255,.25)').stroke({color:'#8B7CFF',width:2.5});
+    d.polygon('24,44 38,68 10,68').fill('#FF6EC7');
+  }
+}
+
+/* ===== 2. ЧАРТЫ D3 ===== */
+const chartsDone={users:false,ipv4:false,zetta:false};
+
+function buildChartUsers(){
+  if(chartsDone.users||!HAS.d3) return; chartsDone.users=true;
+  const data=[{y:2015,v:3.2},{y:2017,v:3.8},{y:2019,v:4.4},{y:2021,v:4.9},{y:2023,v:5.3},{y:2025,v:5.6}];
+  const W=620,H=330,m={t:26,r:22,b:42,l:54};
+  const svg=d3.select('#chart-users').append('svg').attr('viewBox',`0 0 ${W} ${H}`);
+  const gr=svg.append('defs').append('linearGradient').attr('id','gUsers').attr('x1',0).attr('y1',1).attr('x2',0).attr('y2',0);
+  gr.append('stop').attr('offset','0%').attr('stop-color','#38E1FF').attr('stop-opacity',.05);
+  gr.append('stop').attr('offset','100%').attr('stop-color','#38E1FF').attr('stop-opacity',.65);
+  const x=d3.scaleLinear().domain([2015,2025]).range([m.l,W-m.r]);
+  const y=d3.scaleLinear().domain([0,6]).range([H-m.b,m.t]);
+  svg.append('g').attr('class','grid').selectAll('line').data([2,4,6]).join('line')
+     .attr('x1',m.l).attr('x2',W-m.r).attr('y1',d=>y(d)).attr('y2',d=>y(d));
+  svg.append('g').selectAll('text').data([0,2,4,6]).join('text')
+     .attr('x',m.l-10).attr('y',d=>y(d)+5).attr('text-anchor','end').attr('fill','#A9B6DC').style('font','600 16px Manrope').text(d=>d);
+  svg.append('g').selectAll('text').data(data).join('text')
+     .attr('x',d=>x(d.y)).attr('y',H-m.b+28).attr('text-anchor','middle').attr('fill','#A9B6DC').style('font','600 16px Manrope').text(d=>d.y);
+  const area=svg.append('path').datum(data)
+     .attr('d',d3.area().x(d=>x(d.y)).y0(y(0)).y1(d=>y(d.v)).curve(d3.curveMonotoneX)).attr('fill','url(#gUsers)').attr('opacity',0);
+  const line=svg.append('path').datum(data)
+     .attr('d',d3.line().x(d=>x(d.y)).y(d=>y(d.v)).curve(d3.curveMonotoneX)).attr('fill','none').attr('stroke','#38E1FF').attr('stroke-width',4);
+  const len=line.node().getTotalLength();
+  line.attr('stroke-dasharray',len+' '+len).attr('stroke-dashoffset',len);
+  const dots=svg.selectAll('circle.pt').data(data).join('circle').attr('class','pt')
+     .attr('cx',d=>x(d.y)).attr('cy',d=>y(d.v)).attr('r',0).attr('fill','#070B18').attr('stroke','#FF6EC7').attr('stroke-width',3);
+  const labs=svg.selectAll('text.val').data(data).join('text').attr('class','val')
+     .attr('x',d=>x(d.y)).attr('y',d=>y(d.v)-16).attr('text-anchor','middle').style('font-size','16px').attr('opacity',0)
+     .text(d=>String(d.v).replace('.',','));
+  const dur=REDUCED?0:1200;
+  line.transition().duration(dur).ease(d3.easeCubicOut).attr('stroke-dashoffset',0);
+  area.transition().delay(dur*0.4).duration(dur*0.7).attr('opacity',1);
+  dots.transition().delay((d,i)=>dur*0.15*i+300).duration(REDUCED?0:400).attr('r',6);
+  labs.transition().delay((d,i)=>dur*0.15*i+420).duration(REDUCED?0:400).attr('opacity',1);
+}
+
+function buildChartIpv4(){
+  if(chartsDone.ipv4||!HAS.d3) return; chartsDone.ipv4=true;
+  const data=[
+    {label:'Адресов IPv4 — весь пул',v:4.3,c1:'#38E1FF',c2:'#8B7CFF'},
+    {label:'Население Земли',v:8.1,c1:'#8B7CFF',c2:'#FF6EC7'},
+    {label:'Устройств в сети',v:18,c1:'#FF6EC7',c2:'#8B7CFF'}
+  ];
+  const W=1100,H=270,mL=380,mR=150;
+  const svg=d3.select('#chart-ipv4').append('svg').attr('viewBox',`0 0 ${W} ${H}`);
+  const defs=svg.append('defs');
+  data.forEach((d,i)=>{
+    const g=defs.append('linearGradient').attr('id','gBar'+i).attr('x1',0).attr('y1',0).attr('x2',1).attr('y2',0);
+    g.append('stop').attr('offset','0%').attr('stop-color',d.c1);
+    g.append('stop').attr('offset','100%').attr('stop-color',d.c2);
+  });
+  const x=d3.scaleLinear().domain([0,20]).range([mL,W-mR]);
+  svg.append('g').attr('class','grid').selectAll('line').data([5,10,15,20]).join('line')
+     .attr('x1',d=>x(d)).attr('x2',d=>x(d)).attr('y1',10).attr('y2',H-10);
+  svg.append('g').selectAll('text').data([0,5,10,15,20]).join('text')
+     .attr('x',d=>x(d)).attr('y',H-2).attr('text-anchor','middle').attr('fill','#7C8BB4').style('font','600 15px Manrope').text(d=>d+' млрд');
+  const rows=svg.selectAll('g.row').data(data).join('g').attr('transform',(d,i)=>`translate(0,${18+i*78})`);
+  rows.append('text').attr('x',mL-18).attr('y',32).attr('text-anchor','end').attr('fill','#EEF3FF').style('font','700 20px Manrope').text(d=>d.label);
+  rows.append('rect').attr('x',mL).attr('y',6).attr('height',40).attr('rx',10)
+      .attr('fill',(d,i)=>`url(#gBar${i})`).attr('width',0);
+  rows.append('text').attr('class','val').attr('y',34).attr('x',mL+10).attr('opacity',0)
+      .style('font-size','22px').text(d=>String(d.v).replace('.',',')+' млрд');
+  const dur=REDUCED?0:1100;
+  rows.select('rect').transition().delay((d,i)=>i*160).duration(dur).ease(d3.easeCubicOut).attr('width',d=>x(d.v)-mL);
+  rows.select('text.val').transition().delay((d,i)=>i*160+dur*0.6).duration(REDUCED?0:350).attr('opacity',1).attr('x',d=>x(d.v)+14);
+}
+
+function buildChartZetta(){
+  if(chartsDone.zetta||!HAS.d3) return; chartsDone.zetta=true;
+  const data=[{y:2010,v:2},{y:2013,v:4},{y:2016,v:16},{y:2018,v:33},{y:2020,v:64},{y:2022,v:97},{y:2025,v:181}];
+  const W=640,H=360,m={t:30,r:26,b:44,l:52};
+  const svg=d3.select('#chart-zetta').append('svg').attr('viewBox',`0 0 ${W} ${H}`);
+  const gr=svg.append('defs').append('linearGradient').attr('id','gZetta').attr('x1',0).attr('y1',1).attr('x2',0).attr('y2',0);
+  gr.append('stop').attr('offset','0%').attr('stop-color','#FF6EC7').attr('stop-opacity',.06);
+  gr.append('stop').attr('offset','100%').attr('stop-color','#FF6EC7').attr('stop-opacity',.62);
+  const x=d3.scaleLinear().domain([2010,2025]).range([m.l,W-m.r]);
+  const y=d3.scaleLinear().domain([0,195]).range([H-m.b,m.t]);
+  svg.append('g').attr('class','grid').selectAll('line').data([50,100,150]).join('line')
+     .attr('x1',m.l).attr('x2',W-m.r).attr('y1',d=>y(d)).attr('y2',d=>y(d));
+  svg.append('g').selectAll('text').data([0,50,100,150]).join('text')
+     .attr('x',m.l-8).attr('y',d=>y(d)+5).attr('text-anchor','end').attr('fill','#A9B6DC').style('font','600 15px Manrope').text(d=>d);
+  svg.append('g').selectAll('text').data([2010,2016,2020,2025]).join('text')
+     .attr('x',d=>x(d)).attr('y',H-m.b+30).attr('text-anchor','middle').attr('fill','#A9B6DC').style('font','600 16px Manrope').text(d=>d);
+  const area=svg.append('path').datum(data)
+     .attr('d',d3.area().x(d=>x(d.y)).y0(y(0)).y1(d=>y(d.v)).curve(d3.curveMonotoneX)).attr('fill','url(#gZetta)').attr('opacity',0);
+  const line=svg.append('path').datum(data)
+     .attr('d',d3.line().x(d=>x(d.y)).y(d=>y(d.v)).curve(d3.curveMonotoneX)).attr('fill','none').attr('stroke','#FF6EC7').attr('stroke-width',4);
+  const len=line.node().getTotalLength();
+  line.attr('stroke-dasharray',len+' '+len).attr('stroke-dashoffset',len);
+  const dots=svg.selectAll('circle.pt').data(data).join('circle').attr('class','pt')
+     .attr('cx',d=>x(d.y)).attr('cy',d=>y(d.v)).attr('r',0).attr('fill','#070B18').attr('stroke','#8B7CFF').attr('stroke-width',3);
+  const keyLabs=[[2010,'2 ЗБ',-18],[2020,'64 ЗБ',-16],[2025,'181 ЗБ',-18]];
+  const labs=svg.selectAll('text.val').data(keyLabs).join('text').attr('class','val')
+     .attr('x',d=>x(d[0])).attr('y',d=>y(data.find(q=>q.y===d[0]).v)+d[2])
+     .attr('text-anchor','middle').style('font-size','17px').attr('opacity',0).text(d=>d[1]);
+  const dur=REDUCED?0:1300;
+  line.transition().duration(dur).ease(d3.easeCubicOut).attr('stroke-dashoffset',0);
+  area.transition().delay(dur*0.4).duration(dur*0.7).attr('opacity',1);
+  dots.transition().delay((d,i)=>dur*0.12*i+250).duration(REDUCED?0:400).attr('r',6);
+  labs.transition().delay(dur*0.75).duration(REDUCED?0:400).attr('opacity',1);
+}
+
+const chartFor={'s-scale':buildChartUsers,'s-v4v6':buildChartIpv4,'s-zetta':buildChartZetta};
+function buildChartsFor(slide){ if(slide && chartFor[slide.id]) chartFor[slide.id](); }
+
+/* ===== 3. РЕЕСТР АНИМАЦИЙ GSAP ===== */
+const TL={};
+function counter(tl,el,target,decimals,pos,dur){
+  if(!el) return;
+  const o={v:0};
+  tl.to(o,{v:target,duration:dur||1.7,ease:'power2.out',
+    onUpdate:()=>{el.textContent=o.v.toFixed(decimals).replace('.',',');}},pos||'<');
+}
+const animations={
+  's-title':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'power3.out'}});
+    tl.fromTo(scope.querySelectorAll('.kicker, h1 span'),{y:30,opacity:0},{y:0,opacity:1,duration:.7,stagger:.12},0)
+      .fromTo(scope.querySelector('.grad-underline'),{scaleX:0,transformOrigin:'0 50%'},{scaleX:1,duration:.7},.45)
+      .fromTo(scope.querySelector('.lead'),{y:22,opacity:0},{y:0,opacity:1,duration:.6},.55)
+      .fromTo(scope.querySelectorAll('[data-stagger] .chip'),{y:18,opacity:0},{y:0,opacity:1,duration:.5,stagger:.09},.7)
+      .fromTo(scope.querySelectorAll('.foot [data-anim]'),{opacity:0},{opacity:1,duration:.6,stagger:.1},.9);
+    if(ILL.title){
+      tl.fromTo(ILL.title.globe.node(),{scale:.72,opacity:0,transformOrigin:'50% 50%'},{scale:1,opacity:1,duration:.9,ease:'back.out(1.5)'},.15)
+        .fromTo(ILL.title.links.node(),{opacity:0},{opacity:1,duration:.6},.75)
+        .fromTo(ILL.title.nodes.node(),{scale:.6,opacity:0,transformOrigin:'50% 50%'},{scale:1,opacity:1,duration:.6,ease:'back.out(2)'},.85)
+        .fromTo(ILL.title.pkts.node(),{scale:0,opacity:0,transformOrigin:'50% 50%'},{scale:1,opacity:1,duration:.5,ease:'back.out(2.5)'},1.1);
+    }
+    return tl;
+  },
+  's-roadmap':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'power3.out'}});
+    tl.fromTo(scope.querySelectorAll('.kicker, .h2'),{y:26,opacity:0},{y:0,opacity:1,duration:.6,stagger:.1},0)
+      .fromTo(scope.querySelector('.grad-underline'),{scaleX:0,transformOrigin:'0 50%'},{scaleX:1,duration:.6},.3)
+      .fromTo(scope.querySelectorAll('[data-stagger] .card'),{y:44,opacity:0,scale:.96},{y:0,opacity:1,scale:1,duration:.7,stagger:.14},.35)
+      .fromTo(scope.querySelectorAll('[data-anim] .chip'),{y:16,opacity:0},{y:0,opacity:1,duration:.5,stagger:.1},.95);
+    return tl;
+  },
+  's-scale':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'power3.out'}});
+    tl.fromTo(scope.querySelectorAll('.kicker, .h2'),{y:26,opacity:0},{y:0,opacity:1,duration:.6,stagger:.1},0)
+      .fromTo(scope.querySelectorAll('.card'),{x:-30,opacity:0},{x:0,opacity:1,duration:.65,stagger:.15},.25);
+    counter(tl,$('#cnt-users'),5.6,1,.45);
+    counter(tl,$('#cnt-dev'),15,0,.6,1.8);
+    tl.fromTo(scope.querySelectorAll('[data-anim] .small'),{opacity:0},{opacity:1,duration:.5},1.0)
+      .fromTo(scope.querySelectorAll('[data-anim] .legend, [data-anim] .chart, [data-anim] .src'),{opacity:0,y:20},{opacity:1,y:0,duration:.6},.5);
+    return tl;
+  },
+  's-ch1':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'power3.out'}});
+    tl.fromTo(scope.querySelectorAll('[data-anim]'),{y:30,opacity:0},{y:0,opacity:1,duration:.7,stagger:.13},0)
+      .fromTo(scope.querySelector('.grad-underline'),{scaleX:0,transformOrigin:'0 50%'},{scaleX:1,duration:.6},.5);
+    if(ILL.mesh){
+      tl.fromTo(ILL.mesh.links.node(),{opacity:0},{opacity:1,duration:.8},.3)
+        .fromTo(ILL.mesh.nodes.node(),{scale:.5,opacity:0,transformOrigin:'50% 50%'},{scale:1,opacity:1,duration:.7,ease:'back.out(1.8)'},.45);
+    }
+    return tl;
+  },
+  's-anatomy':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'power3.out'}});
+    tl.fromTo(scope.querySelectorAll('.kicker, .h2, .defbox'),{y:26,opacity:0},{y:0,opacity:1,duration:.6,stagger:.12},0)
+      .fromTo(scope.querySelector('#illus-chain'),{opacity:0,y:24},{opacity:1,y:0,duration:.7},.45)
+      .fromTo(scope.querySelectorAll('.wrap > .small'),{opacity:0},{opacity:1,duration:.5},1.3);
+    if(ILL.chain){
+      tl.fromTo(ILL.chain.pkt.node(),{attr:{cx:90},opacity:0},{attr:{cx:1030},opacity:1,duration:2.1,ease:'power1.inOut'},.6);
+    }
+    return tl;
+  },
+  's-roles':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'back.out(1.6)'}});
+    tl.fromTo(scope.querySelectorAll('.kicker, .h2'),{y:26,opacity:0},{y:0,opacity:1,duration:.6,ease:'power3.out',stagger:.1},0)
+      .fromTo(scope.querySelectorAll('[data-stagger] .card'),{y:46,opacity:0,scale:.94},{y:0,opacity:1,scale:1,duration:.7,stagger:.12},.25)
+      .fromTo(scope.querySelectorAll('[data-stagger] .iconbox'),{scale:.4,opacity:0,transformOrigin:'50% 50%'},{scale:1,opacity:1,duration:.55,stagger:.12},.5)
+      .fromTo(scope.querySelector('.defbox'),{y:22,opacity:0},{y:0,opacity:1,duration:.6,ease:'power3.out'},1.0);
+    return tl;
+  },
+  's-packets':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'power3.out'}});
+    tl.fromTo(scope.querySelectorAll('.kicker, .h2'),{y:26,opacity:0},{y:0,opacity:1,duration:.6,stagger:.1},0)
+      .fromTo(scope.querySelectorAll('.split-46 .card'),{x:-32,opacity:0},{x:0,opacity:1,duration:.6,stagger:.15},.25)
+      .fromTo(scope.querySelectorAll('.split-46 .small'),{opacity:0},{opacity:1,duration:.5},1.0)
+      .fromTo(scope.querySelector('#illus-packets'),{opacity:0,scale:.94,transformOrigin:'50% 50%'},{opacity:1,scale:1,duration:.8,ease:'back.out(1.4)'},.4);
+    if(ILL.packets){
+      tl.fromTo(ILL.packets.pkts.node(),{scale:0,opacity:0,transformOrigin:'50% 50%'},{scale:1,opacity:1,duration:.55,ease:'back.out(2.2)'},.9);
+    }
+    return tl;
+  },
+  's-ch2':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'power3.out'}});
+    tl.fromTo(scope.querySelectorAll('[data-anim]'),{y:30,opacity:0},{y:0,opacity:1,duration:.7,stagger:.13},0)
+      .fromTo(scope.querySelector('.grad-underline'),{scaleX:0,transformOrigin:'0 50%'},{scaleX:1,duration:.6},.5);
+    if(ILL.stamp){
+      tl.fromTo(ILL.stamp.gr.node(),{scale:1.6,opacity:0,transformOrigin:'50% 50%',rotation:-14},{scale:1,opacity:1,rotation:-5,duration:.8,ease:'back.out(1.6)'},.35);
+    }
+    return tl;
+  },
+  's-ip':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'back.out(1.7)'}});
+    tl.fromTo(scope.querySelectorAll('.kicker, .h2, .defbox'),{y:26,opacity:0},{y:0,opacity:1,duration:.6,ease:'power3.out',stagger:.1},0)
+      .fromTo(scope.querySelectorAll('.octets .octet, .octets .octet-dot'),{scale:.4,opacity:0,transformOrigin:'50% 50%'},{scale:1,opacity:1,duration:.5,stagger:.08},.4)
+      .fromTo(scope.querySelectorAll('.octets .chip'),{y:16,opacity:0},{y:0,opacity:1,duration:.5,ease:'power3.out'},.95)
+      .fromTo(scope.querySelectorAll('.bits .bit'),{y:-26,opacity:0},{y:0,opacity:1,duration:.4,stagger:.06},1.05)
+      .fromTo(scope.querySelector('.conv-eq'),{opacity:0},{opacity:1,duration:.4},1.5)
+      .fromTo(scope.querySelectorAll('.wrap > .small'),{opacity:0},{opacity:1,duration:.5,ease:'power3.out'},1.7);
+    return tl;
+  },
+  's-v4v6':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'power3.out'}});
+    tl.fromTo(scope.querySelectorAll('.kicker, .h2'),{y:26,opacity:0},{y:0,opacity:1,duration:.6,stagger:.1},0)
+      .fromTo(scope.querySelectorAll('[data-stagger] .card'),{y:34,opacity:0,scale:.96},{y:0,opacity:1,scale:1,duration:.65,stagger:.15},.25)
+      .fromTo(scope.querySelectorAll('[data-anim] .legend, [data-anim] .chart, [data-anim] .src'),{opacity:0,y:20},{opacity:1,y:0,duration:.6},.7);
+    return tl;
+  },
+  's-publoc':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'power3.out'}});
+    tl.fromTo(scope.querySelectorAll('.kicker, .h2'),{y:26,opacity:0},{y:0,opacity:1,duration:.6,stagger:.1},0)
+      .fromTo(scope.querySelectorAll('.split .card'),{y:36,opacity:0},{y:0,opacity:1,duration:.65,stagger:.16},.25)
+      .fromTo(scope.querySelector('.terminal'),{opacity:0,y:24},{opacity:1,y:0,duration:.65},.7)
+      .fromTo(scope.querySelectorAll('.wrap > .small'),{opacity:0},{opacity:1,duration:.5},1.15);
+    return tl;
+  },
+  's-ch3':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'power3.out'}});
+    tl.fromTo(scope.querySelectorAll('[data-anim]'),{y:30,opacity:0},{y:0,opacity:1,duration:.7,stagger:.13},0)
+      .fromTo(scope.querySelector('.grad-underline'),{scaleX:0,transformOrigin:'0 50%'},{scaleX:1,duration:.6},.5);
+    if(ILL.eq){
+      tl.fromTo(ILL.eq.bars.map(b=>b.node()),{scaleY:0,transformOrigin:'50% 100%'},{scaleY:1,duration:.7,ease:'back.out(1.8)',stagger:.05},.3);
+    }
+    return tl;
+  },
+  's-3v':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'power3.out'}});
+    tl.fromTo(scope.querySelectorAll('.kicker, .h2, .defbox'),{y:26,opacity:0},{y:0,opacity:1,duration:.6,stagger:.12},0)
+      .fromTo(scope.querySelectorAll('[data-stagger] .card'),{y:44,opacity:0,scale:.96},{y:0,opacity:1,scale:1,duration:.7,stagger:.15},.35)
+      .fromTo(scope.querySelectorAll('[data-stagger] .vicon'),{scale:.4,opacity:0,transformOrigin:'50% 50%'},{scale:1,opacity:1,duration:.55,ease:'back.out(2)',stagger:.15},.6)
+      .fromTo(scope.querySelectorAll('.wrap > .small'),{opacity:0},{opacity:1,duration:.5},1.2);
+    return tl;
+  },
+  's-zetta':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'power3.out'}});
+    tl.fromTo(scope.querySelectorAll('.kicker, .h2'),{y:26,opacity:0},{y:0,opacity:1,duration:.6,stagger:.1},0)
+      .fromTo(scope.querySelector('.split-40 .card'),{x:-30,opacity:0},{x:0,opacity:1,duration:.65},.3)
+      .fromTo(scope.querySelectorAll('[data-stagger] .chip'),{y:16,opacity:0},{y:0,opacity:1,duration:.45,stagger:.08},.65)
+      .fromTo(scope.querySelectorAll('[data-anim] .legend, [data-anim] .chart, [data-anim] .src'),{opacity:0,y:20},{opacity:1,y:0,duration:.6},.5);
+    counter(tl,$('#cnt-zb'),181,0,.5,1.9);
+    return tl;
+  },
+  's-life':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'power3.out'}});
+    tl.fromTo(scope.querySelectorAll('.kicker, .h2'),{y:26,opacity:0},{y:0,opacity:1,duration:.6,stagger:.1},0)
+      .fromTo(scope.querySelectorAll('.split > div:first-child .card'),{x:-34,opacity:0},{x:0,opacity:1,duration:.6,stagger:.15},.25)
+      .fromTo(scope.querySelectorAll('.split > div:last-child .card'),{x:34,opacity:0},{x:0,opacity:1,duration:.7},.55);
+    return tl;
+  },
+  's-recap':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'back.out(1.7)'}});
+    tl.fromTo(scope.querySelectorAll('.kicker, .h2'),{y:26,opacity:0},{y:0,opacity:1,duration:.6,ease:'power3.out',stagger:.1},0)
+      .fromTo(scope.querySelectorAll('.row .chip'),{scale:.6,opacity:0,transformOrigin:'50% 50%'},{scale:1,opacity:1,duration:.45,stagger:.06},.3)
+      .fromTo(scope.querySelectorAll('[data-stagger] .card'),{y:36,opacity:0},{y:0,opacity:1,duration:.6,ease:'power3.out',stagger:.14},.9)
+      .fromTo(scope.querySelectorAll('.wrap > .small'),{opacity:0},{opacity:1,duration:.5,ease:'power3.out'},1.5);
+    return tl;
+  },
+  's-hw':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'power3.out'}});
+    tl.fromTo(scope.querySelectorAll('.kicker, .h2'),{y:26,opacity:0},{y:0,opacity:1,duration:.6,stagger:.1},0)
+      .fromTo(scope.querySelectorAll('.split .card'),{y:36,opacity:0},{y:0,opacity:1,duration:.65,stagger:.16},.25)
+      .fromTo(scope.querySelector('.terminal'),{opacity:0,y:22},{opacity:1,y:0,duration:.6},.8);
+    return tl;
+  },
+  's-final':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'power3.out'}});
+    tl.fromTo(scope.querySelectorAll('[data-anim]'),{y:30,opacity:0},{y:0,opacity:1,duration:.7,stagger:.14},0)
+      .fromTo(scope.querySelector('.grad-underline'),{scaleX:0,transformOrigin:'50% 50%'},{scaleX:1,duration:.7},.8)
+      .fromTo(scope.querySelectorAll('[data-stagger] .chip'),{y:18,opacity:0},{y:0,opacity:1,duration:.5,stagger:.12},1.0);
+    return tl;
+  }
+};
+
+function playAnim(id){
+  if(REDUCED||!HAS.gsap||!id) return;
+  const slide=document.getElementById(id);
+  if(!slide||!animations[id]) return;
+  if(!TL[id]) TL[id]=animations[id](slide);
+  TL[id].restart();
+}
+function resetAnim(id){ if(TL[id]) TL[id].progress(0).pause(); }
+
+/* ===== 4. ЗАПУСК ===== */
+buildIllusTitle(); buildIllusMesh(); buildIllusChain(); buildIllusPackets(); buildIllusStamp(); buildIllusEq();
+$$('[data-icon]').forEach(el=>buildRoleIcon(el,el.dataset.icon));
+$$('[data-vicon]').forEach(el=>buildVIcon(el,el.dataset.vicon));
+
+(function boot(){
+  if(window.__revealCDNFailed||typeof Reveal==='undefined'){
+    fallbackMode('Reveal.js не загрузился (нет доступа к CDN).');
+    return;
+  }
+  if(REDUCED||!HAS.gsap) staticCounters();
+
+  const plugins=[];
+  if(typeof RevealNotes!=='undefined') plugins.push(RevealNotes);
+  else console.warn('[deck] RevealNotes не загрузился — режим докладчика (S) будет недоступен.');
+  if(typeof RevealZoom!=='undefined') plugins.push(RevealZoom);
+  else console.warn('[deck] RevealZoom не загрузился — зум будет недоступен.');
+
+  try{
+    const p=Reveal.initialize({
+      hash:true, controls:true, controlsLayout:'bottom-right', progress:true,
+      transition:'slide', transitionSpeed:'default',
+      width:1280, height:720, margin:0.05, center:false,
+      plugins:plugins
+    });
+    if(p&&p.catch) p.catch(e=>fallbackMode(e));
+  }catch(e){ fallbackMode(e); return; }
+
+  Reveal.on('ready',ev=>{ playAnim(ev.currentSlide.id); buildChartsFor(ev.currentSlide); });
+  Reveal.on('slidechanged',ev=>{
+    if(ev.previousSlide) resetAnim(ev.previousSlide.id);
+    playAnim(ev.currentSlide.id);
+    buildChartsFor(ev.currentSlide);
+  });
+
+  if(!REDUCED&&HAS.gsap){
+    const qx1=gsap.quickTo('#glow-a','x',{duration:1.1,ease:'power2'});
+    const qy1=gsap.quickTo('#glow-a','y',{duration:1.1,ease:'power2'});
+    const qx2=gsap.quickTo('#glow-b','x',{duration:1.3,ease:'power2'});
+    const qy2=gsap.quickTo('#glow-b','y',{duration:1.3,ease:'power2'});
+    window.addEventListener('mousemove',e=>{
+      const nx=e.clientX/window.innerWidth-.5, ny=e.clientY/window.innerHeight-.5;
+      qx1(nx*40); qy1(ny*40); qx2(nx*-50); qy2(ny*-50);
+    },{passive:true});
+  }
+})();
+</script>
+</body>
+</html>
