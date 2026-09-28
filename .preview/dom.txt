@@ -1,0 +1,1383 @@
+<!DOCTYPE html>
+<html lang="ru" class="reveal-full-page"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Информационная безопасность · Информатика 9 класс · Урок 2</title>
+
+<!-- ШРИФТЫ -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800&amp;family=Manrope:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap" rel="stylesheet">
+
+<!-- REVEAL.JS 6 CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@6/dist/reveal.css">
+
+<style>
+/* ===== ТОКЕНЫ ===== */
+:root{
+  --bg:#070B18; --surface:#101A3C; --ink:#EEF3FF; --muted:#A9B6DC;
+  --accent-1:#38E1FF; --accent-2:#8B7CFF; --accent-3:#FF6EC7;
+  --grad-main:linear-gradient(120deg,#38E1FF,#8B7CFF 52%,#FF6EC7);
+  --font-display:'Unbounded',sans-serif; --font-body:'Manrope',sans-serif; --font-mono:'JetBrains Mono',monospace;
+  /* переменные темы reveal.js: без них базовый reveal.css красит деку в белое */
+  --r-background-color:#070B18;
+  --r-main-font:'Manrope',sans-serif;
+  --r-main-font-size:26px;
+  --r-main-color:#EEF3FF;
+  --r-heading-font:'Unbounded',sans-serif;
+  --r-heading-color:#EEF3FF;
+  --r-heading-line-height:1.08;
+  --r-heading-letter-spacing:normal;
+  --r-heading-text-transform:none;
+  --r-heading-text-shadow:none;
+  --r-heading-font-weight:800;
+  --r-heading1-size:2.4em;
+  --r-heading2-size:1.55em;
+  --r-heading3-size:1.15em;
+  --r-heading4-size:1em;
+  --r-block-margin:18px;
+  --r-heading-margin:0 0 18px 0;
+  --r-link-color:#38E1FF;
+  --r-link-color-dark:#8B7CFF;
+  --r-link-color-hover:#FF6EC7;
+  --r-selection-background-color:rgba(255,110,199,.45);
+  --r-selection-color:#071120;
+}
+/* ===== ФОН ДЕКИ: принудительно тёмный, поверх дефолтов reveal ===== */
+html{background:#070B18}
+body, body.reveal-viewport{background:#070B18 !important}
+.reveal{background:transparent}
+.reveal .slides section{color:var(--ink)}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg)}
+body{font-family:var(--font-body);color:var(--ink)}
+
+/* ===== ФОНОВЫЙ ДЕКОР ===== */
+#bg-decor{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.glow{position:absolute;border-radius:50%;filter:blur(90px)}
+#glow-a{width:720px;height:720px;left:-200px;top:-240px;background:radial-gradient(circle,rgba(56,225,255,.30),transparent 65%)}
+#glow-b{width:780px;height:780px;right:-260px;bottom:-280px;background:radial-gradient(circle,rgba(255,110,199,.24),transparent 65%)}
+#glow-c{width:560px;height:560px;left:36%;top:52%;background:radial-gradient(circle,rgba(139,124,255,.22),transparent 62%)}
+#bg-grid{position:absolute;inset:0;
+  background-image:linear-gradient(rgba(148,163,214,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(148,163,214,.06) 1px,transparent 1px);
+  background-size:64px 64px;
+  -webkit-mask-image:radial-gradient(ellipse at 50% 42%,#000 28%,transparent 76%);
+          mask-image:radial-gradient(ellipse at 50% 42%,#000 28%,transparent 76%)}
+#bg-noise{position:absolute;inset:-60%;width:220%;height:220%;opacity:.05;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/></filter><rect width='300' height='300' filter='url(%23n)' opacity='0.7'/></svg>");
+  animation:grain 9s steps(8) infinite}
+@keyframes grain{0%{transform:translate(0,0)}25%{transform:translate(-2%,3%)}50%{transform:translate(3%,-2%)}75%{transform:translate(-3%,-3%)}100%{transform:translate(0,0)}}
+
+.reveal{position:relative;z-index:2;font-family:var(--font-body);font-size:26px;color:var(--ink)}
+.reveal ::selection{background:rgba(255,110,199,.4)}
+.reveal .controls{color:var(--accent-1)}
+.reveal .progress{background:rgba(139,124,255,.22);color:var(--accent-3)}
+.reveal .slides section{text-align:left;overflow:hidden}
+
+/* ===== ТИПОГРАФИКА ===== */
+.reveal h1,.reveal h2,.reveal h3{font-family:var(--font-display);font-weight:800;line-height:1.06;margin:0;text-transform:none;color:var(--ink);text-shadow:none;letter-spacing:normal}
+.reveal .h-title{font-size:58px}
+.reveal .h-ch{font-size:56px;max-width:800px}
+.reveal .h2{font-size:48px;max-width:1120px}
+.kicker{display:inline-flex;align-items:center;gap:10px;font-size:23px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-1)}
+.kicker::before{content:"";width:14px;height:14px;border-radius:50%;background:var(--grad-main);box-shadow:0 0 16px rgba(56,225,255,.9)}
+.lead{font-size:28px;font-weight:600;line-height:1.4}
+.small{font-size:22px;color:var(--muted);line-height:1.4}
+.src{font-size:20px;font-style:italic;color:var(--muted);opacity:.85}
+.mono{font-family:var(--font-mono)}
+.grad-text{background:var(--grad-main);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+@supports not ((-webkit-background-clip:text) or (background-clip:text)){
+  .grad-text,.bignum{background:none;color:var(--accent-2);-webkit-text-fill-color:currentColor}
+}
+.grad-underline{height:9px;width:190px;border-radius:8px;background:var(--grad-main);margin-top:16px;box-shadow:0 6px 26px rgba(139,124,255,.45)}
+.hi-c{color:var(--accent-1)} .hi-v{color:var(--accent-2)} .hi-p{color:var(--accent-3)}
+strong{color:var(--ink)}
+
+/* ===== РАСКЛАДКИ ===== */
+.wrap{position:relative;height:100%;padding:40px 54px 34px;display:flex;flex-direction:column}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:34px;align-items:start}
+.split-46{display:grid;grid-template-columns:46% 1fr;gap:34px;align-items:start}
+.split-40{display:grid;grid-template-columns:40% 1fr;gap:34px;align-items:start}
+.split-mid{display:grid;grid-template-columns:1fr 1fr;gap:34px;align-items:center}
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.grow{flex:1;display:flex;flex-direction:column;justify-content:center;min-height:0}
+.row{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.foot{margin-top:auto;padding-top:12px;display:flex;justify-content:space-between;align-items:flex-end;gap:24px}
+
+/* ===== КОМПОНЕНТЫ ===== */
+.card{background:linear-gradient(160deg,rgba(24,34,76,.92),rgba(11,17,42,.94));border:1px solid rgba(139,124,255,.30);border-radius:20px;padding:20px 22px;box-shadow:0 20px 54px rgba(2,5,18,.5)}
+.card .ct{font-family:var(--font-display);font-weight:600;font-size:25px;margin:0 0 8px}
+.card .cd{font-size:22px;color:var(--muted);line-height:1.38;margin:0}
+.card .ex{font-size:20px;color:var(--muted);line-height:1.34;margin:8px 0 0;opacity:.9}
+.card .ex b{color:var(--accent-3);font-weight:600}
+.num-badge{width:58px;height:58px;border-radius:50%;background:var(--grad-main);color:#071120;font-family:var(--font-display);font-weight:800;font-size:23px;display:flex;align-items:center;justify-content:center;flex:none}
+.rbadge{width:42px;height:42px;border-radius:13px;background:var(--grad-main);color:#071120;font-family:var(--font-display);font-weight:800;font-size:19px;display:flex;align-items:center;justify-content:center;flex:none}
+.chip{display:inline-flex;align-items:center;gap:10px;padding:7px 16px;border-radius:999px;border:1px solid rgba(56,225,255,.42);background:rgba(56,225,255,.08);font-size:21px;font-weight:600}
+.chip.pink{border-color:rgba(255,110,199,.45);background:rgba(255,110,199,.08)}
+.chip.violet{border-color:rgba(139,124,255,.5);background:rgba(139,124,255,.10)}
+.chip .dot{width:10px;height:10px;border-radius:50%;background:var(--accent-1);box-shadow:0 0 10px var(--accent-1)}
+.chip.pink .dot{background:var(--accent-3);box-shadow:0 0 10px var(--accent-3)}
+.chip.violet .dot{background:var(--accent-2);box-shadow:0 0 10px var(--accent-2)}
+.defbox{border-left:6px solid var(--accent-2);background:linear-gradient(120deg,rgba(56,225,255,.10),rgba(139,124,255,.08) 52%,rgba(255,110,199,.08));padding:16px 24px;border-radius:0 18px 18px 0;font-size:24px;line-height:1.4}
+.warnbox{border-left:6px solid var(--accent-3);background:linear-gradient(120deg,rgba(255,110,199,.14),rgba(139,124,255,.06));padding:14px 22px;border-radius:0 16px 16px 0;font-size:22px;line-height:1.38}
+.bignum{font-family:var(--font-display);font-weight:800;font-size:58px;line-height:1;background:var(--grad-main);-webkit-background-clip:text;background-clip:text;color:transparent}
+.terminal{background:#050912;border:1px solid rgba(56,225,255,.35);border-radius:16px;overflow:hidden}
+.terminal .tbar{display:flex;gap:8px;align-items:center;padding:9px 16px;background:rgba(56,225,255,.07);border-bottom:1px solid rgba(56,225,255,.18)}
+.terminal .tbar i{width:12px;height:12px;border-radius:50%;display:block}
+.terminal pre{margin:0;padding:14px 20px;font-family:var(--font-mono);font-size:22px;line-height:1.46;color:#BFE9FF;white-space:pre}
+.terminal .g{color:#7DF9C9}.terminal .p{color:#FF9AD5}.terminal .dim{color:#7C8BB4}
+.ghost{position:absolute;z-index:0;font-family:var(--font-display);font-weight:800;font-size:360px;line-height:1;color:transparent;-webkit-text-stroke:2px rgba(139,124,255,.16);user-select:none;pointer-events:none}
+.live-dot{width:14px;height:14px;border-radius:50%;background:var(--accent-3);box-shadow:0 0 14px var(--accent-3);animation:pulse 1.8s ease-in-out infinite;flex:none}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.5);opacity:.55}}
+.flow{stroke-dasharray:12 10;animation:flowmove 2.6s linear infinite}
+@keyframes flowmove{to{stroke-dashoffset:-88}}
+.iconbox{width:64px;height:64px;flex:none}
+.legend{display:flex;gap:22px;align-items:center;font-size:21px;color:var(--muted);margin-bottom:6px}
+.legend .sw{width:26px;height:10px;border-radius:6px;display:inline-block;margin-right:8px;vertical-align:middle}
+.illus svg,.iconbox svg{width:100%;height:auto;display:block}
+.chart svg{width:100%;height:auto;display:block}
+.chart .grid line{stroke:rgba(169,182,220,.13)}
+.chart .val{fill:#EEF3FF;font-family:'Manrope',sans-serif;font-weight:800}
+
+/* плотные слайды (таблицы, списки) */
+.compact .card{padding:16px 18px;border-radius:18px}
+.compact .cd{font-size:21px;line-height:1.34}
+.compact .ct{font-size:23px}
+.rule{display:flex;gap:14px;align-items:flex-start}
+.rule .rt{font-size:22px;line-height:1.34}
+.rule .rt b{font-weight:800;color:var(--ink)}
+.step{display:flex;gap:12px;align-items:flex-start;font-size:21px;line-height:1.34;color:var(--muted)}
+.step .n{font-family:var(--font-mono);font-weight:600;color:var(--accent-1);flex:none;width:26px}
+.bul{display:flex;gap:12px;align-items:flex-start;font-size:21px;line-height:1.36;color:var(--muted)}
+.bul::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--accent-2);flex:none;margin-top:9px;box-shadow:0 0 10px rgba(139,124,255,.8)}
+.bul b{color:var(--ink);font-weight:700}
+
+/* «письмо»-макет фишингового сообщения */
+.letter{background:linear-gradient(160deg,rgba(20,28,62,.96),rgba(9,14,34,.96));border:1px solid rgba(255,110,199,.35);border-radius:18px;overflow:hidden;box-shadow:0 20px 54px rgba(2,5,18,.5)}
+.letter .lh{padding:12px 18px;border-bottom:1px solid rgba(139,124,255,.22);background:rgba(139,124,255,.07);font-size:20px;color:var(--muted);line-height:1.45}
+.letter .lb{padding:16px 18px;font-size:21px;line-height:1.42}
+.letter .btn{display:inline-block;margin-top:12px;padding:9px 20px;border-radius:12px;background:rgba(255,110,199,.14);border:1px solid rgba(255,110,199,.5);color:#FFD9EE;font-weight:700;font-size:20px}
+mark.flag{background:rgba(255,110,199,.20);border-bottom:2px dashed var(--accent-3);color:#FFE0F1;padding:1px 5px;border-radius:5px}
+a.fakelink{color:var(--accent-1);text-decoration:underline wavy rgba(255,110,199,.8)}
+
+/* ===== ЗАПАСНОЙ РЕЖИМ (если CDN недоступен) ===== */
+#cdn-error{display:none;position:fixed;z-index:99;top:16px;left:50%;transform:translateX(-50%);background:#FF6EC7;color:#071120;font-weight:800;font-family:var(--font-body);font-size:20px;padding:14px 26px;border-radius:14px;max-width:80vw;text-align:center}
+body.no-reveal #cdn-error{display:block}
+body.no-reveal .reveal{position:static}
+body.no-reveal .slides{width:auto!important;height:auto!important;transform:none!important;zoom:1!important}
+body.no-reveal .slides section{position:relative!important;display:block!important;opacity:1!important;visibility:visible!important;width:auto!important;height:auto!important;max-width:1200px;margin:30px auto;padding:20px;border:1px solid rgba(139,124,255,.3);border-radius:16px}
+body.no-reveal .ghost{display:none}
+body.no-reveal aside.notes{display:none}
+
+@media (prefers-reduced-motion: reduce){#bg-noise,.live-dot,.flow{animation:none !important}}
+</style>
+</head>
+<body class="reveal-viewport" style="--slide-width: 1280px; --slide-height: 720px; --slide-scale: 0.82; --viewport-width: 1264px; --viewport-height: 625px;">
+
+<div id="bg-decor" aria-hidden="true">
+  <div class="glow" id="glow-a"></div><div class="glow" id="glow-b"></div><div class="glow" id="glow-c"></div>
+  <div id="bg-grid"></div><div id="bg-noise"></div>
+</div>
+
+<div id="cdn-error">Не удалось загрузить библиотеки презентации (нужен доступ в интернет к CDN). Ниже — текстовая версия слайдов.</div>
+
+<div class="reveal slide focused has-horizontal-slides ready" role="application" data-transition-speed="default" data-background-transition="fade">
+<div class="slides" style="width: 1280px; height: 720px; inset: 50% auto auto 50%; transform: translate(-50%, -50%) scale(0.82);">
+
+<!-- 1. ТИТУЛ -->
+<section id="s-title" data-title="Титул" class="past" style="display: none;" hidden="" aria-hidden="true" inert="">
+  <div class="wrap">
+    <div class="split-mid" style="flex:1">
+      <div style="max-width:640px">
+        <div class="kicker" data-anim="" style="translate: none; rotate: none; scale: none; opacity: 1; transform: translate3d(0px, 0.0003px, 0px);">Информатика · 9 класс · Урок 2</div>
+        <h1 class="h-title" style="margin:20px 0 6px"><span data-anim="" style="display: block; translate: none; rotate: none; scale: none; opacity: 0.9973; transform: translate3d(0px, 0.0819px, 0px);">Информационная</span><span data-anim="" class="grad-text" style="display: block; translate: none; rotate: none; scale: none; opacity: 0.9744; transform: translate3d(0px, 0.768px, 0px);">безопасность</span></h1>
+        <div class="grad-underline" data-anim="" style="translate: none; rotate: none; scale: none; transform-origin: 0px 50%; transform: translate3d(0px, 0px, 0px) scale(0.7599, 1);"></div>
+        <p class="lead" data-anim="" style="margin: 22px 0px 18px; translate: none; rotate: none; scale: none; opacity: 0.5552; transform: translate3d(0px, 9.7859px, 0px);">Угрозы в глобальной сети, безопасная аутентификация и защита личной информации</p>
+        <div class="row" data-stagger="">
+          <span class="chip" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 18px);"><span class="dot"></span>Раздел 1 · Цифровая грамотность</span>
+          <span class="chip violet" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 18px);"><span class="dot"></span>Тема 1.1 · 2-й час из 3</span>
+        </div>
+      </div>
+      <div id="illus-shield" class="illus" style="max-width:500px" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 560 560"><defs><linearGradient id="SvgjsLinearGradient1000"><stop stop-color="#38e1ff" offset="0"></stop><stop stop-color="#8b7cff" offset="0.55"></stop><stop stop-color="#ff6ec7" offset="1"></stop></linearGradient></defs><circle r="240" cx="280" cy="280" fill="none" stroke-dasharray="3 12" stroke-width="2" stroke="rgba(139,124,255,.14)"></circle><g><line x1="90" y1="150" x2="200" y2="90" stroke-width="1.5" stroke="rgba(56,225,255,.30)"></line><line x1="200" y1="90" x2="370" y2="100" stroke-width="1.5" stroke="rgba(56,225,255,.30)"></line><line x1="370" y1="100" x2="470" y2="190" stroke-width="1.5" stroke="rgba(56,225,255,.30)"></line><line x1="90" y1="150" x2="120" y2="400" stroke-width="1.5" stroke="rgba(56,225,255,.30)"></line><line x1="120" y1="400" x2="300" y2="470" stroke-width="1.5" stroke="rgba(56,225,255,.30)"></line><line x1="300" y1="470" x2="460" y2="380" stroke-width="1.5" stroke="rgba(56,225,255,.30)"></line><line x1="470" y1="190" x2="460" y2="380" stroke-width="1.5" stroke="rgba(56,225,255,.30)"></line><line x1="200" y1="90" x2="300" y2="470" stroke-width="1.5" stroke="rgba(56,225,255,.30)"></line><circle r="5.5" cx="90" cy="150" fill="#38e1ff" opacity="0.9"></circle><circle r="5.5" cx="200" cy="90" fill="#ff6ec7" opacity="0.9"></circle><circle r="5.5" cx="370" cy="100" fill="#8b7cff" opacity="0.9"></circle><circle r="5.5" cx="470" cy="190" fill="#38e1ff" opacity="0.9"></circle><circle r="5.5" cx="120" cy="400" fill="#ff6ec7" opacity="0.9"></circle><circle r="5.5" cx="300" cy="470" fill="#8b7cff" opacity="0.9"></circle><circle r="5.5" cx="460" cy="380" fill="#38e1ff" opacity="0.9"></circle></g><g><path d="M280 96 L432 148 V292 C432 384 356 442 280 470 C204 442 128 384 128 292 V148 Z" fill="rgba(16,26,60,.82)" stroke-width="4" stroke="url(#SvgjsLinearGradient1000)"></path><path d="M280 96 L432 148 V292 C432 384 356 442 280 470" fill="none" stroke-width="2" stroke="rgba(255,110,199,.45)"></path></g><g><rect width="128" height="96" rx="18" ry="18" x="216" y="258" fill="rgba(56,225,255,.10)" stroke-width="4" stroke="#38e1ff"></rect><path d="M244 258 V226 A36 36 0 0 1 316 226 V258" fill="none" stroke-width="5" stroke="#8b7cff"></path><circle r="13" cx="280" cy="296" fill="#ff6ec7"></circle><rect width="10" height="32" rx="5" ry="5" x="275" y="304" fill="#ff6ec7"></rect></g><g></g><g transform="matrix(0.9902680687415704,-0.13917310096006544,0.13917310096006544,0.9902680687415704,-64.3408450128035,19.883048797069137)"><rect width="150" height="42" rx="12" ry="12" x="34" y="448" fill="rgba(255,110,199,.10)" stroke-width="2" stroke="rgba(255,110,199,.55)"></rect><text font-family="JetBrains Mono" font-size="21" font-weight="600" fill="#ff6ec7" x="56" y="458"><tspan dy="0" x="56">SOS · 2ФА</tspan></text></g><g transform="matrix(0.9945218953682733,0.10452846326765346,-0.10452846326765346,0.9945218953682733,11.564157017929745,-48.65726073746862)"><rect width="132" height="42" rx="12" ry="12" x="400" y="64" fill="rgba(56,225,255,.10)" stroke-width="2" stroke="rgba(56,225,255,.55)"></rect><text font-family="JetBrains Mono" font-size="21" font-weight="600" fill="#38e1ff" x="418" y="74"><tspan dy="0" x="418">https://</tspan></text></g><g><circle r="4.5" cx="180" cy="196" fill="#eef3ff" stroke-width="3" stroke="#ff6ec7"></circle><circle r="4.5" cx="392" cy="236" fill="#eef3ff" stroke-width="3" stroke="#ff6ec7"></circle><circle r="4.5" cx="232" cy="432" fill="#eef3ff" stroke-width="3" stroke="#ff6ec7"></circle><circle r="4.5" cx="352" cy="152" fill="#eef3ff" stroke-width="3" stroke="#ff6ec7"></circle></g></svg></div>
+    </div>
+    <div class="foot"><span class="small" data-anim="" style="opacity: 0;">Комбинированный урок · 45 минут · ФРП по информатике (ID 11736449)</span><span class="small mono hi-c" data-anim="" style="opacity: 0;">2ФА · фишинг · кибербуллинг · цифровой след</span></div>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> прошлый урок показал, как сеть работает; сегодня — чем в ней опасно жить.</p>
+    <ul>
+      <li>Этап 1 (3 мин). Связь с предыдущим уроком: IP-адреса, передача данных пакетами, большие данные. Сеть — пространство, где ежесекундно летят миллионы пакетов, в том числе с личной информацией.</li>
+      <li>Проблемный вопрос вслух: «Безопасно ли всё это? Что происходит с вашими данными, когда вы вводите пароль, отправляете сообщение, публикуете фото? Кто и как может к ним получить доступ?»</li>
+      <li>Объявить тему и цель: поговорим об угрозах и о том, как от них защититься.</li>
+      <li>Позитивная рамка (методическое замечание): без страшилок, акцент на умении распознавать и на конкретных действиях.</li>
+    </ul>
+    <p><b>Переход:</b> «Вот маршрут этих 45 минут».</p>
+    <p><i>Тайминг: ~90 с</i></p>
+  </aside>
+</section>
+
+<!-- 2. МАРШРУТ -->
+<section id="s-roadmap" data-title="Маршрут урока" class="past" style="display: none;" hidden="" aria-hidden="true" inert="">
+  <div class="wrap">
+    <div class="kicker" data-anim="" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 26px);">План</div>
+    <h2 class="h2" data-anim="" style="margin: 10px 0px 4px; translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 26px);">Маршрут урока</h2>
+    <div class="grad-underline" data-anim="" style="margin-bottom: 28px; translate: none; rotate: none; scale: none; transform-origin: 0px 50%; transform: scale(0, 1);"></div>
+    <div class="grid3" data-stagger="">
+      <div class="card" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 36px) scale(0.97, 0.97);"><div class="row" style="margin-bottom:12px"><span class="num-badge" style="translate: none; rotate: none; scale: none; transform-origin: 50% 50%; opacity: 0; transform: scale(0.4, 0.4);">01</span><span class="chip" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 14px);"><span class="dot"></span>8 мин</span></div><h3 class="ct">Что такое ИБ и чего она боится</h3><p class="cd">Определение информационной безопасности, три опоры защиты и шесть главных угроз сети</p></div>
+      <div class="card" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 36px) scale(0.97, 0.97);"><div class="row" style="margin-bottom:12px"><span class="num-badge" style="translate: none; rotate: none; scale: none; transform-origin: 50% 50%; opacity: 0; transform: scale(0.4, 0.4);">02</span><span class="chip violet" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 14px);"><span class="dot"></span>7 мин</span></div><h3 class="ct">Пароль и личные данные</h3><p class="cd">Аутентификация, семёрка правил безопасного входа, персональные данные и цифровой след</p></div>
+      <div class="card" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 36px) scale(0.97, 0.97);"><div class="row" style="margin-bottom:12px"><span class="num-badge" style="translate: none; rotate: none; scale: none; transform-origin: 50% 50%; opacity: 0; transform: scale(0.4, 0.4);">03</span><span class="chip pink" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 14px);"><span class="dot"></span>7 мин</span></div><h3 class="ct">Деструктивное поведение</h3><p class="cd">Кибербуллинг и фишинг: признаки, что делать, и другие формы сетевого мошенничества</p></div>
+    </div>
+    <div class="row" style="margin-top:24px" data-anim="">
+      <span class="chip pink" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 14px);"><span class="dot"></span>Практика · 10 мин: 4 ситуации в парах</span>
+      <span class="chip violet" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 14px);"><span class="dot"></span>Рефлексия · 3 мин + домашнее задание · 2 мин</span>
+      <span class="chip" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 14px);"><span class="dot"></span>Актуализация · 5 мин: статистика и вопрос классу</span>
+    </div>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> три блока теории по 7–8 минут, большая практика в конце.</p>
+    <ul>
+      <li>Тип урока — комбинированный: повторение прошлого урока, новый материал, практическая работа.</li>
+      <li>Каждый блок заканчивается вопросом классу, чтобы ученики не «потерялись».</li>
+      <li>Практика — работа в парах по карточкам: требуется не «будь осторожен», а минимум три конкретных действия.</li>
+      <li>Пропедевтика: на следующем уроке эти знания пригодятся при создании веб-страницы.</li>
+    </ul>
+    <p><b>Переход:</b> «Начнём с цифр. Они неожиданнее, чем кажется».</p>
+    <p><i>Тайминг: ~60 с</i></p>
+  </aside>
+</section>
+
+<!-- 3. АКТУАЛИЗАЦИЯ: СТАТИСТИКА + D3 -->
+<section id="s-stats" data-title="Актуализация" data-chart="leaks" class="past" style="display: none;" hidden="" aria-hidden="true" inert="">
+  <div class="wrap">
+    <div class="kicker" data-anim="" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 26px);">Актуализация · 5 мин</div>
+    <h2 class="h2" data-anim="" style="margin: 8px 0px 18px; translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 26px);">Насколько вы заметны в сети?</h2>
+    <div class="split-46" style="flex:1">
+      <div>
+        <div class="card" style="margin-bottom: 16px; translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 36px) scale(0.97, 0.97);" data-anim=""><div class="bignum"><span id="cnt-attacks">0</span> млн</div><p class="cd" style="margin-top:6px">кибератак фиксируется в мире ежегодно</p></div>
+        <div class="card" style="margin-bottom: 16px; translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 36px) scale(0.97, 0.97);" data-anim=""><div class="bignum"><span id="cnt-leaks">0</span> %</div><p class="cd" style="margin-top:6px">утечек персональных данных — из-за слабых или повторно используемых паролей</p></div>
+        <p class="small" data-anim="" style="translate: none; rotate: none; scale: none; transform: translate(0px, 16px); opacity: 0;"><span class="live-dot" style="display:inline-block;margin-right:10px"></span>Каждый третий подросток в России хотя бы раз сталкивался с попыткой мошенничества в Интернете</p>
+      </div>
+      <div class="chartwrap" data-anim="" style="translate: none; rotate: none; scale: none; transform: translate(0px, 16px); opacity: 0;">
+        <div class="legend"><span><span class="sw" style="background:var(--accent-3)"></span>Слабые и повторные пароли</span><span><span class="sw" style="background:#3D4E86"></span>Другие причины</span></div>
+        <div id="chart-leaks" class="chart" style="max-width:430px"><svg viewBox="0 0 430 330"><g transform="translate(215,165)"><path fill="#FF6EC7" stroke="rgba(7,11,24,.9)" stroke-width="2" d="M2.115,-141.984A142,142,0,1,1,-81.164,116.518L-51.972,75.914A92,92,0,1,0,2.115,-91.976Z"></path><path fill="#3D4E86" stroke="rgba(7,11,24,.9)" stroke-width="2" d="M-84.598,114.049A142,142,0,0,1,-2.115,-141.984L-2.115,-91.976A92,92,0,0,0,-55.406,73.445Z"></path><text text-anchor="middle" y="-4" fill="#EEF3FF" style="font: 800 54px Unbounded;">60 %</text><text text-anchor="middle" y="30" fill="#A9B6DC" style="font: 600 17px Manrope;">утечек — из-за паролей</text><text class="sl" transform="translate(111.36365205337638,35.87669161634774)" text-anchor="middle" fill="#071120" opacity="1" style="font: 800 19px Manrope;">60 %</text><text class="sl" transform="translate(-111.36365205337637,-35.87669161634778)" text-anchor="middle" fill="#071120" opacity="1" style="font: 800 19px Manrope;">40 %</text></g></svg></div>
+        <div class="row" style="margin-top:10px">
+          <span class="chip violet" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 14px);"><span class="dot"></span>15–20 аккаунтов у среднего пользователя</span>
+        </div>
+        <p class="src" style="margin-top: 8px; translate: none; rotate: none; scale: none; transform: translate(0px, 16px); opacity: 0;">Данные из сценария урока; диаграмма иллюстрирует долю утечек из-за паролей</p>
+      </div>
+    </div>
+    <div class="defbox" data-anim="" style="margin-top: 14px; translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 26px);"><b>Вопрос классу:</b> какие из ваших действий в сети могут представлять опасность для вас или ваших данных?</div>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> опасность не абстрактная — она в повседневных привычках.</p>
+    <ul>
+      <li>Создаём проблемную ситуацию: цифры на экране, ответы учеников — на доске, не оценивая.</li>
+      <li>Ожидаемые ответы: регистрация на сомнительных сайтах, переход по неизвестным ссылкам, один пароль везде, публикация личной информации, скачивание файлов из непроверенных источников.</li>
+      <li>Обобщение учителя: «Вы уже интуитивно чувствуете, где опасность. Сегодня систематизируем знания и научимся распознавать угрозы осознанно».</li>
+      <li>Цифры не пересказывать подробно — это разогрев перед основным блоком.</li>
+    </ul>
+    <p><b>Переход:</b> «Итак, что именно мы защищаем? Начнём с определения».</p>
+    <p><i>Тайминг: ~150 с (с обсуждением)</i></p>
+  </aside>
+</section>
+
+<!-- 4. РАЗДЕЛИТЕЛЬ 01 -->
+<section id="s-ch1" data-title="Глава 1" data-background-gradient="linear-gradient(140deg, rgba(56,225,255,0.10), rgba(139,124,255,0.04) 45%, rgba(255,110,199,0.07))" class="past" style="display: none;" hidden="" aria-hidden="true" inert="">
+  <div class="wrap">
+    <div class="ghost" style="right:20px;top:60px" aria-hidden="true">01</div>
+    <div class="split-mid" style="flex:1">
+      <div>
+        <div class="kicker" data-anim="" style="translate: none; rotate: none; scale: none; opacity: 0.9866; transform: translate3d(0px, 0.4009px, 0px);">Глава 1</div>
+        <h2 class="h-ch" data-anim="" style="margin: 14px 0px 8px; translate: none; rotate: none; scale: none; opacity: 0.9236; transform: translate3d(0px, 2.2915px, 0px);">Информационная безопасность и её угрозы</h2>
+        <div class="grad-underline" data-anim="" style="translate: none; rotate: none; scale: none; transform-origin: 0px 50%; opacity: 0.7438; transform: translate3d(0px, 7.685px, 0px) scale(0, 1);"></div>
+        <p class="lead" data-anim="" style="margin-top: 22px; translate: none; rotate: none; scale: none; opacity: 0.3522; transform: translate3d(0px, 19.4342px, 0px);">Три опоры, которые держат ваши данные, и шесть угроз, которые их подрывают</p>
+      </div>
+      <div id="illus-wall" class="illus" style="max-width:460px" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 480 360"><defs><linearGradient id="SvgjsLinearGradient1001"><stop stop-color="#38e1ff" offset="0"></stop><stop stop-color="#8b7cff" offset="0.55"></stop><stop stop-color="#ff6ec7" offset="1"></stop></linearGradient></defs><g><rect width="54" height="42" rx="7" ry="7" x="110" y="42" fill="rgba(56,225,255,.10)" stroke-width="2" stroke="rgba(56,225,255,.55)"></rect><rect width="54" height="42" rx="7" ry="7" x="168" y="42" fill="rgba(56,225,255,.10)" stroke-width="2" stroke="rgba(56,225,255,.55)"></rect><rect width="54" height="42" rx="7" ry="7" x="226" y="42" fill="rgba(56,225,255,.10)" stroke-width="2" stroke="rgba(56,225,255,.55)"></rect><rect width="54" height="42" rx="7" ry="7" x="284" y="42" fill="rgba(56,225,255,.10)" stroke-width="2" stroke="rgba(56,225,255,.55)"></rect><rect width="54" height="42" rx="7" ry="7" x="342" y="42" fill="rgba(56,225,255,.10)" stroke-width="2" stroke="rgba(56,225,255,.55)"></rect><rect width="54" height="42" rx="7" ry="7" x="138" y="90" fill="rgba(56,225,255,.10)" stroke-width="2" stroke="rgba(56,225,255,.55)"></rect><rect width="54" height="42" rx="7" ry="7" x="196" y="90" fill="rgba(56,225,255,.10)" stroke-width="2" stroke="rgba(56,225,255,.55)"></rect><rect width="54" height="42" rx="7" ry="7" x="254" y="90" fill="rgba(56,225,255,.10)" stroke-width="2" stroke="rgba(56,225,255,.55)"></rect><rect width="54" height="42" rx="7" ry="7" x="312" y="90" fill="rgba(56,225,255,.10)" stroke-width="2" stroke="rgba(56,225,255,.55)"></rect><rect width="54" height="42" rx="7" ry="7" x="110" y="138" fill="rgba(56,225,255,.10)" stroke-width="2" stroke="rgba(56,225,255,.55)"></rect><rect width="54" height="42" rx="7" ry="7" x="168" y="138" fill="rgba(56,225,255,.10)" stroke-width="2" stroke="rgba(56,225,255,.55)"></rect><rect width="54" height="42" rx="7" ry="7" x="226" y="138" fill="rgba(56,225,255,.10)" stroke-width="2" stroke="rgba(56,225,255,.55)"></rect><rect width="54" height="42" rx="7" ry="7" x="284" y="138" fill="rgba(56,225,255,.10)" stroke-width="2" stroke="rgba(56,225,255,.55)"></rect><rect width="54" height="42" rx="7" ry="7" x="342" y="138" fill="rgba(56,225,255,.10)" stroke-width="2" stroke="rgba(56,225,255,.55)"></rect><rect width="54" height="42" rx="7" ry="7" x="138" y="186" fill="rgba(139,124,255,.12)" stroke-width="2" stroke="rgba(139,124,255,.55)"></rect><rect width="54" height="42" rx="7" ry="7" x="196" y="186" fill="rgba(139,124,255,.12)" stroke-width="2" stroke="rgba(139,124,255,.55)"></rect><rect width="54" height="42" rx="7" ry="7" x="254" y="186" fill="rgba(139,124,255,.12)" stroke-width="2" stroke="rgba(139,124,255,.55)"></rect><rect width="54" height="42" rx="7" ry="7" x="312" y="186" fill="rgba(139,124,255,.12)" stroke-width="2" stroke="rgba(139,124,255,.55)"></rect><rect width="54" height="42" rx="7" ry="7" x="110" y="234" fill="rgba(139,124,255,.12)" stroke-width="2" stroke="rgba(139,124,255,.55)"></rect><rect width="54" height="42" rx="7" ry="7" x="168" y="234" fill="rgba(139,124,255,.12)" stroke-width="2" stroke="rgba(139,124,255,.55)"></rect><rect width="54" height="42" rx="7" ry="7" x="226" y="234" fill="rgba(139,124,255,.12)" stroke-width="2" stroke="rgba(139,124,255,.55)"></rect><rect width="54" height="42" rx="7" ry="7" x="284" y="234" fill="rgba(139,124,255,.12)" stroke-width="2" stroke="rgba(139,124,255,.55)"></rect><rect width="54" height="42" rx="7" ry="7" x="342" y="234" fill="rgba(139,124,255,.12)" stroke-width="2" stroke="rgba(139,124,255,.55)"></rect><rect width="54" height="42" rx="7" ry="7" x="138" y="282" fill="rgba(139,124,255,.12)" stroke-width="2" stroke="rgba(139,124,255,.55)"></rect><rect width="54" height="42" rx="7" ry="7" x="196" y="282" fill="rgba(139,124,255,.12)" stroke-width="2" stroke="rgba(139,124,255,.55)"></rect><rect width="54" height="42" rx="7" ry="7" x="254" y="282" fill="rgba(139,124,255,.12)" stroke-width="2" stroke="rgba(139,124,255,.55)"></rect><rect width="54" height="42" rx="7" ry="7" x="312" y="282" fill="rgba(139,124,255,.12)" stroke-width="2" stroke="rgba(139,124,255,.55)"></rect><rect width="300" height="300" rx="10" ry="10" x="96" y="36" fill="none" stroke-dasharray="12 9" stroke-width="3" stroke="url(#SvgjsLinearGradient1001)"></rect></g><g><path d="M8 86 L74 86" stroke-width="4" stroke="#38e1ff" class="flow"></path><path d="M62 77 L76 86 L62 95" fill="none" stroke-width="4" stroke="#38e1ff"></path><path d="M8 182 L74 182" stroke-width="4" stroke="#ff6ec7" class="flow"></path><path d="M62 173 L76 182 L62 191" fill="none" stroke-width="4" stroke="#ff6ec7"></path><path d="M8 278 L74 278" stroke-width="4" stroke="#8b7cff" class="flow"></path><path d="M62 269 L76 278 L62 287" fill="none" stroke-width="4" stroke="#8b7cff"></path></g><g><circle r="6.5" cx="86" cy="86" fill="#eef3ff" stroke-width="3" stroke="#ff6ec7"></circle><circle r="6.5" cx="86" cy="182" fill="#eef3ff" stroke-width="3" stroke="#ff6ec7"></circle><circle r="6.5" cx="86" cy="278" fill="#eef3ff" stroke-width="3" stroke="#ff6ec7"></circle></g><g><path d="M400 120 L440 160 M440 120 L400 160" stroke-width="6" stroke="#ff6ec7"></path><text font-family="Manrope" font-size="22" font-weight="700" text-anchor="middle" fill="rgba(169,182,220,.9)" x="420" y="176"><tspan dy="0" x="420">угрозы</tspan></text></g><text font-family="Manrope" font-size="20" font-weight="700" text-anchor="middle" fill="rgba(169,182,220,.85)" x="240" y="336"><tspan dy="0" x="240">фильтр · шифрование · обновление</tspan></text></svg></div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> безопасность — это не «антивирус стоит и хватит», а состояние защищённости данных.</p>
+    <ul>
+      <li>Начало этапа 3 (8 мин). Даем определение, затем разбираем состав защиты и угрозы.</li>
+      <li>Вопрос-пауза: что именно, по-вашему, тут «защищается» — компьютер, аккаунт, человек?</li>
+    </ul>
+    <p><b>Переход:</b> «Запишем точное определение».</p>
+    <p><i>Тайминг: ~30 с</i></p>
+  </aside>
+</section>
+
+<!-- 5. ОПРЕДЕЛЕНИЕ + ТРИАДА -->
+<section id="s-ib" data-title="Понятие ИБ" class="past" style="display: none;" hidden="" aria-hidden="true" inert="">
+  <div class="wrap">
+    <div class="kicker" data-anim="" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 26px);">Определение · запись в тетрадь</div>
+    <h2 class="h2" data-anim="" style="margin: 8px 0px 14px; translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 26px);">Что такое информационная безопасность</h2>
+    <div class="defbox" data-anim="" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 26px);"><strong>Информационная безопасность</strong> — состояние защищённости информации и данных от несанкционированного доступа, использования, разглашения, подмены, искажения или уничтожения</div>
+    <div class="grid3" data-stagger="" style="margin-top:24px">
+      <div class="card" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 36px) scale(0.97, 0.97);"><div class="iconbox" data-icon="conf" style="translate: none; rotate: none; scale: none; transform-origin: 50% 50%; opacity: 0; transform: scale(0.45, 0.45);"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 96 96"><defs><linearGradient><stop stop-color="#38e1ff" offset="0"></stop><stop stop-color="#8b7cff" offset="0.55"></stop><stop stop-color="#ff6ec7" offset="1"></stop></linearGradient></defs><rect width="48" height="34" rx="8" ry="8" x="24" y="46" fill="rgba(56,225,255,.10)" stroke-width="3" stroke="#38e1ff"></rect><path d="M34 46 V36 A14 14 0 0 1 62 36 V46" fill="none" stroke-width="3" stroke="#8b7cff"></path><circle r="4.5" cx="48" cy="60" fill="#ff6ec7"></circle><rect width="4" height="12" rx="2" ry="2" x="46" y="64" fill="#ff6ec7"></rect></svg></div><h3 class="ct" style="margin-top:12px">Конфиденциальность</h3><p class="cd">Ваши данные не попадают в чужие руки</p></div>
+      <div class="card" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 36px) scale(0.97, 0.97);"><div class="iconbox" data-icon="integ" style="translate: none; rotate: none; scale: none; transform-origin: 50% 50%; opacity: 0; transform: scale(0.45, 0.45);"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 96 96"><defs><linearGradient><stop stop-color="#38e1ff" offset="0"></stop><stop stop-color="#8b7cff" offset="0.55"></stop><stop stop-color="#ff6ec7" offset="1"></stop></linearGradient></defs><path d="M48 8 L82 20 V46 C82 66 66 80 48 88 C30 80 14 66 14 46 V20 Z" fill="none" stroke-width="3" stroke="#38e1ff"></path><path d="M32 48 L44 61 L66 36" fill="none" stroke-width="4.5" stroke="#ff6ec7"></path></svg></div><h3 class="ct" style="margin-top:12px">Целостность</h3><p class="cd">Данные не изменяются без вашего ведома</p></div>
+      <div class="card" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 36px) scale(0.97, 0.97);"><div class="iconbox" data-icon="avail" style="translate: none; rotate: none; scale: none; transform-origin: 50% 50%; opacity: 0; transform: scale(0.45, 0.45);"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 96 96"><defs><linearGradient><stop stop-color="#38e1ff" offset="0"></stop><stop stop-color="#8b7cff" offset="0.55"></stop><stop stop-color="#ff6ec7" offset="1"></stop></linearGradient></defs><circle r="33" cx="48" cy="48" fill="none" stroke-width="3" stroke="#8b7cff"></circle><line x1="48" y1="48" x2="48" y2="26" stroke-width="3.5" stroke="#38e1ff"></line><line x1="48" y1="48" x2="63" y2="56" stroke-width="3.5" stroke="#ff6ec7"></line><circle r="2.5" cx="48" cy="48" fill="#ff6ec7"></circle></svg></div><h3 class="ct" style="margin-top:12px">Доступность</h3><p class="cd">Вы можете пользоваться своими данными и сервисами, когда это необходимо</p></div>
+    </div>
+    <p class="small" data-anim="" style="margin-top: 20px; translate: none; rotate: none; scale: none; transform: translate(0px, 16px); opacity: 0;">В международной терминологии — <strong class="hi-c mono">CIA triad</strong>: Confidentiality · Integrity · Availability. В контексте Интернета информационная безопасность включает защиту всех трёх свойств</p>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> защищать нужно три свойства информации, а не «компьютер вообще».</p>
+    <ul>
+      <li>Определение записывается в тетрадь дословно.</li>
+      <li>Примеры на каждый столп: конфиденциальность — переписка одноклассника ушла третьим лицам; целостность — в вашей работе поменяли оценки/файл; доступность — шифровальщик или удаление аккаунта, и вы не можете попасть в свои данные.</li>
+      <li>Мини-вопрос: какая из трёх угроз для вас лично тяжелее? Короткий ответ 1–2 учеников.</li>
+    </ul>
+    <p><b>Переход:</b> «Теперь посмотрим, что именно атакует эти опоры».</p>
+    <p><i>Тайминг: ~150 с</i></p>
+  </aside>
+</section>
+
+<!-- 6. ШЕСТЬ УГРОЗ -->
+<section id="s-threats" data-title="Основные угрозы" class="past" style="display: none;" hidden="" aria-hidden="true" inert="">
+  <div class="wrap compact">
+    <div class="kicker" data-anim="" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 26px);">Угрозы в глобальной сети</div>
+    <h2 class="h2" data-anim="" style="margin: 8px 0px 18px; translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 26px);">Шесть угроз сетевого пользователя</h2>
+    <div class="grid3" data-stagger="" style="gap:18px">
+      <div class="card" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 36px) scale(0.97, 0.97);"><div class="row" style="gap:12px"><div class="iconbox" style="width: 48px; height: 48px; translate: none; rotate: none; scale: none; transform-origin: 50% 50%; opacity: 0; transform: scale(0.45, 0.45);" data-icon="malware"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 96 96"><defs><linearGradient><stop stop-color="#38e1ff" offset="0"></stop><stop stop-color="#8b7cff" offset="0.55"></stop><stop stop-color="#ff6ec7" offset="1"></stop></linearGradient></defs><rect width="40" height="32" rx="14" ry="14" x="28" y="32" fill="rgba(255,110,199,.10)" stroke-width="3" stroke="#ff6ec7"></rect><circle r="3" cx="40" cy="46" fill="#eef3ff"></circle><circle r="3" cx="56" cy="46" fill="#eef3ff"></circle><line x1="16" y1="40" x2="28" y2="40" stroke-width="3" stroke="#8b7cff"></line><line x1="16" y1="58" x2="28" y2="58" stroke-width="3" stroke="#8b7cff"></line><line x1="80" y1="40" x2="68" y2="40" stroke-width="3" stroke="#8b7cff"></line><line x1="80" y1="58" x2="68" y2="58" stroke-width="3" stroke="#8b7cff"></line><line x1="38" y1="20" x2="34" y2="32" stroke-width="3" stroke="#38e1ff"></line><line x1="58" y1="20" x2="62" y2="32" stroke-width="3" stroke="#38e1ff"></line><circle r="2.5" cx="38" cy="18" fill="#38e1ff"></circle><circle r="2.5" cx="58" cy="18" fill="#38e1ff"></circle></svg></div><h3 class="ct" style="margin:0">Вредоносное ПО</h3></div><p class="cd" style="margin-top:8px">Вирусы, трояны, шифровальщики: крадут данные, шифруют файлы, используют устройство для атак</p><p class="ex"><b>Пример:</b> шифровальщик блокирует файлы и требует выкуп</p></div>
+      <div class="card" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 36px) scale(0.97, 0.97);"><div class="row" style="gap:12px"><div class="iconbox" style="width: 48px; height: 48px; translate: none; rotate: none; scale: none; transform-origin: 50% 50%; opacity: 0; transform: scale(0.45, 0.45);" data-icon="hook"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 96 96"><defs><linearGradient><stop stop-color="#38e1ff" offset="0"></stop><stop stop-color="#8b7cff" offset="0.55"></stop><stop stop-color="#ff6ec7" offset="1"></stop></linearGradient></defs><path d="M20 12 L20 44 Q20 66 42 66 Q62 66 62 48" fill="none" stroke-width="3.5" stroke="#8b7cff"></path><path d="M56 42 L62 50 L68 42" fill="none" stroke-width="3.5" stroke="#8b7cff"></path><rect width="34" height="24" rx="5" ry="5" x="48" y="58" fill="rgba(255,110,199,.12)" stroke-width="3" stroke="#ff6ec7"></rect><path d="M48 62 L65 72 L82 62" fill="none" stroke-width="2.5" stroke="rgba(255,110,199,.8)"></path></svg></div><h3 class="ct" style="margin:0">Фишинг</h3></div><p class="cd" style="margin-top:8px">Поддельные сайты и письма имитируют известные сервисы, чтобы выманить пароли и данные карт</p><p class="ex"><b>Пример:</b> письмо «от банка» со ссылкой на поддельную страницу входа</p></div>
+      <div class="card" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 36px) scale(0.97, 0.97);"><div class="row" style="gap:12px"><div class="iconbox" style="width: 48px; height: 48px; translate: none; rotate: none; scale: none; transform-origin: 50% 50%; opacity: 0; transform: scale(0.45, 0.45);" data-icon="mask"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 96 96"><defs><linearGradient><stop stop-color="#38e1ff" offset="0"></stop><stop stop-color="#8b7cff" offset="0.55"></stop><stop stop-color="#ff6ec7" offset="1"></stop></linearGradient></defs><path d="M20 30 Q48 16 76 30 L76 52 Q48 74 20 52 Z" fill="rgba(139,124,255,.12)" stroke-width="3" stroke="#8b7cff"></path><ellipse rx="9" ry="5" cx="36" cy="42" fill="#070b18" stroke-width="2.5" stroke="#38e1ff"></ellipse><ellipse rx="9" ry="5" cx="60" cy="42" fill="#070b18" stroke-width="2.5" stroke="#38e1ff"></ellipse><path d="M38 60 Q48 66 58 60" fill="none" stroke-width="3" stroke="#ff6ec7"></path></svg></div><h3 class="ct" style="margin:0">Социальная инженерия</h3></div><p class="cd" style="margin-top:8px">Манипулирование людьми, чтобы получить конфиденциальное без взлома систем</p><p class="ex"><b>Пример:</b> звонок «из службы безопасности банка» с просьбой назвать код из СМС</p></div>
+      <div class="card" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 36px) scale(0.97, 0.97);"><div class="row" style="gap:12px"><div class="iconbox" style="width: 48px; height: 48px; translate: none; rotate: none; scale: none; transform-origin: 50% 50%; opacity: 0; transform: scale(0.45, 0.45);" data-icon="leak"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 96 96"><defs><linearGradient><stop stop-color="#38e1ff" offset="0"></stop><stop stop-color="#8b7cff" offset="0.55"></stop><stop stop-color="#ff6ec7" offset="1"></stop></linearGradient></defs><ellipse rx="22" ry="7" cx="48" cy="24" fill="rgba(56,225,255,.14)" stroke-width="3" stroke="#38e1ff"></ellipse><line x1="26" y1="24" x2="26" y2="58" stroke-width="3" stroke="#38e1ff"></line><line x1="70" y1="24" x2="70" y2="44" stroke-width="3" stroke="#38e1ff"></line><ellipse rx="22" ry="7" cx="48" cy="40" fill="none" stroke-width="2.5" stroke="rgba(56,225,255,.6)"></ellipse><path d="M56 58 Q62 70 56 76 Q48 70 56 58" fill="#ff6ec7" stroke-width="2" stroke="#ff6ec7"></path><path d="M74 52 L86 64 M86 52 L74 64" stroke-width="3" stroke="#ff6ec7"></path></svg></div><h3 class="ct" style="margin:0">Утечки данных</h3></div><p class="cd" style="margin-top:8px">Массовое разглашение баз пользователей из-за взлома сервисов</p><p class="ex"><b>Пример:</b> база паролей и e-mail оказывается в открытом доступе</p></div>
+      <div class="card" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 36px) scale(0.97, 0.97);"><div class="row" style="gap:12px"><div class="iconbox" style="width: 48px; height: 48px; translate: none; rotate: none; scale: none; transform-origin: 50% 50%; opacity: 0; transform: scale(0.45, 0.45);" data-icon="sniff"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 96 96"><defs><linearGradient><stop stop-color="#38e1ff" offset="0"></stop><stop stop-color="#8b7cff" offset="0.55"></stop><stop stop-color="#ff6ec7" offset="1"></stop></linearGradient></defs><path d="M22 54 Q48 30 74 54" fill="none" stroke-width="3" stroke="#38e1ff"></path><path d="M32 64 Q48 50 64 64" fill="none" stroke-width="3" stroke="#8b7cff"></path><circle r="3.5" cx="48" cy="74" fill="#ff6ec7"></circle><path d="M18 22 L78 22" stroke-dasharray="5 6" stroke-width="2.5" stroke="rgba(169,182,220,.5)"></path><ellipse rx="15" ry="8" cx="48" cy="34" fill="none" stroke-width="2.5" stroke="rgba(255,110,199,.7)"></ellipse><circle r="3" cx="48" cy="34" fill="#ff6ec7"></circle></svg></div><h3 class="ct" style="margin:0">Перехват данных</h3></div><p class="cd" style="margin-top:8px">Чтение трафика в незащищённых сетях — например, в открытом Wi-Fi кафе или ТЦ</p><p class="ex"><b>Пример:</b> злоумышленник считывает пароли по незашифрованному соединению</p></div>
+      <div class="card" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 36px) scale(0.97, 0.97);"><div class="row" style="gap:12px"><div class="iconbox" style="width: 48px; height: 48px; translate: none; rotate: none; scale: none; transform-origin: 50% 50%; opacity: 0; transform: scale(0.45, 0.45);" data-icon="chat"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 96 96"><defs><linearGradient><stop stop-color="#38e1ff" offset="0"></stop><stop stop-color="#8b7cff" offset="0.55"></stop><stop stop-color="#ff6ec7" offset="1"></stop></linearGradient></defs><path d="M14 22 H62 A8 8 0 0 1 70 30 V52 A8 8 0 0 1 62 60 H34 L20 74 V60 A8 8 0 0 1 14 52 Z" fill="rgba(255,110,199,.10)" stroke-width="3" stroke="#ff6ec7"></path><line x1="30" y1="34" x2="54" y2="34" stroke-width="3" stroke="rgba(238,243,255,.85)"></line><line x1="30" y1="46" x2="46" y2="46" stroke-width="3" stroke="rgba(238,243,255,.6)"></line><path d="M74 16 L86 16 M80 10 L80 22" stroke-width="3" stroke="#38e1ff"></path><circle r="2" cx="88" cy="30" fill="#8b7cff"></circle></svg></div><h3 class="ct" style="margin:0">Кибербуллинг</h3></div><p class="cd" style="margin-top:8px">Травля, оскорбления и угрозы в цифровой среде</p><p class="ex"><b>Пример:</b> оскорбительные комментарии, рассылка личных фото без согласия</p></div>
+    </div>
+    <p class="small" data-anim="" style="margin-top: 18px; translate: none; rotate: none; scale: none; transform: translate(0px, 16px); opacity: 0;">Порядок разбора — от «атаки на машину» к «атаке на человека»: сначала ПО и перехват, затем обман и травля</p>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> таблица угроз из сценария — шесть строк, каждую комментируем последовательно.</p>
+    <ul>
+      <li>Не зачитывать карточки дословно: суть — своими словами, пример — узнаваемый учениками.</li>
+      <li>Фиксируем на доске ключевые слова: вредоносное ПО, фишинг, социальная инженерия, утечка, перехват, кибербуллинг.</li>
+      <li>Связь с прошлым уроком: перехват возможен потому, что пакеты идут открытым маршрутом, если соединение не зашифровано (см. урок 1 о пакетах и IP).</li>
+      <li>Дифференциация: сильные ученики могут назвать признаки каждой угрозы самостоятельно, остальным — опора на примеры.</li>
+    </ul>
+    <p><b>Переход:</b> «Заметьте, эти шесть угроз — не одного типа. Посмотрите внимательнее».</p>
+    <p><i>Тайминг: ~200 с</i></p>
+  </aside>
+</section>
+
+<!-- 7. ТЕХНИЧЕСКИЕ vs СОЦИАЛЬНЫЕ -->
+<section id="s-vs" data-title="Два типа угроз" class="past" style="display: none;" hidden="" aria-hidden="true" inert="">
+  <div class="wrap">
+    <div class="kicker" data-anim="" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 26px);">Различие угроз</div>
+    <h2 class="h2" data-anim="" style="margin: 8px 0px 18px; translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 26px);">Атака на систему и атака на человека</h2>
+    <div class="split" style="flex:none">
+      <div class="card" data-anim="" style="border-color: rgba(56, 225, 255, 0.5); translate: none; rotate: none; scale: none; opacity: 0; transform: translate(36px, 36px) scale(0.97, 0.97);">
+        <h3 class="ct"><span class="hi-c">Технические</span></h3>
+        <p class="cd" style="margin-bottom:12px">Вредоносное ПО, перехват трафика, уязвимости и взлом сервисов</p>
+        <div class="row" style="gap:10px"><span class="chip" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 14px);"><span class="dot"></span>антивирусы</span><span class="chip" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 14px);"><span class="dot"></span>шифрование · HTTPS</span><span class="chip" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 14px);"><span class="dot"></span>обновления</span></div>
+      </div>
+      <div class="card" data-anim="" style="border-color: rgba(255, 110, 199, 0.5); translate: none; rotate: none; scale: none; opacity: 0; transform: translate(-36px, 36px) scale(0.97, 0.97);">
+        <h3 class="ct"><span class="hi-p">Социально-психологические</span></h3>
+        <p class="cd" style="margin-bottom:12px">Социальная инженерия, фишинг, кибербуллинг, вербовка и мошенничество</p>
+        <div class="row" style="gap:10px"><span class="chip pink" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 14px);"><span class="dot"></span>критическое мышление</span><span class="chip pink" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 14px);"><span class="dot"></span>осведомлённость</span></div>
+      </div>
+    </div>
+    <div class="defbox" data-anim="" style="margin-top: 22px; translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 26px);"><b>Вопрос классу:</b> какой тип угроз, по вашему мнению, опаснее и почему?</div>
+    <p class="small" data-anim="" style="margin-top: 14px; translate: none; rotate: none; scale: none; transform: translate(0px, 16px); opacity: 0;">Ожидаемый вывод: социально-психологические угрозы сложнее распознать — они эксплуатируют <strong class="hi-p">доверие и эмоции человека</strong>, а не технические уязвимости. Против них не поможет антивирус</p>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> самая тонкая часть системы безопасности — пользователь.</p>
+    <ul>
+      <li>Краткое обсуждение (1–2 минуты): собрать 2–3 аргумента «за» каждый тип, затем спросить, кто изменил мнение.</li>
+      <li>Подвести к выводу: технические меры необходимы, но недостаточны — нужен личный поведенческий уровень.</li>
+      <li>Это ключевая мысль урока, к ней вернёмся на рефлексии.</li>
+    </ul>
+    <p><b>Переход:</b> «С чего начинается личная защита? С момента входа в аккаунт».</p>
+    <p><i>Тайминг: ~120 с</i></p>
+  </aside>
+</section>
+
+<!-- 8. РАЗДЕЛИТЕЛЬ 02 -->
+<section id="s-ch2" data-title="Глава 2" data-background-gradient="linear-gradient(140deg, rgba(139,124,255,0.10), rgba(56,225,255,0.04) 50%, rgba(255,110,199,0.06))" class="past" style="display: none;" hidden="" aria-hidden="true" inert="">
+  <div class="wrap">
+    <div class="ghost" style="right:20px;top:60px" aria-hidden="true">02</div>
+    <div class="split-mid" style="flex:1">
+      <div>
+        <div class="kicker" data-anim="" style="translate: none; rotate: none; scale: none; opacity: 0.9219; transform: translate3d(0px, 2.3417px, 0px);">Глава 2</div>
+        <h2 class="h-ch" data-anim="" style="margin: 14px 0px 8px; translate: none; rotate: none; scale: none; opacity: 0.7397; transform: translate3d(0px, 7.8092px, 0px);">Аутентификация и личная информация</h2>
+        <div class="grad-underline" data-anim="" style="translate: none; rotate: none; scale: none; transform-origin: 0px 50%; opacity: 0.3439; transform: translate3d(0px, 19.683px, 0px) scale(0, 1);"></div>
+        <p class="lead" data-anim="" style="margin-top: 22px; translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 30px);">Как доказать системе, что вы — это вы, и не рассказать об этом мошенникам</p>
+      </div>
+      <div id="illus-key" class="illus" style="max-width:460px" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 480 340"><defs><linearGradient id="SvgjsLinearGradient1002"><stop stop-color="#38e1ff" offset="0"></stop><stop stop-color="#8b7cff" offset="0.55"></stop><stop stop-color="#ff6ec7" offset="1"></stop></linearGradient></defs><g transform="matrix(0.9612616959383189,-0.27563735581699916,0.27563735581699916,0.9612616959383189,-35.53485776329771,47.15634898180204)"><circle r="42" cx="96" cy="96" fill="none" stroke-width="9" stroke="url(#SvgjsLinearGradient1002)"></circle><circle r="13" cx="96" cy="96" fill="rgba(7,11,24,.9)" stroke-width="4" stroke="#38e1ff"></circle><rect width="150" height="20" rx="9" ry="9" x="132" y="86" fill="rgba(139,124,255,.14)" stroke-width="3" stroke="#8b7cff"></rect><rect width="20" height="34" rx="6" ry="6" x="238" y="106" fill="rgba(139,124,255,.14)" stroke-width="3" stroke="#8b7cff"></rect><rect width="16" height="26" rx="6" ry="6" x="266" y="106" fill="rgba(139,124,255,.14)" stroke-width="3" stroke="#8b7cff"></rect></g><g><path d="M330 258 A62 62 0 0 1 454 258" fill="none" stroke-width="3.2" stroke="rgba(255,110,199,.6)"></path><path d="M330 245 A54 54 0 0 1 450 245" fill="none" stroke-width="3.2" stroke="rgba(56,225,255,.75)"></path><path d="M330 232 A46 46 0 0 1 446 232" fill="none" stroke-width="3.2" stroke="rgba(255,110,199,.6)"></path><path d="M330 219 A38 38 0 0 1 442 219" fill="none" stroke-width="3.2" stroke="rgba(56,225,255,.75)"></path><path d="M330 206 A30 30 0 0 1 438 206" fill="none" stroke-width="3.2" stroke="rgba(255,110,199,.6)"></path><path d="M330 193 A22 22 0 0 1 434 193" fill="none" stroke-width="3.2" stroke="rgba(56,225,255,.75)"></path></g><text font-family="Manrope" font-size="20" font-weight="700" fill="rgba(169,182,220,.9)" x="330" y="272"><tspan dy="0" x="330">отпечаток</tspan></text><g><rect width="96" height="132" rx="14" ry="14" x="330" y="44" fill="rgba(16,26,60,.85)" stroke-width="3" stroke="#ff6ec7"></rect><rect width="30" height="7" rx="4" ry="4" x="363" y="58" fill="rgba(255,110,199,.5)"></rect><rect width="16" height="22" rx="4" ry="4" x="344" y="96" fill="rgba(56,225,255,.55)"></rect><rect width="16" height="22" rx="4" ry="4" x="362" y="96" fill="rgba(56,225,255,.55)"></rect><rect width="16" height="22" rx="4" ry="4" x="380" y="96" fill="rgba(56,225,255,.55)"></rect><rect width="16" height="22" rx="4" ry="4" x="398" y="96" fill="rgba(169,182,220,.3)"></rect></g><text font-family="JetBrains Mono" font-size="20" font-weight="600" text-anchor="middle" fill="#38e1ff" x="378" y="140"><tspan dy="0" x="378">_ _ _ 9</tspan></text><text font-family="Manrope" font-size="20" font-weight="700" text-anchor="middle" fill="rgba(169,182,220,.85)" x="240" y="318"><tspan dy="0" x="240">пароль · ключ · СМС</tspan></text></svg></div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> этап 4 (7 мин) — правила безопасной аутентификации и защита личной информации.</p>
+    <ul>
+      <li>Мостик от главы 1: большинство угроз из таблицы начинаются с входа в аккаунт.</li>
+      <li>Вопрос-разогрев: сколько аккаунтов у вас? Помните, что средний ответ — 15–20 (слайд с актуализацией).</li>
+    </ul>
+    <p><b>Переход:</b> «Начнём с термина, который часто путают с авторизацией».</p>
+    <p><i>Тайминг: ~30 с</i></p>
+  </aside>
+</section>
+
+<!-- 9. АУТЕНТИФИКАЦИЯ + 2ФА -->
+<section id="s-auth" data-title="Аутентификация" class="past" style="display: none;" hidden="" aria-hidden="true" inert="">
+  <div class="wrap">
+    <div class="kicker" data-anim="" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 26px);">Определение · запись в тетрадь</div>
+    <h2 class="h2" data-anim="" style="margin: 8px 0px 14px; translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 26px);">Аутентификация: как система узнаёт вас</h2>
+    <div class="defbox" data-anim="" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 26px);"><strong>Аутентификация</strong> — проверка подлинности пользователя: подтверждение того, что вы действительно тот, за кого себя выдаёте <span class="small" style="translate: none; rotate: none; scale: none; transform: translate(0px, 16px); opacity: 0;">(по паролю, отпечатку пальца, коду из СМС)</span></div>
+    <div class="grid3" data-stagger="" style="margin-top:22px">
+      <div class="card" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 44px) scale(0.95, 0.95);"><div class="iconbox" data-icon="know" style="translate: none; rotate: none; scale: none; transform-origin: 50% 50%; opacity: 0; transform: scale(0.45, 0.45);"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 96 96"><defs><linearGradient><stop stop-color="#38e1ff" offset="0"></stop><stop stop-color="#8b7cff" offset="0.55"></stop><stop stop-color="#ff6ec7" offset="1"></stop></linearGradient></defs><rect width="56" height="26" rx="6" ry="6" x="20" y="34" fill="rgba(56,225,255,.10)" stroke-width="3" stroke="#38e1ff"></rect><circle r="2.5" cx="36" cy="47" fill="#eef3ff"></circle><circle r="2.5" cx="46" cy="47" fill="#eef3ff"></circle><circle r="2.5" cx="56" cy="47" fill="#eef3ff"></circle><path d="M62 47 L74 47" stroke-width="3" stroke="#ff6ec7"></path><rect width="18" height="10" rx="3" ry="3" x="56" y="58" fill="none" stroke-width="2.5" stroke="#8b7cff"></rect><path d="M20 26 L76 26" stroke-dasharray="4 6" stroke-width="2" stroke="rgba(169,182,220,.4)"></path></svg></div><h3 class="ct" style="margin-top:10px">Знание</h3><p class="cd">Пароль, PIN, кодовое слово — то, что вы помните</p></div>
+      <div class="card" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 44px) scale(0.95, 0.95);"><div class="iconbox" data-icon="have" style="translate: none; rotate: none; scale: none; transform-origin: 50% 50%; opacity: 0; transform: scale(0.45, 0.45);"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 96 96"><defs><linearGradient><stop stop-color="#38e1ff" offset="0"></stop><stop stop-color="#8b7cff" offset="0.55"></stop><stop stop-color="#ff6ec7" offset="1"></stop></linearGradient></defs><rect width="34" height="60" rx="8" ry="8" x="31" y="18" fill="rgba(139,124,255,.12)" stroke-width="3" stroke="#8b7cff"></rect><rect width="14" height="5" rx="3" ry="3" x="41" y="24" fill="rgba(169,182,220,.6)"></rect><circle r="3" cx="48" cy="66" fill="#ff6ec7"></circle><path d="M70 40 L84 40 M77 33 L77 47" stroke-width="3" stroke="#38e1ff"></path><path d="M12 52 L24 52 M18 46 L18 58" stroke-width="2.5" stroke="#38e1ff"></path></svg></div><h3 class="ct" style="margin-top:10px">Владение</h3><p class="cd">Телефон с приложением 2ФА, аппаратный ключ, сертификат — то, что при вас</p></div>
+      <div class="card" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 44px) scale(0.95, 0.95);"><div class="iconbox" data-icon="bio" style="translate: none; rotate: none; scale: none; transform-origin: 50% 50%; opacity: 0; transform: scale(0.45, 0.45);"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 96 96"><defs><linearGradient><stop stop-color="#38e1ff" offset="0"></stop><stop stop-color="#8b7cff" offset="0.55"></stop><stop stop-color="#ff6ec7" offset="1"></stop></linearGradient></defs><path d="M28 74 A30 30 0 0 1 70 70" fill="none" stroke-width="2.8" stroke="rgba(255,110,199,.7)"></path><path d="M28 64 A26 26 0 0 1 71 60" fill="none" stroke-width="2.8" stroke="rgba(56,225,255,.85)"></path><path d="M28 54 A22 22 0 0 1 72 50" fill="none" stroke-width="2.8" stroke="rgba(255,110,199,.7)"></path><path d="M28 44 A18 18 0 0 1 73 40" fill="none" stroke-width="2.8" stroke="rgba(56,225,255,.85)"></path><path d="M28 34 A14 14 0 0 1 74 30" fill="none" stroke-width="2.8" stroke="rgba(255,110,199,.7)"></path><path d="M28 24 A10 10 0 0 1 75 20" fill="none" stroke-width="2.8" stroke="rgba(56,225,255,.85)"></path><circle r="2.5" cx="48" cy="48" fill="#ff6ec7"></circle></svg></div><h3 class="ct" style="margin-top:10px">Биометрия</h3><p class="cd">Отпечаток, лицо, голос — то, что вы и есть</p></div>
+    </div>
+    <div class="card" data-anim="" style="margin-top: 20px; border-color: rgba(56, 225, 255, 0.5); translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 36px) scale(0.97, 0.97);">
+      <div class="row" style="gap:18px"><span class="chip" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 14px);"><span class="dot"></span>2ФА — двухфакторная аутентификация</span><p class="cd" style="margin:0"><strong class="hi-c">Два разных признака вместо одного:</strong> даже украденного пароля мошеннику недостаточно — ему нужен ещё и ваш телефон или ключ</p></div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> надёжность входа измеряется не длиной пароля, а числом независимых признаков.</p>
+    <ul>
+      <li>Определение — в тетрадь. Спросить: чем аутентификация отличается от авторизации? (аутентификация — «кто ты», авторизация — «что тебе можно»); для урока достаточно этого различия вслух.</li>
+      <li>Привести примеры из жизни класса: вход по отпечатку в телефоне, код из СМС при входе в соцсеть с нового устройства, push-подтверждение.</li>
+      <li>Главная мысль для записи: 2ФА — самая эффективная личная мера из всего сегодняшнего урока, и она бесплатна.</li>
+    </ul>
+    <p><b>Переход:</b> «Соберём все правила входа в один список».</p>
+    <p><i>Тайминг: ~120 с</i></p>
+  </aside>
+</section>
+
+<!-- 10. СЕМЬ ПРАВИЛ -->
+<section id="s-rules" data-title="Правила аутентификации" class="past" style="display: none;" hidden="" aria-hidden="true" inert="">
+  <div class="wrap">
+    <div class="kicker" data-anim="" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 26px);">Памятка · запись в тетрадь</div>
+    <h2 class="h2" data-anim="" style="margin: 8px 0px 18px; translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 26px);">Семь правил безопасной аутентификации</h2>
+    <div class="grid2" style="gap:18px 34px">
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div class="rule" data-anim="" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(-26px, 0px);"><span class="rbadge" style="translate: none; rotate: none; scale: none; transform-origin: 50% 50%; opacity: 0; transform: scale(0.3, 0.3);">1</span><p class="rt"><b>Уникальные пароли</b> для каждого сервиса: один пароль на нескольких сайтах — один ключ от всей квартиры</p></div>
+        <div class="rule" data-anim="" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(-26px, 0px);"><span class="rbadge" style="translate: none; rotate: none; scale: none; transform-origin: 50% 50%; opacity: 0; transform: scale(0.3, 0.3);">2</span><p class="rt"><b>Длина не менее 8–12 символов:</b> заглавные и строчные буквы + цифры + специальные символы</p></div>
+        <div class="rule" data-anim="" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(-26px, 0px);"><span class="rbadge" style="translate: none; rotate: none; scale: none; transform-origin: 50% 50%; opacity: 0; transform: scale(0.3, 0.3);">3</span><p class="rt"><b>Никаких очевидных паролей:</b> дата рождения, имя, <span class="mono hi-p">123456</span>, <span class="mono hi-p">qwerty</span></p></div>
+        <div class="rule" data-anim="" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(-26px, 0px);"><span class="rbadge" style="translate: none; rotate: none; scale: none; transform-origin: 50% 50%; opacity: 0; transform: scale(0.3, 0.3);">4</span><p class="rt"><b>Включите 2ФА</b> — дополнительный код из СМС, приложения или электронного ключа</p></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div class="rule" data-anim="" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(-26px, 0px);"><span class="rbadge" style="translate: none; rotate: none; scale: none; transform-origin: 50% 50%; opacity: 0; transform: scale(0.3, 0.3);">5</span><p class="rt"><b>Не сообщайте пароли и коды никому</b>, даже если звонят «из банка» или «из службы поддержки»</p></div>
+        <div class="rule" data-anim="" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(-26px, 0px);"><span class="rbadge" style="translate: none; rotate: none; scale: none; transform-origin: 50% 50%; opacity: 0; transform: scale(0.3, 0.3);">6</span><p class="rt"><b>Используйте менеджер паролей</b> — он хранит и генерирует сложные уникальные пароли</p></div>
+        <div class="rule" data-anim="" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(-26px, 0px);"><span class="rbadge" style="translate: none; rotate: none; scale: none; transform-origin: 50% 50%; opacity: 0; transform: scale(0.3, 0.3);">7</span><p class="rt"><b>Не вводите пароли</b> на чужих устройствах и в незащищённых сетях (открытый Wi-Fi)</p></div>
+        <div class="warnbox" data-anim="" style="margin-top: 2px; translate: none; rotate: none; scale: none; transform: translate(0px, 18px); opacity: 0;">Правило 5 ломает большинство схем социальной инженерии: <strong>код из СМС — это не «данные для сверки», это второй ключ от вашего аккаунта</strong></div>
+      </div>
+    </div>
+    <p class="small" data-anim="" style="margin-top: 18px; opacity: 0;">В тетрадь достаточно записать 5 правил своими словами — этот же пункт станет частью домашнего задания</p>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> правила скучные, но именно они дают 90 % защиты.</p>
+    <ul>
+      <li>Пройти по пунктам, комментируя каждый 15–20 секунд; не читать длинные пояснения со слайда.</li>
+      <li>Практический вопрос: «У кого хотя бы два сервиса имеют один и тот же пароль?» — поднять руки, без имён и осуждения.</li>
+      <li>Менеджер паролей: показать идею (генерация + автозаполнение), упомянуть, что мастер-пароль к нему — единственный, который надо помнить.</li>
+      <li>Связь с цифрами: 60 % утечек — из пунктов 1–3 (слабые и повторные пароли).</li>
+    </ul>
+    <p><b>Переход:</b> «Проверим, что дают эти 8–12 символов. Это арифметика, которую вы проходили».</p>
+    <p><i>Тайминг: ~150 с</i></p>
+  </aside>
+</section>
+
+<!-- 11. МАТЕМАТИКА ПАРОЛЯ + D3 -->
+<section id="s-pwd" data-title="Сколько живёт пароль" data-chart="pwd" class="past" style="display: none;" hidden="" aria-hidden="true" inert="">
+  <div class="wrap">
+    <div class="kicker" data-anim="" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 26px);">Математика пароля</div>
+    <h2 class="h2" data-anim="" style="margin: 8px 0px 16px; translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 26px);">Сколько живёт ваш пароль?</h2>
+    <div class="row" style="margin-bottom:18px;gap:20px" data-stagger="">
+      <div class="card" style="flex: 1 1 0%; translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 34px) scale(0.96, 0.96);"><p class="cd mono hi-c" style="margin:0 0 4px">алфавит 94 символа</p><div class="bignum" style="font-size:44px">94⁸ ≈ 6,1·10¹⁵</div><p class="cd" style="margin-top:4px">вариантов при длине 8 символов</p></div>
+      <div class="card" style="flex: 1 1 0%; translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 34px) scale(0.96, 0.96);"><p class="cd mono hi-v" style="margin:0 0 4px">тот же алфавит</p><div class="bignum" style="font-size:44px">94¹² ≈ 4,7·10²³</div><p class="cd" style="margin-top:4px">вариантов при длине 12 символов — в миллионы раз больше</p></div>
+      <div class="card" style="flex: 1 1 0%; translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 34px) scale(0.96, 0.96);"><p class="cd mono hi-p" style="margin:0 0 4px">словарь из 100 000 слов</p><div class="bignum" style="font-size:44px">10⁵</div><p class="cd" style="margin-top:4px">а это — перебор за доли секунды: «qwerty» ищется первым</p></div>
+    </div>
+    <div class="chartwrap" data-anim="" style="translate: none; rotate: none; scale: none; transform: translate(0px, 16px); opacity: 0;">
+      <div class="legend"><span><span class="sw" style="background:var(--grad-main)"></span>Оценочное время подбора (логарифмическая шкала)</span></div>
+      <div id="chart-pwd" class="chart"><svg viewBox="0 0 1120 300"><defs><linearGradient id="gPwd0" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#FF6EC7"></stop><stop offset="100%" stop-color="#FF9AD5"></stop></linearGradient><linearGradient id="gPwd1" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#FF6EC7"></stop><stop offset="100%" stop-color="#8B7CFF"></stop></linearGradient><linearGradient id="gPwd2" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#8B7CFF"></stop><stop offset="100%" stop-color="#38E1FF"></stop></linearGradient><linearGradient id="gPwd3" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#38E1FF"></stop><stop offset="100%" stop-color="#7DF9C9"></stop></linearGradient></defs><g class="grid"><line x1="318.4949141664388" x2="318.4949141664388" y1="8" y2="266"></line><line x1="390.9848163658324" x2="390.9848163658324" y1="8" y2="266"></line><line x1="463.474718565226" x2="463.474718565226" y1="8" y2="266"></line><line x1="519.7417981539794" x2="519.7417981539794" y1="8" y2="266"></line><line x1="579.9596087975744" x2="579.9596087975744" y1="8" y2="266"></line><line x1="624.1988060213246" x2="624.1988060213246" y1="8" y2="266"></line><line x1="705.7125948643675" x2="705.7125948643675" y1="8" y2="266"></line><line x1="828.0136120310797" x2="828.0136120310797" y1="8" y2="266"></line></g><g><text x="318.4949141664388" y="288" text-anchor="middle" fill="#7C8BB4" style="font: 600 15px Manrope;">1 с</text><text x="390.9848163658324" y="288" text-anchor="middle" fill="#7C8BB4" style="font: 600 15px Manrope;">1 мин</text><text x="463.474718565226" y="288" text-anchor="middle" fill="#7C8BB4" style="font: 600 15px Manrope;">1 час</text><text x="519.7417981539794" y="288" text-anchor="middle" fill="#7C8BB4" style="font: 600 15px Manrope;">1 день</text><text x="579.9596087975744" y="288" text-anchor="middle" fill="#7C8BB4" style="font: 600 15px Manrope;">1 мес</text><text x="624.1988060213246" y="288" text-anchor="middle" fill="#7C8BB4" style="font: 600 15px Manrope;">1 год</text><text x="705.7125948643675" y="288" text-anchor="middle" fill="#7C8BB4" style="font: 600 15px Manrope;">100 лет</text><text x="828.0136120310797" y="288" text-anchor="middle" fill="#7C8BB4" style="font: 600 15px Manrope;">1000 лет</text></g><g transform="translate(0,14)"><text x="272" y="30" text-anchor="end" fill="#EEF3FF" style="font: 600 21px &quot;JetBrains Mono&quot;;">123456</text><rect x="290" y="6" height="34" rx="9" fill="url(#gPwd0)" width="12.272091555798625"></rect><text class="val" y="30" x="316.2720915557986" opacity="1" style="font: 800 20px Manrope;">мгновенно</text></g><g transform="translate(0,80)"><text x="272" y="30" text-anchor="end" fill="#EEF3FF" style="font: 600 21px &quot;JetBrains Mono&quot;;">qwerty</text><rect x="290" y="6" height="34" rx="9" fill="url(#gPwd1)" width="81.5340114444748"></rect><text class="val" y="30" x="385.5340114444748" opacity="1" style="font: 800 20px Manrope;">секунды</text></g><g transform="translate(0,146)"><text x="272" y="30" text-anchor="end" fill="#EEF3FF" style="font: 600 21px &quot;JetBrains Mono&quot;;">P@ssw0rd</text><rect x="290" y="6" height="34" rx="9" fill="url(#gPwd2)" width="249.2471636289281"></rect><text class="val" y="30" x="553.2471636289281" opacity="1" style="font: 800 20px Manrope;">дни</text></g><g transform="translate(0,212)"><text x="272" y="30" text-anchor="end" fill="#EEF3FF" style="font: 600 21px &quot;JetBrains Mono&quot;;">K3!x-9vQz2#pLm</text><rect x="290" y="6" height="34" rx="9" fill="url(#gPwd3)" width="583.0101716671224"></rect><text class="val" y="30" x="887.0101716671224" opacity="1" style="font: 800 20px Manrope;">миллионы лет</text></g></svg></div>
+      <p class="src" style="translate: none; rotate: none; scale: none; transform: translate(0px, 16px); opacity: 0;">Шкала логарифмическая: каждый следующий деление — в разы длиннее предыдущего. Оценки иллюстративны: реальное время зависит от скорости перебора и алгоритма хранения паролей</p>
+    </div>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> длина побеждает сложность: каждое дополнительное символа умножает перебор на размер алфавита.</p>
+    <ul>
+      <li>Межпредметная связь с алгеброй: комбинаторика, порядок величины. Спросите: во сколько раз 94¹² больше 94⁸? (ответ: 94⁴ ≈ 7,8·10⁷ раз)</li>
+      <li>Почему «P@ssw0rd» — плохой пароль, если там и регистр, и цифра, и спецсимвол? Потому что это известная шаблонная замена, она тоже есть в словарях.</li>
+      <li>Не запугивать цифрами: вывод — «длинные уникальные пароли + 2ФА», а не «все ваши пароли уже украдены».</li>
+      <li>Если класс сильный: обсудите метод «парольной фразы» — четыре случайных слова, легко запомнить, огромный перебор.</li>
+    </ul>
+    <p><b>Переход:</b> «Пароль защищает вход. А теперь — о том, что вы сами публикуете наружу».</p>
+    <p><i>Тайминг: ~120 с</i></p>
+  </aside>
+</section>
+
+<!-- 12. ПЕРСОНАЛЬНЫЕ ДАННЫЕ И ЦИФРОВОЙ СЛЕД -->
+<section id="s-pd" data-title="Личная информация" class="past" style="display: none;" hidden="" aria-hidden="true" inert="">
+  <div class="wrap">
+    <div class="kicker" data-anim="" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 26px);">Защита личной информации · запись в тетрадь</div>
+    <h2 class="h2" data-anim="" style="margin: 8px 0px 14px; translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 26px);">Персональные данные и цифровой след</h2>
+    <div class="defbox" data-anim="" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 26px);"><strong>Персональные данные</strong> — любая информация, относящаяся к определённому физическому лицу: ФИО, дата рождения, адрес, телефон, паспортные данные, фотографии, данные банковских карт</div>
+    <div class="split" style="margin-top:20px">
+      <div class="card" data-anim="" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 36px) scale(0.97, 0.97);">
+        <h3 class="ct"><span class="hi-p">Что не публикуем</span></h3>
+        <div style="display:flex;flex-direction:column;gap:9px;margin-top:6px">
+          <p class="bul" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(-20px, 0px);"><span><b>адрес, телефон, номер школы, расписание</b> — в открытом доступе</span></p>
+          <p class="bul" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(-20px, 0px);"><span>фото <b>документов, билетов, карт</b> в мессенджерах</span></p>
+          <p class="bul" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(-20px, 0px);"><span>проверяем <b>настройки приватности</b> в соцсетях</span></p>
+          <p class="bul" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(-20px, 0px);"><span>перед регистрацией смотрим, <b>какие данные просит сайт и зачем</b></span></p>
+        </div>
+      </div>
+      <div class="card" data-anim="" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 36px) scale(0.97, 0.97);">
+        <h3 class="ct"><span class="hi-c">Технические привычки</span></h3>
+        <div style="display:flex;flex-direction:column;gap:9px;margin-top:6px">
+          <p class="bul" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(-20px, 0px);"><span><b>антивирусное ПО</b> — установлено и регулярно обновляется</span></p>
+          <p class="bul" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(-20px, 0px);"><span>соединение защищено: <b class="mono">https://</b> и значок замка в адресной строке</span></p>
+          <p class="bul" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(-20px, 0px);"><span>открытый Wi-Fi — <b>не для входа в банк и почту</b></span></p>
+          <p class="bul" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(-20px, 0px);"><span>геолокация на фото и в сторис — <b>отключена, где не нужна</b></span></p>
+        </div>
+      </div>
+    </div>
+    <div class="warnbox" data-anim="" style="margin-top: 18px; translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 26px);"><strong>Цифровой след</strong> — всё, что вы публикуете и делаете в сети, сохраняется и может быть использовано против вас. <span class="hi-c">Вопрос:</span> что входит в ваш цифровой след?</div>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> утечка начинается не только со взлома — часто данные публикуются добровольно.</p>
+    <ul>
+      <li>Ожидаемые ответы на вопрос слайда: публикации и комментарии в соцсетях, лайки, история поиска, фотографии, данные геолокации, зарегистрированные аккаунты.</li>
+      <li>Мысль для записи: удалить публикацию почти невозможно — копию успевают сохранить; поэтому «подумай до публикации» работает лучше, чем «потом удалю».</li>
+      <li>Пример-ассоциация: адрес + расписание + фото из пустой квартиры = готовый план для преступников. Без драмы, один абзац.</li>
+      <li>Демонстрация (если есть время): открыть настройки приватности условного профиля и показать, кто видит телефон и дату рождения.</li>
+    </ul>
+    <p><b>Переход:</b> «Есть угрозы, где данные вообще не нужны — там цель другой характер».</p>
+    <p><i>Тайминг: ~150 с</i></p>
+  </aside>
+</section>
+
+<!-- 13. РАЗДЕЛИТЕЛЬ 03 -->
+<section id="s-ch3" data-title="Глава 3" data-background-gradient="linear-gradient(140deg, rgba(255,110,199,0.10), rgba(139,124,255,0.04) 50%, rgba(56,225,255,0.06))" class="past" style="display: none;" hidden="" aria-hidden="true" inert="">
+  <div class="wrap">
+    <div class="ghost" style="right:20px;top:60px" aria-hidden="true">03</div>
+    <div class="split-mid" style="flex:1">
+      <div>
+        <div class="kicker" data-anim="" style="translate: none; rotate: none; scale: none; opacity: 0.6588; transform: translate3d(0px, 10.2363px, 0px);">Глава 3</div>
+        <h2 class="h-ch" data-anim="" style="margin: 14px 0px 8px; translate: none; rotate: none; scale: none; opacity: 0.1855; transform: translate3d(0px, 24.4352px, 0px);">Деструктивные формы сетевой активности</h2>
+        <div class="grad-underline" data-anim="" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 30px) scale(0, 1); transform-origin: 0px 50%;"></div>
+        <p class="lead" data-anim="" style="margin-top: 22px; translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 30px);">Травля, обман и вовлечение: угрозы, которые бьют по человеку, а не по железу</p>
+      </div>
+      <div id="illus-hook" class="illus" style="max-width:480px" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 520 320"><defs><linearGradient id="SvgjsLinearGradient1003"><stop stop-color="#38e1ff" offset="0"></stop><stop stop-color="#8b7cff" offset="0.55"></stop><stop stop-color="#ff6ec7" offset="1"></stop></linearGradient></defs><path d="M0 250 C 90 214 170 286 260 250 C 350 214 430 286 520 250 L520 320 L0 320 Z" fill="rgba(56,225,255,.07)" stroke-width="2" stroke="rgba(56,225,255,.28)"></path><line x1="120" y1="26" x2="120" y2="120" stroke-dasharray="7 7" stroke-width="2.5" stroke="rgba(169,182,220,.55)"></line><g><path d="M120 120 L120 176 Q120 206 146 206 Q172 206 172 180" fill="none" stroke-width="5" stroke="url(#SvgjsLinearGradient1003)"></path><circle r="3.5" cx="172" cy="172" fill="#ff6ec7"></circle></g><g transform="matrix(0.992546151641322,-0.12186934340514748,0.12186934340514748,0.992546151641322,-20.919020739374616,37.97703420969307)"><rect width="150" height="92" rx="10" ry="10" x="212" y="148" fill="rgba(20,28,62,.92)" stroke-width="3" stroke="#ff6ec7"></rect><path d="M212 158 L287 200 L362 158" fill="none" stroke-width="2.5" stroke="rgba(255,110,199,.75)"></path><text font-family="Manrope" font-size="20" font-weight="700" text-anchor="middle" fill="#ffd9ee" x="287" y="216"><tspan dy="0" x="287">Ваш приз!</tspan></text></g><g><path d="M196 232 L196 286 L212 272 L224 296 L236 290 L224 266 L246 262 Z" fill="#eef3ff" stroke-width="2.5" stroke="#38e1ff"></path></g><g><path d="M420 60 L456 122 L384 122 Z" fill="none" stroke-width="3.5" stroke="#ff6ec7"></path><line x1="420" y1="84" x2="420" y2="104" stroke-width="4" stroke="#ff6ec7"></line><circle r="2.5" cx="420" cy="114" fill="#ff6ec7"></circle></g><text font-family="Manrope" font-size="20" font-weight="700" text-anchor="middle" fill="rgba(169,182,220,.85)" x="260" y="44"><tspan dy="0" x="260">доверие как приманка</tspan></text></svg></div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> этап 5 (7 мин) — кибербуллинг, фишинг и другие формы деструктивной активности.</p>
+    <ul>
+      <li>Тон: спокойно и по делу. Методическое замечание из сценария: обсуждение не должно вызывать страх или тревогу, а атмосфера — быть доверительной, без стигматизации и без примеров из жизни конкретного класса.</li>
+      <li>Примеры — только нейтральные и обезличенные.</li>
+    </ul>
+    <p><b>Переход:</b> «Первая форма — когда оружием становится слово».</p>
+    <p><i>Тайминг: ~30 с</i></p>
+  </aside>
+</section>
+
+<!-- 14. КИБЕРБУЛЛИНГ -->
+<section id="s-bully" data-title="Кибербуллинг" class="past" style="display: none;" hidden="" aria-hidden="true" inert="">
+  <div class="wrap compact">
+    <div class="kicker" data-anim="" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 26px);">Запись в тетрадь</div>
+    <h2 class="h2" data-anim="" style="margin: 8px 0px 14px; translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 26px);">Кибербуллинг: распознать и остановить</h2>
+    <div class="defbox" data-anim="" style="font-size: 22px; translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 26px);"><strong>Кибербуллинг (кибертравля)</strong> — целенаправленная агрессивная травля человека с использованием цифровых технологий: оскорбительные сообщения, распространение ложной или компрометирующей информации, исключение из групп, преследование</div>
+    <div class="split" style="margin-top:18px">
+      <div class="card" data-anim="" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(-32px, 36px) scale(0.97, 0.97);">
+        <h3 class="ct"><span class="hi-p">Признаки</span></h3>
+        <div style="display:flex;flex-direction:column;gap:9px;margin-top:6px">
+          <p class="bul" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(-20px, 0px);"><span>систематические оскорбления, угрозы, насмешки в комментариях и личных сообщениях</span></p>
+          <p class="bul" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(-20px, 0px);"><span>распространение личных фото или переписки <b>без согласия</b></span></p>
+          <p class="bul" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(-20px, 0px);"><span>поддельные аккаунты, созданные, чтобы унижать</span></p>
+          <p class="bul" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(-20px, 0px);"><span>травля в групповых чатах и «исключение» из них</span></p>
+        </div>
+      </div>
+      <div class="card" data-anim="" style="border-color: rgba(56, 225, 255, 0.5); translate: none; rotate: none; scale: none; opacity: 0; transform: translate(32px, 36px) scale(0.97, 0.97);">
+        <h3 class="ct"><span class="hi-c">Что делать</span></h3>
+        <div style="display:flex;flex-direction:column;gap:9px;margin-top:6px">
+          <p class="step" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(-20px, 0px);"><span class="n">1</span><span>не отвечать агрессией на агрессию</span></p>
+          <p class="step" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(-20px, 0px);"><span class="n">2</span><span>сохранить доказательства — скриншоты с датой</span></p>
+          <p class="step" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(-20px, 0px);"><span class="n">3</span><span>заблокировать обидчика</span></p>
+          <p class="step" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(-20px, 0px);"><span class="n">4</span><span>пожаловаться администрации платформы</span></p>
+          <p class="step" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(-20px, 0px);"><span class="n">5</span><span>рассказать взрослому, которому доверяете</span></p>
+          <p class="step" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(-20px, 0px);"><span class="n">6</span><span>в серьёзных случаях — обратиться в полицию</span></p>
+        </div>
+      </div>
+    </div>
+    <p class="small" data-anim="" style="margin-top: 16px; translate: none; rotate: none; scale: none; transform: translate(0px, 16px); opacity: 0;">Обращаться за помощью — <strong class="hi-c">не слабость, а правильное действие</strong>. Если травле подвергается одноклассник, безопасная позиция свидетеля: не поддерживать, сохранить, сообщить взрослому</p>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> у жертвы и у свидетеля есть конкретный алгоритм из шести шагов — это снимает ощущение беспомощности.</p>
+    <ul>
+      <li>Определение — в тетрадь. Подчеркнуть слово «систематически»: одиночный конфликт — не всегда буллинг, но оскорбление в чате — тоже повод рассказать взрослому.</li>
+      <li>Спросить класс: почему жертва часто молчит? (стыд, страх «стать ещё хуже», неверие, что помогут.) Ответ — нормализовать: это типично, и вина не на пострадавшем.</li>
+      <li>Роль свидетеля — ключевая для 9 класса: большинство в чате молчит, и именно молчание поддерживает травлю.</li>
+      <li>Не спрашивать публично «кто из вас сталкивался». Если ученик подойдёт после урока, порядок действий известный: доверительный разговор, школьный психолог, классный руководитель.</li>
+      <li>Воспитательный результат урока: неприятие асоциальных поступков в Интернете.</li>
+    </ul>
+    <p><b>Переход:</b> «Вторая форма — когда вами пытаются управлять через обман».</p>
+    <p><i>Тайминг: ~150 с</i></p>
+  </aside>
+</section>
+
+<!-- 15. ФИШИНГ -->
+<section id="s-phish" data-title="Фишинг" class="past" style="display: none;" hidden="" aria-hidden="true" inert="">
+  <div class="wrap compact">
+    <div class="kicker" data-anim="" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 26px);">Запись в тетрадь</div>
+    <h2 class="h2" data-anim="" style="margin: 8px 0px 14px; translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 26px);">Фишинг: ловля на доверии</h2>
+    <div class="defbox" data-anim="" style="font-size: 22px; translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 26px);"><strong>Фишинг</strong> <span class="mono small hi-c" style="translate: none; rotate: none; scale: none; transform: translate(0px, 16px); opacity: 0;">(от англ. fishing — «рыбная ловля»)</span> — вид мошенничества: злоумышленники создают поддельные сайты, письма и сообщения, имитирующие известные организации, чтобы выманить пароли, данные банковских карт и другую конфиденциальную информацию</div>
+    <div class="split" style="margin-top:18px;grid-template-columns:52% 1fr">
+      <div class="letter" data-anim="" style="translate: none; rotate: none; scale: none; transform: translate(0px, 26px) rotate(-2deg); opacity: 0;">
+        <div class="lh"><b>От:</b> <mark class="flag" style="background-color: rgba(255, 110, 199, 0);">security@sberbank-verify.com</mark><br><b>Тема:</b> <mark class="flag" style="background-color: rgba(255, 110, 199, 0);">Ваш аккаунт будет удалён через 24 часа!</mark></div>
+        <div class="lb">Уважаемый клиент!<br>Ваш аккаунт в банке приостановлен из-за подозрительной активности. Для разблокировки <a class="fakelink" href="#" onclick="return false">перейдите по ссылке</a> и введите <mark class="flag" style="background-color: rgba(255, 110, 199, 0);">логин, пароль и номер карты</mark>.<br><span class="btn">Подтвердить данные</span></div>
+      </div>
+      <div class="card" data-anim="" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 36px) scale(0.97, 0.97);">
+        <h3 class="ct"><span class="hi-p">Признаки подделки</span></h3>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-top:6px">
+          <p class="bul" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(-20px, 0px);"><span><b>срочность и давление:</b> «через 2 часа», «немедленно»</span></p>
+          <p class="bul" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(-20px, 0px);"><span><b>похожий, но неверный адрес</b> отправителя: <span class="mono">sberbank-info.ru</span> вместо <span class="mono">sberbank.ru</span></span></p>
+          <p class="bul" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(-20px, 0px);"><span><b>ссылка ведёт не на официальный сайт</b> — наведите курсор, не кликая</span></p>
+          <p class="bul" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(-20px, 0px);"><span><b>просят пароли, коды из СМС, данные карт</b></span></p>
+          <p class="bul" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(-20px, 0px);"><span><b>грамматические ошибки</b>, нестандартное оформление</span></p>
+        </div>
+      </div>
+    </div>
+    <div class="warnbox" data-anim="" style="margin-top: 16px; translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 26px);"><strong>Запомните:</strong> настоящие организации <span class="hi-p">никогда</span> не запрашивают пароли, коды из СМС и полные данные карт по электронной почте или в мессенджерах</div>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> фишинг эксплуатирует эмоцию (страх, жадность, спешку), а не уязвимость кода.</p>
+    <ul>
+      <li>Определение — в тетрадь. Показать письмо: «это обезличенный учебный пример, реальных данных тут нет».</li>
+      <li>Приём: дать ученикам 30 секунд найти признаки самостоятельно, прежде чем открыть правую колонку. Если есть время — продемонстрируйте настоящее фишинговое письмо-образец (обезличенно), как указано в методических замечаниях.</li>
+      <li>Техника «наведи, но не жми»: показать, как статус-браузера открывает реальный адрес ссылки; отдельно — проверка домена справа налево, до первой косой черты.</li>
+      <li>Алгоритм действий: не переходить → открыть сервис самостоятельно через приложение или прямую ссылку → написать в поддержку сервиса из официального источника → удалить письмо.</li>
+    </ul>
+    <p><b>Переход:</b> «И ещё несколько форм, о которых стоит знать, потому что они приходят в личку».</p>
+    <p><i>Тайминг: ~150 с</i></p>
+  </aside>
+</section>
+
+<!-- 16. ДРУГИЕ ФОРМЫ -->
+<section id="s-other" data-title="Другие формы" class="past" style="display: none;" hidden="" aria-hidden="true" inert="">
+  <div class="wrap">
+    <div class="kicker" data-anim="" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 26px);">Не только техника</div>
+    <h2 class="h2" data-anim="" style="margin: 8px 0px 18px; translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 26px);">Другие формы деструктивной активности</h2>
+    <div class="grid3" data-stagger="">
+      <div class="card" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 44px) scale(0.95, 0.95);"><div class="iconbox" data-icon="recruit" style="translate: none; rotate: none; scale: none; transform-origin: 50% 50%; opacity: 0; transform: scale(0.45, 0.45);"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 96 96"><defs><linearGradient><stop stop-color="#38e1ff" offset="0"></stop><stop stop-color="#8b7cff" offset="0.55"></stop><stop stop-color="#ff6ec7" offset="1"></stop></linearGradient></defs><circle r="10" cx="34" cy="30" fill="none" stroke-width="3" stroke="#8b7cff"></circle><path d="M14 74 Q34 52 54 74" fill="none" stroke-width="3" stroke="#8b7cff"></path><circle r="8" cx="66" cy="38" fill="rgba(255,110,199,.14)" stroke-width="3" stroke="#ff6ec7"></circle><path d="M52 78 Q66 62 82 78" fill="none" stroke-width="3" stroke="#ff6ec7"></path><path d="M44 44 L56 40" stroke-dasharray="4 4" stroke-width="3" stroke="#38e1ff"></path></svg></div><h3 class="ct" style="margin-top:10px">Вербовка</h3><p class="cd">Вовлечение в экстремистские группы и криминальные схемы через соцсети: «свои», общие интересы, быстрый статус и деньги</p></div>
+      <div class="card" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 44px) scale(0.95, 0.95);"><div class="iconbox" data-icon="money" style="translate: none; rotate: none; scale: none; transform-origin: 50% 50%; opacity: 0; transform: scale(0.45, 0.45);"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 96 96"><defs><linearGradient><stop stop-color="#38e1ff" offset="0"></stop><stop stop-color="#8b7cff" offset="0.55"></stop><stop stop-color="#ff6ec7" offset="1"></stop></linearGradient></defs><rect width="60" height="34" rx="7" ry="7" x="18" y="30" fill="rgba(56,225,255,.10)" stroke-width="3" stroke="#38e1ff"></rect><circle r="6.5" cx="48" cy="47" fill="none" stroke-width="3" stroke="#ff6ec7"></circle><line x1="48" y1="38" x2="48" y2="56" stroke-width="3" stroke="#ff6ec7"></line><path d="M26 74 L38 66 M70 74 L58 66" stroke-width="3" stroke="#8b7cff"></path><text font-family="Unbounded" font-size="16" font-weight="800" text-anchor="middle" fill="#38e1ff" x="22" y="20"><tspan dy="0" x="22">$</tspan></text></svg></div><h3 class="ct" style="margin-top:10px">«Лёгкий заработок»</h3><p class="cd">Предложения, требующие предоплаты или передачи личных данных: «подработка на кликах», «схема с возвратом», дропперство</p></div>
+      <div class="card" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 44px) scale(0.95, 0.95);"><div class="iconbox" data-icon="bait" style="translate: none; rotate: none; scale: none; transform-origin: 50% 50%; opacity: 0; transform: scale(0.45, 0.45);"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 96 96"><defs><linearGradient><stop stop-color="#38e1ff" offset="0"></stop><stop stop-color="#8b7cff" offset="0.55"></stop><stop stop-color="#ff6ec7" offset="1"></stop></linearGradient></defs><rect width="52" height="34" rx="6" ry="6" x="22" y="26" fill="rgba(139,124,255,.12)" stroke-width="3" stroke="#8b7cff"></rect><path d="M22 32 L48 46 L74 32" fill="none" stroke-width="2.5" stroke="rgba(139,124,255,.8)"></path><path d="M48 60 L48 74 Q48 86 60 86 Q70 86 70 78" fill="none" stroke-width="3.5" stroke="#ff6ec7"></path><circle r="2.5" cx="70" cy="74" fill="#ff6ec7"></circle></svg></div><h3 class="ct" style="margin-top:10px">Вредоносные ссылки</h3><p class="cd">Маскировка под «прикольное видео», «розыгрыш приза» или «ссылку на домашку» — с последующим взломом аккаунта</p></div>
+    </div>
+    <div class="defbox" data-anim="" style="margin-top: 24px; translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 26px);"><b>Главное правило:</b> если предложение выглядит слишком хорошим, чтобы быть правдой, или вас торопят и давят на эмоции — скорее всего, это мошенничество. <span class="hi-c">Остановитесь, подумайте, не действуйте импульсивно</span></div>
+    <p class="small" data-anim="" style="margin-top: 14px; translate: none; rotate: none; scale: none; transform: translate(0px, 16px); opacity: 0;">Пауза — единственный бесплатный, но самый рабочий инструмент защиты: мошеннику нужно, чтобы вы не думали</p>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> деструктивная активность — это не только про данные, но и про втягивание в противоправные действия.</p>
+    <ul>
+      <li>Про вербовку: говорить строго в правовом ключе — участие в экстремистской деятельности и «безобидные» схемы с переводом денег на свою карту (дропперство) влекут юридическую ответственность, в том числе для несовершеннолетних.</li>
+      <li>Не углубляться в детали и названия групп: достаточно механизма — лесть, срочность, обещание быстрых денег.</li>
+      <li>Спросить: какие «крючки» используют мошенники? (дефицит времени, авторитет, жадность, страх, желание быть «своим».)</li>
+      <li>Этический вывод: неприятие асоциальных поступков и правовая культура — личностный результат урока.</li>
+    </ul>
+    <p><b>Переход:</b> «Теории достаточно. Теперь поработаете вы».</p>
+    <p><i>Тайминг: ~120 с</i></p>
+  </aside>
+</section>
+
+<!-- 17. ПРАКТИЧЕСКАЯ РАБОТА -->
+<section id="s-practice" data-title="Практическая работа" class="past" style="display: none;" hidden="" aria-hidden="true" inert="">
+  <div class="wrap compact">
+    <div class="kicker" data-anim="" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 26px);">Практическая работа · 10 мин · работа в парах</div>
+    <h2 class="h2" data-anim="" style="margin: 8px 0px 12px; translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 26px);">Угроза → минимум три конкретных действия</h2>
+    <div class="grid2" style="gap:16px">
+      <div class="card" data-anim="" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 36px) scale(0.97, 0.97);"><div class="row" style="gap:12px;margin-bottom:8px"><span class="rbadge" style="translate: none; rotate: none; scale: none; transform-origin: 50% 50%; opacity: 0; transform: scale(0.3, 0.3);">1</span><h3 class="ct" style="margin:0">Чужая просьба о коде</h3></div><p class="cd">В мессенджере пишет «друг»: «Скинь, пожалуйста, код из СМС, который тебе сейчас придёт. Я случайно ввёл твой номер при регистрации». Через минуту приходит СМС с кодом.</p><p class="ex"><b>Вопросы:</b> какая это угроза? Ваши действия?</p></div>
+      <div class="card" data-anim="" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 36px) scale(0.97, 0.97);"><div class="row" style="gap:12px;margin-bottom:8px"><span class="rbadge" style="translate: none; rotate: none; scale: none; transform-origin: 50% 50%; opacity: 0; transform: scale(0.3, 0.3);">2</span><h3 class="ct" style="margin:0">Письмо «от банка»</h3></div><p class="cd">«Аккаунт приостановлен из-за подозрительной активности. Перейдите по ссылке и введите логин, пароль и номер карты. Есть 24 часа, иначе аккаунт будет удалён навсегда». Отправитель: <span class="mono">security@sberbank-verify.com</span></p><p class="ex"><b>Вопросы:</b> какие признаки фишинга вы видите? Что сделаете?</p></div>
+      <div class="card" data-anim="" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 36px) scale(0.97, 0.97);"><div class="row" style="gap:12px;margin-bottom:8px"><span class="rbadge" style="translate: none; rotate: none; scale: none; transform-origin: 50% 50%; opacity: 0; transform: scale(0.3, 0.3);">3</span><h3 class="ct" style="margin:0">Травля в классном чате</h3></div><p class="cd">Одноклассники выкладывают оскорбительные мемы и комментарии об одном ученике и пересылают их в другие чаты. Ученик перестал заходить в чат и выглядит расстроенным.</p><p class="ex"><b>Вопросы:</b> как называется ситуация? Что сделать участнику чата? Куда обратиться?</p></div>
+      <div class="card" data-anim="" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 36px) scale(0.97, 0.97);"><div class="row" style="gap:12px;margin-bottom:8px"><span class="rbadge" style="translate: none; rotate: none; scale: none; transform-origin: 50% 50%; opacity: 0; transform: scale(0.3, 0.3);">4</span><h3 class="ct" style="margin:0">Приз в открытом Wi-Fi</h3></div><p class="cd">Вы подключились к бесплатному Wi-Fi в торговом центре. Всплывающее окно: «Вы стали 1 000 000-м посетителем! Введите данные карты, чтобы получить приз — 50 000 рублей».</p><p class="ex"><b>Вопросы:</b> какие угрозы здесь? Почему опасно вводить данные карты в открытой сети? Действия?</p></div>
+    </div>
+    <div class="row" style="margin-top:16px" data-anim="">
+      <span class="chip" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 14px);"><span class="dot"></span>5 минут — работа в паре</span>
+      <span class="chip violet" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 14px);"><span class="dot"></span>по 1 минуте на ответ пары</span>
+      <span class="chip pink" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 14px);"><span class="dot"></span>критерий: конкретные действия, а не «будь осторожен»</span>
+    </div>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> знание проверяется действием: назвать угрозу и предложить не менее трёх шагов.</p>
+    <ul>
+      <li>Раздать карточки (раздаточный материал из сценария). Формат: 5 минут в парах, затем по 1 минуте на представителей пар; учитель корректирует и дополняет.</li>
+      <li><b>Карточка 1 (эталон):</b> социальная инженерия + возможный взлом аккаунта. Действия: не сообщать код; связаться с «другом» другим каналом и проверить; предупредить его, что его аккаунт, вероятно, уже взломан; включить 2ФА; при подозрении на вход в свой аккаунт — сменить пароль.</li>
+      <li><b>Карточка 2 (эталон):</b> фишинг. Признаки: срочность, чужой домен, запрос логина/пароля/карты. Действия: не переходить; открыть банк-клиент самостоятельно; позвонить в поддержку по номеру с карты; удалить письмо; если данные уже ввели — немедленно заблокировать карту и сменить пароль.</li>
+      <li><b>Карточка 3 (эталон):</b> кибербуллинг, роль свидетеля. Действия: не поддерживать и не пересылать; сохранить скриншоты; поддержать пострадавшего лично; пожаловаться администрации площадки; сообщить классному руководителю / школьному психологу, в серьёзных случаях — родителям и в полицию.</li>
+      <li><b>Карточка 4 (эталон):</b> мошенничество + перехват данных в незащищённой сети. Действия: закрыть окно, не вводить данные; отключиться от открытого Wi-Fi; помнить, что бесплатная раздача приза требует лишь реквизитов карты — это невозможно; проверить новости официального сервиса; при совпадении данных — блокировка карты.</li>
+      <li>Следите, чтобы пары формулировали действия глаголами: «позвоню», «заблокирую», «сохраню скриншот».</li>
+    </ul>
+    <p><b>Переход:</b> «Соберём итог — по трём правилам от каждого».</p>
+    <p><i>Тайминг: ~10 мин (5 + 4–5 на обсуждение)</i></p>
+  </aside>
+</section>
+
+<!-- 18. РЕФЛЕКСИЯ -->
+<section id="s-recap" data-title="Рефлексия" class="past" style="display: block;" hidden="" aria-hidden="true" inert="">
+  <div class="wrap">
+    <div class="kicker" data-anim="" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 26px);">Рефлексия · 3 мин</div>
+    <h2 class="h2" data-anim="" style="margin: 8px 0px 16px; translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 26px);">Три главных правила</h2>
+    <div class="split" style="grid-template-columns:38% 1fr;gap:28px;flex:1">
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div class="card" data-anim="" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 36px) scale(0.97, 0.97);"><p class="cd mono hi-c" style="margin:0 0 6px">Правило № 1</p><p class="cd" style="margin:0">про пароль и вход в аккаунт</p></div>
+        <div class="card" data-anim="" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 36px) scale(0.97, 0.97);"><p class="cd mono hi-v" style="margin:0 0 6px">Правило № 2</p><p class="cd" style="margin:0">про проверку адреса, ссылки и отправителя</p></div>
+        <div class="card" data-anim="" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 36px) scale(0.97, 0.97);"><p class="cd mono hi-p" style="margin:0 0 6px">Правило № 3</p><p class="cd" style="margin:0">про свои действия и обращение за помощью</p></div>
+        <p class="small" data-anim="" style="translate: none; rotate: none; scale: none; transform: translate(0px, 16px); opacity: 0;">Приём «Три главных правила»: 2–3 ученика формулируют устно, учитель фиксирует на доске</p>
+      </div>
+      <div class="terminal" data-anim="" style="translate: none; rotate: none; scale: none; transform: translate(0px, 22px); opacity: 0;">
+        <div class="tbar"><i style="background:#FF6EC7"></i><i style="background:#FFD166"></i><i style="background:#7DF9C9"></i></div>
+        <pre style="opacity: 0;">ИНФОРМАЦИОННАЯ БЕЗОПАСНОСТЬ
+├── <span class="g">Технические меры</span>
+│   ├── антивирусное ПО
+│   ├── обновление программ
+│   ├── шифрование (HTTPS)
+│   └── двухфакторная аутентификация
+├── <span class="p">Поведенческие меры</span>
+│   ├── уникальные сложные пароли
+│   ├── проверка адресов сайтов и отправителей
+│   ├── осторожность с личными данными
+│   └── критическое мышление
+└── <span class="dim">Противодействие деструктивным формам</span>
+    ├── не поддаваться на провокации
+    ├── сохранять доказательства
+    ├── блокировать и сообщать
+    └── обращаться за помощью</pre>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> схема на доске — обобщение всего урока в три ветви.</p>
+    <ul>
+      <li>Ученики называют свои три правила, учитель вписывает их в соответствующую ветвь схемы — так видно, что правила не повторяются, а дополняют друг друга.</li>
+      <li>Проверка предметных результатов: раскрыть понятие ИБ, назвать угрозы, сформулировать правила аутентификации, отличить фишинг от кибербуллинга.</li>
+      <li>Если какой-то пункт «провисел» — вернуться на минуту, а не идти дальше.</li>
+      <li>Регулятивный акцент: умение оценивать риски и принимать решения в противоречивой информации.</li>
+    </ul>
+    <p><b>Переход:</b> «И о том, что делать дома».</p>
+    <p><i>Тайминг: ~120 с</i></p>
+  </aside>
+</section>
+
+<!-- 19. ДОМАШНЕЕ ЗАДАНИЕ -->
+<section id="s-hw" data-title="Домашнее задание" class="past" style="display: block;" hidden="" aria-hidden="true" inert="">
+  <div class="wrap">
+    <div class="kicker" data-anim="" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 26px);">Дома · 2 мин</div>
+    <h2 class="h2" data-anim="" style="margin: 8px 0px 18px; translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 26px);">Домашнее задание</h2>
+    <div class="split" style="flex:none">
+      <div class="card" data-anim="" style="border-color: rgba(56, 225, 255, 0.5); translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 36px) scale(0.97, 0.97);">
+        <h3 class="ct"><span class="hi-c">Обязательная часть</span></h3>
+        <div style="display:flex;flex-direction:column;gap:10px;margin-top:8px">
+          <p class="step" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(-20px, 0px);"><span class="n">1</span><span>изучить § учебника по теме «Информационная безопасность»</span></p>
+          <p class="step" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(-20px, 0px);"><span class="n">2</span><span>письменно ответить на вопросы после параграфа</span></p>
+          <p class="step" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(-20px, 0px);"><span class="n">3</span><span>записать в тетрадь <b>5 правил</b> безопасной аутентификации <b>своими словами</b></span></p>
+        </div>
+      </div>
+      <div class="card" data-anim="" style="border-color: rgba(255, 110, 199, 0.5); translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 36px) scale(0.97, 0.97);">
+        <h3 class="ct"><span class="hi-p">Практическая часть — по желанию</span></h3>
+        <div style="display:flex;flex-direction:column;gap:10px;margin-top:8px">
+          <p class="step" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(-20px, 0px);"><span class="n">а</span><span>проверить настройки приватности своего аккаунта: телефон, дата рождения, школа не должны быть видны посторонним; записать, <b>какие настройки вы изменили</b></span></p>
+          <p class="step" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(-20px, 0px);"><span class="n">б</span><span>придумать пример надёжного пароля (≥ 10 символов, разный регистр, цифры, спецсимволы) и объяснить, почему он надёжен</span></p>
+        </div>
+      </div>
+    </div>
+    <div class="warnbox" data-anim="" style="margin-top: 18px; translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 26px);">Придуманный пароль используйте <strong>только как учебный пример</strong> — не вводите его нигде реально</div>
+    <div class="row" style="margin-top:16px" data-anim="">
+      <span class="chip violet" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 14px);"><span class="dot"></span>ЭОР: m.edsoo.ru/N9L4J0S4T — интерактивные задания по теме</span>
+      <span class="chip" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 14px);"><span class="dot"></span>Следующий урок: создаём веб-страницу с учётом требований ИБ</span>
+    </div>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> база обязательна, практическая часть — по желанию, но она самая полезная.</p>
+    <ul>
+      <li>Обязательная часть проверяется на следующем уроке. Пункт 3 — именно «своими словами», не копирование списка с слайда.</li>
+      <li>ЭОР <b>https://m.edsoo.ru/N9L4J0S4T</b> содержит интерактивные задания: можно использовать на уроке резервного времени или как домашнюю самопроверку.</li>
+      <li>Предложите классу добровольно принести результаты проверки приватности — сравним на следующем уроке, кто что нашёл (без показа личных данных).</li>
+      <li>Методическое замечание: урок — пропедевтика урока 3, где требования ИБ применяются при создании веб-страницы.</li>
+    </ul>
+    <p><b>Переход:</b> «Финальная мысль урока».</p>
+    <p><i>Тайминг: ~90 с</i></p>
+  </aside>
+</section>
+
+<!-- 20. ФИНАЛ -->
+<section id="s-final" data-title="Финал" data-background-gradient="linear-gradient(140deg, rgba(56,225,255,0.10), rgba(139,124,255,0.06) 50%, rgba(255,110,199,0.10))" class="present" style="display: block;">
+  <div class="wrap" style="justify-content:center;text-align:center">
+    <div class="kicker" style="justify-content: center; translate: none; rotate: none; scale: none; opacity: 0.1757; transform: translate3d(0px, 24.7305px, 0px);" data-anim="">Вывод урока</div>
+    <h2 data-anim="" style="font-family: var(--font-display); font-weight: 800; font-size: 56px; line-height: 1.14; max-width: 1040px; margin: 18px auto 0px; translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 30px);">Злоумышленник входит в систему не через уязвимость —<br><span class="grad-text">а через ваше доверие</span></h2>
+    <div class="grad-underline" data-anim="" style="margin: 24px auto; translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 30px) scale(0, 1); transform-origin: 50% 50%;"></div>
+    <div class="row" data-stagger="" style="justify-content:center;margin-top:22px">
+      <span class="chip" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 18px);"><span class="dot"></span>Сегодня: ИБ · угрозы · 2ФА · цифровой след · буллинг · фишинг</span>
+      <span class="chip violet" style="translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 18px);"><span class="dot"></span>Пауза перед сомнительным предложением — уже защита</span>
+    </div>
+    <p class="lead" data-anim="" style="margin-top: 30px; translate: none; rotate: none; scale: none; opacity: 0; transform: translate(0px, 30px);">Спасибо за урок! Вопросы?</p>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> безопасность = техника + поведение, и второе зависит только от вас.</p>
+    <ul>
+      <li>Три вывода вслух: информационная безопасность защищает конфиденциальность, целостность и доступность; угрозы делятся на технические и социально-психологические, и вторые опаснее, потому что эксплуатируют эмоции; конкретные действия (2ФА, уникальный пароль, проверка адреса, пауза, обращение за помощью) работают лучше общей осторожности.</li>
+      <li>Call to action: сегодня вечером включите 2ФА хотя бы на одном аккаунте и проверьте настройки приватности — это пять минут.</li>
+      <li>Анонс урока 3: создание веб-страницы с учётом требований информационной безопасности.</li>
+      <li>Резерв Q&amp;A: (1) «Антивирус решает все проблемы?» — нет, он не спасает от социальной инженерии и собственного пароля «123456». (2) «Если базу уже слили, что делать?» — сменить пароль на этом сервисе и везде, где он повторялся, включить 2ФА, следить за подозрительными операциями. (3) «Можно ли отозвать цифровой след?» — полностью почти нельзя, поэтому управляют им: настройки приватности, минимум лишних данных, пауза перед публикацией.</li>
+      <li>Тон финала — спокойная уверенность, а не тревога (методическое требование сценария).</li>
+    </ul>
+    <p><i>Тайминг: ~60 с + вопросы</i></p>
+  </aside>
+</section>
+
+</div><!-- /.slides -->
+<div class="backgrounds"><div class="slide-background past" data-loaded="true" style="display: none;"><div class="slide-background-content"></div></div><div class="slide-background past" data-loaded="true" style="display: none;"><div class="slide-background-content"></div></div><div class="slide-background past" data-loaded="true" style="display: none;"><div class="slide-background-content"></div></div><div class="slide-background past" data-background-hash="0linear-gradient(140deg, rgba(56,225,255,0.10), rgba(139,124,255,0.04) 45%, rgba(255,110,199,0.07))nullnullnullnull" style="background-image: linear-gradient(140deg, rgba(56, 225, 255, 0.1), rgba(139, 124, 255, 0.04) 45%, rgba(255, 110, 199, 0.07)); display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background past" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background past" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background past" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background past" data-background-hash="0linear-gradient(140deg, rgba(139,124,255,0.10), rgba(56,225,255,0.04) 50%, rgba(255,110,199,0.06))nullnullnullnull" style="background-image: linear-gradient(140deg, rgba(139, 124, 255, 0.1), rgba(56, 225, 255, 0.04) 50%, rgba(255, 110, 199, 0.06)); display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background past" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background past" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background past" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background past" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background past" data-background-hash="0linear-gradient(140deg, rgba(255,110,199,0.10), rgba(139,124,255,0.04) 50%, rgba(56,225,255,0.06))nullnullnullnull" style="background-image: linear-gradient(140deg, rgba(255, 110, 199, 0.1), rgba(139, 124, 255, 0.04) 50%, rgba(56, 225, 255, 0.06)); display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background past" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background past" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background past" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background past" style="display: none;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background past" style="display: block;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background past" style="display: block;" data-loaded="true"><div class="slide-background-content"></div></div><div class="slide-background present" data-background-hash="0linear-gradient(140deg, rgba(56,225,255,0.10), rgba(139,124,255,0.06) 50%, rgba(255,110,199,0.10))nullnullnullnull" style="background-image: linear-gradient(140deg, rgba(56, 225, 255, 0.1), rgba(139, 124, 255, 0.06) 50%, rgba(255, 110, 199, 0.1)); display: block;" data-loaded="true"><div class="slide-background-content"></div></div></div><div class="slide-number" style="display: none;"></div><aside class="controls" data-controls-layout="bottom-right" data-controls-back-arrows="faded" style="display: block;"><button class="navigate-left enabled" aria-label="previous slide"><div class="controls-arrow"></div></button>
+			<button class="navigate-right" aria-label="next slide" disabled="disabled"><div class="controls-arrow"></div></button>
+			<button class="navigate-up" aria-label="above slide" disabled="disabled"><div class="controls-arrow"></div></button>
+			<button class="navigate-down" aria-label="below slide" disabled="disabled"><div class="controls-arrow"></div></button></aside><div class="progress" style="display: block;"><span style="transform: scaleX(1);"></span></div><div class="speaker-notes" data-prevent-swipe="" tabindex="0"></div><div class="pause-overlay"><button class="resume-button">Resume presentation</button></div><div class="aria-status" aria-live="polite" aria-atomic="true" style="position: absolute; height: 1px; width: 1px; overflow: hidden; clip: rect(1px, 1px, 1px, 1px);">Вывод урока. Злоумышленник входит в систему не через уязвимость — а через ваше доверие. Сегодня: ИБ · угрозы · 2ФА · цифровой след · буллинг · фишинг Пауза перед сомнительным предложением — уже защита. Спасибо за урок! Вопросы? </div></div><!-- /.reveal -->
+
+<!-- БИБЛИОТЕКИ -->
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@6/dist/reveal.js" onerror="window.__revealCDNFailed=true"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@6/dist/plugin/notes/notes.js" onerror="window.__notesFailed=true"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@6/dist/plugin/zoom/zoom.js" onerror="window.__zoomFailed=true"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<script src="https://cdn.jsdelivr.net/npm/@svgdotjs/svg.js@3/dist/svg.min.js"></script>
+
+<script>
+/* ===== 0. ДОСТУПНОСТЬ И УСТОЙЧИВОСТЬ ===== */
+const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const $  = (s, el=document) => el.querySelector(s);
+const $$ = (s, el=document) => Array.from(el.querySelectorAll(s));
+const HAS = { gsap: typeof gsap!=='undefined', d3: typeof d3!=='undefined', svg: typeof SVG!=='undefined', reveal: typeof Reveal!=='undefined' };
+console.info('[deck2] библиотеки:', HAS);
+
+function staticCounters(){
+  const set=(id,v)=>{const el=$(id); if(el) el.textContent=v;};
+  set('#cnt-attacks','300'); set('#cnt-leaks','60');
+}
+function fallbackMode(err){
+  console.error('[deck2] запасной режим:', err);
+  document.body.classList.add('no-reveal');
+  staticCounters();
+}
+
+/* ===== 1. ИЛЛЮСТРАЦИИ (SVG.js) ===== */
+const ILL = {};
+const C = '#38E1FF', V = '#8B7CFF', P = '#FF6EC7';
+
+function grad(d){ return d.gradient('linear',a=>{a.stop(0,C);a.stop(.55,V);a.stop(1,P);}); }
+
+/* титульная: щит с замком поверх сетевой «паутины» */
+function buildIllusShield(){
+  const box=$('#illus-shield'); if(!box||!HAS.svg) return;
+  const d=SVG().addTo(box).viewbox('0 0 560 560');
+  const g=grad(d);
+  d.circle(480).cx(280).cy(280).fill('none').stroke({color:'rgba(139,124,255,.14)',width:2,dasharray:'3 12'});
+  const mesh=d.group();
+  const N=[[90,150],[200,90],[370,100],[470,190],[120,400],[300,470],[460,380]];
+  const E=[[0,1],[1,2],[2,3],[0,4],[4,5],[5,6],[3,6],[1,5]];
+  E.forEach(e=>mesh.line(N[e[0]][0],N[e[0]][1],N[e[1]][0],N[e[1]][1]).stroke({color:'rgba(56,225,255,.30)',width:1.5}));
+  N.forEach((p,i)=>mesh.circle(11).cx(p[0]).cy(p[1]).fill([C,P,V][i%3]).opacity(.9));
+  const shield=d.group();
+  shield.path('M280 96 L432 148 V292 C432 384 356 442 280 470 C204 442 128 384 128 292 V148 Z')
+    .fill('rgba(16,26,60,.82)').stroke({color:g,width:4});
+  shield.path('M280 96 L432 148 V292 C432 384 356 442 280 470')
+    .fill('none').stroke({color:'rgba(255,110,199,.45)',width:2});
+  const lock=d.group();
+  lock.rect(128,96).radius(18).move(216,258).fill('rgba(56,225,255,.10)').stroke({color:C,width:4});
+  lock.path('M244 258 V226 A36 36 0 0 1 316 226 V258').fill('none').stroke({color:V,width:5});
+  lock.circle(26).cx(280).cy(296).fill(P);
+  lock.rect(10,32).radius(5).move(275,304).fill(P);
+  const badges=d.group();
+  const t1=d.group().rotate(-8,110,470);
+  t1.rect(150,42).radius(12).move(34,448).fill('rgba(255,110,199,.10)').stroke({color:'rgba(255,110,199,.55)',width:2});
+  t1.text('SOS · 2ФА').font({family:'JetBrains Mono',size:21,weight:600}).fill(P).move(56,458);
+  const t2=d.group().rotate(6,470,86);
+  t2.rect(132,42).radius(12).move(400,64).fill('rgba(56,225,255,.10)').stroke({color:'rgba(56,225,255,.55)',width:2});
+  t2.text('https://').font({family:'JetBrains Mono',size:21,weight:600}).fill(C).move(418,74);
+  const pkts=d.group();
+  [[180,196],[392,236],[232,432],[352,152]].forEach(p=>pkts.circle(9).cx(p[0]).cy(p[1]).fill('#EEF3FF').stroke({color:P,width:3}));
+  ILL.shield={shield,lock,mesh,pkts,t1,t2};
+}
+
+/* глава 1: «стена» из кирпичей, о которую разбиваются пакеты */
+function buildIllusWall(){
+  const box=$('#illus-wall'); if(!box||!HAS.svg) return;
+  const d=SVG().addTo(box).viewbox('0 0 480 360');
+  const g=grad(d);
+  const wall=d.group();
+  for(let r=0;r<6;r++){
+    const off = r%2 ? -30 : 0;
+    for(let c=0;c<5;c++){
+      const x=110+off+c*58, y=42+r*48;
+      if(x<96||x>352) continue;
+      wall.rect(54,42).radius(7).move(x,y)
+        .fill(r<3?'rgba(56,225,255,.10)':'rgba(139,124,255,.12)')
+        .stroke({color:r<3?'rgba(56,225,255,.55)':'rgba(139,124,255,.55)',width:2});
+    }
+  }
+  wall.rect(300,300).radius(10).move(96,36).fill('none').stroke({color:g,width:3,dasharray:'12 9'});
+  const arrows=d.group();
+  [[92,86],[92,182],[92,278]].forEach((p,i)=>{
+    arrows.path(`M8 ${p[1]} L74 ${p[1]}`).stroke({color:[C,P,V][i],width:4}).addClass('flow');
+    arrows.path(`M62 ${p[1]-9} L76 ${p[1]} L62 ${p[1]+9}`).fill('none').stroke({color:[C,P,V][i],width:4});
+  });
+  const blocked=d.group();
+  [[86,86],[86,182],[86,278]].forEach(p=>blocked.circle(13).cx(p[0]).cy(p[1]).fill('#EEF3FF').stroke({color:P,width:3}));
+  const skull=d.group();
+  skull.path('M400 120 L440 160 M440 120 L400 160').stroke({color:P,width:6});
+  skull.text('угрозы').font({family:'Manrope',size:22,weight:700,anchor:'middle'}).fill('rgba(169,182,220,.9)').move(420,176);
+  d.text('фильтр · шифрование · обновление').font({family:'Manrope',size:20,weight:700,anchor:'middle'}).fill('rgba(169,182,220,.85)').move(240,336);
+  ILL.wall={wall,arrows,blocked,skull};
+}
+
+/* глава 2: ключ, отпечаток и код из СМС */
+function buildIllusKey(){
+  const box=$('#illus-key'); if(!box||!HAS.svg) return;
+  const d=SVG().addTo(box).viewbox('0 0 480 340');
+  const g=grad(d);
+  const key=d.group().rotate(-16,150,150);
+  key.circle(84).cx(96).cy(96).fill('none').stroke({color:g,width:9});
+  key.circle(26).cx(96).cy(96).fill('rgba(7,11,24,.9)').stroke({color:C,width:4});
+  key.rect(150,20).radius(9).move(132,86).fill('rgba(139,124,255,.14)').stroke({color:V,width:3});
+  key.rect(20,34).radius(6).move(238,106).fill('rgba(139,124,255,.14)').stroke({color:V,width:3});
+  key.rect(16,26).radius(6).move(266,106).fill('rgba(139,124,255,.14)').stroke({color:V,width:3});
+  const fin=d.group();
+  for(let i=0;i<6;i++) fin.path(`M330 ${258-i*13} A${62-i*8} ${62-i*8} 0 0 1 ${454-i*4} ${258-i*13}`)
+    .fill('none').stroke({color:i%2?'rgba(56,225,255,.75)':'rgba(255,110,199,.6)',width:3.2});
+  d.text('отпечаток').font({family:'Manrope',size:20,weight:700}).fill('rgba(169,182,220,.9)').move(330,272);
+  const phone=d.group();
+  phone.rect(96,132).radius(14).move(330,44).fill('rgba(16,26,60,.85)').stroke({color:P,width:3});
+  phone.rect(30,7).radius(4).move(363,58).fill('rgba(255,110,199,.5)');
+  [0,1,2,3].forEach(i=>phone.rect(16,22).radius(4).move(344+i*18,96).fill(i<3?'rgba(56,225,255,.55)':'rgba(169,182,220,.3)'));
+  d.text('_ _ _ 9').font({family:'JetBrains Mono',size:20,weight:600,anchor:'middle'}).fill(C).move(378,140);
+  d.text('пароль · ключ · СМС').font({family:'Manrope',size:20,weight:700,anchor:'middle'}).fill('rgba(169,182,220,.85)').move(240,318);
+  ILL.key={key,fin,phone};
+}
+
+/* глава 3: удочка с «приманкой»-конвертом и курсором */
+function buildIllusHook(){
+  const box=$('#illus-hook'); if(!box||!HAS.svg) return;
+  const d=SVG().addTo(box).viewbox('0 0 520 320');
+  const g=grad(d);
+  d.path('M0 250 C 90 214 170 286 260 250 C 350 214 430 286 520 250 L520 320 L0 320 Z')
+    .fill('rgba(56,225,255,.07)').stroke({color:'rgba(56,225,255,.28)',width:2});
+  d.line(120,26,120,120).stroke({color:'rgba(169,182,220,.55)',width:2.5,dasharray:'7 7'});
+  const hook=d.group();
+  hook.path('M120 120 L120 176 Q120 206 146 206 Q172 206 172 180').fill('none').stroke({color:g,width:5});
+  hook.circle(7).cx(172).cy(172).fill(P);
+  const bait=d.group().rotate(-7,300,190);
+  bait.rect(150,92).radius(10).move(212,148).fill('rgba(20,28,62,.92)').stroke({color:P,width:3});
+  bait.path('M212 158 L287 200 L362 158').fill('none').stroke({color:'rgba(255,110,199,.75)',width:2.5});
+  bait.text('Ваш приз!').font({family:'Manrope',size:20,weight:700,anchor:'middle'}).fill('#FFD9EE').move(287,216);
+  const cur=d.group();
+  cur.path('M196 232 L196 286 L212 272 L224 296 L236 290 L224 266 L246 262 Z').fill('#EEF3FF').stroke({color:C,width:2.5});
+  const warn=d.group();
+  warn.path('M420 60 L456 122 L384 122 Z').fill('none').stroke({color:P,width:3.5});
+  warn.line(420,84,420,104).stroke({color:P,width:4});
+  warn.circle(5).cx(420).cy(114).fill(P);
+  d.text('доверие как приманка').font({family:'Manrope',size:20,weight:700,anchor:'middle'}).fill('rgba(169,182,220,.85)').move(260,44);
+  ILL.hook={bait,hook,cur,warn};
+}
+
+/* ===== 2. ИКОНКИ (SVG.js) ===== */
+function shieldPath(d,col){
+  return d.path('M48 8 L82 20 V46 C82 66 66 80 48 88 C30 80 14 66 14 46 V20 Z').fill('none').stroke({color:col,width:3});
+}
+function buildIcon(box,type){
+  if(!box||!HAS.svg) return;
+  const d=SVG().addTo(box).viewbox('0 0 96 96');
+  const g=grad(d);
+  if(type==='conf'){
+    d.rect(48,34).radius(8).move(24,46).fill('rgba(56,225,255,.10)').stroke({color:C,width:3});
+    d.path('M34 46 V36 A14 14 0 0 1 62 36 V46').fill('none').stroke({color:V,width:3});
+    d.circle(9).cx(48).cy(60).fill(P);
+    d.rect(4,12).radius(2).move(46,64).fill(P);
+  } else if(type==='integ'){
+    shieldPath(d,C);
+    d.path('M32 48 L44 61 L66 36').fill('none').stroke({color:P,width:4.5});
+  } else if(type==='avail'){
+    d.circle(66).cx(48).cy(48).fill('none').stroke({color:V,width:3});
+    d.line(48,48,48,26).stroke({color:C,width:3.5});
+    d.line(48,48,63,56).stroke({color:P,width:3.5});
+    d.circle(5).cx(48).cy(48).fill(P);
+  } else if(type==='malware'){
+    d.rect(40,32).radius(14).move(28,32).fill('rgba(255,110,199,.10)').stroke({color:P,width:3});
+    d.circle(6).cx(40).cy(46).fill('#EEF3FF'); d.circle(6).cx(56).cy(46).fill('#EEF3FF');
+    [[24,40],[24,58],[72,40],[72,58]].forEach(p=>d.line(p[0]<48?16:80,p[1],p[0]<48?28:68,p[1]).stroke({color:V,width:3}));
+    d.line(38,20,34,32).stroke({color:C,width:3}); d.line(58,20,62,32).stroke({color:C,width:3});
+    d.circle(5).cx(38).cy(18).fill(C); d.circle(5).cx(58).cy(18).fill(C);
+  } else if(type==='hook'){
+    d.path('M20 12 L20 44 Q20 66 42 66 Q62 66 62 48').fill('none').stroke({color:V,width:3.5});
+    d.path('M56 42 L62 50 L68 42').fill('none').stroke({color:V,width:3.5});
+    d.rect(34,24).radius(5).move(48,58).fill('rgba(255,110,199,.12)').stroke({color:P,width:3});
+    d.path('M48 62 L65 72 L82 62').fill('none').stroke({color:'rgba(255,110,199,.8)',width:2.5});
+  } else if(type==='mask'){
+    d.path('M20 30 Q48 16 76 30 L76 52 Q48 74 20 52 Z').fill('rgba(139,124,255,.12)').stroke({color:V,width:3});
+    d.ellipse(18,10).cx(36).cy(42).fill('#070B18').stroke({color:C,width:2.5});
+    d.ellipse(18,10).cx(60).cy(42).fill('#070B18').stroke({color:C,width:2.5});
+    d.path('M38 60 Q48 66 58 60').fill('none').stroke({color:P,width:3});
+  } else if(type==='leak'){
+    d.ellipse(44,14).cx(48).cy(24).fill('rgba(56,225,255,.14)').stroke({color:C,width:3});
+    d.line(26,24,26,58).stroke({color:C,width:3}); d.line(70,24,70,44).stroke({color:C,width:3});
+    d.ellipse(44,14).cx(48).cy(40).fill('none').stroke({color:'rgba(56,225,255,.6)',width:2.5});
+    d.path('M56 58 Q62 70 56 76 Q48 70 56 58').fill(P).stroke({color:P,width:2});
+    d.path('M74 52 L86 64 M86 52 L74 64').stroke({color:P,width:3});
+  } else if(type==='sniff'){
+    d.path('M22 54 Q48 30 74 54').fill('none').stroke({color:C,width:3});
+    d.path('M32 64 Q48 50 64 64').fill('none').stroke({color:V,width:3});
+    d.circle(7).cx(48).cy(74).fill(P);
+    d.path('M18 22 L78 22').stroke({color:'rgba(169,182,220,.5)',width:2.5,dasharray:'5 6'});
+    d.ellipse(30,16).cx(48).cy(34).fill('none').stroke({color:'rgba(255,110,199,.7)',width:2.5});
+    d.circle(6).cx(48).cy(34).fill(P);
+  } else if(type==='chat'){
+    d.path('M14 22 H62 A8 8 0 0 1 70 30 V52 A8 8 0 0 1 62 60 H34 L20 74 V60 A8 8 0 0 1 14 52 Z')
+      .fill('rgba(255,110,199,.10)').stroke({color:P,width:3});
+    d.line(30,34,54,34).stroke({color:'rgba(238,243,255,.85)',width:3});
+    d.line(30,46,46,46).stroke({color:'rgba(238,243,255,.6)',width:3});
+    d.path('M74 16 L86 16 M80 10 L80 22').stroke({color:C,width:3});
+    d.circle(4).cx(88).cy(30).fill(V);
+  } else if(type==='know'){
+    d.rect(56,26).radius(6).move(20,34).fill('rgba(56,225,255,.10)').stroke({color:C,width:3});
+    [30,40,50].forEach(x=>d.circle(5).cx(x+6).cy(47).fill('#EEF3FF'));
+    d.path('M62 47 L74 47').stroke({color:P,width:3});
+    d.rect(18,10).radius(3).move(56,58).fill('none').stroke({color:V,width:2.5});
+    d.path('M20 26 L76 26').stroke({color:'rgba(169,182,220,.4)',width:2,dasharray:'4 6'});
+  } else if(type==='have'){
+    d.rect(34,60).radius(8).move(31,18).fill('rgba(139,124,255,.12)').stroke({color:V,width:3});
+    d.rect(14,5).radius(3).move(41,24).fill('rgba(169,182,220,.6)');
+    d.circle(6).cx(48).cy(66).fill(P);
+    d.path('M70 40 L84 40 M77 33 L77 47').stroke({color:C,width:3});
+    d.path('M12 52 L24 52 M18 46 L18 58').stroke({color:C,width:2.5});
+  } else if(type==='bio'){
+    for(let i=0;i<6;i++) d.path(`M28 ${74-i*10} A${30-i*4} ${30-i*4} 0 0 1 ${70+i} ${70-i*10}`)
+      .fill('none').stroke({color:i%2?'rgba(56,225,255,.85)':'rgba(255,110,199,.7)',width:2.8});
+    d.circle(5).cx(48).cy(48).fill(P);
+  } else if(type==='recruit'){
+    d.circle(20).cx(34).cy(30).fill('none').stroke({color:V,width:3});
+    d.path('M14 74 Q34 52 54 74').fill('none').stroke({color:V,width:3});
+    d.circle(16).cx(66).cy(38).fill('rgba(255,110,199,.14)').stroke({color:P,width:3});
+    d.path('M52 78 Q66 62 82 78').fill('none').stroke({color:P,width:3});
+    d.path('M44 44 L56 40').stroke({color:C,width:3,dasharray:'4 4'});
+  } else if(type==='money'){
+    d.rect(60,34).radius(7).move(18,30).fill('rgba(56,225,255,.10)').stroke({color:C,width:3});
+    d.circle(13).cx(48).cy(47).fill('none').stroke({color:P,width:3});
+    d.line(48,38,48,56).stroke({color:P,width:3});
+    d.path('M26 74 L38 66 M70 74 L58 66').stroke({color:V,width:3});
+    d.text('$').font({family:'Unbounded',size:16,weight:800,anchor:'middle'}).fill(C).move(22,20);
+  } else if(type==='bait'){
+    d.rect(52,34).radius(6).move(22,26).fill('rgba(139,124,255,.12)').stroke({color:V,width:3});
+    d.path('M22 32 L48 46 L74 32').fill('none').stroke({color:'rgba(139,124,255,.8)',width:2.5});
+    d.path('M48 60 L48 74 Q48 86 60 86 Q70 86 70 78').fill('none').stroke({color:P,width:3.5});
+    d.circle(5).cx(70).cy(74).fill(P);
+  }
+}
+
+/* ===== 3. ДИАГРАММЫ (D3) ===== */
+const chartsDone={leaks:false,pwd:false};
+
+/* бублик: доля утечек из-за паролей */
+function buildChartLeaks(){
+  if(chartsDone.leaks||!HAS.d3) return; chartsDone.leaks=true;
+  const data=[{v:60,l:'пароли',c:'#FF6EC7'},{v:40,l:'прочее',c:'#3D4E86'}];
+  const W=430,H=330,R=142,RI=92;
+  const svg=d3.select('#chart-leaks').append('svg').attr('viewBox',`0 0 ${W} ${H}`);
+  const g=svg.append('g').attr('transform',`translate(${W/2},${H/2})`);
+  const arc=d3.arc().innerRadius(RI).outerRadius(R);
+  const pie=d3.pie().sort(null).padAngle(.025).value(d=>d.v);
+  const dur=REDUCED?0:1100;
+  const paths=g.selectAll('path').data(pie(data)).join('path')
+    .attr('fill',d=>d.data.c).attr('stroke','rgba(7,11,24,.9)').attr('stroke-width',2)
+    .attr('d',arc);
+  if(!REDUCED){
+    paths.transition().duration(dur).ease(d3.easeCubicOut)
+      .attrTween('d',function(d){const i=d3.interpolate({startAngle:d.startAngle,endAngle:d.startAngle},d);return t=>arc(i(t));});
+  }
+  g.append('text').attr('text-anchor','middle').attr('y',-4)
+    .attr('fill','#EEF3FF').style('font','800 54px Unbounded').text('60 %');
+  g.append('text').attr('text-anchor','middle').attr('y',30)
+    .attr('fill','#A9B6DC').style('font','600 17px Manrope').text('утечек — из-за паролей');
+  const lab=g.selectAll('text.sl').data(pie(data)).join('text').attr('class','sl')
+    .attr('transform',d=>`translate(${arc.centroid(d)})`)
+    .attr('text-anchor','middle').attr('fill','#071120')
+    .style('font','800 19px Manrope').attr('opacity',REDUCED?1:0)
+    .text((d,i)=>i===0?'60 %':'40 %');
+  lab.transition().delay(dur*.7).duration(REDUCED?0:400).attr('opacity',1);
+}
+
+/* лестница подбора паролей (логарифмическая шкала) */
+function buildChartPwd(){
+  if(chartsDone.pwd||!HAS.d3) return; chartsDone.pwd=true;
+  const data=[
+    {p:'123456',        s:0.4,   l:'мгновенно',      c1:'#FF6EC7', c2:'#FF9AD5'},
+    {p:'qwerty',        s:20,    l:'секунды',        c1:'#FF6EC7', c2:'#8B7CFF'},
+    {p:'P@ssw0rd',      s:2.6e5, l:'дни',           c1:'#8B7CFF', c2:'#38E1FF'},
+    {p:'K3!x-9vQz2#pLm',s:4.0e13,l:'миллионы лет',  c1:'#38E1FF', c2:'#7DF9C9'}
+  ];
+  const W=1120,H=300,mL=290,mR=190;
+  const svg=d3.select('#chart-pwd').append('svg').attr('viewBox',`0 0 ${W} ${H}`);
+  const defs=svg.append('defs');
+  data.forEach((d,i)=>{
+    const lg=defs.append('linearGradient').attr('id','gPwd'+i).attr('x1',0).attr('y1',0).attr('x2',1).attr('y2',0);
+    lg.append('stop').attr('offset','0%').attr('stop-color',d.c1);
+    lg.append('stop').attr('offset','100%').attr('stop-color',d.c2);
+  });
+  const x=d3.scaleLog().domain([0.2,1e15]).range([mL,W-mR]).clamp(true);
+  const ticks=[{v:1,t:'1 с'},{v:60,t:'1 мин'},{v:3600,t:'1 час'},{v:86400,t:'1 день'},{v:2592000,t:'1 мес'},{v:31536000,t:'1 год'},{v:3.15e9,t:'100 лет'},{v:3.15e12,t:'1000 лет'}];
+  svg.append('g').attr('class','grid').selectAll('line').data(ticks).join('line')
+    .attr('x1',d=>x(d.v)).attr('x2',d=>x(d.v)).attr('y1',8).attr('y2',H-34);
+  svg.append('g').selectAll('text').data(ticks).join('text')
+    .attr('x',d=>x(d.v)).attr('y',H-12).attr('text-anchor','middle').attr('fill','#7C8BB4')
+    .style('font','600 15px Manrope').text(d=>d.t);
+  const rows=svg.selectAll('g.row').data(data).join('g').attr('transform',(d,i)=>`translate(0,${14+i*66})`);
+  rows.append('text').attr('x',mL-18).attr('y',30).attr('text-anchor','end')
+    .attr('fill','#EEF3FF').style('font','600 21px JetBrains Mono').text(d=>d.p);
+  rows.append('rect').attr('x',mL).attr('y',6).attr('height',34).attr('rx',9)
+    .attr('fill',(d,i)=>`url(#gPwd${i})`).attr('width',0);
+  rows.append('text').attr('class','val').attr('y',30).attr('x',mL+10).attr('opacity',0)
+    .style('font','800 20px Manrope').text(d=>d.l);
+  const dur=REDUCED?0:1000;
+  rows.select('rect').transition().delay((d,i)=>i*140).duration(dur).ease(d3.easeCubicOut)
+    .attr('width',d=>Math.max(6,x(d.s)-mL));
+  rows.select('text.val').transition().delay((d,i)=>i*140+dur*.6).duration(REDUCED?0:350)
+    .attr('opacity',1).attr('x',d=>x(d.s)+14);
+}
+
+const chartFor={'s-stats':buildChartLeaks,'s-pwd':buildChartPwd};
+function buildChartsFor(slide){ if(slide && chartFor[slide.id]) chartFor[slide.id](); }
+
+/* ===== 4. АНИМАЦИИ (GSAP) ===== */
+const TL={};
+function counter(tl,el,target,decimals,pos,dur){
+  if(!el) return;
+  const o={v:0};
+  tl.to(o,{v:target,duration:dur||1.7,ease:'power2.out',
+    onUpdate:()=>{el.textContent=Math.round(o.v).toString();}},pos||'<');
+}
+
+/* базовая «хореография» для большинства слайдов */
+function baseAnim(scope){
+  const tl=gsap.timeline({defaults:{ease:'power3.out'}});
+  tl.fromTo(scope.querySelectorAll('.kicker, .h2, .h-title, .defbox, .warnbox'),
+      {y:26,opacity:0},{y:0,opacity:1,duration:.6,stagger:.09},0)
+    .fromTo(scope.querySelectorAll('.grad-underline'),{scaleX:0,transformOrigin:'0 50%'},{scaleX:1,duration:.6,stagger:.08},.28)
+    .fromTo(scope.querySelectorAll('.card'),{y:36,opacity:0,scale:.97},{y:0,opacity:1,scale:1,duration:.6,stagger:.09},.34)
+    .fromTo(scope.querySelectorAll('.iconbox'),{scale:.45,opacity:0,transformOrigin:'50% 50%'},{scale:1,opacity:1,duration:.5,ease:'back.out(1.9)',stagger:.07},.6)
+    .fromTo(scope.querySelectorAll('.rule, .step, .bul'),{x:-20,opacity:0},{x:0,opacity:1,duration:.45,stagger:.05},.55)
+    .fromTo(scope.querySelectorAll('.chip'),{y:14,opacity:0},{y:0,opacity:1,duration:.4,stagger:.06},.8)
+    .fromTo(scope.querySelectorAll('.terminal, .letter'),{opacity:0,y:22},{opacity:1,y:0,duration:.6},.6)
+    .fromTo(scope.querySelectorAll('.chartwrap, .src, .small'),{opacity:0,y:16},{opacity:1,y:0,duration:.5,stagger:.07},.9);
+  return tl;
+}
+
+const animations={
+  's-title':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'power3.out'}});
+    tl.fromTo(scope.querySelectorAll('.kicker, h1 span'),{y:30,opacity:0},{y:0,opacity:1,duration:.7,stagger:.12},0)
+      .fromTo(scope.querySelector('.grad-underline'),{scaleX:0,transformOrigin:'0 50%'},{scaleX:1,duration:.7},.45)
+      .fromTo(scope.querySelector('.lead'),{y:22,opacity:0},{y:0,opacity:1,duration:.6},.55)
+      .fromTo(scope.querySelectorAll('[data-stagger] .chip'),{y:18,opacity:0},{y:0,opacity:1,duration:.5,stagger:.09},.7)
+      .fromTo(scope.querySelectorAll('.foot [data-anim]'),{opacity:0},{opacity:1,duration:.6,stagger:.1},.9);
+    if(ILL.shield){
+      tl.fromTo(ILL.shield.mesh.node(),{opacity:0},{opacity:1,duration:.7},.2)
+        .fromTo(ILL.shield.shield.node(),{scale:.7,opacity:0,transformOrigin:'50% 50%'},{scale:1,opacity:1,duration:.8,ease:'back.out(1.6)'},.35)
+        .fromTo(ILL.shield.lock.node(),{scale:.4,opacity:0,transformOrigin:'50% 50%'},{scale:1,opacity:1,duration:.6,ease:'back.out(2.2)'},.85)
+        .fromTo(ILL.shield.pkts.node(),{scale:0,opacity:0,transformOrigin:'50% 50%'},{scale:1,opacity:1,duration:.5,ease:'back.out(2.5)'},1.1)
+        .fromTo([ILL.shield.t1.node(),ILL.shield.t2.node()],{y:18,opacity:0},{y:0,opacity:1,duration:.5,stagger:.12},1.2);
+    }
+    return tl;
+  },
+  's-roadmap':(scope)=>{
+    const tl=baseAnim(scope);
+    tl.fromTo(scope.querySelectorAll('[data-stagger] .num-badge'),{scale:.4,opacity:0,transformOrigin:'50% 50%'},{scale:1,opacity:1,duration:.5,ease:'back.out(2.2)',stagger:.12},.55);
+    return tl;
+  },
+  's-stats':(scope)=>{
+    const tl=baseAnim(scope);
+    counter(tl,$('#cnt-attacks'),300,0,.45,1.6);
+    counter(tl,$('#cnt-leaks'),60,0,.6,1.7);
+    return tl;
+  },
+  's-ch1':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'power3.out'}});
+    tl.fromTo(scope.querySelectorAll('[data-anim]'),{y:30,opacity:0},{y:0,opacity:1,duration:.7,stagger:.13},0)
+      .fromTo(scope.querySelector('.grad-underline'),{scaleX:0,transformOrigin:'0 50%'},{scaleX:1,duration:.6},.5);
+    if(ILL.wall){
+      tl.fromTo(ILL.wall.wall.node(),{opacity:0,x:40},{opacity:1,x:0,duration:.8,ease:'back.out(1.4)'},.3)
+        .fromTo(ILL.wall.arrows.node(),{opacity:0,x:-40},{opacity:1,x:0,duration:.6,stagger:.1},.7)
+        .fromTo(ILL.wall.blocked.node(),{scale:0,opacity:0,transformOrigin:'50% 50%'},{scale:1,opacity:1,duration:.45,ease:'back.out(2.6)'},1.0)
+        .fromTo(ILL.wall.skull.node(),{opacity:0,scale:.6,transformOrigin:'50% 50%'},{opacity:1,scale:1,duration:.5,ease:'back.out(2)'},1.15);
+    }
+    return tl;
+  },
+  's-vs':(scope)=>{
+    const tl=baseAnim(scope);
+    tl.fromTo(scope.querySelectorAll('.split .card'),{x:(i)=>i?-36:36,opacity:0},{x:0,opacity:1,duration:.65,stagger:.14},.3);
+    return tl;
+  },
+  's-ch2':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'power3.out'}});
+    tl.fromTo(scope.querySelectorAll('[data-anim]'),{y:30,opacity:0},{y:0,opacity:1,duration:.7,stagger:.13},0)
+      .fromTo(scope.querySelector('.grad-underline'),{scaleX:0,transformOrigin:'0 50%'},{scaleX:1,duration:.6},.5);
+    if(ILL.key){
+      tl.fromTo(ILL.key.key.node(),{x:-60,opacity:0,rotation:-40,transformOrigin:'50% 50%'},{x:0,opacity:1,rotation:-16,duration:.8,ease:'back.out(1.5)'},.35)
+        .fromTo(ILL.key.fin.node(),{opacity:0,scale:.7,transformOrigin:'50% 50%'},{opacity:1,scale:1,duration:.6},.8)
+        .fromTo(ILL.key.phone.node(),{y:26,opacity:0},{y:0,opacity:1,duration:.6,ease:'back.out(1.8)'},.95);
+    }
+    return tl;
+  },
+  's-auth':(scope)=>{
+    const tl=baseAnim(scope);
+    tl.fromTo(scope.querySelectorAll('[data-stagger] .card'),{y:44,opacity:0,scale:.95},{y:0,opacity:1,scale:1,duration:.65,stagger:.14},.4);
+    return tl;
+  },
+  's-rules':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'power3.out'}});
+    tl.fromTo(scope.querySelectorAll('.kicker, .h2'),{y:26,opacity:0},{y:0,opacity:1,duration:.6,stagger:.1},0)
+      .fromTo(scope.querySelectorAll('.rule'),{x:-26,opacity:0},{x:0,opacity:1,duration:.5,stagger:.09},.3)
+      .fromTo(scope.querySelectorAll('.rbadge'),{scale:.3,opacity:0,transformOrigin:'50% 50%'},{scale:1,opacity:1,duration:.45,ease:'back.out(2.4)',stagger:.08},.35)
+      .fromTo(scope.querySelectorAll('.warnbox'),{opacity:0,y:18},{opacity:1,y:0,duration:.55},1.15)
+      .fromTo(scope.querySelectorAll('.small'),{opacity:0},{opacity:1,duration:.5},1.3);
+    return tl;
+  },
+  's-pwd':(scope)=>{
+    const tl=baseAnim(scope);
+    tl.fromTo(scope.querySelectorAll('[data-stagger] .card'),{y:34,opacity:0,scale:.96},{y:0,opacity:1,scale:1,duration:.6,stagger:.13},.3);
+    return tl;
+  },
+  's-pd':(scope)=>{
+    const tl=baseAnim(scope);
+    tl.fromTo(scope.querySelectorAll('.split .card'),{y:36,opacity:0},{y:0,opacity:1,duration:.65,stagger:.16},.35);
+    return tl;
+  },
+  's-ch3':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'power3.out'}});
+    tl.fromTo(scope.querySelectorAll('[data-anim]'),{y:30,opacity:0},{y:0,opacity:1,duration:.7,stagger:.13},0)
+      .fromTo(scope.querySelector('.grad-underline'),{scaleX:0,transformOrigin:'0 50%'},{scaleX:1,duration:.6},.5);
+    if(ILL.hook){
+      tl.fromTo(ILL.hook.hook.node(),{opacity:0,y:-30},{opacity:1,y:0,duration:.6},.35)
+        .fromTo(ILL.hook.bait.node(),{opacity:0,scale:.7,transformOrigin:'50% 50%'},{opacity:1,scale:1,duration:.6,ease:'back.out(1.8)'},.6)
+        .fromTo(ILL.hook.cur.node(),{opacity:0,x:-20,y:20},{opacity:1,x:0,y:0,duration:.5,ease:'back.out(2)'},.95)
+        .fromTo(ILL.hook.warn.node(),{opacity:0,scale:.5,transformOrigin:'50% 50%'},{opacity:1,scale:1,duration:.5,ease:'back.out(2.4)'},1.1);
+    }
+    return tl;
+  },
+  's-bully':(scope)=>{
+    const tl=baseAnim(scope);
+    tl.fromTo(scope.querySelectorAll('.split .card'),{x:(i)=>i?32:-32,opacity:0},{x:0,opacity:1,duration:.65,stagger:.14},.4);
+    return tl;
+  },
+  's-phish':(scope)=>{
+    const tl=baseAnim(scope);
+    tl.fromTo(scope.querySelector('.letter'),{opacity:0,rotate:-2,y:26},{opacity:1,rotate:0,y:0,duration:.7,ease:'back.out(1.3)'},.45)
+      .fromTo(scope.querySelectorAll('mark.flag'),{backgroundColor:'rgba(255,110,199,0)'},{backgroundColor:'rgba(255,110,199,.20)',duration:.5,stagger:.14},1.1);
+    return tl;
+  },
+  's-other':(scope)=>{
+    const tl=baseAnim(scope);
+    tl.fromTo(scope.querySelectorAll('[data-stagger] .card'),{y:44,opacity:0,scale:.95},{y:0,opacity:1,scale:1,duration:.65,stagger:.15},.35);
+    return tl;
+  },
+  's-practice':(scope)=>{
+    const tl=baseAnim(scope);
+    tl.fromTo(scope.querySelectorAll('.rbadge'),{scale:.3,opacity:0,transformOrigin:'50% 50%'},{scale:1,opacity:1,duration:.5,ease:'back.out(2.4)',stagger:.1},.6);
+    return tl;
+  },
+  's-recap':(scope)=>{
+    const tl=baseAnim(scope);
+    tl.fromTo(scope.querySelector('.terminal pre'),{opacity:0},{opacity:1,duration:.7},.8);
+    return tl;
+  },
+  's-final':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'power3.out'}});
+    tl.fromTo(scope.querySelectorAll('[data-anim]'),{y:30,opacity:0},{y:0,opacity:1,duration:.7,stagger:.14},0)
+      .fromTo(scope.querySelector('.grad-underline'),{scaleX:0,transformOrigin:'50% 50%'},{scaleX:1,duration:.7},.8)
+      .fromTo(scope.querySelectorAll('[data-stagger] .chip'),{y:18,opacity:0},{y:0,opacity:1,duration:.5,stagger:.12},1.0);
+    return tl;
+  }
+};
+
+function playAnim(id){
+  if(REDUCED||!HAS.gsap||!id) return;
+  const slide=document.getElementById(id);
+  if(!slide) return;
+  if(!TL[id]) TL[id]=(animations[id]||baseAnim)(slide);
+  TL[id].restart();
+}
+function resetAnim(id){ if(TL[id]) TL[id].progress(0).pause(); }
+
+/* ===== 5. ЗАПУСК ===== */
+buildIllusShield(); buildIllusWall(); buildIllusKey(); buildIllusHook();
+$$('[data-icon]').forEach(el=>buildIcon(el,el.dataset.icon));
+
+(function boot(){
+  if(window.__revealCDNFailed||typeof Reveal==='undefined'){
+    fallbackMode('Reveal.js не загрузился (нет доступа к CDN).');
+    return;
+  }
+  if(REDUCED||!HAS.gsap) staticCounters();
+
+  const plugins=[];
+  if(typeof RevealNotes!=='undefined') plugins.push(RevealNotes);
+  else console.warn('[deck2] RevealNotes не загрузился — режим докладчика (S) будет недоступен.');
+  if(typeof RevealZoom!=='undefined') plugins.push(RevealZoom);
+  else console.warn('[deck2] RevealZoom не загрузился — зум будет недоступен.');
+
+  try{
+    const p=Reveal.initialize({
+      hash:true, controls:true, controlsLayout:'bottom-right', progress:true,
+      transition:'slide', transitionSpeed:'default',
+      width:1280, height:720, margin:0.05, center:false,
+      plugins:plugins
+    });
+    if(p&&p.catch) p.catch(e=>fallbackMode(e));
+  }catch(e){ fallbackMode(e); return; }
+
+  Reveal.on('ready',ev=>{ playAnim(ev.currentSlide.id); buildChartsFor(ev.currentSlide); });
+  Reveal.on('slidechanged',ev=>{
+    if(ev.previousSlide) resetAnim(ev.previousSlide.id);
+    playAnim(ev.currentSlide.id);
+    buildChartsFor(ev.currentSlide);
+  });
+
+  if(!REDUCED&&HAS.gsap){
+    const qx1=gsap.quickTo('#glow-a','x',{duration:1.1,ease:'power2'});
+    const qy1=gsap.quickTo('#glow-a','y',{duration:1.1,ease:'power2'});
+    const qx2=gsap.quickTo('#glow-b','x',{duration:1.3,ease:'power2'});
+    const qy2=gsap.quickTo('#glow-b','y',{duration:1.3,ease:'power2'});
+    window.addEventListener('mousemove',e=>{
+      const nx=e.clientX/window.innerWidth-.5, ny=e.clientY/window.innerHeight-.5;
+      qx1(nx*40); qy1(ny*40); qx2(nx*-50); qy2(ny*-50);
+    },{passive:true});
+  }
+})();
+</script>
+<div id="audit-out" style="position:fixed;left:0;top:0;z-index:9999;background:#000;color:#0f0;font:12px monospace">AUDIT:[{"id":"s-title","sh":646,"ch":646,"over":[]},{"id":"s-roadmap","sh":654,"ch":654,"over":[]},{"id":"s-stats","sh":759,"ch":759,"over":[]},{"id":"s-ch1","sh":463,"ch":447,"over":[]},{"id":"s-ib","sh":756,"ch":756,"over":[]},{"id":"s-threats","sh":900,"ch":900,"over":[]},{"id":"s-vs","sh":643,"ch":643,"over":[]},{"id":"s-ch2","sh":463,"ch":447,"over":[]},{"id":"s-auth","sh":761,"ch":761,"over":[]},{"id":"s-rules","sh":808,"ch":808,"over":[]},{"id":"s-pwd","sh":870,"ch":870,"over":[]},{"id":"s-pd","sh":953,"ch":953,"over":[]},{"id":"s-ch3","sh":506,"ch":506,"over":[]},{"id":"s-bully","sh":995,"ch":995,"over":[]},{"id":"s-phish","sh":984,"ch":984,"over":[]},{"id":"s-other","sh":808,"ch":808,"over":[]},{"id":"s-practice","sh":886,"ch":886,"over":[]},{"id":"s-recap","sh":747,"ch":747,"over":[]},{"id":"s-hw","sh":750,"ch":750,"over":[]},{"id":"s-final","sh":637,"ch":637,"over":[]}]</div>
+<script>
+(function(){
+  const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+  async function run(){
+    await sleep(1800);
+    if(typeof Reveal==='undefined'){ document.getElementById('audit-out').textContent='AUDIT:NO_REVEAL'; return; }
+    const n=Reveal.getTotalSlides();
+    const res=[];
+    for(let i=0;i<n;i++){
+      Reveal.slide(i); await sleep(700);
+      const s=Reveal.getCurrentSlide();
+      const sb=s.getBoundingClientRect();
+      const r={id:s.id, sh:s.scrollHeight, ch:s.clientHeight, over:[]};
+      s.querySelectorAll('*').forEach(el=>{
+        if(el.closest('aside.notes')) return;
+        const b=el.getBoundingClientRect();
+        if(b.height<2||b.width<2) return;
+        const cls=(typeof el.className==='string'&&el.className)?el.className:el.tagName;
+        if(b.bottom>sb.bottom+2) r.over.push(cls+' B+'+Math.round(b.bottom-sb.bottom));
+        if(b.right>sb.right+2) r.over.push(cls+' R+'+Math.round(b.right-sb.right));
+        if(el.scrollHeight>el.clientHeight+2 && getComputedStyle(el).overflow!=='visible') r.over.push(cls+' INNER '+el.scrollHeight+'/'+el.clientHeight);
+      });
+      res.push(r);
+    }
+    document.getElementById('audit-out').textContent='AUDIT:'+JSON.stringify(res);
+  }
+  window.addEventListener('load',run);
+})();
+</script>
+
+
+
+</body></html>
