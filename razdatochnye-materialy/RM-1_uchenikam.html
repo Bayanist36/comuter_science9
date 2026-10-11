@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Раздаточный материал к уроку 2. Информационная безопасность (9 класс)</title>
+<style>
+  @page { size: A4 portrait; margin: 12mm 13mm 10mm; }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:#fff;color:#141824;
+    font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif;font-size:11pt;line-height:1.4;}
+  .page{page-break-after:always;width:184mm;display:flex;flex-direction:column;}
+  .page:last-child{page-break-after:auto;}
+
+  .head{display:flex;justify-content:space-between;align-items:flex-end;
+    border-bottom:2px solid #4F46E5;padding-bottom:5px;margin-bottom:12px;}
+  .head h1{font-size:16pt;margin:0;font-weight:700;letter-spacing:-.2px;}
+  .head .sub{font-size:9.5pt;color:#5A6178;margin-top:2px;}
+  .head .mark{font-size:9.5pt;color:#5A6178;text-align:right;}
+
+  h2.sec{font-size:12.5pt;margin:0 0 6px;font-weight:700;}
+  .hint{font-size:9.5pt;color:#5A6178;margin:0 0 7px;}
+  .name-line{display:flex;gap:16px;font-size:9.5pt;color:#5A6178;margin:0 0 8px;}
+  .name-line span{flex:1;border-bottom:1px dotted #9AA0B4;padding-bottom:2px;}
+
+  /* ---------- карточки ситуаций ---------- */
+  .cards{flex:1;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:4mm;min-height:0;}
+  .card{border:1.4px dashed #8A90A6;border-radius:8px;padding:3.5mm 4mm 3mm;
+    display:flex;flex-direction:column;min-height:0;overflow:hidden;}
+  .card .num{display:inline-flex;align-items:center;justify-content:center;
+    width:6.6mm;height:6.6mm;border-radius:50%;background:#4F46E5;color:#fff;
+    font-weight:700;font-size:9.5pt;margin-bottom:2mm;flex:none;}
+  .card h3{font-size:10.5pt;margin:0 0 1.8mm;line-height:1.2;}
+  .card .sit{font-size:8.6pt;line-height:1.3;background:#F3F4FB;border-left:3px solid #4F46E5;
+    padding:2.2mm 2.6mm;border-radius:0 5px 5px 0;margin-bottom:2.5mm;}
+  .card .q{font-size:8.8pt;font-weight:700;margin:0 0 1.2mm;line-height:1.25;}
+  .card .lines{flex:1;display:flex;flex-direction:column;justify-content:flex-end;
+    min-height:0;padding-top:2mm;}
+  .card .lines div{flex:1 1 0;min-height:6mm;border-bottom:1px solid #C7CBDA;}
+  .lines{margin-top:auto;padding-top:2mm;}
+  .lines div{border-bottom:1px solid #C7CBDA;}
+  .cut-note{font-size:8.5pt;color:#5A6178;margin-top:3mm;text-align:center;}
+
+  /* ---------- таблицы ---------- */
+  table{width:100%;border-collapse:collapse;font-size:9.5pt;}
+  th,td{border:1px solid #C7CBDA;padding:1.8mm 2.5mm;vertical-align:top;}
+  th{background:#EEF0F9;font-weight:700;text-align:left;}
+  td.fill{height:9mm;}
+  .colw1{width:31%} .colw2{width:31%} .colw3{width:38%}
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:6mm;}
+  .box{border:1px solid #C7CBDA;border-radius:8px;padding:4mm;}
+  .box h3{font-size:11pt;margin:0 0 3mm;}
+
+  .mail{font-family:'Consolas','Courier New',monospace;font-size:9.5pt;line-height:1.5;
+    background:#F7F8FC;border:1px solid #C7CBDA;border-radius:6px;padding:3.5mm 4mm;}
+  .mail .hd{color:#5A6178;}
+  .mail u{text-decoration:underline;text-decoration-style:dashed;text-underline-offset:2px;}
+
+  .box-list{list-style:none;margin:0;padding:0;font-size:9.5pt;counter-reset:b;}
+  .box-list li{counter-increment:b;position:relative;padding-left:6mm;margin-bottom:2mm;}
+  .box-list li::before{content:counter(b) ".";position:absolute;left:0;top:0;
+    font-weight:700;color:#4F46E5;}
+
+  .tick{font-size:10.5pt;line-height:1.9;}
+  .tick div{margin-bottom:1.2mm;}
+
+  .cards-page .hint{font-size:8.2pt;margin:0 0 4px;line-height:1.3}
+  .cards-page .name-line{font-size:9pt;margin:0 0 5px}
+  .cards-page .head{margin-bottom:7px}
+  .cards-page .cut-note{margin-top:1.5mm;font-size:7.6pt}
+  .cards-page .card h3{font-size:9.6pt;margin:0 0 1.1mm}
+
+  .foot{margin-top:8px;border-top:1px solid #E2E5EF;padding-top:4px;
+    font-size:8.5pt;color:#7A8098;display:flex;justify-content:space-between;}
+</style>
+</head>
+<body>
+
+<!-- ================= СТРАНИЦА 1: КАРТОЧКИ ================= -->
+<section class="page cards-page">
+  <div class="head">
+    <div>
+      <h1>Карточки ситуаций</h1>
+      <div class="sub">Информационная безопасность · 9 класс · урок 2 · практическая работа · разрезать по пунктиру · 5 минут в парах, затем по 1 минуте от пары</div>
+    </div>
+    <div class="mark">Раздаточный материал<br>Карточка ______</div>
+  </div>
+
+  <p class="hint"><b>Задание.</b> Определите, какая угроза описана в ситуации, и запишите <b>не менее трёх конкретных действий</b>,
+  которые нужно предпринять. Формулируйте действия конкретно: «позвонить родителям», «сохранить скриншот»,
+  а не «быть осторожным».</p>
+
+  <div class="name-line"><span>Класс / группа</span><span>Пара №</span></div>
+
+  <div class="cards">
+
+
+    <div class="card">
+      <div class="num">1</div>
+      <h3>«Пришли код из СМС»</h3>
+      <div class="sit">От «друга» в мессенджере: «Скинь мне код из СМС, который тебе сейчас придёт — я случайно ввёл твой
+      номер при регистрации». Через минуту приходит СМС с кодом.</div>
+      <p class="q">Какая это угроза? Ваши действия — не менее трёх:</p>
+      <div class="lines"><div></div><div></div><div></div><div></div></div>
+    </div>
+
+    <div class="card">
+      <div class="num">2</div>
+      <h3>«Аккаунт заблокирован»</h3>
+      <div class="sit">Письмо: «Ваш аккаунт в банке приостановлен. Для разблокировки перейдите по ссылке и введите логин,
+      пароль и номер карты. Через 24 часа аккаунт будет удалён навсегда».
+      Адрес отправителя: <b>security@sberbank-verify.com</b></div>
+      <p class="q">Какие признаки фишинга вы видите и что сделаете?</p>
+      <div class="lines"><div></div><div></div><div></div><div></div><div></div></div>
+    </div>
+
+    <div class="card">
+      <div class="num">3</div>
+      <h3>Оскорбительные мемы в чате</h3>
+      <div class="sit">В классном чате выкладывают оскорбительные мемы про одного из учеников и пересылают их в другие
+      чаты. Ученик перестал заходить в чат и выглядит расстроенным.</div>
+      <p class="q">Как называется ситуация? Что можете сделать вы и куда обратиться?</p>
+      <div class="lines"><div></div><div></div><div></div><div></div></div>
+    </div>
+
+    <div class="card">
+      <div class="num">4</div>
+      <h3>Бесплатный Wi-Fi в торговом центре</h3>
+      <div class="sit">Бесплатный Wi-Fi в торговом центре. Всплывающее окно: «Поздравляем! Вы стали 1 000 000-м
+      посетителем! Введите данные карты, чтобы получить приз — 50 000 рублей!»</div>
+      <p class="q">Какие угрозы присутствуют и почему опасно вводить данные карты в открытой сети?</p>
+      <div class="lines"><div></div><div></div><div></div><div></div><div></div></div>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ================= СТРАНИЦА 2: ЧЕК-ЛИСТ ================= -->
+<section class="page">
+  <div class="head">
+    <div>
+      <h1>Чек-лист: «Что я должен проверить»</h1>
+      <div class="sub">Защита аккаунтов и личных данных · 10 пунктов</div>
+    </div>
+    <div class="mark">Фамилия ________________<br>Дата ______________</div>
+  </div>
+
+  <p class="hint">Первые два пункта заполнены как образец. Дополните остальные восемь — так, чтобы каждая строка
+  стала рабочей инструкцией: что проверить, как это проверить и зачем это нужно.</p>
+
+  <table>
+    <thead>
+      <tr><th class="colw1">Что проверить</th><th class="colw2">Как проверить</th><th class="colw3">Зачем это нужно</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>Пароли на разных сайтах</b></td>
+        <td>Выписать 3–5 самых важных паролей и сравнить: нет ли совпадений</td>
+        <td>Утечка на одном сервисе не взломает остальные аккаунты</td>
+      </tr>
+      <tr>
+        <td><b>Включена ли двухфакторная аутентификация</b></td>
+        <td>Открыть настройки безопасности аккаунта и проверить пункт «2ФА»</td>
+        <td>Даже украденный пароль не даст войти без кода</td>
+      </tr>
+      <tr><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+      <tr><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+      <tr><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+      <tr><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+      <tr><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+      <tr><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+      <tr><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+      <tr><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+      <tr><td class="fill"></td><td class="fill"></td><td class="fill"></td></tr>
+    </tbody>
+  </table>
+
+  <div style="margin-top:6mm" class="box">
+    <h3>Что я изменю уже сегодня</h3>
+    <div class="lines" style="--x:0"><div></div><div></div><div></div><div></div></div>
+  </div>
+
+  <div class="foot"><span>Информационная безопасность · 9 класс · урок 2</span><span>стр. 2</span></div>
+</section>
+
+<!-- ================= СТРАНИЦА 3: РАБОЧИЙ ЛИСТ ================= -->
+<section class="page">
+  <div class="head">
+    <div>
+      <h1>Рабочий лист: фишинг и пароли</h1>
+      <div class="sub">Распознавание мошенничества и оценка надёжности пароля</div>
+    </div>
+    <div class="mark">Фамилия ________________<br>Класс _____________</div>
+  </div>
+
+  <h2 class="sec">Задание 1. Фишинговое письмо</h2>
+  <p class="hint">Прочитайте письмо и определите, является ли оно фишинговым. Подчеркните в тексте все признаки
+  подделки и перечислите их в ответе.</p>
+
+  <div class="mail">
+    <div class="hd">От: security@vk-support-check.ru</div>
+    <div class="hd">Тема: Срочно! Ваш аккаунт заблокирован</div>
+    <p>Уважаемый пользователь! Мы зафиксировали подозрительную активность в вашем аккаунте ВКонтакте.
+    Для разблокировки перейдите по ссылке в течение <u>2 часов</u>: http://vk-support-check.ru/verify.
+    <u>Введите логин и пароль</u>. Если вы не выполните действие, аккаунт будет <u>удалён безвозвратно</u>.
+    С уважением, Служба поддержки ВКонтакте.</p>
+  </div>
+
+  <table style="margin-top:5mm">
+    <thead><tr><th style="width:32mm">№</th><th>Признак подделки, который вы нашли</th><th style="width:62mm">Почему это подозрительно</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td class="fill"></td><td></td></tr>
+      <tr><td>2</td><td class="fill"></td><td></td></tr>
+      <tr><td>3</td><td class="fill"></td><td></td></tr>
+      <tr><td>4</td><td class="fill"></td><td></td></tr>
+      <tr><td>5</td><td class="fill"></td><td></td></tr>
+    </tbody>
+  </table>
+
+  <p style="margin:4mm 0 2mm;font-size:9.5pt"><b>Вывод:</b> письмо фишинговое / не фишинговое.
+  Что нужно сделать, получив такое письмо: _________________________________________________________________</p>
+
+  <h2 class="sec" style="margin-top:6mm">Задание 2. Оцените надёжность паролей</h2>
+  <table>
+    <thead><tr><th style="width:46mm">Пароль</th><th style="width:30mm">Оценка</th><th>Слабые места</th><th style="width:52mm">Улучшенный вариант</th></tr></thead>
+    <tbody>
+      <tr><td class="mono" style="font-family:Consolas,monospace">maria2009</td><td class="fill"></td><td class="fill"></td><td></td></tr>
+      <tr><td class="mono" style="font-family:Consolas,monospace">Qw123456</td><td class="fill"></td><td class="fill"></td><td></td></tr>
+      <tr><td class="mono" style="font-family:Consolas,monospace">X#9mR!pL2vT</td><td class="fill"></td><td class="fill"></td><td></td></tr>
+      <tr><td class="mono" style="font-family:Consolas,monospace">password</td><td class="fill"></td><td class="fill"></td><td></td></tr>
+    </tbody>
+  </table>
+  <p class="hint" style="margin-top:3mm">Придумайте надёжный пароль (не менее 10 символов, разный регистр, цифры,
+  спецсимволы) и объясните, почему он надёжнее каждого из четырёх. Учебный пример не использовать для реального входа.</p>
+
+  <div class="foot"><span>Информационная безопасность · 9 класс · урок 2</span><span>стр. 3</span></div>
+</section>
+
+<!-- ================= СТРАНИЦА 4: ПАМЯТКА ================= -->
+<section class="page">
+  <div class="head">
+    <div>
+      <h1>Памятка: правила безопасного поведения в сети</h1>
+      <div class="sub">Опорный лист к уроку · оставьте себе</div>
+    </div>
+    <div class="mark">Фамилия ________________</div>
+  </div>
+
+  <div class="grid2">
+    <div class="box">
+      <h3>Технические меры</h3>
+      <ul class="box-list">
+        <li>Антивирусное ПО установлено и регулярно обновляется</li>
+        <li>Операционная система, браузер и приложения обновлены</li>
+        <li>Перед вводом пароля и данных карты проверен замок и <span style="font-family:Consolas,monospace">https://</span></li>
+        <li>Включена двухфакторная аутентификация (2ФА)</li>
+        <li>Не подключаются неизвестные USB-накопители</li>
+      </ul>
+    </div>
+
+    <div class="box">
+      <h3>Поведенческие меры</h3>
+      <ul class="box-list">
+        <li>Пароль уникальный для каждого сервиса</li>
+        <li>Пароль длинный (8–12+ символов) и содержит разные типы символов</li>
+        <li>Пароли и коды из СМС никому не сообщаются</li>
+        <li>Адрес сайта и адрес отправителя проверяются до перехода по ссылке</li>
+        <li>Файлы скачиваются только из проверенных источников</li>
+      </ul>
+    </div>
+
+    <div class="box">
+      <h3>Защита личной информации</h3>
+      <ul class="box-list">
+        <li>Адрес, телефон, номер школы и расписание не публикуются</li>
+        <li>Настройки приватности в соцсетях проверены</li>
+        <li>Фото документов, билетов и карт не отправляются в мессенджерах</li>
+        <li>Перед регистрацией оценивается, какие данные и зачем запрашивает сервис</li>
+        <li>Помню о цифровом следе: удалить из сети почти невозможно</li>
+      </ul>
+    </div>
+
+    <div class="box">
+      <h3>Противодействие деструктивным формам</h3>
+      <ul class="box-list">
+        <li>Не отвечаю агрессией на агрессию</li>
+        <li>Сохраняю доказательства: скриншоты, ссылки</li>
+        <li>Блокирую обидчика и жалуюсь администрации платформы</li>
+        <li>Рассказываю взрослому, которому доверяю</li>
+        <li>При угрозах жизни и шантаже обращаюсь в полицию</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="box" style="margin-top:5mm;border-color:#4F46E5;background:#F3F4FB">
+    <h3>Три правила, которые работают всегда</h3>
+    <div class="tick">
+      <div>1. Настоящие банки и сервисы <b>никогда</b> не просят пароль, код из СМС или полные данные карты по почте, в мессенджерах и по телефону.</div>
+      <div>2. Если предложение слишком хорошее, чтобы быть правдой, — скорее всего, это мошенничество.</div>
+      <div>3. Если торопят и давят на эмоции — остановитесь, возьмите паузу и проверьте информацию по официальным каналам.</div>
+    </div>
+  </div>
+
+  <p class="hint" style="margin-top:5mm"><b>Полезно помнить.</b> Более 70 % успешных кибератак начинаются не со взлома
+  техники, а с действий человека. В России персональные данные защищает Федеральный закон № 152-ФЗ.</p>
+
+  <div class="foot"><span>Информационная безопасность · 9 класс · урок 2</span><span>стр. 4</span></div>
+</section>
+
+</body>
+</html>

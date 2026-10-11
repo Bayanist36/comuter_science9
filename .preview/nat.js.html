@@ -1,0 +1,31 @@
+<script>
+(function(){
+  const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+  async function run(){
+    await sleep(2200);
+    const res=[];
+    const secs=Array.from(document.querySelectorAll('.reveal .slides>section'));
+    for(let i=0;i<secs.length;i++){
+      Reveal.slide(i); await sleep(2400);
+      const s=secs[i];
+      const wrap=s.querySelector('.wrap');
+      const cs=getComputedStyle(wrap);
+      const padB=parseFloat(cs.paddingBottom), padT=parseFloat(cs.paddingTop);
+      let lowB=0, low='-';
+      wrap.querySelectorAll('*').forEach(el=>{
+        if(el.tagName==='ASIDE'||el.closest('aside.notes')) return;
+        const e=getComputedStyle(el); if(e.position==='absolute'||e.position==='fixed') return;
+        const b=el.offsetTop+el.offsetHeight;
+        if(b>lowB){ lowB=b; low=(typeof el.className==='string'&&el.className.trim())?'.'+el.className.trim().split(/\s+/)[0]:el.tagName.toLowerCase(); }
+      });
+      const limit=720-padB;                  // нижняя граница содержимого при фикс. высоте 720
+      res.push({id:s.id, secH:s.offsetHeight, lowB:Math.round(lowB), limit:Math.round(limit),
+                over:Math.round(lowB-limit), low});
+    }
+    document.getElementById('x').textContent='NAT:'+JSON.stringify(res);
+  }
+  window.addEventListener('load',run);
+})();
+</script>
+<style>.reveal .slides>section{height:720px !important}</style>
+<div id="x"></div>
