@@ -1,6 +1,6 @@
 ---
 order: 1
-title: Уроки в формате сценария
+title: роки в формате сценария
 ---
 
-<view defs="hierarchy=none" display="List"/>
+<view defs="hierarchy=none" display="List" />

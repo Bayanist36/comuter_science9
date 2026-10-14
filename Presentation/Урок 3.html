@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Своя веб-страница: сделай её безопасной · Информатика 9 класс · Урок 3</title>
+
+<!-- ШРИФТЫ -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tektur:wght@500;700;900&family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+<!-- REVEAL.JS 6 CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@6/dist/reveal.css">
+
+<style>
+/* ===== ТОКЕНЫ + ТЁМНАЯ ТЕМА ДЛЯ REVEAL ===== */
+:root{
+  --bg:#0B1210; --surface:#101D18; --ink:#E9F6EF; --muted:#8FAF9F;
+  --mint:#3DF5B6; --cyan:#4CC9F0; --violet:#9B8CFF; --amber:#FFC53D; --red:#FF6161;
+  --grad-main:linear-gradient(115deg,#3DF5B6,#4CC9F0 55%,#9B8CFF);
+  --font-display:'Tektur',sans-serif; --font-body:'IBM Plex Sans',sans-serif; --font-mono:'JetBrains Mono',monospace;
+  /* переменные темы reveal.js */
+  --r-background-color:#0B1210;
+  --r-main-font:'IBM Plex Sans',sans-serif;
+  --r-main-font-size:26px;
+  --r-main-color:#E9F6EF;
+  --r-heading-font:'Tektur',sans-serif;
+  --r-heading-color:#E9F6EF;
+  --r-heading-line-height:1.08;
+  --r-heading-letter-spacing:normal;
+  --r-heading-text-transform:none;
+  --r-heading-text-shadow:none;
+  --r-heading-font-weight:800;
+  --r-heading1-size:2.4em; --r-heading2-size:1.55em; --r-heading3-size:1.15em; --r-heading4-size:1em;
+  --r-block-margin:18px; --r-heading-margin:0 0 18px 0;
+  --r-link-color:#3DF5B6; --r-link-color-dark:#4CC9F0; --r-link-color-hover:#9B8CFF;
+  --r-selection-background-color:rgba(61,245,182,.35); --r-selection-color:#0B1210;
+}
+*{box-sizing:border-box}
+html{background:#0B1210}
+body, body.reveal-viewport{background:#0B1210 !important}
+body{margin:0;font-family:var(--font-body);color:var(--ink)}
+
+/* ===== ФОНОВЫЙ ДЕКОР ===== */
+#bg-decor{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+#bg-grid{position:absolute;inset:0;
+  background-image:linear-gradient(rgba(61,245,182,.05) 1.5px,transparent 1.5px),linear-gradient(90deg,rgba(61,245,182,.05) 1.5px,transparent 1.5px);
+  background-size:56px 56px;
+  -webkit-mask-image:radial-gradient(ellipse at 50% 42%,#000 28%,transparent 78%);
+          mask-image:radial-gradient(ellipse at 50% 42%,#000 28%,transparent 78%)}
+.glow{position:absolute;border-radius:50%;filter:blur(95px)}
+#glow-a{width:700px;height:700px;left:-220px;top:-240px;background:radial-gradient(circle,rgba(61,245,182,.16),transparent 65%)}
+#glow-b{width:760px;height:760px;right:-260px;bottom:-280px;background:radial-gradient(circle,rgba(155,140,255,.16),transparent 65%)}
+#glow-c{width:520px;height:520px;left:38%;top:55%;background:radial-gradient(circle,rgba(76,201,240,.12),transparent 62%)}
+#bg-noise{position:absolute;inset:-60%;width:220%;height:220%;opacity:.05;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/></filter><rect width='300' height='300' filter='url(%23n)' opacity='0.7'/></svg>");
+  animation:grain 9s steps(8) infinite}
+@keyframes grain{0%{transform:translate(0,0)}25%{transform:translate(-2%,3%)}50%{transform:translate(3%,-2%)}75%{transform:translate(-3%,-3%)}100%{transform:translate(0,0)}}
+
+.reveal{position:relative;z-index:2;background:transparent;font-family:var(--font-body);font-size:26px;color:var(--ink)}
+.reveal ::selection{background:rgba(61,245,182,.35)}
+.reveal .controls{color:var(--mint)}
+.reveal .progress{background:rgba(233,246,239,.10);color:var(--mint)}
+.reveal .slides section{text-align:left;overflow:hidden;color:var(--ink)}
+
+/* ===== ТИПОГРАФИКА ===== */
+.reveal h1,.reveal h2,.reveal h3{font-family:var(--font-display);font-weight:800;line-height:1.06;margin:0;text-transform:none;color:var(--ink);text-shadow:none;letter-spacing:normal}
+.reveal .h-title{font-size:76px}
+.reveal .h2{font-size:50px;max-width:1080px}
+.kicker{display:inline-flex;align-items:center;gap:10px;font-size:24px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mint)}
+.kicker::before{content:"";width:14px;height:14px;border-radius:50%;background:var(--mint);box-shadow:0 0 16px rgba(61,245,182,.9)}
+.lead{font-size:30px;font-weight:600;line-height:1.45}
+.small{font-size:24px;color:var(--muted);line-height:1.45}
+.src{font-size:24px;font-style:italic;color:var(--muted)}
+.mono{font-family:var(--font-mono)}
+.grad-text{background:var(--grad-main);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+@supports not ((-webkit-background-clip:text) or (background-clip:text)){
+  .grad-text{background:none;color:var(--mint);-webkit-text-fill-color:currentColor}
+}
+.grad-underline{height:9px;width:200px;border-radius:8px;background:var(--grad-main);margin-top:18px;box-shadow:0 6px 26px rgba(61,245,182,.35)}
+.hi-m{color:var(--mint)} .hi-c{color:var(--cyan)} .hi-v{color:var(--violet)} .hi-a{color:var(--amber)} .hi-r{color:var(--red)}
+strong{color:var(--ink)}
+
+/* ===== РАСКЛАДКИ ===== */
+.wrap{position:relative;height:100%;padding:44px 56px 40px;display:flex;flex-direction:column}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.split-46{display:grid;grid-template-columns:46% 1fr;gap:40px;align-items:center}
+.split-55{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:start}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.grow{flex:1;display:flex;flex-direction:column;justify-content:center;min-height:0}
+.row{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.col{display:flex;flex-direction:column;gap:14px}
+.foot{margin-top:auto;padding-top:12px;display:flex;justify-content:space-between;align-items:flex-end;gap:24px}
+
+/* ===== КОМПОНЕНТЫ ===== */
+.card{background:linear-gradient(160deg,rgba(22,37,31,.95),rgba(13,21,18,.96));border:1.5px solid rgba(61,245,182,.28);border-radius:18px;padding:20px 22px;box-shadow:0 18px 44px rgba(3,8,6,.5)}
+.card .ct{font-family:var(--font-display);font-weight:700;font-size:24px;margin:0 0 8px}
+.card .cd{font-size:24px;color:var(--muted);line-height:1.4;margin:0}
+.card.warn{border-color:rgba(255,197,61,.5)}
+.card.danger{border-color:rgba(255,97,97,.55)}
+.card.safe{border-color:rgba(61,245,182,.6)}
+.num-badge{width:56px;height:56px;border-radius:50%;background:var(--grad-main);color:#07120D;font-family:var(--font-display);font-weight:900;font-size:24px;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 22px rgba(61,245,182,.4);flex:none}
+.chip{display:inline-flex;align-items:center;gap:10px;padding:7px 16px;border-radius:999px;border:1.5px solid rgba(61,245,182,.45);background:rgba(61,245,182,.08);font-size:24px;font-weight:600}
+.chip.amber{border-color:rgba(255,197,61,.55);background:rgba(255,197,61,.09)}
+.chip.red{border-color:rgba(255,97,97,.55);background:rgba(255,97,97,.09)}
+.chip.violet{border-color:rgba(155,140,255,.55);background:rgba(155,140,255,.10)}
+.chip .dot{width:10px;height:10px;border-radius:50%;background:var(--mint);box-shadow:0 0 10px var(--mint)}
+.chip.amber .dot{background:var(--amber);box-shadow:0 0 10px var(--amber)}
+.chip.red .dot{background:var(--red);box-shadow:0 0 10px var(--red)}
+.chip.violet .dot{background:var(--violet);box-shadow:0 0 10px var(--violet)}
+.defbox{border-left:6px solid var(--mint);background:linear-gradient(120deg,rgba(61,245,182,.09),rgba(76,201,240,.07) 52%,rgba(155,140,255,.07));padding:18px 26px;border-radius:0 18px 18px 0;font-size:27px;line-height:1.45}
+.codebox{background:#060B09;border:1.5px solid rgba(61,245,182,.35);border-radius:16px;overflow:hidden;box-shadow:0 18px 44px rgba(3,8,6,.55)}
+.codebox .tbar{display:flex;gap:8px;align-items:center;padding:10px 16px;background:rgba(61,245,182,.07);border-bottom:1px solid rgba(61,245,182,.18)}
+.codebox .tbar i{width:12px;height:12px;border-radius:50%;display:block}
+.codebox .fname{margin-left:auto;font-family:var(--font-mono);font-size:18px;color:var(--muted)}
+.codebox .cl{white-space:pre;font-family:var(--font-mono);font-size:22px;line-height:1.46;color:#CDE9DC}
+.codebox .tg{color:#4CC9F0}.codebox .at{color:#9B8CFF}.codebox .tx{color:#E9F6EF}.codebox .cm{color:#5F7A6E}
+.ghost{position:absolute;z-index:0;font-family:var(--font-display);font-weight:900;line-height:1;color:transparent;-webkit-text-stroke:2px rgba(61,245,182,.13);user-select:none;pointer-events:none}
+.rule{display:flex;gap:16px;align-items:flex-start;border:1.5px solid rgba(61,245,182,.3);border-radius:16px;background:rgba(16,29,24,.9);padding:16px 18px}
+.rule .rn{font-family:var(--font-display);font-weight:900;font-size:24px;color:var(--mint);width:40px;flex:none}
+.rule .rt{font-size:24px;line-height:1.38;color:var(--ink)}
+.rule .rt span{color:var(--muted)}
+.live-dot{width:14px;height:14px;border-radius:50%;background:var(--mint);box-shadow:0 0 14px var(--mint);animation:pulse 1.8s ease-in-out infinite;flex:none}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.5);opacity:.55}}
+.timer{font-family:var(--font-display);font-weight:900;font-size:150px;line-height:1;background:var(--grad-main);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+@supports not ((-webkit-background-clip:text) or (background-clip:text)){.timer{-webkit-text-fill-color:var(--mint);color:var(--mint)}}
+.illus svg,.iconbox svg{width:100%;height:auto;display:block}
+.chart svg{width:100%;height:auto;display:block}
+.chart .grid line{stroke:rgba(233,246,239,.10)}
+.chart .val{fill:#E9F6EF;font-family:'IBM Plex Sans',sans-serif;font-weight:700}
+.legend{display:flex;gap:20px;align-items:center;font-size:24px;color:var(--muted);margin-bottom:6px;flex-wrap:wrap}
+.legend .sw{width:24px;height:14px;border-radius:5px;display:inline-block;margin-right:8px;vertical-align:middle}
+
+/* ===== ЗАПАСНОЙ РЕЖИМ ===== */
+#cdn-error{display:none;position:fixed;z-index:99;top:16px;left:50%;transform:translateX(-50%);background:var(--red);color:#fff;font-weight:700;font-family:var(--font-body);font-size:20px;padding:14px 26px;border-radius:14px;max-width:80vw;text-align:center}
+body.no-reveal #cdn-error{display:block}
+body.no-reveal .reveal{position:static}
+body.no-reveal .slides{width:auto!important;height:auto!important;transform:none!important}
+body.no-reveal .slides section{position:relative!important;display:block!important;opacity:1!important;visibility:visible!important;width:auto!important;height:auto!important;max-width:1200px;margin:30px auto;padding:20px;border:1px solid rgba(61,245,182,.35);border-radius:16px}
+body.no-reveal .ghost{display:none}
+body.no-reveal aside.notes{display:none}
+
+@media (prefers-reduced-motion: reduce){#bg-noise,.live-dot{animation:none !important}}
+</style>
+</head>
+<body>
+
+<div id="bg-decor" aria-hidden="true">
+  <div class="glow" id="glow-a"></div><div class="glow" id="glow-b"></div><div class="glow" id="glow-c"></div>
+  <div id="bg-grid"></div><div id="bg-noise"></div>
+</div>
+
+<div id="cdn-error">Не удалось загрузить библиотеки презентации (нужен интернет). Ниже — текстовая версия слайдов.</div>
+
+<div class="reveal">
+<div class="slides">
+
+<!-- 1. ТИТУЛ -->
+<section id="s-title" data-title="Титул">
+  <div class="wrap">
+    <div class="ghost" style="font-size:280px;right:26px;bottom:-20px" aria-hidden="true">&lt;/&gt;</div>
+    <div class="split" style="flex:1;align-items:center">
+      <div style="max-width:620px">
+        <div class="kicker" data-anim>Информатика · 9 класс · Урок 3 · Практическая работа</div>
+        <h1 class="h-title" style="margin:20px 0 6px"><span data-anim style="display:block">Своя веб-страница:</span><span data-anim class="grad-text" style="display:block">сделай её безопасной</span></h1>
+        <div class="grad-underline" data-anim></div>
+        <p class="lead" data-anim style="margin:22px 0 20px">Тема 1.1 · Учёт информационной безопасности при создании комплексных информационных объектов в виде веб-страниц</p>
+        <div class="row" data-stagger>
+          <span class="chip"><span class="dot"></span>Раздел 1 · Цифровая грамотность</span>
+          <span class="chip amber"><span class="dot"></span>Работа в парах · оценивание до 10 баллов</span>
+        </div>
+      </div>
+      <div id="illus-title" class="illus" style="max-width:540px" aria-hidden="true"></div>
+    </div>
+    <div class="foot"><span class="small" data-anim>Завершающий урок темы «Глобальная сеть Интернет и стратегии безопасного поведения в ней»</span><span class="small mono hi-m" data-anim>html · чек-лист · взаимопроверка</span></div>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> переходим от теории к практике — сегодня вы авторы веб-контента.</p>
+    <ul>
+      <li>Приветствие: «Здравствуйте! Это завершающий урок темы 1.1: на первых двух изучали устройство Интернета, угрозы и защиту. Сегодня применяем знания на практике».</li>
+      <li>Контракт на урок: работаем в парах, каждая пара создаёт свою веб-страницу; оценка — до 10 баллов по критериям, самый «дорогой» критерий — безопасность.</li>
+      <li>Интрига: «Когда вы публикуете контент, вы становитесь создателем информации — и вопросы безопасности появляются уже с другой стороны».</li>
+    </ul>
+    <p><b>Переход:</b> «Посмотрим на маршрут урока».</p>
+    <p><i>Тайминг: ~60 с (оргмомент + целеполагание 3 мин)</i></p>
+  </aside>
+</section>
+
+<!-- 2. МАРШРУТ + D3 ТАЙМИНГ -->
+<section id="s-route" data-title="Маршрут" data-chart="timing">
+  <div class="wrap">
+    <div class="kicker" data-anim>План · 45 минут</div>
+    <h2 class="h2" data-anim style="margin:10px 0 18px">Маршрут урока</h2>
+    <div class="split-46" style="flex:1;align-items:center">
+      <div class="col" data-stagger>
+        <div class="card" style="padding:14px 18px"><p class="cd"><strong class="hi-m">01 · Повторение</strong> — блиц по ключевым понятиям ИБ</p></div>
+        <div class="card" style="padding:14px 18px"><p class="cd"><strong class="hi-c">02 · Теория</strong> — HTML-страница и чек-лист безопасности</p></div>
+        <div class="card safe" style="padding:14px 18px"><p class="cd"><strong class="hi-m">03 · Практика — 18 минут</strong> — создаём страницу в парах</p></div>
+        <div class="card" style="padding:14px 18px"><p class="cd"><strong class="hi-v">04 · Взаимопроверка</strong> — проверяем чужую страницу по чек-листу</p></div>
+        <div class="card" style="padding:14px 18px"><p class="cd"><strong class="hi-a">05 · Рефлексия и домашнее задание</strong></p></div>
+      </div>
+      <div data-anim>
+        <div class="legend"><span><span class="sw" style="background:var(--grad-main)"></span>Минуты на этап</span></div>
+        <div id="chart-timing" class="chart"></div>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> ядро урока — 18 минут практики, к ней подчинено всё остальное.</p>
+    <ul>
+      <li>Покажите диаграмму: почти половина урока — практика. Теория компактная: шаблон HTML + чек-лист из 8 правил.</li>
+      <li>Напомните про раздаточные материалы: чек-лист безопасности и шаблон HTML-страницы лежат у каждой пары.</li>
+      <li>Целеполагание: «К концу урока у каждой пары — работающая страница, проверенная на безопасность».</li>
+    </ul>
+    <p><b>Переход:</b> «Начнём с быстрого повторения».</p>
+    <p><i>Тайминг: ~90 с</i></p>
+  </aside>
+</section>
+
+<!-- 3. БЛИЦ-ПОВТОРЕНИЕ -->
+<section id="s-quiz" data-title="Блиц-повторение">
+  <div class="wrap">
+    <div class="kicker" data-anim>Актуализация · по цепочке</div>
+    <h2 class="h2" data-anim style="margin:10px 0 20px">Блиц: пять вопросов по ИБ</h2>
+    <div class="col" data-stagger style="max-width:1040px">
+      <div class="rule"><span class="rn">1</span><span class="rt">Что такое <strong>персональные данные</strong>? Приведите три примера.</span></div>
+      <div class="rule"><span class="rn">2</span><span class="rt">Что такое <strong>цифровой след</strong>? Можно ли полностью удалить информацию из Интернета?</span></div>
+      <div class="rule"><span class="rn">3</span><span class="rt">Назовите два-три признака <strong>фишингового сайта</strong>.</span></div>
+      <div class="rule"><span class="rn">4</span><span class="rt">Что означает <strong>значок замка</strong> в адресной строке браузера?</span></div>
+      <div class="rule"><span class="rn">5</span><span class="rt">Что такое <strong>аутентификация</strong> и зачем нужна двухфакторная?</span></div>
+    </div>
+    <p class="small" data-anim style="margin-top:18px">Отвечаем быстро, по цепочке. Опорные ответы: ФИО, адрес, телефон · след остаётся навсегда · подозрительный адрес и дизайн, запрос пароля · защищённое соединение (замком) · пароль + второй фактор</p>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> понятия прошлых уроков — рабочий инструмент сегодняшней практики.</p>
+    <ul>
+      <li>Опрашивайте быстро по цепочке; корректируйте коротко: персональные данные — ФИО, адрес, телефон, номер школы, паспортные данные.</li>
+      <li>Ключевой ответ про цифровой след: полностью удалить информацию из Интернета практически невозможно — копии, кэш, архивы.</li>
+      <li>Замок в адресной строке — защищённое соединение (замком), данные шифруются. Не путать с «сайт безопасен на 100%»!</li>
+    </ul>
+    <p><b>Переход:</b> «Теперь перенесём это на новую ситуацию — вы сами создаёте страницу».</p>
+    <p><i>Тайминг: ~210 с (повторение 4 мин)</i></p>
+  </aside>
+</section>
+
+<!-- 4. СМЕНА РОЛИ -->
+<section id="s-shift" data-title="Вы — автор">
+  <div class="wrap">
+    <div class="kicker" data-anim>Новая перспектива</div>
+    <h2 class="h2" data-anim style="margin:10px 0 18px">Вы становитесь автором контента</h2>
+    <div class="split-55" style="flex:1">
+      <div class="card safe" data-anim style="padding:26px">
+        <p class="cd" style="font-size:28px;color:var(--ink);line-height:1.4">Публикуя страницу, вы из <strong>потребителя</strong> превращаетесь в <strong class="hi-m">создателя информации</strong> — и несёте ответственность за её безопасность и за безопасность посетителей</p>
+        <div class="row" style="margin-top:18px"><span class="chip"><span class="dot"></span>Потребитель → Автор</span></div>
+      </div>
+      <div class="col" data-stagger>
+        <div class="rule"><span class="rn">?</span><span class="rt">Какую информацию о себе <strong>можно и нельзя</strong> публиковать?</span></div>
+        <div class="rule"><span class="rn">?</span><span class="rt">Какие элементы страницы могут представлять <strong>угрозу для посетителей</strong>?</span></div>
+        <div class="rule"><span class="rn">?</span><span class="rt">Как <strong>защитить свой контент</strong> и данные пользователей?</span></div>
+      </div>
+    </div>
+    <p class="lead" data-anim style="margin-top:20px;font-size:27px">Сегодня отвечаем на эти вопросы <span class="grad-text" style="font-weight:700">на практике</span> — при создании собственной веб-страницы</p>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> у автора страницы своя сторона безопасности — контент, посетители, репутация.</p>
+    <ul>
+      <li>Драматизируйте смену роли: «Раньше вы смотрели чужие страницы и думали, безопасны ли они. Теперь вы создаёте свою — и кто-то будет смотреть её».</li>
+      <li>Три вопроса слайда — каркас всего урока; вернитесь к ним в рефлексии.</li>
+      <li>Примеры последствий: страница с адресом и фото документов, ссылка на подозрительный сайт, чужие фотографии без разрешения.</li>
+    </ul>
+    <p><b>Переход:</b> «Из чего состоит веб-страница? Смотрим минимальный шаблон».</p>
+    <p><i>Тайминг: ~120 с</i></p>
+  </aside>
+</section>
+
+<!-- 5. АНАТОМИЯ HTML -->
+<section id="s-html" data-title="Анатомия HTML">
+  <div class="wrap">
+    <div class="kicker" data-anim>Теория · 4 минуты</div>
+    <h2 class="h2" data-anim style="margin:10px 0 16px">Анатомия веб-страницы</h2>
+    <div class="split-46" style="flex:1;align-items:center">
+      <div class="codebox" data-anim>
+        <div class="tbar"><i style="background:#FF6161"></i><i style="background:#FFC53D"></i><i style="background:#3DF5B6"></i><span class="fname">page.html</span></div>
+        <div class="cbody">
+          <div class="cl"><span class="cm">&lt;!-- минимальный шаблон --&gt;</span></div>
+          <div class="cl"><span class="tg">&lt;!DOCTYPE html&gt;</span></div>
+          <div class="cl"><span class="tg">&lt;html</span> <span class="at">lang</span>=<span class="tx">"ru"</span><span class="tg">&gt;</span></div>
+          <div class="cl">  <span class="tg">&lt;head&gt;</span></div>
+          <div class="cl">    <span class="tg">&lt;meta</span> <span class="at">charset</span>=<span class="tx">"UTF-8"</span><span class="tg">&gt;</span></div>
+          <div class="cl">    <span class="tg">&lt;title&gt;</span><span class="tx">Заголовок вкладки</span><span class="tg">&lt;/title&gt;</span></div>
+          <div class="cl">  <span class="tg">&lt;/head&gt;</span></div>
+          <div class="cl">  <span class="tg">&lt;body&gt;</span></div>
+          <div class="cl">    <span class="tg">&lt;h1&gt;</span><span class="tx">Заголовок страницы</span><span class="tg">&lt;/h1&gt;</span></div>
+          <div class="cl">    <span class="tg">&lt;p&gt;</span><span class="tx">Текст абзаца.</span><span class="tg">&lt;/p&gt;</span></div>
+          <div class="cl">    <span class="tg">&lt;img</span> <span class="at">src</span>=<span class="tx">"foto.jpg"</span> <span class="at">alt</span>=<span class="tx">"Описание"</span><span class="tg">&gt;</span></div>
+          <div class="cl">    <span class="tg">&lt;a</span> <span class="at">href</span>=<span class="tx">"https://example.com"</span><span class="tg">&gt;</span><span class="tx">Ссылка</span><span class="tg">&lt;/a&gt;</span></div>
+          <div class="cl">  <span class="tg">&lt;/body&gt;</span></div>
+          <div class="cl"><span class="tg">&lt;/html&gt;</span></div>
+        </div>
+      </div>
+      <div>
+        <div id="illus-dom" class="illus" data-anim aria-hidden="true"></div>
+        <div class="row" data-stagger style="margin-top:16px;gap:12px">
+          <span class="chip" style="font-size:22px"><span class="dot"></span><span class="mono">&lt;head&gt;</span> — служебная информация</span>
+          <span class="chip violet" style="font-size:22px"><span class="dot"></span><span class="mono">&lt;body&gt;</span> — видимое содержимое</span>
+        </div>
+        <p class="small" data-anim style="margin-top:14px">HTML — язык <strong>разметки</strong>, а не программирования: он описывает структуру страницы с помощью тегов. Сегодня — страница-визитка, проверенная по чек-листу ИБ</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> страница — это структура из тегов: служебная часть и видимое содержимое.</p>
+    <ul>
+      <li>Комментируйте шаблон построчно: DOCTYPE — объявление типа документа; html — корневой элемент; head — кодировка и заголовок вкладки; body — всё, что видит пользователь.</li>
+      <li>Подчеркните: большинство тегов парные — это частая ошибка на практике.</li>
+      <li>Покажите схему вложенности: внутри html — два «контейнера»: head и body, внутри body — содержимое.</li>
+      <li>Спросите: какой тег отвечает за картинку? за ссылку? (проверка понимания перед практикой)</li>
+    </ul>
+    <p><b>Переход>:</b> «Шпаргалка по всем тегам, которые понадобятся».</p>
+    <p><i>Тайминг: ~180 с</i></p>
+  </aside>
+</section>
+
+<!-- 6. ШПАРГАЛКА ТЕГОВ -->
+<section id="s-tags" data-title="Шпаргалка тегов">
+  <div class="wrap">
+    <div class="kicker" data-anim>Раздаточный материал</div>
+    <h2 class="h2" data-anim style="margin:10px 0 20px">Шпаргалка: восемь тегов</h2>
+    <div class="grid4" data-stagger>
+      <div class="card"><p class="ct mono hi-c" style="font-size:22px">&lt;!DOCTYPE html&gt;</p><p class="cd" style="font-size:22px">Объявление типа документа — всегда первая строка</p></div>
+      <div class="card"><p class="ct mono hi-c" style="font-size:22px">&lt;html&gt;</p><p class="cd" style="font-size:22px">Корневой элемент всей страницы</p></div>
+      <div class="card"><p class="ct mono hi-c" style="font-size:22px">&lt;head&gt;</p><p class="cd" style="font-size:22px">Служебная информация: кодировка, заголовок вкладки</p></div>
+      <div class="card"><p class="ct mono hi-c" style="font-size:22px">&lt;body&gt;</p><p class="cd" style="font-size:22px">Видимое содержимое страницы</p></div>
+      <div class="card safe"><p class="ct mono hi-m" style="font-size:22px">&lt;h1&gt;</p><p class="cd" style="font-size:22px">Заголовок первого уровня — главный на странице</p></div>
+      <div class="card safe"><p class="ct mono hi-m" style="font-size:22px">&lt;p&gt;</p><p class="cd" style="font-size:22px">Абзац текста</p></div>
+      <div class="card warn"><p class="ct mono hi-a" style="font-size:22px">&lt;img&gt;</p><p class="cd" style="font-size:22px">Изображение. Проверяйте, что попало в кадр!</p></div>
+      <div class="card warn"><p class="ct mono hi-a" style="font-size:22px">&lt;a&gt;</p><p class="cd" style="font-size:22px">Гиперссылка. Только проверенные адреса!</p></div>
+    </div>
+    <div class="defbox" data-anim style="margin-top:22px">Жёлтым выделены теги с <strong>повышенными рисками</strong>: изображение может раскрыть личные данные, ссылка — увести на опасный сайт. К ним вернёмся в чек-листе</div>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> восемь тегов достаточно для страницы-визитки; два из них — зона риска.</p>
+    <ul>
+      <li>Шпаргалка есть и на раздаточном листе — ученики пользуются ей во время практики.</li>
+      <li>Специально выделите img и a: именно через них чаще всего «утекают» данные и приходят угрозы — мостик к чек-листу.</li>
+      <li>Напомните про атрибут alt у изображения: описание на случай, если картинка не загрузится.</li>
+    </ul>
+    <p><b>Переход»:</b> «А теперь главное — чек-лист безопасности. Часть первая: контент».</p>
+    <p><i>Тайминг: ~150 с</i></p>
+  </aside>
+</section>
+
+<!-- 7. ЧЕК-ЛИСТ: КОНТЕНТ И ДАННЫЕ -->
+<section id="s-check1" data-title="Чек-лист: контент">
+  <div class="wrap">
+    <div class="kicker" data-anim>Чек-лист безопасности · часть 1</div>
+    <h2 class="h2" data-anim style="margin:10px 0 18px">Контент и данные: что нельзя публиковать</h2>
+    <div class="split-46" style="flex:1;align-items:center">
+      <div class="col" data-stagger>
+        <div class="rule danger"><span class="rn" style="color:var(--red)">1</span><span class="rt"><strong>Не публикуйте персональные данные.</strong> <span>Домашний адрес, телефон, номер школы, паспортные данные, геолокация — табу</span></span></div>
+        <div class="rule danger"><span class="rn" style="color:var(--red)">2</span><span class="rt"><strong>Осторожно с фотографиями.</strong> <span>В кадр случайно попадают документы, номера, адреса на конвертах. Чужие фото — только с разрешения</span></span></div>
+        <div class="rule warn"><span class="rn" style="color:var(--amber)">3</span><span class="rt"><strong>Не размещайте чужой контент без разрешения.</strong> <span>Авторское право: открытые лицензии или свои материалы</span></span></div>
+        <div class="rule"><span class="rn">8</span><span class="rt"><strong>Подумайте о цифровом следе.</strong> <span>Всё опубликованное сохраняется. Не навредит ли это вам через 5 лет?</span></span></div>
+      </div>
+      <div id="illus-safe" class="illus" data-anim aria-hidden="true"></div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> самая частная утечка — не взлом, а неосторожная публикация.</p>
+    <ul>
+      <li>Комментируйте каждое правило примерами: фото у подъезда с табличкой адреса; селфи с паспортом на столе; скрин переписки с чужим именем.</li>
+      <li>Правило 3 — правовой аспект: изображения из поиска почти всегда защищены авторским правом; альтернатива — свои рисунки, заглушки, открытые лицензии.</li>
+      <li>Покажите иллюстрацию «опасно/безопасно»: слева страница с телефоном и «документом» в кадре, справа — никнейм и замок.</li>
+      <li>Вопрос: «Выложили фото билета на концерт со штрихкодом — в чём риск?» (код могут использовать)</li>
+    </ul>
+    <p><b>Переход:</b> «Часть вторая — техническая сторона страницы».</p>
+    <p><i>Тайминг: ~120 с</i></p>
+  </aside>
+</section>
+
+<!-- 8. ЧЕК-ЛИСТ: ТЕХНИЧЕСКАЯ СТОРОНА -->
+<section id="s-check2" data-title="Чек-лист: техника">
+  <div class="wrap">
+    <div class="kicker" data-anim>Чек-лист безопасности · часть 2</div>
+    <h2 class="h2" data-anim style="margin:10px 0 20px">Техническая сторона страницы</h2>
+    <div class="grid4" data-stagger>
+      <div class="rule" style="flex-direction:column;gap:10px"><span class="rn">4</span><span class="rt"><strong>Проверяйте ссылки.</strong> <span>Все гиперссылки ведут на безопасные (замком) и проверенные ресурсы; никаких подозрительных сайтов</span></span></div>
+      <div class="rule" style="flex-direction:column;gap:10px"><span class="rn">5</span><span class="rt"><strong>Не создавайте лишние формы.</strong> <span>Форма обратной связи не должна запрашивать пароли, номера карт, паспортные данные</span></span></div>
+      <div class="rule" style="flex-direction:column;gap:10px"><span class="rn">6</span><span class="rt"><strong>Используйте защищённое соединение.</strong> <span>При публикации сайта — только протокол (замком)</span></span></div>
+      <div class="rule" style="flex-direction:column;gap:10px"><span class="rn">7</span><span class="rt"><strong>Не встраивайте подозрительный код.</strong> <span>Скрипты из непроверенных источников могут содержать вредоносные элементы</span></span></div>
+    </div>
+    <div class="defbox" data-anim style="margin-top:22px">Этот чек-лист (все 8 пунктов) вы будете <strong>заполнять по ходу работы</strong> на раздаточном листе — и по нему же пройдёт взаимопроверка. <span class="hi-m">Критерий «безопасность» — самый весомый в оценке</span></div>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> автор отвечает и за то, куда ведут ссылки и какие данные собирает его страница.</p>
+    <ul>
+      <li>Правило 4: сегодня ученики добавляют только те ссылки, которые проверены вместе с учителем.</li>
+      <li>Правило 5: принцип минимальной достаточности — не запрашивать больше данных, чем нужно; параллель с реальной жизнью (формы, требующие пароль «для галочки»).</li>
+      <li>Правило 7: «красивый код со стороннего сайта» может оказаться скриптом с майнером или редиректом — правило «не понимаю код — не вставляю».</li>
+      <li>Напомните: чек-лист лежит на парте и заполняется по ходу, а не в конце.</li>
+    </ul>
+    <p><b>Переход:</b> «Теперь — задание на практическую работу».</p>
+    <p><i>Тайминг: ~120 с</i></p>
+  </aside>
+</section>
+
+<!-- 9. ЗАДАНИЕ ПРАКТИКИ -->
+<section id="s-task" data-title="Задание">
+  <div class="wrap">
+    <div class="kicker" data-anim>Инструктаж · тема на выбор</div>
+    <h2 class="h2" data-anim style="margin:10px 0 18px">Создаём веб-страницу в парах</h2>
+    <div class="grid4" data-stagger>
+      <div class="card safe"><h3 class="ct">🎨 Моё хобби</h3><p class="cd">Без указания личных данных автора</p></div>
+      <div class="card"><h3 class="ct">🔬 Интересный факт из науки</h3><p class="cd">Коротко и достоверно</p></div>
+      <div class="card"><h3 class="ct">🛡 Правила безопасного поведения в Интернете</h3><p class="cd">Мини-памятка для сверстников</p></div>
+      <div class="card"><h3 class="ct">🎬 Любимый фильм / книга / игра</h3><p class="cd">Обзор без спойлеров</p></div>
+    </div>
+    <div class="row" data-stagger style="margin-top:20px;gap:14px">
+      <span class="chip" style="font-size:22px"><span class="dot"></span>Заголовок <span class="mono">&lt;h1&gt;</span></span>
+      <span class="chip" style="font-size:22px"><span class="dot"></span>Не менее двух абзацев <span class="mono">&lt;p&gt;</span></span>
+      <span class="chip" style="font-size:22px"><span class="dot"></span>Изображение <span class="mono">&lt;img&gt;</span> или ссылка <span class="mono">&lt;a&gt;</span></span>
+      <span class="chip amber" style="font-size:22px"><span class="dot"></span>Без персональных данных (имена → никнеймы)</span>
+      <span class="chip red" style="font-size:22px"><span class="dot"></span>Чек-лист заполнен</span>
+    </div>
+    <p class="small" data-anim style="margin-top:18px">Изображения: только локальные файлы или заглушки — не зависим от скорости Интернета и не нарушаем авторские права</p>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> требования простые, но безопасность проверяется у всех одинаково.</p>
+    <ul>
+      <li>Пары выбирают тему сами — так выше вовлечённость; если пара не может выбрать, предложите «Правила безопасного поведения» — материал уже под рукой.</li>
+      <li>Подчеркните: имена заменяем никнеймами — это первый пункт чек-листа ещё до начала работы.</li>
+      <li>Если компьютеров нет, напомните запасной вариант из сценария: макет на бумаге + заполненный чек-лист с обоснованием, почему данные не размещены.</li>
+    </ul>
+    <p><b>Переход:</b> «Алгоритм работы и частые затруднения».</p>
+    <p><i>Тайминг: ~90 с</i></p>
+  </aside>
+</section>
+
+<!-- 10. АЛГОРИТМ + ЗАТРУДНЕНИЯ -->
+<section id="s-steps" data-title="Алгоритм работы">
+  <div class="wrap">
+    <div class="kicker" data-anim>Инструктаж · 6 шагов</div>
+    <h2 class="h2" data-anim style="margin:10px 0 18px">Алгоритм работы</h2>
+    <div class="split-55" style="flex:1">
+      <div class="col" data-stagger>
+        <div class="rule"><span class="rn">1</span><span class="rt">Откройте текстовый редактор <span>— Блокнот, Notepad++ или VS Code</span></span></div>
+        <div class="rule"><span class="rn">2</span><span class="rt">Напишите HTML-код <span>— по шаблону из раздатки</span></span></div>
+        <div class="rule"><span class="rn">3</span><span class="rt">Сохраните файл <span>— с расширением <span class="mono hi-m">.html</span>, например page.html</span></span></div>
+        <div class="rule"><span class="rn">4</span><span class="rt">Откройте файл в браузере <span>— проверьте отображение</span></span></div>
+        <div class="rule"><span class="rn">5</span><span class="rt">Заполните чек-лист безопасности <span>— по ходу работы</span></span></div>
+        <div class="rule"><span class="rn">6</span><span class="rt">Внесите исправления <span>— если чек-лист что-то нашёл</span></span></div>
+      </div>
+      <div>
+        <p class="small" data-anim style="margin-bottom:12px">Типичные затруднения — решение уже готово:</p>
+        <div class="grid2" data-stagger>
+          <div class="card warn" style="padding:16px"><p class="cd" style="font-size:22px"><strong class="hi-a">Забыли закрыть тег?</strong><br>Большинство тегов парные: <span class="mono">&lt;p&gt;…&lt;/p&gt;</span></p></div>
+          <div class="card warn" style="padding:16px"><p class="cd" style="font-size:22px"><strong class="hi-a">Картинка не видна?</strong><br>Файл должен лежать в той же папке; проверьте расширение</p></div>
+          <div class="card warn" style="padding:16px"><p class="cd" style="font-size:22px"><strong class="hi-a">Как сделать ссылку?</strong><br><span class="mono" style="font-size:20px">&lt;a href="адрес"&gt;текст&lt;/a&gt;</span></p></div>
+          <div class="card warn" style="padding:16px"><p class="cd" style="font-size:22px"><strong class="hi-a">Чужое изображение?</strong><br>Замените заглушкой — цветным блоком <span class="mono">&lt;div&gt;</span></p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> шесть шагов и четыре готовых решения — старт без пауз.</p>
+    <ul>
+      <li>Шаг 3 — самая частая ошибка года: файл сохраняют как «Без имени» или с расширением .txt. Проверьте, что в системе включено показ расширений.</li>
+      <li>Затруднения проговорите заранее — это экономит время обхода класса.</li>
+      <li>Разделите роли в паре: один пишет код, второй ведёт чек-лист, затем проверка вместе.</li>
+    </ul>
+    <p><b>Переход:</b> «Время пошло — 18 минут».</p>
+    <p><i>Тайминг: ~120 с</i></p>
+  </aside>
+</section>
+
+<!-- 11. ПРАКТИКА -->
+<section id="s-practice" data-title="Практика 18 минут" data-background-gradient="linear-gradient(140deg, rgba(61,245,182,0.10), rgba(76,201,240,0.04) 50%, rgba(155,140,255,0.08))">
+  <div class="wrap">
+    <div class="kicker" data-anim>Практическая работа</div>
+    <h2 class="h2" data-anim style="margin:10px 0 10px">Создание веб-страницы</h2>
+    <div class="split" style="flex:1;align-items:center">
+      <div>
+        <div class="timer" data-anim>18:00</div>
+        <p class="lead" data-anim style="margin-top:14px;font-size:27px">Пара → тема → код → браузер → <span class="hi-m">чек-лист</span></p>
+        <p class="small" data-anim style="margin-top:12px">Учитель обходит класс и помогает с HTML-синтаксисом. Вопросы по тегам — поднимайте руку</p>
+      </div>
+      <div class="col" data-stagger>
+        <div class="rule safe"><span class="rn" style="color:var(--mint)">✓</span><span class="rt" style="font-size:23px">Имена заменены никнеймами, адресов и телефонов нет</span></div>
+        <div class="rule safe"><span class="rn" style="color:var(--mint)">✓</span><span class="rt" style="font-size:23px">В изображениях нет случайно попавших личных данных</span></div>
+        <div class="rule safe"><span class="rn" style="color:var(--mint)">✓</span><span class="rt" style="font-size:23px">Ссылки ведут только на проверенные (замком) ресурсы</span></div>
+        <div class="rule safe"><span class="rn" style="color:var(--mint)">✓</span><span class="rt" style="font-size:23px">Контент не нарушает авторских прав</span></div>
+        <div class="rule safe"><span class="rn" style="color:var(--mint)">✓</span><span class="rt" style="font-size:23px">Публикация не навредит автору в будущем</span></div>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> слайд висит фоном во время практики; чек-лист перед глазами.</p>
+    <ul>
+      <li>Включите таймер на телефоне/экране. Контрольные точки: на 8-й минуте у каждой пары уже должен быть сохранён .html-файл; на 14-й — начат чек-лист.</li>
+      <li>Обход класса: контролируйте процесс, помогайте с синтаксисом, обращайте внимание на требования безопасности.</li>
+      <li>Быстрым парам: добавьте второй раздел или ссылку; медленным — сократите до одного абзаца, но чек-лист обязателен для всех.</li>
+    </ul>
+    <p><b>Переход:</b> «Время вышло — меняемся работами для взаимопроверки».</p>
+    <p><i>Тайминг: 18 мин практики (слайд — фон)</i></p>
+  </aside>
+</section>
+
+<!-- 12. ВЗАИМОПРОВЕРКА + D3 КРИТЕРИИ -->
+<section id="s-peer" data-title="Взаимопроверка" data-chart="rubric">
+  <div class="wrap">
+    <div class="kicker" data-anim>Взаимопроверка · 5 минут</div>
+    <h2 class="h2" data-anim style="margin:10px 0 16px">Проверяем страницу соседей</h2>
+    <div class="split-40" style="flex:1;align-items:center">
+      <div class="col" data-stagger>
+        <div class="rule"><span class="rn">1</span><span class="rt">Откройте файл в браузере</span></div>
+        <div class="rule"><span class="rn">2</span><span class="rt">Проверьте отображение: заголовок, текст, изображение/ссылка</span></div>
+        <div class="rule"><span class="rn">3</span><span class="rt">Пройдитесь по чек-листу — нет ли нарушений</span></div>
+        <div class="rule safe"><span class="rn" style="color:var(--mint)">4</span><span class="rt">Сформулируйте <strong>одно замечание или одну похвалу</strong></span></div>
+      </div>
+      <div data-anim>
+        <div class="legend"><span><span class="sw" style="background:var(--mint)"></span>Безопасность — 3 балла</span><span><span class="sw" style="background:var(--cyan)"></span>Остальные критерии</span></div>
+        <div id="chart-rubric" class="chart"></div>
+        <p class="src">9–10 → «5» · 7–8 → «4» · 5–6 → «3». Главный вес — у безопасности</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> проверяя чужое, учишься видеть риски в своём.</p>
+    <ul>
+      <li>Пары меняются местами; проверяющие открывают файл, смотрят отображение и проходят чек-лист. На проверку 2–3 минуты, затем 2–3 пары кратко представляют: тема, учтённые правила, найденные нарушения.</li>
+      <li>Покажите диаграмму критериев: безопасность и чек-лист суммарно дают 5 баллов из 10 — половина оценки. Качество кода специально не главный критерий.</li>
+      <li>Правило обратной связи: одно замечание или одна похвала — формат доброжелательный.</li>
+    </ul>
+    <p><b>Переход:</b> «Подводим итоги всей темы из трёх уроков».</p>
+    <p><i>Тайминг: ~270 с (взаимопроверка 5 мин)</i></p>
+  </aside>
+</section>
+
+<!-- 13. ТРИ УРОКА — ТРИ ШАГА -->
+<section id="s-path" data-title="Итог темы">
+  <div class="wrap">
+    <div class="kicker" data-anim>Рефлексия · тема 1.1 завершена</div>
+    <h2 class="h2" data-anim style="margin:10px 0 22px">Три урока — три шага</h2>
+    <div class="grid3" data-stagger>
+      <div class="card"><div class="num-badge" style="margin-bottom:14px">1</div><h3 class="ct">Как устроен Интернет</h3><p class="cd">Сеть сетей, узлы, пакеты, IP-адреса, большие данные</p></div>
+      <div class="card"><div class="num-badge" style="margin-bottom:14px">2</div><h3 class="ct">Угрозы и защита</h3><p class="cd">Пароли, аутентификация, фишинг, кибербуллинг, цифровой след</p></div>
+      <div class="card safe"><div class="num-badge" style="margin-bottom:14px">3</div><h3 class="ct">Безопасное создание</h3><p class="cd">Собственная веб-страница + чек-лист из 8 правил — сегодняшняя практика</p></div>
+    </div>
+    <div class="defbox" data-anim style="margin-top:24px">Вопрос классу: <strong>что нового вы узнали сегодня о связи безопасности и создания контента? Чего раньше не замечали?</strong></div>
+    <p class="lead" data-anim style="margin-top:18px;font-size:27px">Безопасность в Интернете — это не только защита от чужих угроз, но и <span class="grad-text" style="font-weight:700">ответственность за то, что создаёте вы сами</span></p>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> тема пройдена по спирали: устройство → защита → ответственное создание.</p>
+    <ul>
+      <li>Пройдите три шага вслух — это структурная рефлексия всей темы 1.1.</li>
+      <li>Заслушайте 1–2 ответа на вопрос: типичные открытия — «фото может раскрыть адрес», «ссылка на странице — моя ответственность».</li>
+      <li>Главный вывод: цифровой след остаётся навсегда. Думайте, прежде чем размещать.</li>
+    </ul>
+    <p><b>Переход:</b> «Домашнее задание».</p>
+    <p><i>Тайминг: ~120 с (рефлексия 2 мин)</i></p>
+  </aside>
+</section>
+
+<!-- 14. ДОМАШНЕЕ ЗАДАНИЕ -->
+<section id="s-hw" data-title="Домашнее задание">
+  <div class="wrap">
+    <div class="kicker" data-anim>Дома</div>
+    <h2 class="h2" data-anim style="margin:10px 0 20px">Домашнее задание</h2>
+    <div class="split-55" style="flex:1">
+      <div class="card" data-anim style="border-color:rgba(76,201,240,.5)">
+        <h3 class="ct hi-c">Обязательная часть</h3>
+        <p class="cd" style="margin-bottom:12px">📝 Доработать созданную веб-страницу с учётом замечаний проверяющей пары</p>
+        <p class="cd">📖 Повторить материал темы 1.1 — на обобщающем уроке (урок 6) будут вопросы из чек-листа безопасности</p>
+      </div>
+      <div class="card safe" data-anim>
+        <h3 class="ct hi-m">Творческая часть — по желанию</h3>
+        <p class="cd" style="margin-bottom:12px">🛡 Добавить на страницу раздел «Правила безопасности»: 3–5 советов посетителям</p>
+        <p class="cd">🎤 Или мини-презентация (3–4 слайда): «Мой цифровой след: что я публикую и что обо мне могут узнать»</p>
+      </div>
+    </div>
+    <div class="row" data-anim style="margin-top:20px;gap:14px">
+      <span class="chip violet"><span class="dot"></span>ЭОР с интерактивными заданиями: <span class="mono">m.edsoo.ru/V4G8T9R2X</span></span>
+      <span class="chip"><span class="dot"></span>Можно использовать для домашней работы</span>
+    </div>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> дома закрепляем навык: доработка страницы и подготовка к обобщению.</p>
+    <ul>
+      <li>Обязательная часть: доработка по замечаниям — это продолжение взаимопроверки; повторение темы 1.1 к обобщающему уроку № 6.</li>
+      <li>Творческие задания по желанию; раздел «Правила безопасности» на своей странице — самое «в тему».</li>
+      <li>ЭОР содержит интерактивные задания — можно дать как дополнительную практику или самопроверку.</li>
+    </ul>
+    <p><b>Переход:</b> «И финальная мысль».</p>
+    <p><i>Тайминг: ~90 с</i></p>
+  </aside>
+</section>
+
+<!-- 15. ФИНАЛ -->
+<section id="s-final" data-title="Финал" data-background-gradient="linear-gradient(140deg, rgba(61,245,182,0.12), rgba(76,201,240,0.05) 50%, rgba(155,140,255,0.10))">
+  <div class="wrap" style="justify-content:center;text-align:center">
+    <div class="kicker" style="justify-content:center" data-anim>Главный вывод темы</div>
+    <h2 data-anim style="font-family:var(--font-display);font-weight:900;font-size:60px;line-height:1.14;max-width:1040px;margin:18px auto 0">Цифровой след остаётся навсегда.<br><span class="grad-text">Думай, прежде чем опубликовать</span></h2>
+    <div class="grad-underline" data-anim style="margin:24px auto"></div>
+    <div class="row" data-stagger style="justify-content:center;margin-top:24px">
+      <span class="chip"><span class="dot"></span>Следующий урок: тема 1.2 «Работа в информационном пространстве»</span>
+      <span class="chip violet"><span class="dot"></span>Виды деятельности в сети · интернет-сервисы</span>
+    </div>
+    <p class="lead" data-anim style="margin-top:30px">Спасибо за работу! Ваши страницы — первый шаг к ответственному авторству в сети</p>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> авторство в сети = ответственность; тема 1.1 закрывается практическим навыком.</p>
+    <ul>
+      <li>Три вывода: безопасность — это и про то, что создаёшь сам; чек-лист работает для любого контента, от страницы до поста в соцсети; навыки пригодятся в блоге, портфолио, рабочих проектах.</li>
+      <li>Анонс темы 1.2: виды деятельности в сети и интернет-сервисы — сегодняшняя страница станет естественной подводкой.</li>
+      <li>Резерв Q&A: (1) «Можно ли указывать личные данные, если страницу увидит только учитель?» — нет: файл может попасть в сеть, пересылка в мессенджере — уже публикация; правило: не размещай ничего, что не показал бы незнакомцу. (2) «Почему HTML — не язык программирования?» — в нём нет алгоритмов, ветвлений и циклов; это язык разметки, описывающий структуру. (3) «Что делать, если изображение не моё?» — использовать материалы с открытой лицензией, свои файлы или заглушки; чужие фото без разрешения — нарушение авторских прав.</li>
+    </ul>
+    <p><i>Тайминг: ~60 с + вопросы</i></p>
+  </aside>
+</section>
+
+</div><!-- /.slides -->
+</div><!-- /.reveal -->
+
+<!-- БИБЛИОТЕКИ -->
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@6/dist/reveal.js" onerror="window.__revealCDNFailed=true"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@6/dist/plugin/notes/notes.js" onerror="window.__notesFailed=true"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@6/dist/plugin/zoom/zoom.js" onerror="window.__zoomFailed=true"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<script src="https://cdn.jsdelivr.net/npm/@svgdotjs/svg.js@3/dist/svg.min.js"></script>
+
+<script>
+/* ===== 0. УСТОЙЧИВОСТЬ И ДОСТУПНОСТЬ ===== */
+const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const $  = (s, el=document) => el.querySelector(s);
+const $$ = (s, el=document) => Array.from(el.querySelectorAll(s));
+const HAS = { gsap: typeof gsap!=='undefined', d3: typeof d3!=='undefined', svg: typeof SVG!=='undefined', reveal: typeof Reveal!=='undefined' };
+console.info('[deck] библиотеки:', HAS);
+
+function staticCounters(){}
+function fallbackMode(err){
+  console.error('[deck] запасной режим:', err);
+  document.body.classList.add('no-reveal');
+}
+
+/* ===== 1. ИЛЛЮСТРАЦИИ SVG.js ===== */
+const ILL = {};
+
+function buildIllusTitle(){
+  const box=$('#illus-title'); if(!box||!HAS.svg) return;
+  const d=SVG().addTo(box).viewbox('0 0 560 440');
+  const gMint=d.gradient('linear',a=>{a.stop(0,'#3DF5B6');a.stop(1,'#4CC9F0');});
+  const win=d.group();
+  win.rect(380,300).radius(16).move(40,40).fill('#0E1A15').stroke({color:'rgba(61,245,182,.65)',width:3});
+  win.rect(380,44).radius(16).move(40,40).fill('#13221C');
+  [[66,'#FF6161'],[88,'#FFC53D'],[110,'#3DF5B6']].forEach(c=>win.circle(12).cx(c[0]).cy(62).fill(c[1]));
+  win.rect(240,24).radius(12).move(130,50).fill('rgba(61,245,182,.10)').stroke({color:'rgba(61,245,182,.4)',width:1.5});
+  win.rect(12,9).radius(2).move(142,59).fill('#3DF5B6');
+  win.path('M145 59 v-3 a3.5 3.5 0 0 1 7 0 v3').fill('none').stroke({color:'#3DF5B6',width:2});
+  win.text('https://моя-страница.рф').font({family:'JetBrains Mono',size:13,weight:600}).fill('#9FE8CF').move(162,64);
+  win.rect(180,22).radius(6).move(64,106).fill(gMint);
+  [[64,142,320],[64,164,290],[64,186,310]].forEach(l=>win.rect(l[2],12).radius(6).move(l[0],l[1]).fill('rgba(233,246,239,.16)'));
+  win.rect(140,96).radius(8).move(64,212).fill('rgba(155,140,255,.16)').stroke({color:'#9B8CFF',width:2.5});
+  win.path('M84 286 l26 -30 l18 20 l14 -14 l22 24').fill('none').stroke({color:'#9B8CFF',width:3});
+  win.circle(12).cx(100).cy(234).fill('#FFC53D');
+  win.rect(150,28).radius(14).move(224,232).fill('rgba(76,201,240,.12)').stroke({color:'#4CC9F0',width:2.5});
+  win.text('подробнее →').font({family:'IBM Plex Sans',size:16,weight:600}).fill('#4CC9F0').move(248,252);
+  const shield=d.group();
+  shield.path('M480 168 L552 196 V268 C552 332 480 376 480 376 C480 376 408 332 408 268 V196 Z').fill(gMint).stroke({color:'#0B1210',width:4});
+  shield.polyline('450,272 474,298 514,236').fill('none').stroke({color:'#0B1210',width:12,linecap:'round',linejoin:'round'});
+  const chipH=d.group();
+  chipH.rect(110,40).radius(12).move(428,60).fill('rgba(61,245,182,.12)').stroke({color:'#3DF5B6',width:2});
+  chipH.text('замком').font({family:'JetBrains Mono',size:18,weight:600}).fill('#3DF5B6').move(452,86);
+  const chipC=d.group();
+  chipC.rect(170,40).radius(12).move(40,368).fill('rgba(255,197,61,.12)').stroke({color:'#FFC53D',width:2});
+  chipC.text('чек-лист ✓').font({family:'JetBrains Mono',size:18,weight:600}).fill('#FFC53D').move(66,394);
+  ILL.title={win,shield,chipH,chipC};
+}
+
+function buildIllusDom(){
+  const box=$('#illus-dom'); if(!box||!HAS.svg) return;
+  const d=SVG().addTo(box).viewbox('0 0 560 300');
+  const g=d.group();
+  g.rect(520,260).radius(14).move(20,20).fill('rgba(155,140,255,.06)').stroke({color:'#9B8CFF',width:2.5});
+  g.text('<html>').font({family:'JetBrains Mono',size:19,weight:600}).fill('#9B8CFF').move(36,44);
+  g.rect(200,90).radius(10).move(44,74).fill('rgba(76,201,240,.08)').stroke({color:'#4CC9F0',width:2.5});
+  g.text('<head>').font({family:'JetBrains Mono',size:18,weight:600}).fill('#4CC9F0').move(58,94);
+  g.rect(160,16).radius(6).move(60,120).fill('rgba(76,201,240,.35)');
+  g.text('charset="UTF-8"').font({family:'JetBrains Mono',size:13}).fill('#8FB8D8').move(60,144);
+  g.rect(244,200).radius(10).move(272,60).fill('rgba(61,245,182,.07)').stroke({color:'#3DF5B6',width:2.5});
+  g.text('<body>').font({family:'JetBrains Mono',size:18,weight:600}).fill('#3DF5B6').move(288,80);
+  g.rect(120,18).radius(5).move(292,106).fill('rgba(61,245,182,.5)');
+  [[292,134,200],[292,156,180]].forEach(l=>g.rect(l[2],11).radius(5).move(l[0],l[1]).fill('rgba(233,246,239,.2)'));
+  g.rect(70,52).radius(6).move(292,180).fill('rgba(155,140,255,.2)').stroke({color:'#9B8CFF',width:2});
+  g.rect(110,26).radius(13).move(380,192).fill('rgba(76,201,240,.12)').stroke({color:'#4CC9F0',width:2});
+  g.text('<a>').font({family:'JetBrains Mono',size:14,weight:600}).fill('#4CC9F0').move(422,210);
+  g.text('<img>').font({family:'JetBrains Mono',size:13,weight:600}).fill('#9B8CFF').move(300,242);
+  ILL.dom={g};
+}
+
+function buildIllusSafe(){
+  const box=$('#illus-safe'); if(!box||!HAS.svg) return;
+  const d=SVG().addTo(box).viewbox('0 0 620 400');
+  // опасная страница
+  const bad=d.group();
+  bad.rect(270,300).radius(14).move(20,30).fill('#160F12').stroke({color:'#FF6161',width:3,dasharray:'10 8'});
+  bad.rect(270,40).radius(14).move(20,30).fill='#1E1418';
+  bad.rect(270,40).radius(14).move(20,30).fill('#1E1418');
+  bad.circle(12).cx(44).cy(50).fill('#FF6161');
+  bad.rect(150,20).radius(10).move(60,40).fill('rgba(255,97,97,.12)').stroke({color:'rgba(255,97,97,.5)',width:1.5});
+  bad.text('http://страна.ру').font({family:'JetBrains Mono',size:13}).fill('#E08B8B').move(72,54);
+  bad.text('Телефон: 8 912…').font({family:'IBM Plex Sans',size:17,weight:600}).fill('#E9F6EF').move(40,96);
+  bad.text('Адрес: ул. Школьная, 5').font({family:'IBM Plex Sans',size:16}).fill('#E9F6EF').move(40,126);
+  bad.text('Школа № 12, 9 «Б»').font({family:'IBM Plex Sans',size:16}).fill('#E9F6EF').move(40,152);
+  bad.rect(120,90).radius(8).move(40,190).fill('rgba(255,97,97,.12)').stroke({color:'#FF6161',width:2.5});
+  bad.rect(30,38).radius(2).move(118,206).fill('rgba(255,255,255,.85)');
+  bad.text('документ').font({family:'IBM Plex Sans',size:12,weight:600}).fill('#141A33').move(121,222);
+  bad.text('фото').font({family:'IBM Plex Sans',size:14}).fill('#E08B8B').move(72,288);
+  const warn=d.group();
+  warn.path('M240 300 L268 348 L212 348 Z').fill('#FFC53D').stroke({color:'#0B1210',width:3});
+  warn.text('!').font({family:'Tektur',size:28,weight:900,anchor:'middle'}).fill('#0B1210').move(240,342);
+  bad.text('опасно').font({family:'JetBrains Mono',size:24,weight:600,anchor:'middle'}).fill('#FF6161').move(155,368);
+  // безопасная страница
+  const good=d.group();
+  good.rect(270,300).radius(14).move(330,30).fill('#0E1A15').stroke({color:'#3DF5B6',width:3,dasharray:'10 8'});
+  good.rect(270,40).radius(14).move(330,30).fill('#13221C');
+  good.circle(12).cx(354).cy(50).fill('#3DF5B6');
+  good.rect(150,20).radius(10).move(372,40).fill('rgba(61,245,182,.10)').stroke({color:'rgba(61,245,182,.45)',width:1.5});
+  good.rect(10,8).radius(2).move(382,47).fill('#3DF5B6');
+  good.path('M385 47 v-2.5 a3 3 0 0 1 6 0 v2.5').fill('none').stroke({color:'#3DF5B6',width:2});
+  good.text('https://мой-блог.рф').font({family:'JetBrains Mono',size:13}).fill('#9FE8CF').move(400,54);
+  good.text('Автор: PixelFox').font({family:'IBM Plex Sans',size:17,weight:600}).fill('#E9F6EF').move(350,96);
+  [[350,126,210],[350,152,190]].forEach(l=>good.rect(l[2],11).radius(5).move(l[0],l[1]).fill('rgba(233,246,239,.18)'));
+  good.rect(120,90).radius(8).move(350,190).fill('rgba(61,245,182,.10)').stroke({color:'#3DF5B6',width:2.5});
+  good.path('M370 258 l24 -28 l16 18 l12 -12 l20 22').fill('none').stroke({color:'#3DF5B6',width:3});
+  good.text('своё фото').font({family:'IBM Plex Sans',size:14}).fill('#9FE8CF').move(372,288);
+  const okB=d.group();
+  okB.circle(30).cx(552).cy(322).fill('#3DF5B6');
+  okB.polyline('538,322 550,334 568,308').fill('none').stroke({color:'#0B1210',width:6,linecap:'round'});
+  good.text('безопасно').font({family:'JetBrains Mono',size:24,weight:600,anchor:'middle'}).fill('#3DF5B6').move(465,368);
+  ILL.safe={bad,warn,good,okB};
+}
+
+/* ===== 2. ЧАРТЫ D3 ===== */
+const chartsDone={timing:false,rubric:false};
+
+function buildChartTiming(){
+  if(chartsDone.timing||!HAS.d3) return; chartsDone.timing=true;
+  const data=[
+    {label:'Оргмомент и цели',v:3},{label:'Повторение',v:4},{label:'Теория',v:8},{label:'Инструктаж',v:3},
+    {label:'Практика',v:18},{label:'Взаимопроверка',v:5},{label:'Рефлексия',v:2},{label:'Домашнее задание',v:2}
+  ];
+  const W=620,H=400,mL=250,mR=90;
+  const svg=d3.select('#chart-timing').append('svg').attr('viewBox',`0 0 ${W} ${H}`);
+  const defs=svg.append('defs');
+  const gA=defs.append('linearGradient').attr('id','gTimeA').attr('x1',0).attr('y1',0).attr('x2',1).attr('y2',0);
+  gA.append('stop').attr('offset','0%').attr('stop-color','#3DF5B6'); gA.append('stop').attr('offset','100%').attr('stop-color','#4CC9F0');
+  const gB=defs.append('linearGradient').attr('id','gTimeB').attr('x1',0).attr('y1',0).attr('x2',1).attr('y2',0);
+  gB.append('stop').attr('offset','0%').attr('stop-color','rgba(155,140,255,.85)'); gB.append('stop').attr('offset','100%').attr('stop-color','rgba(76,201,240,.85)');
+  const x=d3.scaleLinear().domain([0,18]).range([mL,W-mR]);
+  const rows=svg.selectAll('g.row').data(data).join('g').attr('transform',(d,i)=>`translate(0,${8+i*48})`);
+  rows.append('text').attr('x',mL-16).attr('y',26).attr('text-anchor','end').attr('fill','#E9F6EF')
+      .style('font',(d)=>(d.label==='Практика'?'800 20px IBM Plex Sans':'600 18px IBM Plex Sans')).text(d=>d.label);
+  rows.append('rect').attr('x',mL).attr('y',6).attr('height',30).attr('rx',8)
+      .attr('fill',d=>d.label==='Практика'?'url(#gTimeA)':'url(#gTimeB)').attr('width',0);
+  rows.append('text').attr('class','val').attr('y',28).attr('x',mL+8).attr('opacity',0)
+      .style('font-size','18px').text(d=>d.v+' мин');
+  const dur=REDUCED?0:900;
+  rows.select('rect').transition().delay((d,i)=>i*90).duration(dur).ease(d3.easeCubicOut).attr('width',d=>x(d.v)-mL);
+  rows.select('text.val').transition().delay((d,i)=>i*90+dur*0.55).duration(REDUCED?0:300)
+      .attr('opacity',1).attr('x',d=>x(d.v)+10);
+}
+
+function buildChartRubric(){
+  if(chartsDone.rubric||!HAS.d3) return; chartsDone.rubric=true;
+  const data=[
+    {label:'Элементы страницы',v:2,c:'#4CC9F0'},
+    {label:'Безопасность',v:3,c:'#3DF5B6'},
+    {label:'Корректность контента',v:2,c:'#9B8CFF'},
+    {label:'Чек-лист заполнен',v:2,c:'#FFC53D'},
+    {label:'Работа в паре',v:1,c:'#FF8FB1'}
+  ];
+  const W=560,H=190,x0=10,xW=540,y0=30,bh=64;
+  const svg=d3.select('#chart-rubric').append('svg').attr('viewBox',`0 0 ${W} ${H}`);
+  const scale=v=>v/10*xW;
+  let acc=0;
+  const rows=svg.selectAll('g.seg').data(data).join('g')
+    .attr('transform',(d)=>{const s=`translate(${x0+scale(acc)},${y0})`; acc+=d.v; return s;});
+  rows.append('rect').attr('x',1).attr('y',0).attr('height',bh).attr('rx',10)
+      .attr('fill',d=>d.c).attr('stroke','#0B1210').attr('stroke-width',3).attr('width',0);
+  rows.append('text').attr('class','val').attr('y',bh/2+9).attr('x',d=>scale(d.v)/2+1)
+      .attr('text-anchor','middle').attr('opacity',0).style('font-size','24px')
+      .attr('fill',d=>(d.c==='#FFC53D'||d.c==='#3DF5B6')?'#0B1210':'#0B1210').text(d=>d.v);
+  rows.append('text').attr('y',bh+34).attr('x',d=>scale(d.v)/2+1).attr('text-anchor','middle')
+      .attr('fill','#8FAF9F').style('font','600 17px IBM Plex Sans').attr('opacity',0)
+      .text(d=>d.label.length>14?d.label.split(' ').slice(0,2).join(' '):d.label);
+  const dur=REDUCED?0:800;
+  rows.select('rect').transition().delay((d,i)=>i*140).duration(dur).ease(d3.easeCubicOut).attr('width',d=>Math.max(scale(d.v)-2,10));
+  rows.select('text.val').transition().delay((d,i)=>i*140+dur*0.5).duration(REDUCED?0:300).attr('opacity',1);
+  rows.selectAll('text:not(.val)').transition().delay((d,i)=>i*140+dur*0.6).duration(REDUCED?0:300).attr('opacity',1);
+}
+
+const chartFor={'s-route':buildChartTiming,'s-peer':buildChartRubric};
+function buildChartsFor(slide){ if(slide && chartFor[slide.id]) chartFor[slide.id](); }
+
+/* ===== 3. РЕЕСТР АНИМАЦИЙ GSAP ===== */
+const TL={};
+const animations={
+  's-title':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'power3.out'}});
+    tl.fromTo(scope.querySelectorAll('.kicker, h1 span'),{y:30,opacity:0},{y:0,opacity:1,duration:.7,stagger:.12},0)
+      .fromTo(scope.querySelector('.grad-underline'),{scaleX:0,transformOrigin:'0 50%'},{scaleX:1,duration:.7},.45)
+      .fromTo(scope.querySelector('.lead'),{y:22,opacity:0},{y:0,opacity:1,duration:.6},.55)
+      .fromTo(scope.querySelectorAll('[data-stagger] .chip'),{y:18,opacity:0},{y:0,opacity:1,duration:.5,stagger:.1},.7)
+      .fromTo(scope.querySelectorAll('.foot [data-anim]'),{opacity:0},{opacity:1,duration:.6,stagger:.1},.9);
+    if(ILL.title){
+      tl.fromTo(ILL.title.win.node(),{y:30,opacity:0},{y:0,opacity:1,duration:.8},.2)
+        .fromTo(ILL.title.shield.node(),{scale:0,opacity:0,transformOrigin:'50% 50%'},{scale:1,opacity:1,duration:.7,ease:'back.out(2)'},.9)
+        .fromTo([ILL.title.chipH.node(),ILL.title.chipC.node()],{scale:.6,opacity:0,transformOrigin:'50% 50%'},{scale:1,opacity:1,duration:.5,stagger:.15,ease:'back.out(2)'},1.25);
+    }
+    return tl;
+  },
+  's-route':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'power3.out'}});
+    tl.fromTo(scope.querySelectorAll('.kicker, .h2'),{y:26,opacity:0},{y:0,opacity:1,duration:.6,stagger:.1},0)
+      .fromTo(scope.querySelectorAll('[data-stagger] .card'),{x:-34,opacity:0},{x:0,opacity:1,duration:.55,stagger:.1},.25)
+      .fromTo(scope.querySelectorAll('[data-anim] .legend, [data-anim] .chart'),{opacity:0,y:22},{opacity:1,y:0,duration:.6},.5);
+    return tl;
+  },
+  's-quiz':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'back.out(1.5)'}});
+    tl.fromTo(scope.querySelectorAll('.kicker, .h2'),{y:26,opacity:0},{y:0,opacity:1,duration:.6,ease:'power3.out',stagger:.1},0)
+      .fromTo(scope.querySelectorAll('[data-stagger] .rule'),{x:-40,opacity:0},{x:0,opacity:1,duration:.5,stagger:.12},.25)
+      .fromTo(scope.querySelectorAll('.wrap > .small'),{opacity:0},{opacity:1,duration:.5,ease:'power3.out'},1.0);
+    return tl;
+  },
+  's-shift':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'power3.out'}});
+    tl.fromTo(scope.querySelectorAll('.kicker, .h2'),{y:26,opacity:0},{y:0,opacity:1,duration:.6,stagger:.1},0)
+      .fromTo(scope.querySelector('.card.safe'),{x:-36,opacity:0},{x:0,opacity:1,duration:.7},.25)
+      .fromTo(scope.querySelectorAll('[data-stagger] .rule'),{x:36,opacity:0},{x:0,opacity:1,duration:.55,stagger:.15},.4)
+      .fromTo(scope.querySelectorAll('.wrap > .lead'),{y:20,opacity:0},{y:0,opacity:1,duration:.6},.95);
+    return tl;
+  },
+  's-html':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'power3.out'}});
+    tl.fromTo(scope.querySelectorAll('.kicker, .h2'),{y:26,opacity:0},{y:0,opacity:1,duration:.6,stagger:.1},0)
+      .fromTo(scope.querySelector('.codebox'),{x:-36,opacity:0},{x:0,opacity:1,duration:.7},.25)
+      .fromTo(scope.querySelectorAll('.codebox .cl'),{x:-14,opacity:0},{x:0,opacity:1,duration:.3,stagger:.06},.45)
+      .fromTo(scope.querySelector('#illus-dom'),{opacity:0,y:24},{opacity:1,y:0,duration:.7},.5)
+      .fromTo(scope.querySelectorAll('[data-stagger] .chip'),{y:16,opacity:0},{y:0,opacity:1,duration:.45,stagger:.12},1.0)
+      .fromTo(scope.querySelectorAll('.split-46 .small'),{opacity:0},{opacity:1,duration:.5},1.25);
+    return tl;
+  },
+  's-tags':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'back.out(1.5)'}});
+    tl.fromTo(scope.querySelectorAll('.kicker, .h2'),{y:26,opacity:0},{y:0,opacity:1,duration:.6,ease:'power3.out',stagger:.1},0)
+      .fromTo(scope.querySelectorAll('[data-stagger] .card'),{y:40,opacity:0,scale:.94},{y:0,opacity:1,scale:1,duration:.55,stagger:.08},.25)
+      .fromTo(scope.querySelector('.defbox'),{y:22,opacity:0},{y:0,opacity:1,duration:.6,ease:'power3.out'},.95);
+    return tl;
+  },
+  's-check1':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'power3.out'}});
+    tl.fromTo(scope.querySelectorAll('.kicker, .h2'),{y:26,opacity:0},{y:0,opacity:1,duration:.6,stagger:.1},0)
+      .fromTo(scope.querySelectorAll('[data-stagger] .rule'),{x:-36,opacity:0},{x:0,opacity:1,duration:.5,stagger:.14},.25);
+    if(ILL.safe){
+      tl.fromTo(ILL.safe.bad.node(),{y:30,opacity:0},{y:0,opacity:1,duration:.6},.3)
+        .fromTo(ILL.safe.warn.node(),{scale:0,opacity:0,transformOrigin:'50% 50%'},{scale:1,opacity:1,duration:.5,ease:'back.out(2.4)'},.8)
+        .fromTo(ILL.safe.good.node(),{y:30,opacity:0},{y:0,opacity:1,duration:.6},.55)
+        .fromTo(ILL.safe.okB.node(),{scale:0,opacity:0,transformOrigin:'50% 50%'},{scale:1,opacity:1,duration:.5,ease:'back.out(2.4)'},1.05);
+    }
+    return tl;
+  },
+  's-check2':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'back.out(1.5)'}});
+    tl.fromTo(scope.querySelectorAll('.kicker, .h2'),{y:26,opacity:0},{y:0,opacity:1,duration:.6,ease:'power3.out',stagger:.1},0)
+      .fromTo(scope.querySelectorAll('[data-stagger] .rule'),{y:40,opacity:0,scale:.95},{y:0,opacity:1,scale:1,duration:.55,stagger:.12},.25)
+      .fromTo(scope.querySelector('.defbox'),{y:22,opacity:0},{y:0,opacity:1,duration:.6,ease:'power3.out'},.95);
+    return tl;
+  },
+  's-task':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'back.out(1.5)'}});
+    tl.fromTo(scope.querySelectorAll('.kicker, .h2'),{y:26,opacity:0},{y:0,opacity:1,duration:.6,ease:'power3.out',stagger:.1},0)
+      .fromTo(scope.querySelectorAll('[data-stagger] .card'),{y:40,opacity:0,scale:.94},{y:0,opacity:1,scale:1,duration:.55,stagger:.1},.25)
+      .fromTo(scope.querySelectorAll('[data-stagger] .chip'),{y:16,opacity:0},{y:0,opacity:1,duration:.45,ease:'power3.out',stagger:.08},.75)
+      .fromTo(scope.querySelectorAll('.wrap > .small'),{opacity:0},{opacity:1,duration:.5,ease:'power3.out'},1.2);
+    return tl;
+  },
+  's-steps':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'power3.out'}});
+    tl.fromTo(scope.querySelectorAll('.kicker, .h2'),{y:26,opacity:0},{y:0,opacity:1,duration:.6,stagger:.1},0)
+      .fromTo(scope.querySelectorAll('[data-stagger] .rule'),{x:-34,opacity:0},{x:0,opacity:1,duration:.45,stagger:.1},.25)
+      .fromTo(scope.querySelectorAll('.split-55 .small'),{opacity:0},{opacity:1,duration:.4},.5)
+      .fromTo(scope.querySelectorAll('[data-stagger] .card'),{x:30,opacity:0},{x:0,opacity:1,duration:.5,stagger:.1},.55);
+    return tl;
+  },
+  's-practice':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'power3.out'}});
+    tl.fromTo(scope.querySelectorAll('.kicker, .h2'),{y:26,opacity:0},{y:0,opacity:1,duration:.6,stagger:.1},0)
+      .fromTo(scope.querySelector('.timer'),{scale:.7,opacity:0,transformOrigin:'0 50%'},{scale:1,opacity:1,duration:.8,ease:'back.out(1.6)'},.25)
+      .fromTo(scope.querySelectorAll('.split > div:first-child .lead, .split > div:first-child .small'),{opacity:0,y:16},{opacity:1,y:0,duration:.5,stagger:.15},.8)
+      .fromTo(scope.querySelectorAll('[data-stagger] .rule'),{x:36,opacity:0},{x:0,opacity:1,duration:.5,stagger:.12},.5);
+    return tl;
+  },
+  's-peer':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'power3.out'}});
+    tl.fromTo(scope.querySelectorAll('.kicker, .h2'),{y:26,opacity:0},{y:0,opacity:1,duration:.6,stagger:.1},0)
+      .fromTo(scope.querySelectorAll('[data-stagger] .rule'),{x:-34,opacity:0},{x:0,opacity:1,duration:.5,stagger:.14},.25)
+      .fromTo(scope.querySelectorAll('[data-anim] .legend, [data-anim] .chart, [data-anim] .src'),{opacity:0,y:20},{opacity:1,y:0,duration:.6,stagger:.12},.45);
+    return tl;
+  },
+  's-path':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'back.out(1.5)'}});
+    tl.fromTo(scope.querySelectorAll('.kicker, .h2'),{y:26,opacity:0},{y:0,opacity:1,duration:.6,ease:'power3.out',stagger:.1},0)
+      .fromTo(scope.querySelectorAll('[data-stagger] .card'),{y:42,opacity:0,scale:.94},{y:0,opacity:1,scale:1,duration:.6,stagger:.14},.25)
+      .fromTo(scope.querySelector('.defbox'),{y:22,opacity:0},{y:0,opacity:1,duration:.6,ease:'power3.out'},.85)
+      .fromTo(scope.querySelectorAll('.wrap > .lead'),{opacity:0,y:18},{opacity:1,y:0,duration:.6,ease:'power3.out'},1.1);
+    return tl;
+  },
+  's-hw':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'back.out(1.5)'}});
+    tl.fromTo(scope.querySelectorAll('.kicker, .h2'),{y:26,opacity:0},{y:0,opacity:1,duration:.6,ease:'power3.out',stagger:.1},0)
+      .fromTo(scope.querySelectorAll('.split-55 .card'),{y:40,opacity:0,scale:.95},{y:0,opacity:1,scale:1,duration:.6,stagger:.15},.25)
+      .fromTo(scope.querySelectorAll('[data-anim] .chip'),{y:16,opacity:0},{y:0,opacity:1,duration:.5,ease:'power3.out',stagger:.1},.8);
+    return tl;
+  },
+  's-final':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'power3.out'}});
+    tl.fromTo(scope.querySelectorAll('[data-anim]'),{y:28,opacity:0},{y:0,opacity:1,duration:.7,stagger:.14},0)
+      .fromTo(scope.querySelector('.grad-underline'),{scaleX:0,transformOrigin:'50% 50%'},{scaleX:1,duration:.7},.8)
+      .fromTo(scope.querySelectorAll('[data-stagger] .chip'),{y:18,opacity:0},{y:0,opacity:1,duration:.5,stagger:.12},1.0);
+    return tl;
+  }
+};
+
+function playAnim(id){
+  if(REDUCED||!HAS.gsap||!id) return;
+  const slide=document.getElementById(id);
+  if(!slide||!animations[id]) return;
+  if(!TL[id]) TL[id]=animations[id](slide);
+  TL[id].restart();
+}
+function resetAnim(id){ if(TL[id]) TL[id].progress(0).pause(); }
+
+/* ===== 4. СБОРКА И ЗАПУСК ===== */
+buildIllusTitle(); buildIllusDom(); buildIllusSafe();
+
+(function boot(){
+  if(window.__revealCDNFailed||typeof Reveal==='undefined'){
+    fallbackMode('Reveal.js не загрузился (нет доступа к CDN).');
+    return;
+  }
+  if(REDUCED||!HAS.gsap) staticCounters();
+
+  const plugins=[];
+  if(typeof RevealNotes!=='undefined') plugins.push(RevealNotes);
+  else console.warn('[deck] RevealNotes не загрузился — режим докладчика (S) будет недоступен.');
+  if(typeof RevealZoom!=='undefined') plugins.push(RevealZoom);
+  else console.warn('[deck] RevealZoom не загрузился — зум будет недоступен.');
+
+  try{
+    const p=Reveal.initialize({
+      hash:true, controls:true, controlsLayout:'bottom-right', progress:true,
+      transition:'slide', transitionSpeed:'default',
+      width:1280, height:720, margin:0.05, center:false,
+      plugins:plugins
+    });
+    if(p&&p.catch) p.catch(e=>fallbackMode(e));
+  }catch(e){ fallbackMode(e); return; }
+
+  Reveal.on('ready',ev=>{ playAnim(ev.currentSlide.id); buildChartsFor(ev.currentSlide); });
+  Reveal.on('slidechanged',ev=>{
+    if(ev.previousSlide) resetAnim(ev.previousSlide.id);
+    playAnim(ev.currentSlide.id);
+    buildChartsFor(ev.currentSlide);
+  });
+
+  if(!REDUCED&&HAS.gsap){
+    const qx1=gsap.quickTo('#glow-a','x',{duration:1.1,ease:'power2'});
+    const qy1=gsap.quickTo('#glow-a','y',{duration:1.1,ease:'power2'});
+    const qx2=gsap.quickTo('#glow-b','x',{duration:1.3,ease:'power2'});
+    const qy2=gsap.quickTo('#glow-b','y',{duration:1.3,ease:'power2'});
+    window.addEventListener('mousemove',e=>{
+      const nx=e.clientX/window.innerWidth-.5, ny=e.clientY/window.innerHeight-.5;
+      qx1(nx*38); qy1(ny*38); qx2(nx*-46); qy2(ny*-46);
+    },{passive:true});
+  }
+})();
+</script>
+</body>
+</html>

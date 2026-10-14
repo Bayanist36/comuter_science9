@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Виды деятельности в сети Интернет · Информатика 9 класс · Урок 4</title>
+
+<!-- ШРИФТЫ -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800&family=Golos+Text:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+<!-- REVEAL.JS 6 CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@6/dist/reveal.css">
+
+<style>
+/* ===== ТОКЕНЫ + ТЁМНАЯ ТЕМА ДЛЯ REVEAL ===== */
+:root{
+  --bg:#0A0D22; --surface:#121736; --ink:#EEF1FF; --muted:#9AA3D6;
+  --c-comm:#4CC9F0; --c-ref:#FFC53D; --c-search:#3DF5B6; --c-gov:#6B8CFF;
+  --c-cloud:#B78CFF; --c-office:#FF6EC7; --c-dev:#FF9F43;
+  --grad-main:linear-gradient(110deg,#4CC9F0,#B78CFF 50%,#FF6EC7);
+  --font-display:'Unbounded',sans-serif; --font-body:'Golos Text',sans-serif; --font-mono:'JetBrains Mono',monospace;
+  /* переменные темы reveal.js */
+  --r-background-color:#0A0D22;
+  --r-main-font:'Golos Text',sans-serif;
+  --r-main-font-size:26px;
+  --r-main-color:#EEF1FF;
+  --r-heading-font:'Unbounded',sans-serif;
+  --r-heading-color:#EEF1FF;
+  --r-heading-line-height:1.08;
+  --r-heading-letter-spacing:normal;
+  --r-heading-text-transform:none;
+  --r-heading-text-shadow:none;
+  --r-heading-font-weight:800;
+  --r-heading1-size:2.4em; --r-heading2-size:1.55em; --r-heading3-size:1.15em; --r-heading4-size:1em;
+  --r-block-margin:18px; --r-heading-margin:0 0 18px 0;
+  --r-link-color:#4CC9F0; --r-link-color-dark:#B78CFF; --r-link-color-hover:#FF6EC7;
+  --r-selection-background-color:rgba(255,110,199,.35); --r-selection-color:#0A0D22;
+}
+*{box-sizing:border-box}
+html{background:#0A0D22}
+body, body.reveal-viewport{background:#0A0D22 !important}
+body{margin:0;font-family:var(--font-body);color:var(--ink)}
+
+/* ===== ФОНОВЫЙ ДЕКОР ===== */
+#bg-decor{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+#bg-dots{position:absolute;inset:0;
+  background-image:radial-gradient(rgba(238,241,255,.07) 1.5px,transparent 1.5px);
+  background-size:30px 30px;
+  -webkit-mask-image:radial-gradient(ellipse at 50% 42%,#000 28%,transparent 80%);
+          mask-image:radial-gradient(ellipse at 50% 42%,#000 28%,transparent 80%)}
+.glow{position:absolute;border-radius:50%;filter:blur(95px)}
+#glow-a{width:680px;height:680px;left:-200px;top:-230px;background:radial-gradient(circle,rgba(76,201,240,.16),transparent 65%)}
+#glow-b{width:720px;height:720px;right:-240px;bottom:-260px;background:radial-gradient(circle,rgba(255,110,199,.14),transparent 65%)}
+#glow-c{width:520px;height:520px;left:38%;top:54%;background:radial-gradient(circle,rgba(183,140,255,.13),transparent 62%)}
+#bg-noise{position:absolute;inset:-60%;width:220%;height:220%;opacity:.05;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/></filter><rect width='300' height='300' filter='url(%23n)' opacity='0.7'/></svg>");
+  animation:grain 9s steps(8) infinite}
+@keyframes grain{0%{transform:translate(0,0)}25%{transform:translate(-2%,3%)}50%{transform:translate(3%,-2%)}75%{transform:translate(-3%,-3%)}100%{transform:translate(0,0)}}
+
+.reveal{position:relative;z-index:2;background:transparent;font-family:var(--font-body);font-size:26px;color:var(--ink)}
+.reveal ::selection{background:rgba(255,110,199,.35)}
+.reveal .controls{color:var(--c-comm)}
+.reveal .progress{background:rgba(238,241,255,.10);color:var(--c-office)}
+.reveal .slides section{text-align:left;overflow:hidden;color:var(--ink)}
+
+/* ===== ТИПОГРАФИКА ===== */
+.reveal h1,.reveal h2,.reveal h3{font-family:var(--font-display);font-weight:800;line-height:1.06;margin:0;text-transform:none;color:var(--ink);text-shadow:none;letter-spacing:normal}
+.reveal .h-title{font-size:74px}
+.reveal .h2{font-size:50px;max-width:1080px}
+.kicker{display:inline-flex;align-items:center;gap:10px;font-size:24px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--c-comm)}
+.kicker::before{content:"";width:14px;height:14px;border-radius:50%;background:var(--grad-main);box-shadow:0 0 16px rgba(76,201,240,.9)}
+.lead{font-size:30px;font-weight:600;line-height:1.45}
+.small{font-size:24px;color:var(--muted);line-height:1.45}
+.src{font-size:24px;font-style:italic;color:var(--muted)}
+.mono{font-family:var(--font-mono)}
+.grad-text{background:var(--grad-main);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+@supports not ((-webkit-background-clip:text) or (background-clip:text)){
+  .grad-text{background:none;color:var(--c-comm);-webkit-text-fill-color:currentColor}
+}
+.grad-underline{height:9px;width:200px;border-radius:8px;background:var(--grad-main);margin-top:18px;box-shadow:0 6px 26px rgba(183,140,255,.4)}
+.hi-c{color:var(--c-comm)} .hi-y{color:var(--c-ref)} .hi-g{color:var(--c-search)} .hi-v{color:var(--c-cloud)} .hi-p{color:var(--c-office)} .hi-b{color:var(--c-gov)} .hi-o{color:var(--c-dev)}
+strong{color:var(--ink)}
+
+/* ===== РАСКЛАДКИ ===== */
+.wrap{position:relative;height:100%;padding:44px 56px 40px;display:flex;flex-direction:column}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:38px;align-items:center}
+.split-46{display:grid;grid-template-columns:46% 1fr;gap:38px;align-items:center}
+.split-40{display:grid;grid-template-columns:40% 1fr;gap:40px;align-items:center}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.grow{flex:1;display:flex;flex-direction:column;justify-content:center;min-height:0}
+.row{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.col{display:flex;flex-direction:column;gap:12px}
+.foot{margin-top:auto;padding-top:12px;display:flex;justify-content:space-between;align-items:flex-end;gap:24px}
+
+/* ===== КОМПОНЕНТЫ ===== */
+.card{background:linear-gradient(160deg,rgba(24,30,66,.94),rgba(14,18,42,.96));border:1.5px solid rgba(154,163,214,.25);border-radius:18px;padding:18px 20px;box-shadow:0 18px 44px rgba(3,5,18,.5)}
+.card .ct{font-family:var(--font-display);font-weight:600;font-size:23px;margin:0 0 8px}
+.card .cd{font-size:24px;color:var(--muted);line-height:1.4;margin:0}
+.card.comm{border-color:rgba(76,201,240,.55)} .card.ref{border-color:rgba(255,197,61,.55)}
+.card.search{border-color:rgba(61,245,182,.55)} .card.gov{border-color:rgba(107,140,255,.6)}
+.card.cloud{border-color:rgba(183,140,255,.6)} .card.office{border-color:rgba(255,110,199,.55)}
+.card.dev{border-color:rgba(255,159,67,.6)}
+.num-badge{width:54px;height:54px;border-radius:50%;background:var(--grad-main);color:#0A0D22;font-family:var(--font-display);font-weight:800;font-size:24px;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 22px rgba(183,140,255,.45);flex:none}
+.chip{display:inline-flex;align-items:center;gap:10px;padding:7px 16px;border-radius:999px;border:1.5px solid rgba(76,201,240,.45);background:rgba(76,201,240,.08);font-size:24px;font-weight:600}
+.chip.pink{border-color:rgba(255,110,199,.5);background:rgba(255,110,199,.08)}
+.chip.violet{border-color:rgba(183,140,255,.55);background:rgba(183,140,255,.10)}
+.chip.green{border-color:rgba(61,245,182,.5);background:rgba(61,245,182,.08)}
+.chip.amber{border-color:rgba(255,197,61,.55);background:rgba(255,197,61,.08)}
+.chip .dot{width:10px;height:10px;border-radius:50%;background:var(--c-comm);box-shadow:0 0 10px var(--c-comm)}
+.chip.pink .dot{background:var(--c-office);box-shadow:0 0 10px var(--c-office)}
+.chip.violet .dot{background:var(--c-cloud);box-shadow:0 0 10px var(--c-cloud)}
+.chip.green .dot{background:var(--c-search);box-shadow:0 0 10px var(--c-search)}
+.chip.amber .dot{background:var(--c-ref);box-shadow:0 0 10px var(--c-ref)}
+.defbox{border-left:6px solid var(--c-cloud);background:linear-gradient(120deg,rgba(76,201,240,.09),rgba(183,140,255,.08) 52%,rgba(255,110,199,.07));padding:18px 26px;border-radius:0 18px 18px 0;font-size:27px;line-height:1.45}
+.ghost{position:absolute;z-index:0;font-family:var(--font-display);font-weight:800;line-height:1;color:transparent;-webkit-text-stroke:2px rgba(154,163,214,.14);user-select:none;pointer-events:none}
+.cat{display:flex;gap:14px;align-items:center;border:1.5px solid rgba(154,163,214,.25);border-radius:14px;background:rgba(18,23,54,.9);padding:10px 16px;font-size:24px;font-weight:600}
+.cat .cdot{width:16px;height:16px;border-radius:50%;flex:none}
+.svc{display:flex;gap:12px;align-items:center;border:1.5px solid rgba(154,163,214,.28);border-radius:14px;background:rgba(18,23,54,.92);padding:10px 14px}
+.svc .si{width:52px;height:52px;flex:none}
+.svc .st{font-size:22px;font-weight:700;line-height:1.2}
+.svc .se{font-size:20px;color:var(--muted);line-height:1.25;margin-top:2px}
+.stepchain{display:flex;align-items:stretch;gap:10px}
+.step{flex:1;border:1.5px solid rgba(61,245,182,.45);border-radius:14px;background:rgba(18,23,54,.92);padding:12px 14px}
+.step .sn{font-family:var(--font-display);font-weight:800;font-size:20px;color:var(--c-search)}
+.step .stx{font-size:21px;line-height:1.3;margin-top:4px}
+.arrowx{align-self:center;font-size:28px;color:var(--c-search)}
+.timer{font-family:var(--font-display);font-weight:800;font-size:120px;line-height:1;background:var(--grad-main);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+@supports not ((-webkit-background-clip:text) or (background-clip:text)){.timer{-webkit-text-fill-color:var(--c-comm);color:var(--c-comm)}}
+.illus svg,.si svg{width:100%;height:auto;display:block}
+.chart svg{width:100%;height:auto;display:block}
+.chart .grid line{stroke:rgba(238,241,255,.10)}
+.chart .val{fill:#EEF1FF;font-family:'Golos Text',sans-serif;font-weight:700}
+.legend{display:flex;gap:18px;align-items:center;font-size:24px;color:var(--muted);margin-bottom:6px;flex-wrap:wrap}
+.legend .sw{width:24px;height:14px;border-radius:5px;display:inline-block;margin-right:8px;vertical-align:middle}
+.treelabel{font-size:20px;fill:#EEF1FF;font-family:'Golos Text',sans-serif;font-weight:800}
+.treesub{font-size:16px;fill:rgba(238,241,255,.8);font-family:'Golos Text',sans-serif;font-weight:600}
+
+/* ===== ЗАПАСНОЙ РЕЖИМ ===== */
+#cdn-error{display:none;position:fixed;z-index:99;top:16px;left:50%;transform:translateX(-50%);background:var(--c-office);color:#0A0D22;font-weight:800;font-family:var(--font-body);font-size:20px;padding:14px 26px;border-radius:14px;max-width:80vw;text-align:center}
+body.no-reveal #cdn-error{display:block}
+body.no-reveal .reveal{position:static}
+body.no-reveal .slides{width:auto!important;height:auto!important;transform:none!important}
+body.no-reveal .slides section{position:relative!important;display:block!important;opacity:1!important;visibility:visible!important;width:auto!important;height:auto!important;max-width:1200px;margin:30px auto;padding:20px;border:1px solid rgba(76,201,240,.4);border-radius:16px}
+body.no-reveal .ghost{display:none}
+body.no-reveal aside.notes{display:none}
+
+@media (prefers-reduced-motion: reduce){#bg-noise{animation:none !important}}
+</style>
+</head>
+<body>
+
+<div id="bg-decor" aria-hidden="true">
+  <div class="glow" id="glow-a"></div><div class="glow" id="glow-b"></div><div class="glow" id="glow-c"></div>
+  <div id="bg-dots"></div><div id="bg-noise"></div>
+</div>
+
+<div id="cdn-error">Не удалось загрузить библиотеки презентации (нужен интернет). Ниже — текстовая версия слайдов.</div>
+
+<div class="reveal">
+<div class="slides">
+
+<!-- 1. ТИТУЛ -->
+<section id="s-title" data-title="Титул">
+  <div class="wrap">
+    <div class="ghost" style="font-size:300px;right:26px;bottom:-30px" aria-hidden="true">@</div>
+    <div class="split" style="flex:1;align-items:center">
+      <div style="max-width:620px">
+        <div class="kicker" data-anim>Информатика · 9 класс · Урок 4 · Тема 1.2</div>
+        <h1 class="h-title" style="margin:20px 0 6px"><span data-anim style="display:block">Виды деятельности</span><span data-anim class="grad-text" style="display:block">в сети Интернет</span></h1>
+        <div class="grad-underline" data-anim></div>
+        <p class="lead" data-anim style="margin:22px 0 20px">Работа в информационном пространстве · урок 1 из 3: раскладываем интернет-сервисы по полочкам</p>
+        <div class="row" data-stagger>
+          <span class="chip"><span class="dot"></span>Раздел 1 · Цифровая грамотность</span>
+          <span class="chip violet"><span class="dot"></span>Классификация · практика · выбор инструментов</span>
+        </div>
+      </div>
+      <div id="illus-hub" class="illus" style="max-width:520px" aria-hidden="true"></div>
+    </div>
+    <div class="foot"><span class="small" data-anim>Тема 1.1 «Интернет и безопасность» завершена — применяем её опыт</span><span class="small mono hi-c" data-anim>сервис → задача → обоснование</span></div>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> новая тема — что конкретно мы делаем в сети и какие инструменты для этого есть.</p>
+    <ul>
+      <li>Приветствие и связка: «Мы завершили тему "Глобальная сеть Интернет и стратегии безопасного поведения". Вы знаете, как сеть устроена и как в ней не потеряться. Теперь — что в ней можно делать».</li>
+      <li>Контракт на урок: сегодня много классификаций и одна аналитическая практика в парах — подбираем сервисы под реальные задачи.</li>
+      <li>Интрига: «За день вы открываете десятки сервисов. А сможете разложить их по полочкам?»</li>
+    </ul>
+    <p><b>Переход:</b> «Сначала посмотрим на план урока».</p>
+    <p><i>Тайминг: ~60 с (оргмомент 3 мин)</i></p>
+  </aside>
+</section>
+
+<!-- 2. МАРШРУТ -->
+<section id="s-route" data-title="Маршрут урока">
+  <div class="wrap">
+    <div class="kicker" data-anim>План · 45 минут</div>
+    <h2 class="h2" data-anim style="margin:10px 0 22px">Маршрут урока</h2>
+    <div class="grid3" data-stagger style="flex:1;align-content:center">
+      <div class="card comm"><div class="row" style="margin-bottom:10px"><span class="num-badge">1</span><span class="chip" style="font-size:20px"><span class="dot"></span>3 мин</span></div><h3 class="ct">Связь с темой 1.1</h3><p class="cd">Безопасность остаётся с нами</p></div>
+      <div class="card ref"><div class="row" style="margin-bottom:10px"><span class="num-badge">2</span><span class="chip amber" style="font-size:20px"><span class="dot"></span>4 мин</span></div><h3 class="ct">Эксперимент</h3><p class="cd">Ситуация → сервис: собираем примеры</p></div>
+      <div class="card search"><div class="row" style="margin-bottom:10px"><span class="num-badge">3</span><span class="chip green" style="font-size:20px"><span class="dot"></span>23 мин</span></div><h3 class="ct">Карта сервисов</h3><p class="cd">Виды деятельности и 8 типов сервисов</p></div>
+      <div class="card office"><div class="row" style="margin-bottom:10px"><span class="num-badge">4</span><span class="chip pink" style="font-size:20px"><span class="dot"></span>10 мин</span></div><h3 class="ct">Практика в парах</h3><p class="cd">Подбираем сервисы под задачу и обосновываем</p></div>
+      <div class="card cloud"><div class="row" style="margin-bottom:10px"><span class="num-badge">5</span><span class="chip violet" style="font-size:20px"><span class="dot"></span>3 мин</span></div><h3 class="ct">Рефлексия</h3><p class="cd">Приём «Одно слово»</p></div>
+      <div class="card gov"><div class="row" style="margin-bottom:10px"><span class="num-badge">6</span><span class="chip" style="font-size:20px"><span class="dot"></span>2 мин</span></div><h3 class="ct">Домашнее задание</h3><p class="cd">Таблица «мои сервисы» + облако по желанию</p></div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> ядро урока — систематизация и практика выбора инструментов.</p>
+    <ul>
+      <li>Урок ознакомительный: многие сервисы ученики уже используют, задача — структурировать опыт.</li>
+      <li>Практика аналитическая: не «успеть всё открыть», а спланировать и обосновать выбор.</li>
+      <li>Напомните: тема 1.2 идёт три часа; на уроке 5 — облака и онлайн-офисы глубже, урок 6 — обобщение раздела 1.</li>
+    </ul>
+    <p><b>Переход:</b> «Начнём с эксперимента».</p>
+    <p><i>Тайминг: ~75 с</i></p>
+  </aside>
+</section>
+
+<!-- 3. МОТИВАЦИЯ -->
+<section id="s-motiv" data-title="Эксперимент">
+  <div class="wrap">
+    <div class="kicker" data-anim>Эксперимент · ситуация → сервис</div>
+    <h2 class="h2" data-anim style="margin:10px 0 20px">Какой сервис вы выберете?</h2>
+    <div class="grid3" data-stagger>
+      <div class="cat"><span class="cdot" style="background:var(--c-ref)"></span>Как добраться до незнакомого адреса?</div>
+      <div class="cat"><span class="cdot" style="background:var(--c-gov)"></span>Записаться к врачу, не выходя из дома?</div>
+      <div class="cat"><span class="cdot" style="background:var(--c-office)"></span>Написать доклад вместе с одноклассниками?</div>
+      <div class="cat"><span class="cdot" style="background:var(--c-search)"></span>Узнать расписание электричек на выходные?</div>
+      <div class="cat"><span class="cdot" style="background:var(--c-ref)"></span>Быстро перевести текст с английского?</div>
+      <div class="cat"><span class="cdot" style="background:var(--c-comm)"></span>Увидеть и услышать бабушку из другого города?</div>
+    </div>
+    <div class="defbox" data-anim style="margin-top:22px">За пару минут мы назвали больше десятка сервисов — и это малая часть Интернета. <strong>Вопрос:</strong> по какому признаку можно <span class="grad-text" style="font-weight:800">классифицировать</span> их все?</div>
+    <p class="small" data-anim style="margin-top:14px">Ожидаемые гипотезы: по назначению, по типу деятельности, по способу использования. Наиболее естественное основание — <strong>вид деятельности</strong>, для которой создан сервис</p>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> сервисов много, и без классификации в них хаос.</p>
+    <ul>
+      <li>Проведите блиц живо: называйте ситуацию — ученики хором или по руке отвечают сервисом. Ответы: карты/навигатор, Госуслуги, онлайн-документ, сайт РЖД/поисковик, переводчик, видеосвязь/мессенджер.</li>
+      <li>Ключевой вопрос слайда — на целеполагание: пусть ученики сами предложат основания классификации (регулятивные УУД).</li>
+      <li>Подведите к формулировке: классифицируем по виду деятельности, для которой сервис предназначен.</li>
+    </ul>
+    <p><b>Переход:</b> «Запишем, какой вообще бывает деятельность в сети».</p>
+    <p><i>Тайминг: ~180 с (мотивация 4 мин)</i></p>
+  </aside>
+</section>
+
+<!-- 4. ВИДЫ ДЕЯТЕЛЬНОСТИ + TREEMAP -->
+<section id="s-kinds" data-title="Виды деятельности" data-chart="treemap">
+  <div class="wrap">
+    <div class="kicker" data-anim>Классификация · запись в тетрадь</div>
+    <h2 class="h2" data-anim style="margin:10px 0 14px">Виды деятельности в Интернете</h2>
+    <div class="split-40" style="flex:1;align-items:center">
+      <div>
+        <div class="defbox" data-anim style="margin-bottom:14px"><strong>Интернет-сервис</strong> — специализированная служба или приложение, доступное через Интернет и предоставляющее пользователю определённую услугу</div>
+        <div class="col" data-stagger>
+          <div class="cat"><span class="cdot" style="background:var(--c-search)"></span>Поиск и потребление информации</div>
+          <div class="cat"><span class="cdot" style="background:var(--c-comm)"></span>Коммуникация и общение</div>
+          <div class="cat"><span class="cdot" style="background:var(--c-office)"></span>Создание и обработка контента</div>
+          <div class="cat"><span class="cdot" style="background:var(--c-ref)"></span>Обучение и самообразование</div>
+          <div class="cat"><span class="cdot" style="background:var(--c-gov)"></span>Получение услуг</div>
+          <div class="cat"><span class="cdot" style="background:var(--c-cloud)"></span>Работа и совместная деятельность</div>
+          <div class="cat"><span class="cdot" style="background:var(--c-dev)"></span>Развлечения и досуг</div>
+        </div>
+      </div>
+      <div data-anim>
+        <div class="legend"><span><span class="sw" style="background:var(--grad-main)"></span>Чем занят Интернет — доли активности, оценка</span></div>
+        <div id="chart-kinds" class="chart"></div>
+        <p class="src">Иллюстративные экспертные оценки структуры онлайн-активности</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> всю деятельность в сети можно разделить на семь крупных категорий.</p>
+    <ul>
+      <li>Схема из сценария записывается в тетрадь: поиск, коммуникация, создание контента, обучение, услуги, совместная работа, развлечения.</li>
+      <li>По treemap покажите: общение и контент — самые «жирные» куски нашей онлайн-жизни; для каждого вида деятельности есть свои сервисы.</li>
+      <li>Вопрос: в какой категории вы проводите больше всего времени? А в какой хотели бы — ради пользы?</li>
+    </ul>
+    <p><b>Переход:</b> «Теперь классифицируем сами сервисы — по назначению».</p>
+    <p><i>Тайминг: ~210 с</i></p>
+  </aside>
+</section>
+
+<!-- 5. 8 ТИПОВ + D3 АУДИТОРИЯ -->
+<section id="s-types" data-title="Классификация сервисов" data-chart="audience">
+  <div class="wrap">
+    <div class="kicker" data-anim>Восемь типов по назначению</div>
+    <h2 class="h2" data-anim style="margin:10px 0 16px">Классификация интернет-сервисов</h2>
+    <div class="split-46" style="flex:1;align-items:center">
+      <div class="grid2" data-stagger>
+        <div class="svc"><div class="si" data-sicon="comm"></div><div><div class="st hi-c">Коммуникационные</div><div class="se">почта, мессенджеры, ВКС, форумы</div></div></div>
+        <div class="svc"><div class="si" data-sicon="ref"></div><div><div class="st hi-y">Справочные</div><div class="se">карты, расписания, энциклопедии</div></div></div>
+        <div class="svc"><div class="si" data-sicon="search"></div><div><div class="st hi-g">Поисковые</div><div class="se">поисковые системы</div></div></div>
+        <div class="svc"><div class="si" data-sicon="upd"></div><div><div class="st hi-o">Обновление ПО</div><div class="se">центры обновлений, репозитории</div></div></div>
+        <div class="svc"><div class="si" data-sicon="gov"></div><div><div class="st hi-b">Государственные услуги</div><div class="se">Госуслуги, электронные дневники</div></div></div>
+        <div class="svc"><div class="si" data-sicon="cloud"></div><div><div class="st hi-v">Облачные хранилища</div><div class="se">Яндекс Диск, Облако Mail, Google Drive</div></div></div>
+        <div class="svc"><div class="si" data-sicon="office"></div><div><div class="st hi-p">Совместная работа</div><div class="se">онлайн-офисы, вики-системы</div></div></div>
+        <div class="svc"><div class="si" data-sicon="dev"></div><div><div class="st hi-o">Веб-сервисы разработки</div><div class="se">онлайн-редакторы кода и графики</div></div></div>
+      </div>
+      <div data-anim>
+        <div class="legend"><span><span class="sw" style="background:linear-gradient(90deg,#4CC9F0,#B78CFF)"></span>Аудитория популярных типов, млрд пользователей в месяц (оценка)</span></div>
+        <div id="chart-aud" class="chart"></div>
+        <p class="src">Один сервис может выполнять несколько функций — классифицируем по основной</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> восемь типов по назначению покрывают почти все сервисы.</p>
+    <ul>
+      <li>Пройдите по типам сверху вниз, комментируя примеры таблицы из сценария.</li>
+      <li>Обязательно проговорите нюанс: мессенджер — и коммуникация, и обмен файлами, иногда даже оплата услуг; но в классификацию он попадает по основной функции.</li>
+      <li>По бар-чарту: поисковики, мессенджеры и почта — сервисы с многомиллиардной аудиторией; вопрос: каким типом вы сами пользуетесь чаще всего?</li>
+    </ul>
+    <p><b>Переход:</b> «Разберём типы подробнее — начнём с общения».</p>
+    <p><i>Тайминг: ~180 с</i></p>
+  </aside>
+</section>
+
+<!-- 6. КОММУНИКАЦИОННЫЕ -->
+<section id="s-comm" data-title="Коммуникационные">
+  <div class="wrap">
+    <div class="kicker" data-anim style="color:var(--c-comm)">Тип 1 · общение и обмен</div>
+    <h2 class="h2" data-anim style="margin:10px 0 20px">Коммуникационные сервисы</h2>
+    <div class="grid4" data-stagger style="flex:1;align-content:center">
+      <div class="card comm"><h3 class="ct">Электронная почта</h3><p class="cd">Асинхронные письма с вложениями. В учёбе: отправка работ учителю, регистрация на платформах</p></div>
+      <div class="card comm"><h3 class="ct">Мессенджеры</h3><p class="cd">Мгновенные сообщения, фото, файлы. В учёбе: чат класса, вопросы учителю</p></div>
+      <div class="card comm" style="border-width:2.5px"><h3 class="ct">ВКС — видеосвязь</h3><p class="cd">Голос и видео в реальном времени: дистанционные уроки, консультации, групповые обсуждения</p></div>
+      <div class="card comm"><h3 class="ct">Форумы и доски</h3><p class="cd">Публичное обсуждение тем: образовательные форумы, вопросы и ответы</p></div>
+    </div>
+    <div class="defbox" data-anim style="margin-top:20px">Какой сервис стал самым востребованным в последние годы? <strong class="hi-c">ВКС</strong> — благодаря дистанционному обучению и удалённой работе: демонстрация экрана, совместные документы, опросы</div>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> коммуникационные сервисы соединяют людей — синхронно и асинхронно.</p>
+    <ul>
+      <li>Подчеркните разницу: почта — асинхронная (ответят, когда смогут), мессенджер — мгновенный, ВКС — в реальном времени.</li>
+      <li>Спросите: какой сервис стал самым востребованным в последние годы? Ожидаемый ответ — ВКС.</li>
+      <li>Свяжите с опытом класса: дистанционные уроки, консультации — это и есть ВКС в действии.</li>
+    </ul>
+    <p><b>Переход:</b> «Следующий тип — сервисы, которые дают готовую информацию».</p>
+    <p><i>Тайминг: ~150 с</i></p>
+  </aside>
+</section>
+
+<!-- 7. СПРАВОЧНЫЕ + ГЕО -->
+<section id="s-ref" data-title="Справочные">
+  <div class="wrap">
+    <div class="kicker" data-anim style="color:var(--c-ref)">Тип 2 · готовая информация</div>
+    <h2 class="h2" data-anim style="margin:10px 0 18px">Справочные сервисы</h2>
+    <div class="split-46" style="flex:1;align-items:center">
+      <div class="col" data-stagger>
+        <div class="card ref" style="padding:14px 18px"><p class="cd"><strong class="hi-y">Геоинформационные сервисы (карты)</strong> — маршруты, панорамы, расстояния: планируем экскурсию до музея</p></div>
+        <div class="card ref" style="padding:14px 18px"><p class="cd"><strong class="hi-y">Расписания</strong> — транспорт, мероприятия, занятия: поездка на олимпиаду</p></div>
+        <div class="card ref" style="padding:14px 18px"><p class="cd"><strong class="hi-y">Энциклопедии и справочники</strong> — статьи и факты: подготовка докладов</p></div>
+        <div class="card ref" style="padding:14px 18px"><p class="cd"><strong class="hi-y">Словари и переводчики</strong> — переводы и толкования: иностранные языки, термины</p></div>
+      </div>
+      <div>
+        <div id="illus-geo" class="illus" data-anim aria-hidden="true"></div>
+        <p class="small" data-anim style="margin-top:10px">Современные карты — не схема дорог: маршрут пешком/авто/транспортом, время прибытия автобуса, панорамы, ближайшие аптеки и библиотеки. <strong>Вопрос:</strong> когда карты выручили вас или близких?</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> справочные сервисы дают готовую информацию по запросу.</p>
+    <ul>
+      <li>Особое внимание — геоинформационным сервисам: это самый наглядный пример «справочника, который считает» (маршрут, время, расстояние).</li>
+      <li>Обсудите вопрос слайда — 1–2 живых примера из жизни учеников.</li>
+      <li>Мостик к практике: в кейсе «Поездка на выходные» карты и расписания будут ключевыми.</li>
+    </ul>
+    <p><b>Переход:</b> «А если мы не знаем, где искать? На сцену выходят поисковики».</p>
+    <p><i>Тайминг: ~150 с</i></p>
+  </aside>
+</section>
+
+<!-- 8. ПОИСКОВЫЕ -->
+<section id="s-search" data-title="Поисковые системы">
+  <div class="wrap">
+    <div class="kicker" data-anim style="color:var(--c-search)">Тип 3 · поиск информации</div>
+    <h2 class="h2" data-anim style="margin:10px 0 18px">Как работает поисковая система</h2>
+    <div class="stepchain" data-stagger>
+      <div class="step"><div class="sn">01</div><div class="stx"><strong>Индексация</strong><br>роботы обходят страницы и заносят их в базу — индекс</div></div>
+      <div class="arrowx">→</div>
+      <div class="step"><div class="sn">02</div><div class="stx"><strong>Обработка запроса</strong><br>ключевые слова, язык, возможный смысл</div></div>
+      <div class="arrowx">→</div>
+      <div class="step"><div class="sn">03</div><div class="stx"><strong>Ранжирование</strong><br>по соответствию и авторитетности источников</div></div>
+      <div class="arrowx">→</div>
+      <div class="step"><div class="sn">04</div><div class="stx"><strong>Выдача</strong><br>список ссылок с кратким описанием</div></div>
+    </div>
+    <div class="defbox" data-anim style="margin-top:22px">Критическое отношение к результатам поиска: <strong>проверяйте в нескольких источниках</strong> · смотрите на <strong>авторитетность сайта</strong> (официальные источники, научные публикации) · остерегайтесь <strong>рекламных и недостоверных</strong> материалов</div>
+    <p class="small" data-anim style="margin-top:16px">В 7 классе вы искали по ключевым словам и по изображению. В 9 классе добавляем главный навык — критическую оценку выдачи</p>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> поиск — это индекс, анализ запроса, ранжирование и выдача.</p>
+    <ul>
+      <li>Пройдите цепочку из четырёх шагов; спросите: на каком шаге система решает, что показать первым? (ранжирование)</li>
+      <li>Три правила критического отношения — под запись или проговаривание: несколько источников, авторитетность, рекламные материалы.</li>
+      <li>Свяжите с темой 1.1: навыки проверки информации защищают и от фишинга.</li>
+    </ul>
+    <p><b>Переход:</b> «Отдельный важный тип — сервисы государства».</p>
+    <p><i>Тайминг: ~150 с</i></p>
+  </aside>
+</section>
+
+<!-- 9. ГОСУСЛУГИ -->
+<section id="s-gov" data-title="Государственные услуги">
+  <div class="wrap">
+    <div class="kicker" data-anim style="color:var(--c-gov)">Тип 4 · цифровизация услуг</div>
+    <h2 class="h2" data-anim style="margin:10px 0 20px">Сервисы государственных услуг</h2>
+    <div class="grid4" data-stagger style="flex:1;align-content:center">
+      <div class="card gov"><h3 class="ct" style="font-size:21px">Портал «Госуслуги»</h3><p class="cd">Справки, запись к врачу, оформление документов, оплата штрафов</p></div>
+      <div class="card gov"><h3 class="ct" style="font-size:21px">Электронный дневник</h3><p class="cd">Оценки, расписание, домашние задания</p></div>
+      <div class="card gov"><h3 class="ct" style="font-size:21px">Кружки и секции</h3><p class="cd">Запись через региональные порталы</p></div>
+      <div class="card gov"><h3 class="ct" style="font-size:21px">Поступление онлайн</h3><p class="cd">Заявления в вузы и колледжи через суперсервисы</p></div>
+    </div>
+    <div class="defbox" data-anim style="margin-top:22px">Цифровизация экономит время и делает процедуры прозрачными. Уже через пару лет многие из вас будут пользоваться этими сервисами <strong>регулярно</strong> — при поступлении и оформлении документов</div>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> госуслуги в сети — практика, которая скоро понадобится каждому выпускнику.</p>
+    <ul>
+      <li>Подчеркните практичность: запись в вуз, справки, документы — это реальные сценарии ближайших двух лет.</li>
+      <li>Электронный дневник — пример сервиса, которым класс пользуется прямо сейчас.</li>
+      <li>Напомните тему 1.1: госуслуги требуют сильных паролей и 2ФА — это сервисы с персональными данными.</li>
+    </ul>
+    <p><b>Переход:</b> «Теперь — облака: как мы храним файлы».</p>
+    <p><i>Тайминг: ~90 с</i></p>
+  </aside>
+</section>
+
+<!-- 10. ОБЛАЧНЫЕ ХРАНИЛИЩА -->
+<section id="s-cloud" data-title="Облачные хранилища">
+  <div class="wrap">
+    <div class="kicker" data-anim style="color:var(--c-cloud)">Тип 5 · хранение и синхронизация</div>
+    <h2 class="h2" data-anim style="margin:10px 0 16px">Облачные хранилища данных</h2>
+    <div class="split-46" style="flex:1;align-items:center">
+      <div>
+        <div class="defbox" data-anim style="margin-bottom:14px"><strong>Облачное хранилище</strong> — онлайн-сервис, предоставляющий дисковое пространство на удалённых серверах для хранения файлов и доступа к ним с любого устройства</div>
+        <div class="col" data-stagger>
+          <div class="cat"><span class="cdot" style="background:var(--c-cloud)"></span>Хранение: документы и фото из любой точки мира</div>
+          <div class="cat"><span class="cdot" style="background:var(--c-cloud)"></span>Синхронизация: файлы обновляются на всех устройствах</div>
+          <div class="cat"><span class="cdot" style="background:var(--c-cloud)"></span>Совместный доступ: делимся файлом или папкой</div>
+          <div class="cat"><span class="cdot" style="background:var(--c-cloud)"></span>Резервные копии: данные переживут поломку устройства</div>
+          <div class="cat"><span class="cdot" style="background:var(--c-cloud)"></span>Версионность: возврат к предыдущей версии документа</div>
+        </div>
+      </div>
+      <div>
+        <div id="illus-cloud" class="illus" data-anim aria-hidden="true"></div>
+        <p class="small" data-anim style="margin-top:10px">Примеры: Яндекс Диск, Облако Mail, Google Drive, OneDrive. <strong>Вопрос из темы 1.1:</strong> какие правила ИБ вспоминаем? — настройки доступа, надёжные пароли, 2ФА, никакого конфидента в открытый доступ</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> облако решает проблему «файлы живут на одном компьютере».</p>
+    <ul>
+      <li>История «раньше»: компьютер ломался — данные терялись. Сегодня файлы живут на удалённых серверах и доступны с любого устройства.</li>
+      <li>Пять возможностей проговорите с примерами: версия документа спасает от случайного удаления.</li>
+      <li>Обязательный мостик к ИБ: спросите правила работы с облаками — тема 1.1 свежая, ученики ответят сами.</li>
+    </ul>
+    <p><b>Переход:</b> «Облака породили новый формат работы — онлайн-офисы».</p>
+    <p><i>Тайминг: ~150 с</i></p>
+  </aside>
+</section>
+
+<!-- 11. ОНЛАЙН-ОФИСЫ -->
+<section id="s-office" data-title="Онлайн-офисы">
+  <div class="wrap">
+    <div class="kicker" data-anim style="color:var(--c-office)">Тип 6 · совместная работа</div>
+    <h2 class="h2" data-anim style="margin:10px 0 16px">Онлайн-офисы</h2>
+    <div class="split" style="flex:1;align-items:center">
+      <div>
+        <div class="defbox" data-anim style="margin-bottom:16px"><strong>Онлайн-офис</strong> — веб-приложение, позволяющее создавать и редактировать документы, таблицы и презентации прямо в браузере, без установки программ</div>
+        <div class="col" data-stagger>
+          <div class="cat"><span class="cdot" style="background:var(--c-office)"></span>Не нужно устанавливать ПО — достаточно браузера</div>
+          <div class="cat"><span class="cdot" style="background:var(--c-office)"></span>Совместная работа в реальном времени</div>
+          <div class="cat"><span class="cdot" style="background:var(--c-office)"></span>Автосохранение и история изменений</div>
+          <div class="cat"><span class="cdot" style="background:var(--c-office)"></span>Доступ с любого устройства</div>
+        </div>
+        <p class="small" data-anim style="margin-top:14px">Примеры: Яндекс Документы/Таблицы/Презентации, Google Docs/Sheets/Slides, МойОфис</p>
+      </div>
+      <div class="card office" data-anim style="padding:26px">
+        <p class="cd" style="font-size:26px;color:var(--ink);line-height:1.45">Группа из четырёх человек готовит доклад. Раньше: пересылка по почте и версии <span class="mono" style="font-size:22px">«доклад_финал», «доклад_финал_2», «доклад_точно_финал»</span></p>
+        <p class="cd" style="margin-top:12px;font-size:26px;color:var(--ink)">Теперь: один документ в онлайн-офисе, каждый пишет свой раздел одновременно, всё сохраняется автоматически</p>
+        <div class="chip pink" style="margin-top:16px"><span class="dot"></span>Чем локальный процессор отличается от онлайн-редактора?</div>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> онлайн-офис — совместная работа в реальном времени без установки ПО.</p>
+    <ul>
+      <li>Шутка про «доклад_финал_2» узнаваема — на ней легко объяснить боль старых способов совместной работы.</li>
+      <li>Обсудите вопрос слайда: локальный работает без интернета и обычно функциональнее; онлайн — доступен везде, даёт совместную работу и не требует установки.</li>
+      <li>Если позволяет время и интернет — короткая живая демонстрация: создать документ и пригласить ученика редактировать.</li>
+    </ul>
+    <p><b>Переход:</b> «И последнее: программы, которые целиком переехали в браузер».</p>
+    <p><i>Тайминг: ~120 с</i></p>
+  </aside>
+</section>
+
+<!-- 12. SAAS -->
+<section id="s-saas" data-title="ПО как сервис">
+  <div class="wrap">
+    <div class="kicker" data-anim style="color:var(--c-dev)">Типы 7–8 · веб-сервисы</div>
+    <h2 class="h2" data-anim style="margin:10px 0 20px">Программное обеспечение как веб-сервис</h2>
+    <div class="grid3" data-stagger>
+      <div class="card dev"><h3 class="ct">Графические редакторы</h3><p class="cd">Дизайн и обработка изображений в браузере: Canva, Figma, Photopea</p></div>
+      <div class="card dev"><h3 class="ct">Текстовые редакторы</h3><p class="cd">Написание и форматирование текстов: Яндекс Документы, Google Docs</p></div>
+      <div class="card dev"><h3 class="ct">Онлайн-среды разработки</h3><p class="cd">Пишем и запускаем код прямо в браузере: онлайн-компиляторы, Google Colab. Знакомо по 8 классу!</p></div>
+    </div>
+    <div class="defbox" data-anim style="margin-top:22px"><strong>SaaS</strong> <span class="mono small">(Software as a Service)</span> — ключевая тенденция: не покупаем лицензию, не устанавливаем и не обновляем программу — открываем браузер и работаем. Плюс сюда же — <strong>службы обновления ПО</strong>: центры обновлений ОС и репозитории</div>
+    <p class="small" data-anim style="margin-top:16px">Для быстрого тестирования идей, обучения и совместной работы онлайн-среды часто удобнее установленных (вроде IDLE или PyCharm)</p>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> в браузере теперь живёт почти всё: от дизайна до запуска кода.</p>
+    <ul>
+      <li>Свяжите с 8 классом: ученики писали программы в установленных средах; онлайн-среда делает то же без установки.</li>
+      <li>Объясните SaaS одной фразой: программа как услуга — открыл браузер и работаешь; лицензия, установка и обновления — забота сервиса.</li>
+      <li>Не забудьте службы обновления ПО: это тоже сервисы, которые заботятся о безопасности (связь с темой 1.1).</li>
+    </ul>
+    <p><b>Переход:</b> «Теперь соберём из сервисов рабочие цепочки — практика!»</p>
+    <p><i>Тайминг: ~120 с</i></p>
+  </aside>
+</section>
+
+<!-- 13. ПРАКТИКА -->
+<section id="s-practice" data-title="Практика 10 минут" data-background-gradient="linear-gradient(140deg, rgba(76,201,240,0.10), rgba(183,140,255,0.05) 50%, rgba(255,110,199,0.08))">
+  <div class="wrap">
+    <div class="kicker" data-anim>Практика в парах · 10 минут</div>
+    <h2 class="h2" data-anim style="margin:10px 0 14px">Собираем цепочку сервисов под задачу</h2>
+    <div class="split-40" style="flex:1;align-items:center">
+      <div>
+        <div class="timer" data-anim>10:00</div>
+        <p class="lead" data-anim style="margin-top:12px;font-size:27px">Таблица ответа: <span class="hi-c">сервис → действие → обоснование выбора</span></p>
+        <p class="small" data-anim style="margin-top:12px">Для комплексной задачи почти всегда нужна <strong>комбинация</strong> сервисов. Умение связать инструменты — ключевой навык в информационном пространстве</p>
+      </div>
+      <div class="grid2" data-stagger>
+        <div class="card search"><h3 class="ct" style="font-size:21px">🌿 Проект по географии</h3><p class="cd" style="font-size:22px">Доклад о заповеднике вчетвером: текст, фото и карта, созвон, отправка учителю</p></div>
+        <div class="card ref"><h3 class="ct" style="font-size:21px">🚆 Поездка на выходные</h3><p class="cd" style="font-size:22px">Расписание поездов, маршрут до гостиницы, отзывы, билеты онлайн</p></div>
+        <div class="card comm"><h3 class="ct" style="font-size:21px">🏆 Олимпиада по информатике</h3><p class="cd" style="font-size:22px">Правила, тренировка на Python, регистрация, сертификат</p></div>
+        <div class="card office"><h3 class="ct" style="font-size:21px">🖼 Цифровая стенгазета</h3><p class="cd" style="font-size:22px">Макет в графическом редакторе, совместный текст, облако, ссылка учителю</p></div>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> одна комплексная задача = продуманная комбинация сервисов.</p>
+    <ul>
+      <li>Раздайте карточки 1–4; пары заполняют таблицу «сервис → действие → обоснование выбора». При наличии быстрого интернета дайте 2–3 минуты реально открыть сервисы.</li>
+      <li>Опорные решения для проверки: проект — онлайн-документ + диск + ВКС + почта; поездка — сайт РЖД + карты + поисковик/отзывы + оплата + мессенджер; олимпиада — сайт олимпиады + онлайн-редактор кода + регистрация на портале + скачивание сертификата; стенгазета — графический редактор + онлайн-документ + облако + ссылка.</li>
+      <li>На обсуждении попросите 2–3 пары представить выбор; хвалите обоснования, а не только названия сервисов.</li>
+    </ul>
+    <p><b>Переход:</b> «Соберём карту сервисов целиком».</p>
+    <p><i>Тайминг: 10 мин (6–7 мин работа + 3 мин обсуждение)</i></p>
+  </aside>
+</section>
+
+<!-- 14. ИТОГОВАЯ КАРТА + РЕФЛЕКСИЯ -->
+<section id="s-map" data-title="Итоговая карта">
+  <div class="wrap">
+    <div class="kicker" data-anim>Подведение итогов</div>
+    <h2 class="h2" data-anim style="margin:10px 0 18px">Карта интернет-сервисов собрана</h2>
+    <div class="grid3" data-stagger>
+      <div class="card comm" style="padding:16px 18px"><h3 class="ct" style="font-size:21px">Коммуникационные</h3><p class="cd" style="font-size:22px">почта · мессенджеры · ВКС</p></div>
+      <div class="card ref" style="padding:16px 18px"><h3 class="ct" style="font-size:21px">Справочные</h3><p class="cd" style="font-size:22px">карты · расписания · энциклопедии</p></div>
+      <div class="card search" style="padding:16px 18px"><h3 class="ct" style="font-size:21px">Поисковые</h3><p class="cd" style="font-size:22px">поисковые системы</p></div>
+      <div class="card gov" style="padding:16px 18px"><h3 class="ct" style="font-size:21px">Государственные услуги</h3><p class="cd" style="font-size:22px">Госуслуги · эл. дневник</p></div>
+      <div class="card cloud" style="padding:16px 18px"><h3 class="ct" style="font-size:21px">Облачные хранилища</h3><p class="cd" style="font-size:22px">Яндекс Диск · Google Drive</p></div>
+      <div class="card office" style="padding:16px 18px"><h3 class="ct" style="font-size:21px">Онлайн-офисы</h3><p class="cd" style="font-size:22px">совместная работа с документами</p></div>
+      <div class="card dev" style="padding:16px 18px;grid-column:span 2"><h3 class="ct" style="font-size:21px">Веб-сервисы</h3><p class="cd" style="font-size:22px">графические редакторы · онлайн-среды разработки · службы обновления ПО</p></div>
+      <div class="card" style="padding:16px 18px"><h3 class="ct" style="font-size:21px">Приём «Одно слово»</h3><p class="cd" style="font-size:22px">Каким словом вы опишете сегодняшний урок?</p></div>
+    </div>
+    <p class="small" data-anim style="margin-top:18px">На следующем уроке углубимся в облачные технологии и на практике поработаем с онлайн-офисом</p>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> классификация собрана — по цепочке, вместе с классом.</p>
+    <ul>
+      <li>Проведите «Одно слово» по цепочке (5–7 учеников): полезный, многообразный, облако, совместность, сервис…</li>
+      <li>Финальную схему можно собирать вместе с классом: учитель называет тип — ученики приводят примеры.</li>
+      <li>Анонс: урок 5 — облака и онлайн-офисы с настоящей практикой; урок 6 — обобщение раздела 1.</li>
+    </ul>
+    <p><b>Переход:</b> «Домашнее задание».</p>
+    <p><i>Тайминг: ~120 с (рефлексия 3 мин)</i></p>
+  </aside>
+</section>
+
+<!-- 15. ДОМАШНЕЕ ЗАДАНИЕ -->
+<section id="s-hw" data-title="Домашнее задание">
+  <div class="wrap">
+    <div class="kicker" data-anim>Дома</div>
+    <h2 class="h2" data-anim style="margin:10px 0 20px">Домашнее задание</h2>
+    <div class="split" style="flex:1">
+      <div class="card comm" data-anim>
+        <h3 class="ct hi-c">Обязательная часть</h3>
+        <p class="cd" style="margin-bottom:12px">📖 Изучить § учебника «Виды деятельности в сети Интернет»</p>
+        <p class="cd">🗂 Заполнить таблицу: для каждого из 5 типов сервисов привести по 2 примера <strong>из собственного опыта</strong> — не из урока</p>
+      </div>
+      <div class="card cloud" data-anim>
+        <h3 class="ct hi-v">Практическая часть — по желанию</h3>
+        <p class="cd" style="margin-bottom:12px">☁ Зарегистрироваться в облачном хранилище, создать папку «Информатика_9класс», загрузить учебный файл и проверить настройки доступа</p>
+        <p class="cd">📝 Или: открыть онлайн-офис, написать 3–5 предложений о своих самых частых сервисах и сохранить документ в облаке</p>
+      </div>
+    </div>
+    <div class="row" data-anim style="margin-top:20px;gap:14px">
+      <span class="chip violet"><span class="dot"></span>ЭОР с интерактивными заданиями: <span class="mono">m.edsoo.ru/Y1M0K2E8J</span></span>
+      <span class="chip"><span class="dot"></span>Можно для закрепления или домашней работы</span>
+    </div>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> дома переводим классификацию в личный опыт.</p>
+    <ul>
+      <li>Главное в обязательной части — примеры из своей жизни, а не пересказ урока: это проверка осмысления.</li>
+      <li>Практическое задание по желанию напрямую готовит к уроку 5, где будет настоящая работа с облаком и онлайн-офисом.</li>
+      <li>Напомните про настройки доступа в облаке — правило из темы 1.1.</li>
+    </ul>
+    <p><b>Переход:</b> «И финальная мысль».</p>
+    <p><i>Тайминг: ~90 с</i></p>
+  </aside>
+</section>
+
+<!-- 16. ФИНАЛ -->
+<section id="s-final" data-title="Финал" data-background-gradient="linear-gradient(140deg, rgba(76,201,240,0.12), rgba(183,140,255,0.06) 50%, rgba(255,110,199,0.10))">
+  <div class="wrap" style="justify-content:center;text-align:center">
+    <div class="kicker" style="justify-content:center" data-anim>Главная мысль</div>
+    <h2 data-anim style="font-family:var(--font-display);font-weight:800;font-size:58px;line-height:1.15;max-width:1060px;margin:18px auto 0">В информационном пространстве уверен тот,<br>кто <span class="grad-text">подбирает инструмент под задачу</span></h2>
+    <div class="grad-underline" data-anim style="margin:24px auto"></div>
+    <div class="row" data-stagger style="justify-content:center;margin-top:24px">
+      <span class="chip"><span class="dot"></span>Следующий урок: облака и онлайн-офисы — с практикой</span>
+      <span class="chip violet"><span class="dot"></span>Урок 6: обобщение раздела 1</span>
+    </div>
+    <p class="lead" data-anim style="margin-top:30px">Спасибо за работу! Сегодня вы навели порядок в своём цифровом мире</p>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> сервисы — инструменты; навык — осознанный выбор и комбинация.</p>
+    <ul>
+      <li>Три вывода: деятельность в сети классифицируется по назначению сервиса; для комплексной задачи собираем цепочку инструментов; выбор всегда обосновываем.</li>
+      <li>Анонс урока 5: облачные технологии и онлайн-офисы будут разобраны глубже, с реальной совместной работой.</li>
+      <li>Резерв Q&A: (1) «Мессенджер — это ведь и оплата услуг, какой же он коммуникационный?» — классифицируем по основной функции; сервисы часто превращаются в многофункциональные платформы. (2) «Работает ли облако без интернета?» — просмотр офлайн частично возможен, но хранение и синхронизация требуют сети; локальные программы тут выигрывают. (3) «Безопасен ли SaaS?» — действуют правила темы 1.1: настройки доступа, 2ФА, надёжные пароли, критическое отношение к ссылкам.</li>
+    </ul>
+    <p><i>Тайминг: ~60 с + вопросы</i></p>
+  </aside>
+</section>
+
+</div><!-- /.slides -->
+</div><!-- /.reveal -->
+
+<!-- БИБЛИОТЕКИ -->
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@6/dist/reveal.js" onerror="window.__revealCDNFailed=true"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@6/dist/plugin/notes/notes.js" onerror="window.__notesFailed=true"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@6/dist/plugin/zoom/zoom.js" onerror="window.__zoomFailed=true"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<script src="https://cdn.jsdelivr.net/npm/@svgdotjs/svg.js@3/dist/svg.min.js"></script>
+
+<script>
+/* ===== 0. УСТОЙЧИВОСТЬ ===== */
+const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const $  = (s, el=document) => el.querySelector(s);
+const $$ = (s, el=document) => Array.from(el.querySelectorAll(s));
+const HAS = { gsap: typeof gsap!=='undefined', d3: typeof d3!=='undefined', svg: typeof SVG!=='undefined', reveal: typeof Reveal!=='undefined' };
+console.info('[deck] библиотеки:', HAS);
+function staticCounters(){}
+function fallbackMode(err){ console.error('[deck] запасной режим:', err); document.body.classList.add('no-reveal'); }
+
+const C = {comm:'#4CC9F0', ref:'#FFC53D', search:'#3DF5B6', gov:'#6B8CFF', cloud:'#B78CFF', office:'#FF6EC7', dev:'#FF9F43'};
+
+/* ===== 1. ИЛЛЮСТРАЦИИ SVG.js ===== */
+const ILL = {};
+
+function glyph(d,x,y,type,color){
+  if(type==='comm'){
+    d.rect(34,24).radius(8).move(x-17,y-14).fill('none').stroke({color,width:3});
+    d.polygon(`${x-6},${y+10} ${x+2},${y+10} ${x-8},${y+19}`).fill(color);
+    [-8,0,8].forEach(dx=>d.circle(4).cx(x+dx).cy(y).fill(color));
+  } else if(type==='search'){
+    d.circle(22).cx(x-4).cy(y-4).fill('none').stroke({color,width:3});
+    d.line(x+4,y+4,x+15,y+15).stroke({color,width:4,linecap:'round'});
+  } else if(type==='ref'){
+    d.path(`M${x},${y-18} C ${x-11},${y-18} ${x-16},${y-10} ${x-16},${y-4} C ${x-16},${y+6} ${x},${y+18} ${x},${y+18} C ${x},${y+18} ${x+16},${y+6} ${x+16},${y-4} C ${x+16},${y-10} ${x+11},${y-18} ${x},${y-18} Z`).fill('none').stroke({color,width:3});
+    d.circle(8).cx(x).cy(y-4).fill(color);
+  } else if(type==='gov'){
+    d.polygon(`${x-16},${y-4} ${x},${y-16} ${x+16},${y-4}`).fill('none').stroke({color,width:3});
+    [-10,0,10].forEach(dx=>d.line(x+dx,y-2,x+dx,y+10).stroke({color,width:3}));
+    d.line(x-15,y+13,x+15,y+13).stroke({color,width:3});
+  } else if(type==='cloud'){
+    d.path(`M${x-14},${y+8} a8,8 0 0 1 2,-15.6 a11,11 0 0 1 21,-3 a9,9 0 0 1 5,18.6 z`).fill('none').stroke({color,width:3});
+  } else if(type==='office'){
+    d.rect(24,30).radius(4).move(x-12,y-15).fill('none').stroke({color,width:3});
+    [[y-8],[y-1],[y+6]].forEach(l=>d.line(x-6,l[0],x+6,l[0]).stroke({color,width:2.5}));
+  } else if(type==='dev'){
+    d.text('</>').font({family:'JetBrains Mono',size:22,weight:600,anchor:'middle'}).fill(color).move(x,y+7);
+  }
+}
+
+function buildIllusHub(){
+  const box=$('#illus-hub'); if(!box||!HAS.svg) return;
+  const d=SVG().addTo(box).viewbox('0 0 560 470');
+  const gHub=d.gradient('linear',a=>{a.stop(0,'#4CC9F0');a.stop(.5,'#B78CFF');a.stop(1,'#FF6EC7');});
+  const P=[[280,64],[452,116],[496,282],[392,414],[168,414],[64,282],[108,116]];
+  const T=['comm','search','ref','gov','office','cloud','dev'];
+  const links=d.group();
+  const sats=d.group();
+  P.forEach((p,i)=>{
+    links.line(280,230,p[0],p[1]).stroke({color:C[T[i]],width:2,opacity:.5,dasharray:'4 8'});
+    const g=d.group();
+    g.circle(76).cx(p[0]).cy(p[1]).fill('rgba(18,23,54,.92)').stroke({color:C[T[i]],width:3});
+    glyph(g,p[0],p[1],T[i],C[T[i]]);
+    sats.add(g);
+  });
+  const hub=d.group();
+  hub.circle(120).cx(280).cy(230).fill('rgba(76,201,240,.10)');
+  hub.circle(104).cx(280).cy(230).fill(gHub).stroke({color:'#0A0D22',width:3});
+  hub.text('Интернет').font({family:'Unbounded',size:20,weight:800,anchor:'middle'}).fill('#0A0D22').move(280,238);
+  const pkts=d.group();
+  [[0,0.45],[2,0.6],[4,0.5],[6,0.55]].forEach((q,i)=>{
+    const p=P[q[0]];
+    pkts.circle(10).cx(280+(p[0]-280)*q[1]).cy(230+(p[1]-230)*q[1]).fill(C[T[q[0]]]).stroke({color:'#EEF1FF',width:2});
+  });
+  ILL.hub={links,sats,hub,pkts};
+}
+
+function buildIllusCloud(){
+  const box=$('#illus-cloud'); if(!box||!HAS.svg) return;
+  const d=SVG().addTo(box).viewbox('0 0 480 310');
+  const g=d.gradient('linear',a=>{a.stop(0,'#B78CFF');a.stop(1,'#4CC9F0');});
+  const cl=d.group();
+  cl.path('M112,206 A46,46 0 0 1 120,116 A64,64 0 0 1 240,92 A58,58 0 0 1 352,132 A48,48 0 0 1 352,206 Z').fill(g).stroke({color:'#0A0D22',width:4}).opacity(.95);
+  d.path('M212,150 v34 m0,0 l-12,-12 m12,12 l12,-12').fill('none').stroke({color:'#0A0D22',width:5,linecap:'round'});
+  d.path('M268,184 v-34 m0,0 l-12,12 m12,-12 l12,12').fill('none').stroke({color:'#0A0D22',width:5,linecap:'round'});
+  const files=d.group();
+  [['pdf',60,240,'#FF6EC7'],['jpg',200,252,'#FFC53D'],['docx',340,240,'#3DF5B6']].forEach(f=>{
+    const r=d.rect(84,40).radius(10).move(f[1],f[2]).fill('rgba(18,23,54,.95)').stroke({color:f[3],width:2.5});
+    const t=d.text(f[0]).font({family:'JetBrains Mono',size:20,weight:600,anchor:'middle'}).fill(f[3]).move(f[1]+42,f[2]+26);
+    files.add(r).add(t);
+  });
+  const lock=d.group();
+  lock.circle(30).cx(416).cy(84).fill('#3DF5B6');
+  lock.rect(16,13).radius(3).move(408,82).fill('#0A0D22');
+  lock.path('M411 82 v-4 a5 5 0 0 1 10 0 v4').fill('none').stroke({color:'#0A0D22',width:3});
+  ILL.cloud={cl,files,lock};
+}
+
+function buildIllusGeo(){
+  const box=$('#illus-geo'); if(!box||!HAS.svg) return;
+  const d=SVG().addTo(box).viewbox('0 0 520 340');
+  const grid=d.group();
+  for(let x=40;x<=480;x+=55) grid.line(x,20,x,320).stroke({color:'rgba(154,163,214,.15)',width:1.5});
+  for(let y=20;y<=320;y+=55) grid.line(40,y,480,y).stroke({color:'rgba(154,163,214,.15)',width:1.5});
+  const route=d.path('M70,290 C 160,290 170,210 250,205 C 340,200 330,120 440,90').fill('none').stroke({color:'#3DF5B6',width:5,dasharray:'12 10',linecap:'round'});
+  [ [70,290,'#FFC53D'],[250,205,'#4CC9F0'],[440,90,'#FF6EC7'] ].forEach(p=>{
+    d.path(`M${p[0]},${p[1]-34} C ${p[0]-12},${p[1]-34} ${p[0]-17},${p[1]-25} ${p[0]-17},${p[1]-19} C ${p[0]-17},${p[1]-9} ${p[0]},${p[1]} ${p[0]},${p[1]} C ${p[0]},${p[1]} ${p[0]+17},${p[1]-9} ${p[0]+17},${p[1]-19} C ${p[0]+17},${p[1]-25} ${p[0]+12},${p[1]-34} ${p[0]},${p[1]-34} Z`).fill(p[2]).stroke({color:'#0A0D22',width:3});
+    d.circle(8).cx(p[0]).cy(p[1]-22).fill('#0A0D22');
+  });
+  const chip=d.group();
+  chip.rect(190,44).radius(12).move(165,20).fill('rgba(18,23,54,.95)').stroke({color:'#3DF5B6',width:2.5});
+  chip.text('2,4 км · 12 мин').font({family:'JetBrains Mono',size:20,weight:600,anchor:'middle'}).fill('#3DF5B6').move(260,48);
+  ILL.geo={route};
+}
+
+function buildSvcIcon(box,type){
+  if(!HAS.svg) return;
+  const d=SVG().addTo(box).viewbox('0 0 64 64');
+  const col={comm:C.comm,ref:C.ref,search:C.search,upd:C.dev,gov:C.gov,cloud:C.cloud,office:C.office,dev:C.dev}[type]||C.comm;
+  if(type==='upd'){
+    d.path('M32 10 a22 22 0 1 0 22 22').fill('none').stroke({color:col,width:4,linecap:'round'});
+    d.polygon('54,32 62,32 58,42').fill(col);
+  } else glyph(d,32,32,type,col);
+}
+
+/* ===== 2. ЧАРТЫ D3 ===== */
+const chartsDone={treemap:false,aud:false};
+
+function buildChartKinds(){
+  if(chartsDone.treemap||!HAS.d3) return; chartsDone.treemap=true;
+  const data=[
+    {n:'Общение',p:30,c:C.comm},{n:'Контент и развлечения',p:22,c:C.dev},{n:'Поиск информации',p:17,c:C.search},
+    {n:'Услуги',p:10,c:C.gov},{n:'Обучение',p:9,c:C.ref},{n:'Совместная работа',p:7,c:C.cloud},{n:'Прочее',p:5,c:C.office}
+  ];
+  const W=600,H=350;
+  const svg=d3.select('#chart-kinds').append('svg').attr('viewBox',`0 0 ${W} ${H}`);
+  const root=d3.hierarchy({children:data}).sum(d=>d.p);
+  d3.treemap().size([W,H]).padding(6).round(true)(root);
+  const defs=svg.append('defs');
+  data.forEach((d,i)=>{
+    const g=defs.append('linearGradient').attr('id','gT'+i).attr('x1',0).attr('y1',0).attr('x2',1).attr('y2',1);
+    g.append('stop').attr('offset','0%').attr('stop-color',d.c).attr('stop-opacity',.9);
+    g.append('stop').attr('offset','100%').attr('stop-color',d.c).attr('stop-opacity',.55);
+  });
+  const cells=svg.selectAll('g.cell').data(root.leaves()).join('g').attr('transform',d=>`translate(${d.x0},${d.y0})`);
+  cells.append('rect').attr('width',d=>d.x1-d.x0).attr('height',d=>d.y1-d.y0).attr('rx',10)
+       .attr('fill',(d,i)=>`url(#gT${i})`).attr('stroke','#0A0D22').attr('stroke-width',3).attr('opacity',0);
+  cells.append('text').attr('class','treelabel').attr('x',12).attr('y',28).attr('opacity',0).text(d=>d.data.n);
+  cells.append('text').attr('class','treesub').attr('x',12).attr('y',50).attr('opacity',0).text(d=>d.data.p+'%');
+  const dur=REDUCED?0:700;
+  cells.select('rect').transition().delay((d,i)=>i*90).duration(dur).attr('opacity',1);
+  cells.selectAll('text').transition().delay((d,i)=>i*90+dur*0.5).duration(REDUCED?0:350).attr('opacity',1);
+}
+
+function buildChartAud(){
+  if(chartsDone.aud||!HAS.d3) return; chartsDone.aud=true;
+  const data=[
+    {label:'Поисковые системы',v:5.0,c:C.search},
+    {label:'Мессенджеры',v:4.2,c:C.comm},
+    {label:'Электронная почта',v:4.3,c:C.comm},
+    {label:'Видеосервисы',v:2.5,c:C.office},
+    {label:'Облачные хранилища',v:2.0,c:C.cloud},
+    {label:'Карты и навигация',v:1.6,c:C.ref},
+    {label:'Онлайн-офисы',v:1.5,c:C.office}
+  ].sort((a,b)=>b.v-a.v);
+  const W=620,H=360,mL=240,mR=90;
+  const svg=d3.select('#chart-aud').append('svg').attr('viewBox',`0 0 ${W} ${H}`);
+  const x=d3.scaleLinear().domain([0,5]).range([mL,W-mR]);
+  svg.append('g').attr('class','grid').selectAll('line').data([1,2,3,4,5]).join('line')
+     .attr('x1',d=>x(d)).attr('x2',d=>x(d)).attr('y1',8).attr('y2',H-24);
+  const rows=svg.selectAll('g.row').data(data).join('g').attr('transform',(d,i)=>`translate(0,${6+i*46})`);
+  rows.append('text').attr('x',mL-14).attr('y',26).attr('text-anchor','end').attr('fill','#EEF1FF').style('font','600 19px Golos Text').text(d=>d.label);
+  rows.append('rect').attr('x',mL).attr('y',6).attr('height',30).attr('rx',9)
+      .attr('fill',d=>d.c).attr('opacity',.85).attr('stroke','#0A0D22').attr('stroke-width',2.5).attr('width',0);
+  rows.append('text').attr('class','val').attr('y',28).attr('x',mL+8).attr('opacity',0).style('font-size','19px')
+      .text(d=>String(d.v).replace('.',',')+' млрд');
+  const dur=REDUCED?0:900;
+  rows.select('rect').transition().delay((d,i)=>i*90).duration(dur).ease(d3.easeCubicOut).attr('width',d=>x(d.v)-mL);
+  rows.select('text.val').transition().delay((d,i)=>i*90+dur*0.55).duration(REDUCED?0:300)
+      .attr('opacity',1).attr('x',d=>x(d.v)+12);
+}
+
+const chartFor={'s-kinds':buildChartKinds,'s-types':buildChartAud};
+function buildChartsFor(slide){ if(slide && chartFor[slide.id]) chartFor[slide.id](); }
+
+/* ===== 3. РЕЕСТР АНИМАЦИЙ ===== */
+const TL={};
+const animations={
+  's-title':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'power3.out'}});
+    tl.fromTo(scope.querySelectorAll('.kicker, h1 span'),{y:30,opacity:0},{y:0,opacity:1,duration:.7,stagger:.12},0)
+      .fromTo(scope.querySelector('.grad-underline'),{scaleX:0,transformOrigin:'0 50%'},{scaleX:1,duration:.7},.45)
+      .fromTo(scope.querySelector('.lead'),{y:22,opacity:0},{y:0,opacity:1,duration:.6},.55)
+      .fromTo(scope.querySelectorAll('[data-stagger] .chip'),{y:18,opacity:0},{y:0,opacity:1,duration:.5,stagger:.1},.7)
+      .fromTo(scope.querySelectorAll('.foot [data-anim]'),{opacity:0},{opacity:1,duration:.6,stagger:.1},.9);
+    if(ILL.hub){
+      tl.fromTo(ILL.hub.hub.node(),{scale:.6,opacity:0,transformOrigin:'50% 50%'},{scale:1,opacity:1,duration:.8,ease:'back.out(1.6)'},.2)
+        .fromTo(ILL.hub.links.node(),{opacity:0},{opacity:1,duration:.5},.7)
+        .fromTo(ILL.hub.sats.children().map(c=>c.node()),{scale:0,opacity:0,transformOrigin:'50% 50%'},{scale:1,opacity:1,duration:.5,ease:'back.out(2)',stagger:.07},.85)
+        .fromTo(ILL.hub.pkts.node(),{opacity:0},{opacity:1,duration:.4},1.5);
+    }
+    return tl;
+  },
+  's-route':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'back.out(1.5)'}});
+    tl.fromTo(scope.querySelectorAll('.kicker, .h2'),{y:26,opacity:0},{y:0,opacity:1,duration:.6,ease:'power3.out',stagger:.1},0)
+      .fromTo(scope.querySelectorAll('[data-stagger] .card'),{y:44,opacity:0,scale:.94},{y:0,opacity:1,scale:1,duration:.6,stagger:.09},.25);
+    return tl;
+  },
+  's-motiv':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'power3.out'}});
+    tl.fromTo(scope.querySelectorAll('.kicker, .h2'),{y:26,opacity:0},{y:0,opacity:1,duration:.6,stagger:.1},0)
+      .fromTo(scope.querySelectorAll('[data-stagger] .cat'),{x:-34,opacity:0},{x:0,opacity:1,duration:.5,stagger:.1},.25)
+      .fromTo(scope.querySelector('.defbox'),{y:22,opacity:0},{y:0,opacity:1,duration:.6},.9)
+      .fromTo(scope.querySelectorAll('.wrap > .small'),{opacity:0},{opacity:1,duration:.5},1.2);
+    return tl;
+  },
+  's-kinds':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'power3.out'}});
+    tl.fromTo(scope.querySelectorAll('.kicker, .h2'),{y:26,opacity:0},{y:0,opacity:1,duration:.6,stagger:.1},0)
+      .fromTo(scope.querySelector('.defbox'),{y:22,opacity:0},{y:0,opacity:1,duration:.55},.25)
+      .fromTo(scope.querySelectorAll('[data-stagger] .cat'),{x:-30,opacity:0},{x:0,opacity:1,duration:.45,stagger:.08},.4)
+      .fromTo(scope.querySelectorAll('[data-anim] .legend, [data-anim] .chart, [data-anim] .src'),{opacity:0,y:20},{opacity:1,y:0,duration:.6,stagger:.12},.5);
+    return tl;
+  },
+  's-types':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'power3.out'}});
+    tl.fromTo(scope.querySelectorAll('.kicker, .h2'),{y:26,opacity:0},{y:0,opacity:1,duration:.6,stagger:.1},0)
+      .fromTo(scope.querySelectorAll('[data-stagger] .svc'),{x:-30,opacity:0},{x:0,opacity:1,duration:.45,stagger:.08},.25)
+      .fromTo(scope.querySelectorAll('[data-anim] .legend, [data-anim] .chart, [data-anim] .src'),{opacity:0,y:20},{opacity:1,y:0,duration:.6,stagger:.12},.55);
+    return tl;
+  },
+  's-comm':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'back.out(1.5)'}});
+    tl.fromTo(scope.querySelectorAll('.kicker, .h2'),{y:26,opacity:0},{y:0,opacity:1,duration:.6,ease:'power3.out',stagger:.1},0)
+      .fromTo(scope.querySelectorAll('[data-stagger] .card'),{y:40,opacity:0,scale:.94},{y:0,opacity:1,scale:1,duration:.6,stagger:.12},.25)
+      .fromTo(scope.querySelector('.defbox'),{y:22,opacity:0},{y:0,opacity:1,duration:.6,ease:'power3.out'},.9);
+    return tl;
+  },
+  's-ref':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'power3.out'}});
+    tl.fromTo(scope.querySelectorAll('.kicker, .h2'),{y:26,opacity:0},{y:0,opacity:1,duration:.6,stagger:.1},0)
+      .fromTo(scope.querySelectorAll('[data-stagger] .card'),{x:-32,opacity:0},{x:0,opacity:1,duration:.5,stagger:.12},.25)
+      .fromTo(scope.querySelector('#illus-geo'),{opacity:0,y:24},{opacity:1,y:0,duration:.7},.45)
+      .fromTo(scope.querySelectorAll('.split-46 .small'),{opacity:0},{opacity:1,duration:.5},1.0);
+    if(ILL.geo){
+      const len=ILL.geo.route.node().getTotalLength();
+      tl.fromTo(ILL.geo.route.node(),{strokeDasharray:len+' '+len,strokeDashoffset:len},{strokeDashoffset:0,duration:1.6,ease:'none'},.6);
+    }
+    return tl;
+  },
+  's-search':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'power3.out'}});
+    tl.fromTo(scope.querySelectorAll('.kicker, .h2'),{y:26,opacity:0},{y:0,opacity:1,duration:.6,stagger:.1},0)
+      .fromTo(scope.querySelectorAll('[data-stagger] .step, [data-stagger] .arrowx'),{y:26,opacity:0},{y:0,opacity:1,duration:.45,stagger:.1},.25)
+      .fromTo(scope.querySelector('.defbox'),{y:22,opacity:0},{y:0,opacity:1,duration:.6},.9)
+      .fromTo(scope.querySelectorAll('.wrap > .small'),{opacity:0},{opacity:1,duration:.5},1.2);
+    return tl;
+  },
+  's-gov':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'back.out(1.5)'}});
+    tl.fromTo(scope.querySelectorAll('.kicker, .h2'),{y:26,opacity:0},{y:0,opacity:1,duration:.6,ease:'power3.out',stagger:.1},0)
+      .fromTo(scope.querySelectorAll('[data-stagger] .card'),{y:40,opacity:0,scale:.94},{y:0,opacity:1,scale:1,duration:.6,stagger:.12},.25)
+      .fromTo(scope.querySelector('.defbox'),{y:22,opacity:0},{y:0,opacity:1,duration:.6,ease:'power3.out'},.9);
+    return tl;
+  },
+  's-cloud':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'power3.out'}});
+    tl.fromTo(scope.querySelectorAll('.kicker, .h2, .defbox'),{y:26,opacity:0},{y:0,opacity:1,duration:.6,stagger:.1},0)
+      .fromTo(scope.querySelectorAll('[data-stagger] .cat'),{x:-30,opacity:0},{x:0,opacity:1,duration:.45,stagger:.09},.35)
+      .fromTo(scope.querySelectorAll('.split-46 .small'),{opacity:0},{opacity:1,duration:.5},1.0);
+    if(ILL.cloud){
+      tl.fromTo(ILL.cloud.cl.node(),{y:-26,opacity:0},{y:0,opacity:1,duration:.8,ease:'bounce.out'},.3)
+        .fromTo(ILL.cloud.files.children().map(c=>c.node()),{y:20,opacity:0},{y:0,opacity:1,duration:.4,stagger:.1},.9)
+        .fromTo(ILL.cloud.lock.node(),{scale:0,opacity:0,transformOrigin:'50% 50%'},{scale:1,opacity:1,duration:.5,ease:'back.out(2.2)'},1.3);
+    }
+    return tl;
+  },
+  's-office':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'power3.out'}});
+    tl.fromTo(scope.querySelectorAll('.kicker, .h2, .defbox'),{y:26,opacity:0},{y:0,opacity:1,duration:.6,stagger:.1},0)
+      .fromTo(scope.querySelectorAll('[data-stagger] .cat'),{x:-30,opacity:0},{x:0,opacity:1,duration:.45,stagger:.09},.4)
+      .fromTo(scope.querySelectorAll('.split .small'),{opacity:0},{opacity:1,duration:.5},.9)
+      .fromTo(scope.querySelectorAll('.split > div:last-child .card'),{x:36,opacity:0},{x:0,opacity:1,duration:.7},.55);
+    return tl;
+  },
+  's-saas':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'back.out(1.5)'}});
+    tl.fromTo(scope.querySelectorAll('.kicker, .h2'),{y:26,opacity:0},{y:0,opacity:1,duration:.6,ease:'power3.out',stagger:.1},0)
+      .fromTo(scope.querySelectorAll('[data-stagger] .card'),{y:42,opacity:0,scale:.94},{y:0,opacity:1,scale:1,duration:.6,stagger:.14},.25)
+      .fromTo(scope.querySelector('.defbox'),{y:22,opacity:0},{y:0,opacity:1,duration:.6,ease:'power3.out'},.85)
+      .fromTo(scope.querySelectorAll('.wrap > .small'),{opacity:0},{opacity:1,duration:.5,ease:'power3.out'},1.15);
+    return tl;
+  },
+  's-practice':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'power3.out'}});
+    tl.fromTo(scope.querySelectorAll('.kicker, .h2'),{y:26,opacity:0},{y:0,opacity:1,duration:.6,stagger:.1},0)
+      .fromTo(scope.querySelector('.timer'),{scale:.7,opacity:0,transformOrigin:'0 50%'},{scale:1,opacity:1,duration:.8,ease:'back.out(1.6)'},.25)
+      .fromTo(scope.querySelectorAll('.split-40 .lead, .split-40 .small'),{opacity:0,y:16},{opacity:1,y:0,duration:.5,stagger:.15},.85)
+      .fromTo(scope.querySelectorAll('[data-stagger] .card'),{x:34,opacity:0},{x:0,opacity:1,duration:.5,stagger:.1},.45);
+    return tl;
+  },
+  's-map':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'back.out(1.4)'}});
+    tl.fromTo(scope.querySelectorAll('.kicker, .h2'),{y:26,opacity:0},{y:0,opacity:1,duration:.6,ease:'power3.out',stagger:.1},0)
+      .fromTo(scope.querySelectorAll('[data-stagger] .card'),{y:36,opacity:0,scale:.94},{y:0,opacity:1,scale:1,duration:.5,stagger:.08},.25)
+      .fromTo(scope.querySelectorAll('.wrap > .small'),{opacity:0},{opacity:1,duration:.5,ease:'power3.out'},1.1);
+    return tl;
+  },
+  's-hw':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'back.out(1.5)'}});
+    tl.fromTo(scope.querySelectorAll('.kicker, .h2'),{y:26,opacity:0},{y:0,opacity:1,duration:.6,ease:'power3.out',stagger:.1},0)
+      .fromTo(scope.querySelectorAll('.split .card'),{y:40,opacity:0,scale:.95},{y:0,opacity:1,scale:1,duration:.6,stagger:.15},.25)
+      .fromTo(scope.querySelectorAll('[data-anim] .chip'),{y:16,opacity:0},{y:0,opacity:1,duration:.5,ease:'power3.out',stagger:.1},.8);
+    return tl;
+  },
+  's-final':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'power3.out'}});
+    tl.fromTo(scope.querySelectorAll('[data-anim]'),{y:28,opacity:0},{y:0,opacity:1,duration:.7,stagger:.14},0)
+      .fromTo(scope.querySelector('.grad-underline'),{scaleX:0,transformOrigin:'50% 50%'},{scaleX:1,duration:.7},.8)
+      .fromTo(scope.querySelectorAll('[data-stagger] .chip'),{y:18,opacity:0},{y:0,opacity:1,duration:.5,stagger:.12},1.0);
+    return tl;
+  }
+};
+
+function playAnim(id){
+  if(REDUCED||!HAS.gsap||!id) return;
+  const slide=document.getElementById(id);
+  if(!slide||!animations[id]) return;
+  if(!TL[id]) TL[id]=animations[id](slide);
+  TL[id].restart();
+}
+function resetAnim(id){ if(TL[id]) TL[id].progress(0).pause(); }
+
+/* ===== 4. СБОРКА И ЗАПУСК ===== */
+buildIllusHub(); buildIllusCloud(); buildIllusGeo();
+$$('[data-sicon]').forEach(el=>buildSvcIcon(el,el.dataset.sicon));
+
+(function boot(){
+  if(window.__revealCDNFailed||typeof Reveal==='undefined'){ fallbackMode('Reveal.js не загрузился (нет доступа к CDN).'); return; }
+  if(REDUCED||!HAS.gsap) staticCounters();
+
+  const plugins=[];
+  if(typeof RevealNotes!=='undefined') plugins.push(RevealNotes);
+  else console.warn('[deck] RevealNotes не загрузился — режим докладчика (S) будет недоступен.');
+  if(typeof RevealZoom!=='undefined') plugins.push(RevealZoom);
+  else console.warn('[deck] RevealZoom не загрузился — зум будет недоступен.');
+
+  try{
+    const p=Reveal.initialize({
+      hash:true, controls:true, controlsLayout:'bottom-right', progress:true,
+      transition:'slide', transitionSpeed:'default',
+      width:1280, height:720, margin:0.05, center:false,
+      plugins:plugins
+    });
+    if(p&&p.catch) p.catch(e=>fallbackMode(e));
+  }catch(e){ fallbackMode(e); return; }
+
+  Reveal.on('ready',ev=>{ playAnim(ev.currentSlide.id); buildChartsFor(ev.currentSlide); });
+  Reveal.on('slidechanged',ev=>{
+    if(ev.previousSlide) resetAnim(ev.previousSlide.id);
+    playAnim(ev.currentSlide.id);
+    buildChartsFor(ev.currentSlide);
+  });
+
+  if(!REDUCED&&HAS.gsap){
+    const qx1=gsap.quickTo('#glow-a','x',{duration:1.1,ease:'power2'});
+    const qy1=gsap.quickTo('#glow-a','y',{duration:1.1,ease:'power2'});
+    const qx2=gsap.quickTo('#glow-b','x',{duration:1.3,ease:'power2'});
+    const qy2=gsap.quickTo('#glow-b','y',{duration:1.3,ease:'power2'});
+    window.addEventListener('mousemove',e=>{
+      const nx=e.clientX/window.innerWidth-.5, ny=e.clientY/window.innerHeight-.5;
+      qx1(nx*38); qy1(ny*38); qx2(nx*-46); qy2(ny*-46);
+    },{passive:true});
+  }
+})();
+</script>
+</body>
+</html>

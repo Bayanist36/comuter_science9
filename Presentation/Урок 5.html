@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Облачные технологии · Онлайн-офис · Информатика 9 класс · Урок 5</title>
+
+<!-- ШРИФТЫ -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Days+One&family=Nunito:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+<!-- REVEAL.JS 6 CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@6/dist/reveal.css">
+
+<style>
+/* ===== ТОКЕНЫ + СВЕТЛАЯ ТЕМА ДЛЯ REVEAL ===== */
+:root{
+  --bg:#F2F7FF; --surface:#FFFFFF; --ink:#12203A; --muted:#51617F;
+  --blue:#2F6BFF; --violet:#8B5CF6; --orange:#FF8A3D; --cyan:#0FB5C9;
+  --green:#16C784; --pink:#FF5D9B; --amber:#FFB020; --red:#FF5D5D;
+  --grad-main:linear-gradient(110deg,#2F6BFF,#8B5CF6 50%,#FF8A3D);
+  --font-display:'Days One',sans-serif; --font-body:'Nunito',sans-serif; --font-mono:'JetBrains Mono',monospace;
+  /* переменные темы reveal.js */
+  --r-background-color:#F2F7FF;
+  --r-main-font:'Nunito',sans-serif;
+  --r-main-font-size:26px;
+  --r-main-color:#12203A;
+  --r-heading-font:'Days One',sans-serif;
+  --r-heading-color:#12203A;
+  --r-heading-line-height:1.1;
+  --r-heading-letter-spacing:normal;
+  --r-heading-text-transform:none;
+  --r-heading-text-shadow:none;
+  --r-heading-font-weight:400;
+  --r-heading1-size:2.3em; --r-heading2-size:1.5em; --r-heading3-size:1.1em; --r-heading4-size:1em;
+  --r-block-margin:18px; --r-heading-margin:0 0 18px 0;
+  --r-link-color:#2F6BFF; --r-link-color-dark:#8B5CF6; --r-link-color-hover:#FF8A3D;
+  --r-selection-background-color:rgba(255,93,155,.30); --r-selection-color:#12203A;
+}
+*{box-sizing:border-box}
+html{background:#F2F7FF}
+body, body.reveal-viewport{background:#F2F7FF !important}
+body{margin:0;font-family:var(--font-body);color:var(--ink)}
+
+/* ===== ФОНОВЫЙ ДЕКОР ===== */
+#bg-decor{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+#bg-dots{position:absolute;inset:0;
+  background-image:radial-gradient(rgba(18,32,58,.075) 1.5px,transparent 1.5px);
+  background-size:30px 30px;
+  -webkit-mask-image:radial-gradient(ellipse at 50% 42%,#000 30%,transparent 80%);
+          mask-image:radial-gradient(ellipse at 50% 42%,#000 30%,transparent 80%)}
+.cloud{position:absolute;border-radius:50%;filter:blur(80px)}
+#cl-a{width:640px;height:420px;left:-160px;top:-140px;background:radial-gradient(ellipse,rgba(47,107,255,.16),transparent 65%);animation:floaty 11s ease-in-out infinite}
+#cl-b{width:680px;height:460px;right:-200px;bottom:-180px;background:radial-gradient(ellipse,rgba(255,138,61,.15),transparent 65%);animation:floaty 13s ease-in-out infinite 1.5s}
+#cl-c{width:520px;height:360px;left:36%;top:48%;background:radial-gradient(ellipse,rgba(139,92,246,.12),transparent 62%);animation:floaty 12s ease-in-out infinite .7s}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-20px)}}
+#bg-noise{position:absolute;inset:-60%;width:220%;height:220%;opacity:.04;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/></filter><rect width='300' height='300' filter='url(%23n)' opacity='0.7'/></svg>");
+  animation:grain 9s steps(8) infinite}
+@keyframes grain{0%{transform:translate(0,0)}25%{transform:translate(-2%,3%)}50%{transform:translate(3%,-2%)}75%{transform:translate(-3%,-3%)}100%{transform:translate(0,0)}}
+
+.reveal{position:relative;z-index:2;background:transparent;font-family:var(--font-body);font-size:26px;color:var(--ink)}
+.reveal ::selection{background:rgba(255,93,155,.30)}
+.reveal .controls{color:var(--blue)}
+.reveal .progress{background:rgba(18,32,58,.10);color:var(--orange)}
+.reveal .slides section{text-align:left;overflow:hidden;color:var(--ink)}
+
+/* ===== ТИПОГРАФИКА ===== */
+.reveal h1,.reveal h2,.reveal h3{font-family:var(--font-display);font-weight:400;line-height:1.1;margin:0;text-transform:none;color:var(--ink);text-shadow:none;letter-spacing:normal}
+.reveal .h-title{font-size:74px}
+.reveal .h2{font-size:48px;max-width:1080px}
+.kicker{display:inline-flex;align-items:center;gap:10px;font-size:24px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--blue)}
+.kicker::before{content:"";width:14px;height:14px;border-radius:50%;background:var(--grad-main);box-shadow:0 0 14px rgba(139,92,246,.8)}
+.lead{font-size:30px;font-weight:700;line-height:1.45}
+.small{font-size:24px;color:var(--muted);line-height:1.45;font-weight:600}
+.src{font-size:24px;font-style:italic;color:var(--muted);font-weight:600}
+.mono{font-family:var(--font-mono)}
+.grad-text{background:var(--grad-main);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+@supports not ((-webkit-background-clip:text) or (background-clip:text)){
+  .grad-text{background:none;color:var(--blue);-webkit-text-fill-color:currentColor}
+}
+.grad-underline{height:9px;width:200px;border-radius:8px;background:var(--grad-main);margin-top:18px;box-shadow:0 6px 22px rgba(139,92,246,.35)}
+.hi-b{color:var(--blue)} .hi-v{color:var(--violet)} .hi-o{color:var(--orange)} .hi-c{color:var(--cyan)} .hi-g{color:var(--green)} .hi-p{color:var(--pink)} .hi-r{color:var(--red)}
+strong{color:var(--ink)}
+
+/* ===== РАСКЛАДКИ ===== */
+.wrap{position:relative;height:100%;padding:44px 56px 40px;display:flex;flex-direction:column}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:38px;align-items:center}
+.split-46{display:grid;grid-template-columns:46% 1fr;gap:38px;align-items:center}
+.split-40{display:grid;grid-template-columns:40% 1fr;gap:40px;align-items:center}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.grid5{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+.grow{flex:1;display:flex;flex-direction:column;justify-content:center;min-height:0}
+.row{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.col{display:flex;flex-direction:column;gap:12px}
+.foot{margin-top:auto;padding-top:12px;display:flex;justify-content:space-between;align-items:flex-end;gap:24px}
+
+/* ===== КОМПОНЕНТЫ ===== */
+.card{background:var(--surface);border:1.5px solid rgba(18,32,58,.12);border-radius:18px;padding:18px 20px;box-shadow:0 14px 34px rgba(18,32,58,.10)}
+.card .ct{font-family:var(--font-display);font-size:22px;margin:0 0 8px}
+.card .cd{font-size:24px;color:var(--muted);line-height:1.4;margin:0;font-weight:600}
+.card.blue{border-color:rgba(47,107,255,.5)} .card.violet{border-color:rgba(139,92,246,.5)}
+.card.orange{border-color:rgba(255,138,61,.55)} .card.green{border-color:rgba(22,199,132,.55)}
+.card.pink{border-color:rgba(255,93,155,.5)} .card.cyan{border-color:rgba(15,181,201,.55)}
+.num-badge{width:52px;height:52px;border-radius:14px;background:var(--grad-main);color:#fff;font-family:var(--font-display);font-size:24px;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 20px rgba(139,92,246,.4);flex:none}
+.chip{display:inline-flex;align-items:center;gap:10px;padding:7px 16px;border-radius:999px;border:1.5px solid rgba(47,107,255,.4);background:rgba(47,107,255,.07);font-size:24px;font-weight:700}
+.chip.violet{border-color:rgba(139,92,246,.45);background:rgba(139,92,246,.08)}
+.chip.orange{border-color:rgba(255,138,61,.5);background:rgba(255,138,61,.09)}
+.chip.green{border-color:rgba(22,199,132,.5);background:rgba(22,199,132,.09)}
+.chip.red{border-color:rgba(255,93,93,.5);background:rgba(255,93,93,.07)}
+.chip .dot{width:10px;height:10px;border-radius:50%;background:var(--blue);box-shadow:0 0 10px var(--blue)}
+.chip.violet .dot{background:var(--violet);box-shadow:0 0 10px var(--violet)}
+.chip.orange .dot{background:var(--orange);box-shadow:0 0 10px var(--orange)}
+.chip.green .dot{background:var(--green);box-shadow:0 0 10px var(--green)}
+.chip.red .dot{background:var(--red);box-shadow:0 0 10px var(--red)}
+.defbox{border-left:6px solid var(--violet);background:linear-gradient(120deg,rgba(47,107,255,.08),rgba(139,92,246,.07) 52%,rgba(255,138,61,.06));padding:18px 26px;border-radius:0 18px 18px 0;font-size:27px;line-height:1.45;font-weight:600}
+.ghost{position:absolute;z-index:0;font-family:var(--font-display);line-height:1;color:transparent;-webkit-text-stroke:2px rgba(47,107,255,.12);user-select:none;pointer-events:none}
+.file{display:inline-flex;align-items:center;gap:12px;font-family:var(--font-mono);font-size:22px;font-weight:600;border:1.5px solid rgba(255,93,93,.45);background:rgba(255,93,93,.06);color:#8A2A3D;border-radius:12px;padding:10px 16px}
+.file .x{color:var(--red);font-weight:800}
+.rule{display:flex;gap:14px;align-items:flex-start;border:1.5px solid rgba(18,32,58,.14);border-radius:14px;background:#fff;padding:12px 16px;box-shadow:0 8px 20px rgba(18,32,58,.07)}
+.rule .rn{font-family:var(--font-display);font-size:22px;color:var(--blue);width:34px;flex:none}
+.rule .rt{font-size:23px;line-height:1.35;font-weight:600}
+.rule .rt span{color:var(--muted)}
+.timer{font-family:var(--font-display);font-size:120px;line-height:1;background:var(--grad-main);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+@supports not ((-webkit-background-clip:text) or (background-clip:text)){.timer{-webkit-text-fill-color:var(--blue);color:var(--blue)}}
+.illus svg{width:100%;height:auto;display:block}
+.chart svg{width:100%;height:auto;display:block}
+.chart .grid line{stroke:rgba(18,32,58,.10)}
+.chart .val{fill:#12203A;font-family:'Nunito',sans-serif;font-weight:800}
+.legend{display:flex;gap:18px;align-items:center;font-size:24px;color:var(--muted);margin-bottom:6px;flex-wrap:wrap;font-weight:700}
+.legend .sw{width:24px;height:14px;border-radius:5px;display:inline-block;margin-right:8px;vertical-align:middle}
+
+/* ===== ЗАПАСНОЙ РЕЖИМ ===== */
+#cdn-error{display:none;position:fixed;z-index:99;top:16px;left:50%;transform:translateX(-50%);background:var(--red);color:#fff;font-weight:800;font-family:var(--font-body);font-size:20px;padding:14px 26px;border-radius:14px;max-width:80vw;text-align:center}
+body.no-reveal #cdn-error{display:block}
+body.no-reveal .reveal{position:static}
+body.no-reveal .slides{width:auto!important;height:auto!important;transform:none!important}
+body.no-reveal .slides section{position:relative!important;display:block!important;opacity:1!important;visibility:visible!important;width:auto!important;height:auto!important;max-width:1200px;margin:30px auto;padding:20px;border:1px solid rgba(47,107,255,.35);border-radius:16px;background:#fff}
+body.no-reveal .ghost{display:none}
+body.no-reveal aside.notes{display:none}
+
+@media (prefers-reduced-motion: reduce){#bg-noise,.cloud{animation:none !important}}
+</style>
+</head>
+<body>
+
+<div id="bg-decor" aria-hidden="true">
+  <div class="cloud" id="cl-a"></div><div class="cloud" id="cl-b"></div><div class="cloud" id="cl-c"></div>
+  <div id="bg-dots"></div><div id="bg-noise"></div>
+</div>
+
+<div id="cdn-error">Не удалось загрузить библиотеки презентации (нужен интернет). Ниже — текстовая версия слайдов.</div>
+
+<div class="reveal">
+<div class="slides">
+
+<!-- 1. ТИТУЛ -->
+<section id="s-title" data-title="Титул">
+  <div class="wrap">
+    <div class="ghost" style="font-size:250px;right:20px;bottom:-14px" aria-hidden="true">final_2</div>
+    <div class="split" style="flex:1;align-items:center">
+      <div style="max-width:640px">
+        <div class="kicker" data-anim>Информатика · 9 класс · Урок 5 · Практическая работа</div>
+        <h1 class="h-title" style="margin:20px 0 6px"><span data-anim style="display:block">Облачные технологии:</span><span data-anim class="grad-text" style="display:block">документ вместе</span></h1>
+        <div class="grad-underline" data-anim></div>
+        <p class="lead" data-anim style="margin:22px 0 20px">Использование онлайн-офиса для разработки документов · тема 1.2, урок 2 из 3</p>
+        <div class="row" data-stagger>
+          <span class="chip"><span class="dot"></span>Раздел 1 · Цифровая грамотность</span>
+          <span class="chip orange"><span class="dot"></span>Работа в парах · максимум 10 баллов</span>
+        </div>
+      </div>
+      <div id="illus-doc" class="illus" style="max-width:520px" aria-hidden="true"></div>
+    </div>
+    <div class="foot"><span class="small" data-anim>На прошлом уроке — карта сервисов. Сегодня учимся работать в одном из них</span><span class="small mono hi-b" data-anim>SaaS · автосохранение · совместный доступ</span></div>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> переходим от теории облаков к практике — создаём документ в онлайн-офисе.</p>
+    <ul>
+      <li>Приветствие и связка: «На прошлом уроке вы составили карту видов деятельности и интернет-сервисов. Если тогда вы узнали, что такое онлайн-офис и зачем он нужен, то сегодня научитесь в нём работать».</li>
+      <li>Контракт: работаем в парах за компьютерами с Интернетом; результат — реальный документ с форматированием, совместным доступом и сохранением в облаке; оценивание — до 10 баллов по критериям.</li>
+      <li>Интрига: «За урок вы ни разу не нажмёте кнопку "Сохранить" — и ничего не потеряете. К концу урока поймёте, почему».</li>
+    </ul>
+    <p><b>Переход:</b> «Сначала посмотрим на план урока».</p>
+    <p><i>Тайминг: ~60 с (оргмомент 3 мин)</i></p>
+  </aside>
+</section>
+
+<!-- 2. МАРШРУТ -->
+<section id="s-route" data-title="Маршрут урока">
+  <div class="wrap">
+    <div class="kicker" data-anim>План · 45 минут</div>
+    <h2 class="h2" data-anim style="margin:10px 0 22px">Маршрут урока</h2>
+    <div class="grid3" data-stagger style="flex:1;align-content:center">
+      <div class="card blue"><div class="row" style="margin-bottom:10px"><span class="num-badge">1</span><span class="chip" style="font-size:20px"><span class="dot"></span>3 мин</span></div><h3 class="ct">Связь с прошлым уроком</h3><p class="cd">От карты сервисов — к работе в них</p></div>
+      <div class="card orange"><div class="row" style="margin-bottom:10px"><span class="num-badge">2</span><span class="chip orange" style="font-size:20px"><span class="dot"></span>3 мин</span></div><h3 class="ct">Проблема</h3><p class="cd">«проект_финал_2»: чем плоха пересылка файлов</p></div>
+      <div class="card violet"><div class="row" style="margin-bottom:10px"><span class="num-badge">3</span><span class="chip violet" style="font-size:20px"><span class="dot"></span>7 мин</span></div><h3 class="ct">Теория</h3><p class="cd">Облака, IaaS/PaaS/SaaS, возможности онлайн-офиса</p></div>
+      <div class="card cyan"><div class="row" style="margin-bottom:10px"><span class="num-badge">4</span><span class="chip" style="font-size:20px"><span class="dot"></span>5 мин</span></div><h3 class="ct">Демонстрация</h3><p class="cd">Живой показ: от создания до истории версий</p></div>
+      <div class="card green"><div class="row" style="margin-bottom:10px"><span class="num-badge">5</span><span class="chip green" style="font-size:20px"><span class="dot"></span>3 + 15 мин</span></div><h3 class="ct">Инструктаж и практика</h3><p class="cd">Создаём документ в парах</p></div>
+      <div class="card pink"><div class="row" style="margin-bottom:10px"><span class="num-badge">6</span><span class="chip violet" style="font-size:20px"><span class="dot"></span>9 мин</span></div><h3 class="ct">Обсуждение и итоги</h3><p class="cd">Взаимопроверка, рефлексия, домашнее задание</p></div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> ядро урока — 15 минут реальной работы в онлайн-офисе.</p>
+    <ul>
+      <li>Подчеркните: сегодня не урок про текстовый процессор (это программа 7 класса), а урок про облачные и совместные возможности.</li>
+      <li>Если аккаунты в онлайн-офисе ещё не созданы — помогите с регистрацией прямо сейчас, это сэкономит время практики.</li>
+      <li>Напомните формат: пары, общий документ, право редактирования у обоих.</li>
+    </ul>
+    <p><b>Переход:</b> «Вспомним знакомую каждому ситуацию».</p>
+    <p><i>Тайминг: ~75 с</i></p>
+  </aside>
+</section>
+
+<!-- 3. ПРОБЛЕМА -->
+<section id="s-problem" data-title="Проблема">
+  <div class="wrap">
+    <div class="kicker" data-anim>Актуализация · узнаёте?</div>
+    <h2 class="h2" data-anim style="margin:10px 0 18px">Групповой проект по старинке</h2>
+    <div class="split-46" style="flex:1;align-items:center">
+      <div class="col" data-stagger>
+        <span class="file"><span class="x">✗</span>проект_финал.docx</span>
+        <span class="file"><span class="x">✗</span>проект_финал_2.docx</span>
+        <span class="file"><span class="x">✗</span>проект_финал_новый.docx</span>
+        <span class="file"><span class="x">✗</span>проект_точно_финал(1).docx</span>
+        <span class="file"><span class="x">✗</span>проект_точно_финал_2(2).docx</span>
+      </div>
+      <div>
+        <div class="card orange" data-anim><h3 class="ct">Вопрос классу</h3><p class="cd" style="font-size:26px;color:var(--ink)">Один пишет, пересылает второму, второй правит и шлёт третьему… Какие проблемы возникают при такой схеме?</p></div>
+        <div class="row" data-stagger style="margin-top:16px;gap:12px">
+          <span class="chip red" style="font-size:22px"><span class="dot"></span>Путаница в версиях</span>
+          <span class="chip red" style="font-size:22px"><span class="dot"></span>Потеря данных</span>
+          <span class="chip red" style="font-size:22px"><span class="dot"></span>Нельзя работать одновременно</span>
+          <span class="chip red" style="font-size:22px"><span class="dot"></span>Нет истории изменений</span>
+        </div>
+        <p class="small" data-anim style="margin-top:16px">Все эти проблемы решает <strong>онлайн-офис</strong> — сегодня убедимся на практике</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> пересылка файлов порождает хаос версий — и у этого хаоса есть решение.</p>
+    <ul>
+      <li>Расскажите историю из сценария живо: «Третий случайно удаляет абзац, и непонятно, какой файл актуальный». Почти каждый ученик узнает себя.</li>
+      <li>Соберите проблемы хором и зафиксируйте на доске: версии, потеря данных, невозможность одновременной работы, пересылка, отсутствие истории.</li>
+      <li>Сформулируйте цель урока: создать документ в онлайн-офисе, освоить форматирование и совместное редактирование.</li>
+    </ul>
+    <p><b>Переход:</b> «Как это устроено изнутри? Вспомним облачные технологии».</p>
+    <p><i>Тайминг: ~150 с (актуализация и целеполагание 3 мин)</i></p>
+  </aside>
+</section>
+
+<!-- 4. ОБЛАКА И МОДЕЛЬ XaaS -->
+<section id="s-cloud" data-title="Облачные технологии">
+  <div class="wrap">
+    <div class="kicker" data-anim>Теория · запись в тетрадь</div>
+    <h2 class="h2" data-anim style="margin:10px 0 16px">Три уровня облачных сервисов</h2>
+    <div class="split-46" style="flex:1;align-items:center">
+      <div>
+        <div class="defbox" data-anim style="margin-bottom:16px"><strong>Облачные технологии</strong> — модель предоставления вычислительных ресурсов (дискового пространства, процессорного времени, ПО) через Интернет по запросу пользователя</div>
+        <div class="col" data-stagger>
+          <div class="rule"><span class="rn hi-c">IaaS</span><span class="rt"><strong>Инфраструктура.</strong> <span>Серверы, хранилища, сети — например, виртуальные серверы для компаний</span></span></div>
+          <div class="rule"><span class="rn hi-v">PaaS</span><span class="rt"><strong>Платформа.</strong> <span>Среда для разработки приложений</span></span></div>
+          <div class="rule" style="border-color:rgba(255,138,61,.55)"><span class="rn hi-o">SaaS</span><span class="rt"><strong>Готовые приложения в браузере.</strong> <span>Онлайн-офисы, облачные хранилища, почта. Сегодня работаем здесь!</span></span></div>
+        </div>
+      </div>
+      <div id="illus-levels" class="illus" data-anim aria-hidden="true"></div>
+    </div>
+    <p class="small" data-anim style="margin-top:14px">Вопрос: какие <strong>преимущества</strong> даёт SaaS по сравнению с установленной программой? А <strong>недостатки</strong>?</p>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> онлайн-офис — это SaaS: приложение живёт на сервере провайдера, мы открываем его в браузере.</p>
+    <ul>
+      <li>Схема трёх уровней — под запись: от «железа» (IaaS) через платформу (PaaS) к готовым приложениям (SaaS).</li>
+      <li>Преимущества назовут сами: не нужна установка, доступ с любого устройства, автосохранение, совместная работа, не нужно обновлять.</li>
+      <li>Ожидаемые недостатки: нужен Интернет, ограниченный набор функций по сравнению с профессиональными программами, зависимость от сервера провайдера.</li>
+    </ul>
+    <p><b>Переход:</b> «Смотрим на сам инструмент — окно онлайн-офиса».</p>
+    <p><i>Тайминг: ~180 с</i></p>
+  </aside>
+</section>
+
+<!-- 5. ИНТЕРФЕЙС И ВОЗМОЖНОСТИ -->
+<section id="s-ui" data-title="Интерфейс онлайн-офиса">
+  <div class="wrap">
+    <div class="kicker" data-anim>Онлайн-офис · возможности</div>
+    <h2 class="h2" data-anim style="margin:10px 0 16px">Знакомый интерфейс — новые суперсилы</h2>
+    <div class="split" style="flex:1;align-items:center">
+      <div id="illus-office" class="illus" data-anim aria-hidden="true"></div>
+      <div class="grid2" data-stagger>
+        <div class="card blue" style="padding:14px 16px"><h3 class="ct" style="font-size:20px">Форматирование</h3><p class="cd" style="font-size:21px">Шрифты, абзацы, выравнивание — как в обычном процессоре</p></div>
+        <div class="card violet" style="padding:14px 16px"><h3 class="ct" style="font-size:20px">Структурирование</h3><p class="cd" style="font-size:21px">Заголовки, списки, таблицы</p></div>
+        <div class="card green" style="padding:14px 16px"><h3 class="ct" style="font-size:20px">Совместный доступ</h3><p class="cd" style="font-size:21px">Просмотр · комментирование · редактирование</p></div>
+        <div class="card orange" style="padding:14px 16px"><h3 class="ct" style="font-size:20px">Автосохранение</h3><p class="cd" style="font-size:21px">Сохраняется каждое изменение</p></div>
+        <div class="card cyan" style="padding:14px 16px"><h3 class="ct" style="font-size:20px">История версий</h3><p class="cd" style="font-size:21px">Кто, что и когда изменил; можно откатиться</p></div>
+        <div class="card pink" style="padding:14px 16px"><h3 class="ct" style="font-size:20px">Комментарии</h3><p class="cd" style="font-size:21px">Замечание к фрагменту без изменения текста</p></div>
+      </div>
+    </div>
+    <p class="small" data-anim style="margin-top:14px">Интерфейс похож на привычный текстовый процессор: панель инструментов, меню «Вставка» и «Формат», область документа. Главное отличие — <strong>панель совместного доступа и история версий</strong></p>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> интерфейс знакомый, но к нему добавлены облачные возможности.</p>
+    <ul>
+      <li>Пройдитесь по макету: панель инструментов, стили, вставка таблиц; справа — аватары соавторов с цветными курсорами.</li>
+      <li>Шесть возможностей, которые будут использоваться сегодня: форматирование, структура, совместный доступ, автосохранение, история версий, комментарии.</li>
+      <li>Спросите: какая из возможностей решает проблему «пять файлов»? (одна версия документа + история изменений)</li>
+    </ul>
+    <p><b>Переход:</b> «Смотрим живую демонстрацию».</p>
+    <p><i>Тайминг: ~150 с</i></p>
+  </aside>
+</section>
+
+<!-- 6. ДЕМО -->
+<section id="s-demo" data-title="Демонстрация">
+  <div class="wrap">
+    <div class="kicker" data-anim>Демонстрация · 5 минут</div>
+    <h2 class="h2" data-anim style="margin:10px 0 20px">Шесть шагов демонстрации</h2>
+    <div class="grid3" data-stagger style="flex:1;align-content:center">
+      <div class="card blue"><div class="row" style="margin-bottom:8px"><span class="num-badge" style="width:44px;height:44px;font-size:20px">1</span><h3 class="ct" style="font-size:20px">Создание</h3></div><p class="cd" style="font-size:22px">«Создать» → «Документ»</p></div>
+      <div class="card violet"><div class="row" style="margin-bottom:8px"><span class="num-badge" style="width:44px;height:44px;font-size:20px">2</span><h3 class="ct" style="font-size:20px">Текст и стили</h3></div><p class="cd" style="font-size:22px">Заголовок «Памятка по безопасности в Интернете» → стиль «Заголовок 1», подзаголовок → «Заголовок 2»</p></div>
+      <div class="card cyan"><div class="row" style="margin-bottom:8px"><span class="num-badge" style="width:44px;height:44px;font-size:20px">3</span><h3 class="ct" style="font-size:20px">Список</h3></div><p class="cd" style="font-size:22px">Кнопка «Маркированный список» → вводим пункты</p></div>
+      <div class="card orange"><div class="row" style="margin-bottom:8px"><span class="num-badge" style="width:44px;height:44px;font-size:20px">4</span><h3 class="ct" style="font-size:20px">Таблица</h3></div><p class="cd" style="font-size:22px">«Вставка» → «Таблица» → 3×4, заполняем ячейки</p></div>
+      <div class="card green"><div class="row" style="margin-bottom:8px"><span class="num-badge" style="width:44px;height:44px;font-size:20px">5</span><h3 class="ct" style="font-size:20px">Совместный доступ</h3></div><p class="cd" style="font-size:22px">«Поделиться»: просмотр · комментирование · редактирование</p></div>
+      <div class="card pink"><div class="row" style="margin-bottom:8px"><span class="num-badge" style="width:44px;height:44px;font-size:20px">6</span><h3 class="ct" style="font-size:20px">История версий</h3></div><p class="cd" style="font-size:22px">«Файл» → «История версий»: кто и когда вносил изменения</p></div>
+    </div>
+    <div class="defbox" data-anim style="margin-top:18px">Обратите внимание: за всю демонстрацию — <strong>ни одной кнопки «Сохранить»</strong>. Документ сохраняется автоматически при каждом изменении</div>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> показываем ровно те операции, которые ученики повторят в практике.</p>
+    <ul>
+      <li>Демонстрируйте на проекторе в реальном онлайн-офисе; ученики пока только наблюдают.</li>
+      <li>На шаге 5 специально покажите три уровня прав: просмотр, комментирование, редактирование — для практики нужно редактирование.</li>
+      <li>Финальный акцент: ни одной кнопки «Сохранить» — работа не пропадёт ни при отключении света, ни при забытом сохранении.</li>
+      <li>Если позволяет время, пригласите ученика в документ и покажите его цветной курсор — это производит сильное впечатление.</li>
+    </ul>
+    <p><b>Переход:</b> «Теперь ваша очередь — инструктаж по практике».</p>
+    <p><i>Тайминг: ~270 с (демонстрация 5 мин)</i></p>
+  </aside>
+</section>
+
+<!-- 7. ЗАДАНИЕ -->
+<section id="s-task" data-title="Задание">
+  <div class="wrap">
+    <div class="kicker" data-anim>Инструктаж · тема на выбор</div>
+    <h2 class="h2" data-anim style="margin:10px 0 18px">Создаём документ в парах</h2>
+    <div class="grid3" data-stagger>
+      <div class="card green"><h3 class="ct">Вариант 1 · Памятка</h3><p class="cd">«10 правил безопасного поведения в Интернете»</p><p class="cd" style="margin-top:10px">Вступление 2–3 предложения · нумерованный список из 10 правил · таблица «Тип угрозы → Пример → Защита» (≥ 3 строки)</p></div>
+      <div class="card violet"><h3 class="ct">Вариант 2 · Обзор</h3><p class="cd">«Обзор образовательных интернет-сервисов»</p><p class="cd" style="margin-top:10px">Вступление · три раздела с подзаголовками «Заголовок 2» · в каждом: описание + маркированный список возможностей · заключение</p></div>
+      <div class="card orange"><h3 class="ct">Вариант 3 · Инструкция</h3><p class="cd">«Как подготовить групповой проект с помощью онлайн-офиса»</p><p class="cd" style="margin-top:10px">Нумерованный список из 5–7 шагов · таблица «Инструмент → Назначение → Пример» · совет по совместной работе</p></div>
+    </div>
+    <div class="row" data-stagger style="margin-top:18px;gap:12px">
+      <span class="chip" style="font-size:22px"><span class="dot"></span>Оба участника — с правом редактирования</span>
+      <span class="chip violet" style="font-size:22px"><span class="dot"></span>Работаем одновременно над разными частями</span>
+      <span class="chip orange" style="font-size:22px"><span class="dot"></span>Имя файла: <span class="mono">Фамилия1_Фамилия2_Тема</span></span>
+      <span class="chip green" style="font-size:22px"><span class="dot"></span>Ссылку на документ — учителю</span>
+    </div>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> три темы на выбор, требования единые для всех.</p>
+    <ul>
+      <li>Темы связаны с уже изученным материалом: безопасность (тема 1.1), сервисы (урок 4), сам онлайн-офис — так документ собирается быстрее.</li>
+      <li>Подчеркните алгоритм: один создаёт документ и открывает доступ второму по ссылке с правом редактирования; дальше работают одновременно над разными частями.</li>
+      <li>Совет из практики: распределите разделы заранее — один пишет вступление и список, второй таблицу и заключение, чтобы не мешать друг другу.</li>
+    </ul>
+    <p><b>Переход:</b> «Требования к документу и порядок работы».</p>
+    <p><i>Тайминг: ~120 с</i></p>
+  </aside>
+</section>
+
+<!-- 8. ТРЕБОВАНИЯ + D3 -->
+<section id="s-req" data-title="Требования" data-chart="mins">
+  <div class="wrap">
+    <div class="kicker" data-anim>Требования и алгоритм</div>
+    <h2 class="h2" data-anim style="margin:10px 0 16px">Минимумы документа</h2>
+    <div class="split-46" style="flex:1;align-items:center">
+      <div data-anim>
+        <div class="legend"><span><span class="sw" style="background:var(--grad-main)"></span>Что обязательно должно быть в документе</span></div>
+        <div id="chart-mins" class="chart"></div>
+        <p class="src">Объём — не менее 1 страницы; текст выровнен по ширине, шрифт 12–14 пт</p>
+      </div>
+      <div class="col" data-stagger>
+        <div class="rule"><span class="rn">1</span><span class="rt">Один создаёт документ и <strong>открывает доступ</strong> второму</span></div>
+        <div class="rule"><span class="rn">2</span><span class="rt">Оба <strong>одновременно</strong> работают над разными частями</span></div>
+        <div class="rule"><span class="rn">3</span><span class="rt">Проверяем <strong>форматирование и содержание</strong></span></div>
+        <div class="rule"><span class="rn">4</span><span class="rt">Переименовываем: <span class="mono" style="font-size:20px">Фамилия1_Фамилия2_Тема</span></span></div>
+        <div class="rule"><span class="rn">5</span><span class="rt"><strong>Сохраняем ссылку</strong> на документ для учителя</span></div>
+        <div class="card cyan" style="padding:12px 16px"><p class="cd" style="font-size:22px">Быстрым парам: добавьте комментарий к абзацу и загляните в историю версий</p></div>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> требования простые и измеримые — по ним же пройдёт взаимопроверка.</p>
+    <ul>
+      <li>Пройдите по диаграмме минимумов: заголовок «Заголовок 1» по центру; подзаголовки «Заголовок 2»; список от 5 пунктов; таблица от 3×3; оба участника редактируют.</li>
+      <li>Алгоритм из пяти шагов выведен на слайд и остаётся на экране вместе с таймером.</li>
+      <li>Напомните: документ переименовываем по шаблону — это тоже проверяется.</li>
+    </ul>
+    <p><b>Переход:</b> «Время пошло — 15 минут».</p>
+    <p><i>Тайминг: ~120 с (инструктаж 3 мин)</i></p>
+  </aside>
+</section>
+
+<!-- 9. ПРАКТИКА -->
+<section id="s-practice" data-title="Практика 15 минут" data-background-gradient="linear-gradient(140deg, rgba(47,107,255,0.10), rgba(139,92,246,0.05) 50%, rgba(255,138,61,0.08))">
+  <div class="wrap">
+    <div class="kicker" data-anim>Практическая работа</div>
+    <h2 class="h2" data-anim style="margin:10px 0 10px">Документ — в работе</h2>
+    <div class="split-40" style="flex:1;align-items:center">
+      <div>
+        <div class="timer" data-anim>15:00</div>
+        <p class="lead" data-anim style="margin-top:12px;font-size:26px">Доступ открыт → работаем одновременно → форматирование → имя файла → ссылка учителю</p>
+        <p class="small" data-anim style="margin-top:12px">Учитель обходит класс: помогает с доступом, стилями и таблицами. Вопросы — поднимайте руку</p>
+      </div>
+      <div class="col" data-stagger>
+        <div class="card" style="padding:12px 16px"><p class="cd" style="font-size:21px"><strong class="hi-b">Не открывается доступ?</strong> «Поделиться» → ссылка или email → «Редактирование»</p></div>
+        <div class="card" style="padding:12px 16px"><p class="cd" style="font-size:21px"><strong class="hi-v">Стиль заголовка?</strong> Выделить текст → панель стилей → «Заголовок 1/2»</p></div>
+        <div class="card" style="padding:12px 16px"><p class="cd" style="font-size:21px"><strong class="hi-o">Таблица?</strong> «Вставка» → «Таблица» → выбрать размер мышью</p></div>
+        <div class="card" style="padding:12px 16px"><p class="cd" style="font-size:21px"><strong class="hi-g">Мешаете друг другу?</strong> Разделите разделы: один — вступление и список, второй — таблица и итог</p></div>
+        <div class="card" style="padding:12px 16px"><p class="cd" style="font-size:21px"><strong class="hi-p">Где история версий?</strong> «Файл» → «История версий» / «История изменений»</p></div>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> слайд висит фоном; затруднения и их решения — перед глазами.</p>
+    <ul>
+      <li>Включите таймер. Контрольные точки: к 4-й минуте у всех открыт совместный доступ; к 10-й — есть заголовки, список и таблица; на 13-й — переименование документа.</li>
+      <li>Обход класса: следите, что оба участника действительно редактируют одновременно (видны два цветных курсора), а не один работает, второй смотрит.</li>
+      <li>Быстрым парам: комментарий к абзацу партнёра и просмотр истории версий.</li>
+    </ul>
+    <p><b>Переход:</b> «Время вышло — обсуждаем и проверяем».</p>
+    <p><i>Тайминг: 15 мин (слайд — фон)</i></p>
+  </aside>
+</section>
+
+<!-- 10. ОБСУЖДЕНИЕ И ВЗАИМОПРОВЕРКА -->
+<section id="s-peer" data-title="Обсуждение">
+  <div class="wrap">
+    <div class="kicker" data-anim>Обсуждение · взаимопроверка · 5 минут</div>
+    <h2 class="h2" data-anim style="margin:10px 0 18px">Меняемся ссылками и проверяем</h2>
+    <div class="split" style="flex:1;align-items:center">
+      <div class="col" data-stagger>
+        <div class="rule"><span class="rn">?</span><span class="rt">Удалось ли работать одновременно? Было ли удобно?</span></div>
+        <div class="rule"><span class="rn">?</span><span class="rt">Возникали ли конфликты — оба в одном абзаце? Как решили?</span></div>
+        <div class="rule"><span class="rn">?</span><span class="rt">Что оказалось самым сложным в форматировании?</span></div>
+        <div class="rule"><span class="rn">?</span><span class="rt">Чем онлайн-офис отличается от локального процессора?</span></div>
+        <div class="card orange" style="padding:12px 16px;margin-top:4px"><p class="cd" style="font-size:22px">Вы работаете с <strong>одним документом</strong>, а не с пятью копиями: курсор партнёра и его правки видны в реальном времени</p></div>
+      </div>
+      <div class="col" data-stagger>
+        <p class="small" style="margin-bottom:2px">Чек-лист проверяющей пары:</p>
+        <div class="rule"><span class="rn">✓</span><span class="rt" style="font-size:22px">Заголовок оформлен стилем «Заголовок 1»</span></div>
+        <div class="rule"><span class="rn">✓</span><span class="rt" style="font-size:22px">Есть подзаголовки «Заголовок 2»</span></div>
+        <div class="rule"><span class="rn">✓</span><span class="rt" style="font-size:22px">Текст выровнен по ширине</span></div>
+        <div class="rule"><span class="rn">✓</span><span class="rt" style="font-size:22px">Список не менее чем из 5 пунктов</span></div>
+        <div class="rule"><span class="rn">✓</span><span class="rt" style="font-size:22px">Таблица не менее 3×3, заполнена</span></div>
+        <div class="rule"><span class="rn">✓</span><span class="rt" style="font-size:22px">Документ переименован по шаблону · содержание соответствует теме</span></div>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> проверяя чужой документ, учишься видеть недочёты в своём.</p>
+    <ul>
+      <li>Фронтальное обсуждение — 2–3 минуты по четырём вопросам; особенно ценен опыт конфликтов при одновременном редактировании и способы их решения.</li>
+      <li>Пары обмениваются ссылками с соседней партой и проходят чек-лист из семи пунктов (1–2 минуты), затем кратко сообщают результат.</li>
+      <li>Подчеркните главное отличие от пересылки файлов: один документ, изменения в реальном времени, полная история.</li>
+    </ul>
+    <p><b>Переход:</b> «Как это превращается в оценку — критерии».</p>
+    <p><i>Тайминг: ~270 с (обсуждение и взаимопроверка 5 мин)</i></p>
+  </aside>
+</section>
+
+<!-- 11. КРИТЕРИИ + D3 -->
+<section id="s-rubric" data-title="Критерии" data-chart="rubric">
+  <div class="wrap">
+    <div class="kicker" data-anim>Оценивание · максимум 10 баллов</div>
+    <h2 class="h2" data-anim style="margin:10px 0 14px">Из чего складываются баллы</h2>
+    <div data-anim>
+      <div class="legend"><span><span class="sw" style="background:var(--orange)"></span>Совместная работа — самый «дорогой» блок (2 балла)</span><span><span class="sw" style="background:var(--blue)"></span>Остальные критерии</span></div>
+      <div id="chart-rubric" class="chart"></div>
+    </div>
+    <div class="row" data-stagger style="margin-top:18px;gap:14px">
+      <span class="chip green"><span class="dot"></span>9–10 баллов → «5»</span>
+      <span class="chip"><span class="dot"></span>7–8 баллов → «4»</span>
+      <span class="chip violet"><span class="dot"></span>5–6 баллов → «3»</span>
+      <span class="chip red"><span class="dot"></span>0–4 балла → дорабатываем</span>
+    </div>
+    <p class="small" data-anim style="margin-top:16px">Главный критерий — не объём текста, а <strong>соблюдение требований форматирования и успешность совместной работы</strong></p>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> оценка прозрачна: каждая пара видит, за что баллы.</p>
+    <ul>
+      <li>Пройдите по диаграмме: создание документа — 1; стили заголовков — 2; шрифт и выравнивание — 1; список от 5 пунктов — 1; таблица от 3×3 — 2; совместная работа обоих участников — 2; переименование по шаблону — 1.</li>
+      <li>Обратите внимание: совместная работа весит столько же, сколько стили и таблица, — это урок про облака и командность, а не про набор текста.</li>
+      <li>Шкала перевода в отметку выведена на слайд: 9–10 → «5», 7–8 → «4», 5–6 → «3».</li>
+    </ul>
+    <p><b>Переход»:</b> «Подводим итоги урока».</p>
+    <p><i>Тайминг: ~90 с</i></p>
+  </aside>
+</section>
+
+<!-- 12. РЕФЛЕКСИЯ -->
+<section id="s-reflect" data-title="Рефлексия">
+  <div class="wrap">
+    <div class="kicker" data-anim>Рефлексия · «продолжи фразу»</div>
+    <h2 class="h2" data-anim style="margin:10px 0 20px">Сегодня вы научились</h2>
+    <div class="split" style="flex:1;align-items:center">
+      <div class="col" data-stagger>
+        <div class="card blue" style="padding:14px 18px"><p class="cd" style="font-size:23px">✔ Создали документ в онлайн-офисе и применили стили форматирования</p></div>
+        <div class="card violet" style="padding:14px 18px"><p class="cd" style="font-size:23px">✔ Вставили список и таблицу</p></div>
+        <div class="card green" style="padding:14px 18px"><p class="cd" style="font-size:23px">✔ Настроили совместный доступ с правом редактирования</p></div>
+        <div class="card orange" style="padding:14px 18px"><p class="cd" style="font-size:23px">✔ Работали одновременно с партнёром над одним документом</p></div>
+        <div class="card cyan" style="padding:14px 18px"><p class="cd" style="font-size:23px">✔ Убедились: автосохранение и история версий решают проблему «пяти файлов»</p></div>
+      </div>
+      <div>
+        <div class="card pink" data-anim style="padding:24px">
+          <h3 class="ct">Продолжи фразу</h3>
+          <p class="cd" style="font-size:25px;color:var(--ink);margin-bottom:10px">«Сегодня я научился(ась)…»</p>
+          <p class="cd" style="font-size:25px;color:var(--ink);margin-bottom:10px">«Самым полезным для меня было…»</p>
+          <p class="cd" style="font-size:25px;color:var(--ink)">«В будущем я буду использовать онлайн-офис для…»</p>
+        </div>
+        <p class="small" data-anim style="margin-top:14px">На следующем уроке — обобщение по всему разделу «Цифровая грамотность»: темы 1.1 и 1.2</p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> навык получен — от версии-хаоса к одному живому документу.</p>
+    <ul>
+      <li>Приём «Продолжи фразу» — 2–3 ученика устно.</li>
+      <li>Пройдите пять итогов слайда вслух вместе с классом — это готовая шпаргалка к обобщающему уроку.</li>
+      <li>Анонс урока 6: обобщение по темам 1.1 и 1.2 — глобальная сеть, информационная безопасность, работа в информационном пространстве.</li>
+    </ul>
+    <p><b>Переход:</b> «Домашнее задание».</p>
+    <p><i>Тайминг: ~90 с</i></p>
+  </aside>
+</section>
+
+<!-- 13. ДОМАШНЕЕ ЗАДАНИЕ -->
+<section id="s-hw" data-title="Домашнее задание">
+  <div class="wrap">
+    <div class="kicker" data-anim>Дома</div>
+    <h2 class="h2" data-anim style="margin:10px 0 20px">Домашнее задание</h2>
+    <div class="split" style="flex:1">
+      <div class="card blue" data-anim>
+        <h3 class="ct hi-b">Обязательная часть</h3>
+        <p class="cd" style="margin-bottom:12px">📝 Доработать документ с учётом замечаний проверяющей пары</p>
+        <p class="cd">📖 Повторить темы 1.1 и 1.2 к обобщающему уроку 6: глобальная сеть Интернет, информационная безопасность, виды деятельности в сети</p>
+      </div>
+      <div class="card green" data-anim>
+        <h3 class="ct hi-g">Практическая часть — по желанию</h3>
+        <p class="cd" style="margin-bottom:12px">🕘 Открыть «Историю версий» документа и записать в тетрадь: сколько версий создано, кто из участников какие изменения вносил</p>
+        <p class="cd">☁ Или: создать в облаке папку «Информатика_9класс», переместить документ, настроить доступ «только по ссылке» и записать алгоритм действий</p>
+      </div>
+    </div>
+    <div class="row" data-anim style="margin-top:20px;gap:14px">
+      <span class="chip violet"><span class="dot"></span>ЭОР с интерактивными заданиями: <span class="mono">m.edsoo.ru/Z5C5Z3P6Y</span></span>
+      <span class="chip"><span class="dot"></span>Можно для закрепления или домашней работы</span>
+    </div>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> дома закрепляем самостоятельностью: доработка и работа с историей версий.</p>
+    <ul>
+      <li>Обязательная часть небольшая: доработка по замечаниям и повторение к обобщению.</li>
+      <li>Практические варианты по желанию связаны с сегодняшними возможностями сервиса: история версий показывает вклад каждого — это ещё и про культуру совместного труда.</li>
+      <li>Второй вариант закрепляет тему 1.1: настройки доступа к файлу — прямая связь с правилами ИБ.</li>
+    </ul>
+    <p><b>Переход:</b> «И финальная мысль».</p>
+    <p><i>Тайминг: ~60 с</i></p>
+  </aside>
+</section>
+
+<!-- 14. ФИНАЛ -->
+<section id="s-final" data-title="Финал" data-background-gradient="linear-gradient(140deg, rgba(47,107,255,0.12), rgba(139,92,246,0.06) 50%, rgba(255,138,61,0.10))">
+  <div class="wrap" style="justify-content:center;text-align:center">
+    <div class="kicker" style="justify-content:center" data-anim>Главная мысль</div>
+    <h2 data-anim style="font-family:var(--font-display);font-size:56px;line-height:1.16;max-width:1040px;margin:18px auto 0">Совместный документ — это <span class="grad-text">одна версия</span>,<br>а не пять копий</h2>
+    <div class="grad-underline" data-anim style="margin:24px auto"></div>
+    <div class="row" data-stagger style="justify-content:center;margin-top:24px">
+      <span class="chip"><span class="dot"></span>Следующий урок 6: обобщение раздела «Цифровая грамотность»</span>
+      <span class="chip orange"><span class="dot"></span>Темы 1.1 и 1.2 — готовимся отвечать</span>
+    </div>
+    <p class="lead" data-anim style="margin-top:30px">Спасибо за работу! Теперь вы знаете, как создаются документы, над которыми команда трудится одновременно</p>
+  </div>
+  <aside class="notes">
+    <p><b>Тезис:</b> облачные офисы меняют сам способ совместной работы: один документ, много авторов, полная история.</p>
+    <ul>
+      <li>Три вывода: SaaS — готовое приложение в браузере без установки и обновлений; автосохранение и история версий страхуют от потери работы; совместный доступ — норма современной учёбы и работы.</li>
+      <li>Анонс урока 6: обобщение по разделу 1 — глобальная сеть, ИБ, информационное пространство; сегодняшняя практика пригодится в ответах.</li>
+      <li>Резерв Q&A: (1) «Почему не нужна кнопка "Сохранить"?» — документ сохраняется автоматически при каждом изменении; даже при отключении питания работа не пропадёт. (2) «Что будет, если во время работы пропал интернет?» — всё, что уже синхронизировалось, сохранено; часть сервисов поддерживает офлайн-режим, но надёжнее иметь локальную резервную копию важных документов. (3) «Как узнать, кто и что изменил?» — цветные курсоры при совместной работе и история версий с именами и временем правок.</li>
+    </ul>
+    <p><i>Тайминг: ~60 с + вопросы</i></p>
+  </aside>
+</section>
+
+</div><!-- /.slides -->
+</div><!-- /.reveal -->
+
+<!-- БИБЛИОТЕКИ -->
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@6/dist/reveal.js" onerror="window.__revealCDNFailed=true"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@6/dist/plugin/notes/notes.js" onerror="window.__notesFailed=true"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@6/dist/plugin/zoom/zoom.js" onerror="window.__zoomFailed=true"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<script src="https://cdn.jsdelivr.net/npm/@svgdotjs/svg.js@3/dist/svg.min.js"></script>
+
+<script>
+/* ===== 0. УСТОЙЧИВОСТЬ ===== */
+const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const $  = (s, el=document) => el.querySelector(s);
+const $$ = (s, el=document) => Array.from(el.querySelectorAll(s));
+const HAS = { gsap: typeof gsap!=='undefined', d3: typeof d3!=='undefined', svg: typeof SVG!=='undefined', reveal: typeof Reveal!=='undefined' };
+console.info('[deck] библиотеки:', HAS);
+function staticCounters(){}
+function fallbackMode(err){ console.error('[deck] запасной режим:', err); document.body.classList.add('no-reveal'); }
+
+const P = { blue:'#2F6BFF', violet:'#8B5CF6', orange:'#FF8A3D', cyan:'#0FB5C9', green:'#16C784', pink:'#FF5D9B', amber:'#FFB020' };
+
+/* ===== 1. ИЛЛЮСТРАЦИИ SVG.js ===== */
+const ILL = {};
+
+function cursor(d,x,y,color,name){
+  const g=d.group();
+  g.path(`M${x},${y} l0,22 l6,-6 l5,11 l6,-3 l-5,-10 l9,-1 z`).fill(color).stroke({color:'#fff',width:2});
+  const tag=d.rect(name.length*11+20,30).radius(9).move(x+18,y+14).fill(color);
+  const tx=d.text(name).font({family:'Nunito',size:17,weight:800}).fill('#fff').move(x+28,y+34);
+  g.add(tag).add(tx);
+  return g;
+}
+
+function buildIllusDoc(){
+  const box=$('#illus-doc'); if(!box||!HAS.svg) return;
+  const d=SVG().addTo(box).viewbox('0 0 560 450');
+  const cloud=d.group();
+  cloud.path('M150,118 A40,40 0 0 1 158,44 A56,56 0 0 1 262,26 A50,50 0 0 1 356,60 A42,42 0 0 1 356,118 Z').fill('#FFFFFF').stroke({color:P.blue,width:3});
+  cloud.path('M232,62 v30 m0,0 l-10,-10 m10,10 l10,-10').fill('none').stroke({color:P.violet,width:4,linecap:'round'});
+  cloud.path('M282,92 v-30 m0,0 l-10,10 m10,-10 l10,10').fill('none').stroke({color:P.orange,width:4,linecap:'round'});
+  const badge=d.group();
+  badge.rect(196,34).radius(17).move(376,76).fill('rgba(22,199,132,.14)').stroke({color:P.green,width:2.5});
+  badge.text('✓ автосохранено').font({family:'Nunito',size:18,weight:800}).fill('#0E9F6E').move(392,98);
+  const shadow=d.rect(260,300).radius(16).move(166,148).fill('rgba(47,107,255,.12)');
+  const doc=d.group();
+  doc.rect(260,300).radius(16).move(150,132).fill('#FFFFFF').stroke({color:'rgba(18,32,58,.2)',width:2.5});
+  doc.rect(140,20).radius(6).move(174,158).fill(P.blue);
+  [[174,196,212],[174,216,190],[174,236,204]].forEach(l=>doc.rect(l[2],10).radius(5).move(l[0],l[1]).fill('rgba(81,97,127,.30)'));
+  doc.rect(204,14).radius(6).move(174,262).fill('rgba(139,92,246,.45)');
+  [[174,290],[174,310],[174,330]].forEach(b=>{doc.circle(7).cx(b[0]+4).cy(b[1]+5).fill(P.orange);doc.rect(150,10).radius(5).move(b[0]+16,b[1]).fill('rgba(81,97,127,.26)');});
+  [[352,290],[376,290],[400,290],[352,314],[376,314],[400,314]].forEach(c=>doc.rect(18,18).radius(4).move(c[0],c[1]).fill('rgba(15,181,201,.35)').stroke({color:'rgba(15,181,201,.6)',width:1.5}));
+  const c1=cursor(d,214,206,P.violet,'Борис');
+  const c2=cursor(d,330,300,P.orange,'Аня');
+  const c3=cursor(d,240,388,P.green,'Вы');
+  ILL.doc={cloud,badge,shadow,doc,c1,c2,c3};
+}
+
+function buildIllusLevels(){
+  const box=$('#illus-levels'); if(!box||!HAS.svg) return;
+  const d=SVG().addTo(box).viewbox('0 0 520 380');
+  const g=d.gradient('linear',a=>{a.stop(0,P.blue);a.stop(1,P.violet);});
+  const iaas=d.group();
+  iaas.rect(440,84).radius(16).move(40,272).fill('rgba(15,181,201,.12)').stroke({color:P.cyan,width:2.5});
+  iaas.text('IaaS · инфраструктура').font({family:'Nunito',size:22,weight:800}).fill('#0C7C8C').move(62,296);
+  iaas.text('серверы · хранилища · сети').font({family:'Nunito',size:18,weight:600}).fill('#51617F').move(62,326);
+  const paas=d.group();
+  paas.rect(380,84).radius(16).move(70,172).fill('rgba(139,92,246,.12)').stroke({color:P.violet,width:2.5});
+  paas.text('PaaS · платформа').font({family:'Nunito',size:22,weight:800}).fill(P.violet).move(92,196);
+  paas.text('среда разработки приложений').font({family:'Nunito',size:18,weight:600}).fill('#51617F').move(92,226);
+  const saas=d.group();
+  saas.rect(320,84).radius(16).move(100,72).fill(g).stroke({color:'#12203A',width:2.5});
+  saas.text('SaaS · готовые приложения').font({family:'Nunito',size:22,weight:800}).fill('#fff').move(122,96);
+  saas.text('онлайн-офис · хранилище · почта').font({family:'Nunito',size:17,weight:600}).fill('rgba(255,255,255,.9)').move(122,126);
+  const star=d.group();
+  star.circle(56).cx(452).cy(96).fill(P.amber).stroke({color:'#12203A',width:2.5});
+  star.text('Мы здесь').font({family:'Nunito',size:14,weight:800,anchor:'middle'}).fill('#12203A').move(452,102);
+  d.line(424,110,408,112).stroke({color:P.amber,width:3});
+  ILL.levels={iaas,paas,saas,star};
+}
+
+function buildIllusOffice(){
+  const box=$('#illus-office'); if(!box||!HAS.svg) return;
+  const d=SVG().addTo(box).viewbox('0 0 560 400');
+  const win=d.group();
+  win.rect(520,360).radius(18).move(20,20).fill('#FFFFFF').stroke({color:'rgba(18,32,58,.22)',width:2.5});
+  win.rect(520,44).radius(18).move(20,20).fill('#EEF3FF');
+  [[48,'#FF5D5D'],[70,'#FFB020'],[92,'#16C784']].forEach(c=>win.circle(12).cx(c[0]).cy(42).fill(c[1]));
+  win.rect(260,26).radius(13).move(120,29).fill='#fff';
+  win.rect(260,26).radius(13).move(120,29).fill('#FFFFFF').stroke({color:'rgba(47,107,255,.35)',width:1.5});
+  win.rect(11,9).radius(2).move(130,38).fill(P.green);
+  win.path('M133 38 v-2.5 a3 3 0 0 1 6 0 v2.5').fill('none').stroke({color:P.green,width:2});
+  win.text('docs.example.ru/памятка').font({family:'JetBrains Mono',size:14}).fill('#51617F').move(146,46);
+  const bar=d.group();
+  ['B','I','U'].forEach((t,i)=>bar.rect(24,24).radius(6).move(40+i*30,76).fill('#F2F7FF').stroke({color:'rgba(18,32,58,.2)',width:1.5}));
+  ['B','I','U'].forEach((t,i)=>bar.text(t).font({family:'Nunito',size:15,weight:800}).fill('#12203A').move(48+i*30,92));
+  bar.rect(96,24).radius(6).move(140,76).fill('rgba(47,107,255,.10)').stroke({color:P.blue,width:1.5});
+  bar.text('Заголовок 1').font({family:'Nunito',size:13,weight:700}).fill(P.blue).move(150,92);
+  [[250,88,16,10],[274,88,16,10]].forEach(r=>bar.rect(r[2],r[3]).radius(3).move(r[0],r[1]).fill('#F2F7FF').stroke({color:'rgba(18,32,58,.25)',width:1.5}));
+  [[252,91,4,4],[260,91,4,4],[252,95,4,4],[260,95,4,4]].forEach(c=>bar.rect(c[2],c[3]).move(c[0],c[1]).fill('rgba(18,32,58,.5)'));
+  const page=d.group();
+  page.rect(300,220).radius(10).move(40,116).fill('#FAFCFF').stroke({color:'rgba(18,32,58,.12)',width:1.5});
+  page.rect(180,18).radius(5).move(60,136).fill(P.blue);
+  [[60,168,240],[60,186,210],[60,204,228]].forEach(l=>page.rect(l[2],9).radius(4).move(l[0],l[1]).fill('rgba(81,97,127,.3)'));
+  page.rect(150,12).radius(5).move(60,232).fill('rgba(139,92,246,.45)');
+  [[60,254],[60,272],[60,290]].forEach(b=>{page.circle(6).cx(b[0]+4).cy(b[1]+4).fill(P.orange);page.rect(170,8).radius(4).move(b[0]+16,b[1]).fill('rgba(81,97,127,.25)');});
+  [[250,254],[270,254],[290,254],[250,272],[270,272],[290,272]].forEach(c=>page.rect(16,16).radius(3).move(c[0],c[1]).fill('rgba(15,181,201,.3)'));
+  const side=d.group();
+  side.rect(150,220).radius(10).move(368,116).fill='#FAFCFF';
+  side.rect(150,220).radius(10).move(368,116).fill('#FAFCFF').stroke({color:'rgba(18,32,58,.12)',width:1.5});
+  side.text('Участники').font({family:'Nunito',size:15,weight:800}).fill('#12203A').move(384,138);
+  [[P.blue,'А'],[P.orange,'Б'],[P.green,'В']].forEach((a,i)=>{
+    side.circle(28).cx(396+i*40).cy(172).fill(a[0]);
+    side.text(a[1]).font({family:'Nunito',size:14,weight:800,anchor:'middle'}).fill('#fff').move(396+i*40,178);
+  });
+  side.rect(118,30).radius(8).move(384,206).fill('rgba(139,92,246,.10)').stroke({color:P.violet,width:1.5});
+  side.text('История версий').font({family:'Nunito',size:14,weight:700}).fill(P.violet).move(396,226);
+  side.rect(118,30).radius(8).move(384,244).fill('rgba(22,199,132,.10)').stroke({color:P.green,width:1.5});
+  side.text('Поделиться').font({family:'Nunito',size:14,weight:700}).fill('#0E9F6E').move(406,264);
+  side.rect(118,30).radius(8).move(384,282).fill('rgba(255,138,61,.10)').stroke({color:P.orange,width:1.5});
+  side.text('Комментарии').font({family:'Nunito',size:14,weight:700}).fill('#D96C16').move(402,302);
+  const cu1=cursor(d,150,180,P.blue,'Аня');
+  const cu2=cursor(d,230,262,P.orange,'Борис');
+  ILL.office={win,bar,page,side,cu1,cu2};
+}
+
+/* ===== 2. ЧАРТЫ D3 ===== */
+const chartsDone={mins:false,rubric:false};
+
+function buildChartMins(){
+  if(chartsDone.mins||!HAS.d3) return; chartsDone.mins=true;
+  const data=[
+    {label:'Заголовок «Заголовок 1»',v:1,c:P.blue},
+    {label:'Подзаголовки «Заголовок 2»',v:2,c:P.violet},
+    {label:'Пункты списка',v:5,c:P.orange},
+    {label:'Строки таблицы',v:3,c:P.cyan},
+    {label:'Столбцы таблицы',v:3,c:P.green},
+    {label:'Автора с правом редактирования',v:2,c:P.pink}
+  ];
+  const W=620,H=320,mL=300,mR=100;
+  const svg=d3.select('#chart-mins').append('svg').attr('viewBox',`0 0 ${W} ${H}`);
+  const x=d3.scaleLinear().domain([0,5]).range([mL,W-mR]);
+  svg.append('g').attr('class','grid').selectAll('line').data([1,2,3,4,5]).join('line')
+     .attr('x1',d=>x(d)).attr('x2',d=>x(d)).attr('y1',6).attr('y2',H-24);
+  const rows=svg.selectAll('g.row').data(data).join('g').attr('transform',(d,i)=>`translate(0,${4+i*48})`);
+  rows.append('text').attr('x',mL-14).attr('y',26).attr('text-anchor','end').attr('fill','#12203A').style('font','700 19px Nunito').text(d=>d.label);
+  rows.append('rect').attr('x',mL).attr('y',6).attr('height',30).attr('rx',9)
+      .attr('fill',d=>d.c).attr('opacity',.88).attr('stroke','#12203A').attr('stroke-width',2).attr('width',0);
+  rows.append('text').attr('class','val').attr('y',28).attr('x',mL+8).attr('opacity',0).style('font-size','20px')
+      .text(d=>(d.v===1?'минимум 1':'минимум '+d.v));
+  const dur=REDUCED?0:900;
+  rows.select('rect').transition().delay((d,i)=>i*90).duration(dur).ease(d3.easeCubicOut).attr('width',d=>x(d.v)-mL);
+  rows.select('text.val').transition().delay((d,i)=>i*90+dur*0.55).duration(REDUCED?0:300)
+      .attr('opacity',1).attr('x',d=>x(d.v)+12);
+}
+
+function buildChartRubric(){
+  if(chartsDone.rubric||!HAS.d3) return; chartsDone.rubric=true;
+  const data=[
+    {label:'Документ создан',v:1,c:P.cyan},
+    {label:'Стили заголовков',v:2,c:P.blue},
+    {label:'Шрифт и выравнивание',v:1,c:P.violet},
+    {label:'Список ≥ 5',v:1,c:P.pink},
+    {label:'Таблица 3×3',v:2,c:P.green},
+    {label:'Совместная работа',v:2,c:P.orange},
+    {label:'Переименование',v:1,c:P.amber}
+  ];
+  const W=1120,H=200,x0=20,xW=1080,y0=24,bh=62;
+  const svg=d3.select('#chart-rubric').append('svg').attr('viewBox',`0 0 ${W} ${H}`);
+  const scale=v=>v/10*xW;
+  let acc=0;
+  const rows=svg.selectAll('g.seg').data(data).join('g')
+    .attr('transform',d=>{const s=`translate(${x0+scale(acc)},${y0})`; acc+=d.v; return s;});
+  rows.append('rect').attr('x',1).attr('y',0).attr('height',bh).attr('rx',10)
+      .attr('fill',d=>d.c).attr('stroke','#12203A').attr('stroke-width',2.5).attr('width',0);
+  rows.append('text').attr('class','val').attr('y',bh/2+10).attr('x',d=>scale(d.v)/2+1)
+      .attr('text-anchor','middle').attr('opacity',0).style('font-size','26px').attr('fill','#12203A').text(d=>d.v);
+  rows.append('text').attr('y',bh+34).attr('x',d=>scale(d.v)/2+1).attr('text-anchor','middle')
+      .attr('fill','#51617F').style('font','700 16px Nunito').attr('opacity',0)
+      .text(d=>d.label.length>16?d.label.split(' ').slice(0,2).join(' '):d.label);
+  const dur=REDUCED?0:800;
+  rows.select('rect').transition().delay((d,i)=>i*120).duration(dur).ease(d3.easeCubicOut).attr('width',d=>Math.max(scale(d.v)-2,12));
+  rows.select('text.val').transition().delay((d,i)=>i*120+dur*0.5).duration(REDUCED?0:300).attr('opacity',1);
+  rows.selectAll('text:not(.val)').transition().delay((d,i)=>i*120+dur*0.6).duration(REDUCED?0:300).attr('opacity',1);
+}
+
+const chartFor={'s-req':buildChartMins,'s-rubric':buildChartRubric};
+function buildChartsFor(slide){ if(slide && chartFor[slide.id]) chartFor[slide.id](); }
+
+/* ===== 3. РЕЕСТР АНИМАЦИЙ ===== */
+const TL={};
+const animations={
+  's-title':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'power3.out'}});
+    tl.fromTo(scope.querySelectorAll('.kicker, h1 span'),{y:30,opacity:0},{y:0,opacity:1,duration:.7,stagger:.12},0)
+      .fromTo(scope.querySelector('.grad-underline'),{scaleX:0,transformOrigin:'0 50%'},{scaleX:1,duration:.7},.45)
+      .fromTo(scope.querySelector('.lead'),{y:22,opacity:0},{y:0,opacity:1,duration:.6},.55)
+      .fromTo(scope.querySelectorAll('[data-stagger] .chip'),{y:18,opacity:0},{y:0,opacity:1,duration:.5,stagger:.1},.7)
+      .fromTo(scope.querySelectorAll('.foot [data-anim]'),{opacity:0},{opacity:1,duration:.6,stagger:.1},.9);
+    if(ILL.doc){
+      tl.fromTo(ILL.doc.cloud.node(),{y:-24,opacity:0},{y:0,opacity:1,duration:.8,ease:'bounce.out'},.2)
+        .fromTo(ILL.doc.badge.node(),{scale:0,opacity:0,transformOrigin:'50% 50%'},{scale:1,opacity:1,duration:.5,ease:'back.out(2.2)'},.8)
+        .fromTo(ILL.doc.shadow.node(),{opacity:0},{opacity:1,duration:.4},.5)
+        .fromTo(ILL.doc.doc.node(),{y:34,opacity:0},{y:0,opacity:1,duration:.7},.5)
+        .fromTo([ILL.doc.c1.node(),ILL.doc.c2.node(),ILL.doc.c3.node()],{scale:0,opacity:0,transformOrigin:'0 0'},{scale:1,opacity:1,duration:.5,ease:'back.out(2.2)',stagger:.18},1.0);
+    }
+    return tl;
+  },
+  's-route':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'back.out(1.5)'}});
+    tl.fromTo(scope.querySelectorAll('.kicker, .h2'),{y:26,opacity:0},{y:0,opacity:1,duration:.6,ease:'power3.out',stagger:.1},0)
+      .fromTo(scope.querySelectorAll('[data-stagger] .card'),{y:44,opacity:0,scale:.94},{y:0,opacity:1,scale:1,duration:.6,stagger:.09},.25);
+    return tl;
+  },
+  's-problem':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'power3.out'}});
+    tl.fromTo(scope.querySelectorAll('.kicker, .h2'),{y:26,opacity:0},{y:0,opacity:1,duration:.6,stagger:.1},0)
+      .fromTo(scope.querySelectorAll('[data-stagger] .file'),{x:-40,opacity:0,rotation:-2},{x:0,opacity:1,rotation:0,duration:.45,stagger:.13},.25)
+      .fromTo(scope.querySelector('.card.orange'),{x:36,opacity:0},{x:0,opacity:1,duration:.65},.4)
+      .fromTo(scope.querySelectorAll('[data-stagger] .chip'),{y:16,opacity:0},{y:0,opacity:1,duration:.45,ease:'back.out(1.6)',stagger:.1},.8)
+      .fromTo(scope.querySelectorAll('.split-46 .small'),{opacity:0},{opacity:1,duration:.5},1.2);
+    return tl;
+  },
+  's-cloud':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'power3.out'}});
+    tl.fromTo(scope.querySelectorAll('.kicker, .h2, .defbox'),{y:26,opacity:0},{y:0,opacity:1,duration:.6,stagger:.1},0)
+      .fromTo(scope.querySelectorAll('[data-stagger] .rule'),{x:-32,opacity:0},{x:0,opacity:1,duration:.5,stagger:.14},.35)
+      .fromTo(scope.querySelectorAll('.wrap > .small'),{opacity:0},{opacity:1,duration:.5},1.0);
+    if(ILL.levels){
+      tl.fromTo(ILL.levels.iaas.node(),{y:30,opacity:0},{y:0,opacity:1,duration:.6},.35)
+        .fromTo(ILL.levels.paas.node(),{y:30,opacity:0},{y:0,opacity:1,duration:.6},.55)
+        .fromTo(ILL.levels.saas.node(),{y:30,opacity:0},{y:0,opacity:1,duration:.6},.75)
+        .fromTo(ILL.levels.star.node(),{scale:0,opacity:0,transformOrigin:'50% 50%'},{scale:1,opacity:1,duration:.5,ease:'back.out(2.4)'},1.1);
+    }
+    return tl;
+  },
+  's-ui':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'power3.out'}});
+    tl.fromTo(scope.querySelectorAll('.kicker, .h2'),{y:26,opacity:0},{y:0,opacity:1,duration:.6,stagger:.1},0)
+      .fromTo(scope.querySelector('#illus-office'),{opacity:0,y:24},{opacity:1,y:0,duration:.7},.25)
+      .fromTo(scope.querySelectorAll('[data-stagger] .card'),{y:30,opacity:0,scale:.95},{y:0,opacity:1,scale:1,duration:.5,stagger:.09},.4)
+      .fromTo(scope.querySelectorAll('.wrap > .small'),{opacity:0},{opacity:1,duration:.5},1.05);
+    if(ILL.office){
+      tl.fromTo([ILL.office.cu1.node(),ILL.office.cu2.node()],{scale:0,opacity:0,transformOrigin:'0 0'},{scale:1,opacity:1,duration:.45,ease:'back.out(2.2)',stagger:.2},.9);
+    }
+    return tl;
+  },
+  's-demo':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'back.out(1.5)'}});
+    tl.fromTo(scope.querySelectorAll('.kicker, .h2'),{y:26,opacity:0},{y:0,opacity:1,duration:.6,ease:'power3.out',stagger:.1},0)
+      .fromTo(scope.querySelectorAll('[data-stagger] .card'),{y:38,opacity:0,scale:.94},{y:0,opacity:1,scale:1,duration:.55,stagger:.09},.25)
+      .fromTo(scope.querySelector('.defbox'),{y:22,opacity:0},{y:0,opacity:1,duration:.6,ease:'power3.out'},.9);
+    return tl;
+  },
+  's-task':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'back.out(1.5)'}});
+    tl.fromTo(scope.querySelectorAll('.kicker, .h2'),{y:26,opacity:0},{y:0,opacity:1,duration:.6,ease:'power3.out',stagger:.1},0)
+      .fromTo(scope.querySelectorAll('[data-stagger] .card'),{y:42,opacity:0,scale:.94},{y:0,opacity:1,scale:1,duration:.6,stagger:.13},.25)
+      .fromTo(scope.querySelectorAll('[data-stagger] .chip'),{y:16,opacity:0},{y:0,opacity:1,duration:.45,ease:'power3.out',stagger:.09},.85);
+    return tl;
+  },
+  's-req':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'power3.out'}});
+    tl.fromTo(scope.querySelectorAll('.kicker, .h2'),{y:26,opacity:0},{y:0,opacity:1,duration:.6,stagger:.1},0)
+      .fromTo(scope.querySelectorAll('[data-anim] .legend, [data-anim] .chart, [data-anim] .src'),{opacity:0,y:20},{opacity:1,y:0,duration:.6,stagger:.1},.3)
+      .fromTo(scope.querySelectorAll('[data-stagger] .rule, [data-stagger] .card'),{x:30,opacity:0},{x:0,opacity:1,duration:.45,stagger:.1},.35);
+    return tl;
+  },
+  's-practice':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'power3.out'}});
+    tl.fromTo(scope.querySelectorAll('.kicker, .h2'),{y:26,opacity:0},{y:0,opacity:1,duration:.6,stagger:.1},0)
+      .fromTo(scope.querySelector('.timer'),{scale:.7,opacity:0,transformOrigin:'0 50%'},{scale:1,opacity:1,duration:.8,ease:'back.out(1.6)'},.25)
+      .fromTo(scope.querySelectorAll('.split-40 .lead, .split-40 .small'),{opacity:0,y:16},{opacity:1,y:0,duration:.5,stagger:.15},.85)
+      .fromTo(scope.querySelectorAll('[data-stagger] .card'),{x:34,opacity:0},{x:0,opacity:1,duration:.45,stagger:.09},.45);
+    return tl;
+  },
+  's-peer':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'power3.out'}});
+    tl.fromTo(scope.querySelectorAll('.kicker, .h2'),{y:26,opacity:0},{y:0,opacity:1,duration:.6,stagger:.1},0)
+      .fromTo(scope.querySelectorAll('.split > div:first-child [data-stagger] > *'),{x:-30,opacity:0},{x:0,opacity:1,duration:.45,stagger:.1},.25)
+      .fromTo(scope.querySelectorAll('.split > div:last-child [data-stagger] > *'),{x:30,opacity:0},{x:0,opacity:1,duration:.45,stagger:.08},.4);
+    return tl;
+  },
+  's-rubric':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'power3.out'}});
+    tl.fromTo(scope.querySelectorAll('.kicker, .h2'),{y:26,opacity:0},{y:0,opacity:1,duration:.6,stagger:.1},0)
+      .fromTo(scope.querySelectorAll('[data-anim] .legend, [data-anim] .chart'),{opacity:0,y:20},{opacity:1,y:0,duration:.6,stagger:.1},.3)
+      .fromTo(scope.querySelectorAll('[data-stagger] .chip'),{y:16,opacity:0},{y:0,opacity:1,duration:.45,ease:'back.out(1.6)',stagger:.1},.8)
+      .fromTo(scope.querySelectorAll('.wrap > .small'),{opacity:0},{opacity:1,duration:.5},1.2);
+    return tl;
+  },
+  's-reflect':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'power3.out'}});
+    tl.fromTo(scope.querySelectorAll('.kicker, .h2'),{y:26,opacity:0},{y:0,opacity:1,duration:.6,stagger:.1},0)
+      .fromTo(scope.querySelectorAll('[data-stagger] .card'),{x:-32,opacity:0},{x:0,opacity:1,duration:.45,stagger:.1},.25)
+      .fromTo(scope.querySelectorAll('.split > div:last-child .card'),{x:36,opacity:0},{x:0,opacity:1,duration:.65},.5)
+      .fromTo(scope.querySelectorAll('.split .small'),{opacity:0},{opacity:1,duration:.5},1.0);
+    return tl;
+  },
+  's-hw':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'back.out(1.5)'}});
+    tl.fromTo(scope.querySelectorAll('.kicker, .h2'),{y:26,opacity:0},{y:0,opacity:1,duration:.6,ease:'power3.out',stagger:.1},0)
+      .fromTo(scope.querySelectorAll('.split .card'),{y:40,opacity:0,scale:.95},{y:0,opacity:1,scale:1,duration:.6,stagger:.15},.25)
+      .fromTo(scope.querySelectorAll('[data-anim] .chip'),{y:16,opacity:0},{y:0,opacity:1,duration:.5,ease:'power3.out',stagger:.1},.8);
+    return tl;
+  },
+  's-final':(scope)=>{
+    const tl=gsap.timeline({defaults:{ease:'power3.out'}});
+    tl.fromTo(scope.querySelectorAll('[data-anim]'),{y:28,opacity:0},{y:0,opacity:1,duration:.7,stagger:.14},0)
+      .fromTo(scope.querySelector('.grad-underline'),{scaleX:0,transformOrigin:'50% 50%'},{scaleX:1,duration:.7},.8)
+      .fromTo(scope.querySelectorAll('[data-stagger] .chip'),{y:18,opacity:0},{y:0,opacity:1,duration:.5,stagger:.12},1.0);
+    return tl;
+  }
+};
+
+function playAnim(id){
+  if(REDUCED||!HAS.gsap||!id) return;
+  const slide=document.getElementById(id);
+  if(!slide||!animations[id]) return;
+  if(!TL[id]) TL[id]=animations[id](slide);
+  TL[id].restart();
+}
+function resetAnim(id){ if(TL[id]) TL[id].progress(0).pause(); }
+
+/* ===== 4. СБОРКА И ЗАПУСК ===== */
+buildIllusDoc(); buildIllusLevels(); buildIllusOffice();
+
+(function boot(){
+  if(window.__revealCDNFailed||typeof Reveal==='undefined'){ fallbackMode('Reveal.js не загрузился (нет доступа к CDN).'); return; }
+  if(REDUCED||!HAS.gsap) staticCounters();
+
+  const plugins=[];
+  if(typeof RevealNotes!=='undefined') plugins.push(RevealNotes);
+  else console.warn('[deck] RevealNotes не загрузился — режим докладчика (S) будет недоступен.');
+  if(typeof RevealZoom!=='undefined') plugins.push(RevealZoom);
+  else console.warn('[deck] RevealZoom не загрузился — зум будет недоступен.');
+
+  try{
+    const p=Reveal.initialize({
+      hash:true, controls:true, controlsLayout:'bottom-right', progress:true,
+      transition:'slide', transitionSpeed:'default',
+      width:1280, height:720, margin:0.05, center:false,
+      plugins:plugins
+    });
+    if(p&&p.catch) p.catch(e=>fallbackMode(e));
+  }catch(e){ fallbackMode(e); return; }
+
+  Reveal.on('ready',ev=>{ playAnim(ev.currentSlide.id); buildChartsFor(ev.currentSlide); });
+  Reveal.on('slidechanged',ev=>{
+    if(ev.previousSlide) resetAnim(ev.previousSlide.id);
+    playAnim(ev.currentSlide.id);
+    buildChartsFor(ev.currentSlide);
+  });
+
+  if(!REDUCED&&HAS.gsap){
+    const qx1=gsap.quickTo('#cl-a','x',{duration:1.2,ease:'power2'});
+    const qy1=gsap.quickTo('#cl-a','y',{duration:1.2,ease:'power2'});
+    const qx2=gsap.quickTo('#cl-b','x',{duration:1.4,ease:'power2'});
+    const qy2=gsap.quickTo('#cl-b','y',{duration:1.4,ease:'power2'});
+    window.addEventListener('mousemove',e=>{
+      const nx=e.clientX/window.innerWidth-.5, ny=e.clientY/window.innerHeight-.5;
+      qx1(nx*34); qy1(ny*34); qx2(nx*-40); qy2(ny*-40);
+    },{passive:true});
+  }
+})();
+</script>
+</body>
+</html>
