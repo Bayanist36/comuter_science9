@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Раздаточный материал · Урок 9 · Разработка однотабличной базы данных. Составление запросов к базе данных</title>
+<style>
+@page{size:A4 portrait;margin:12mm 13mm 10mm}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:#fff;color:#141824;
+  font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif;font-size:10.5pt;line-height:1.38}
+.page{page-break-after:always;width:184mm;display:flex;flex-direction:column;min-height:262mm}
+.page:last-child{page-break-after:auto}
+.head{display:flex;justify-content:space-between;align-items:flex-end;
+  border-bottom:2px solid #4F46E5;padding-bottom:5px;margin-bottom:9px}
+.head h1{font-size:15pt;margin:0;font-weight:700;letter-spacing:-.2px}
+.head .sub{font-size:9pt;color:#5A6178;margin-top:2px}
+.head .mark{font-size:8.6pt;color:#5A6178;text-align:right;line-height:1.35}
+.name{display:flex;gap:14px;font-size:9pt;color:#5A6178;margin:0 0 9px}
+.name span{flex:1;border-bottom:1px dotted #9AA0B4;padding-bottom:1px}
+h2.sec{font-size:11.5pt;margin:7px 0 4px;font-weight:700;color:#1E2A5A}
+h2.sec .n{display:inline-flex;width:6.4mm;height:6.4mm;border-radius:50%;background:#4F46E5;color:#fff;
+  font-size:8.6pt;align-items:center;justify-content:center;margin-right:6px;vertical-align:1px}
+.hint{font-size:8.8pt;color:#5A6178;margin:0 0 5px}
+.task{border:1px solid #D6D9E6;border-radius:7px;padding:3mm 3.6mm 2mm;margin-bottom:2.4mm;background:#FCFCFE}
+.task h3{font-size:9.6pt;margin:0 0 1.6mm;font-weight:700;color:#141824;line-height:1.2}
+.task p{margin:0 0 1.2mm;font-size:9.1pt;line-height:1.3}
+.task .q{background:#F0F1FA;border-left:3px solid #4F46E5;padding:1.5mm 2.2mm;border-radius:0 4px 4px 0;margin-bottom:1.4mm}
+.lines div{border-bottom:1px solid #C7CBDA;height:5.6mm}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:3mm}
+.def{border-left:3px solid #4F46E5;background:#F4F5FC;padding:2mm 3mm;margin-bottom:2mm;font-size:9.6pt;border-radius:0 4px 4px 0}
+.def b{color:#1E2A5A}
+table.k{width:100%;border-collapse:collapse;font-size:9.2pt}
+table.k th{background:#EEF0FA;text-align:left;padding:1.6mm 2mm;border:1px solid #D6D9E6;font-weight:700;color:#1E2A5A}
+table.k td{padding:1.5mm 2mm;border:1px solid #D6D9E6;vertical-align:top}
+pre{background:#F2F4FA;border:1px solid #D6D9E6;border-radius:5px;padding:2.4mm 3mm;font-size:8.4pt;
+  line-height:1.3;font-family:'Consolas','Courier New',monospace;white-space:pre-wrap;margin:0 0 2mm}
+.foot{margin-top:auto;padding-top:4mm;display:flex;justify-content:space-between;font-size:8.2pt;color:#8A90A6;
+  border-top:1px solid #E3E6F0}
+.tkey{font-size:9pt;color:#141824}
+.tkey b{color:#1E2A5A}
+.cut{font-size:8pt;color:#8A90A6;text-align:center;margin-top:2mm}
+</style>
+</head>
+<body>
+<div class="page">
+<div class="head"><div><h1>Разработка однотабличной базы данных. Составление запросов к базе данных</h1><div class="sub">Информатика · 9 класс · урок 9 · Моделирование как метод познания</div></div><div class="mark">МБОУ «СОШ № 108»<br>Раздаточный материал<br>лист 1 из 3</div></div>
+<div class="name"><span>ФИО</span><span>Класс 9 «___»</span><span>Дата</span></div>
+<p class="hint">Выполните задания письменно на этом листе. На работу отводится 20–25 минут. Черновики сдавать не нужно.</p>
+<div class="task"><h3>Задание 1. Выберите ключ</h3>
+<p class="q">Таблица «Ученики» содержит поля: Фамилия, Имя, Дата рождения, Класс, Телефон. Предложите первичный ключ и объясните, почему ни одно готовое поле на эту роль не подходит.</p>
+<div class="lines"><div></div><div></div><div></div><div></div></div></div>
+<div class="task"><h3>Задание 2. От слов к условию</h3>
+<p class="q">Запишите формально запрос «показать все сказки и отсортировать их по цене от дешёвой к дорогой». Укажите, какие записи и в каком порядке попадут в результат.</p>
+<div class="lines"><div></div><div></div><div></div></div></div>
+<div class="task"><h3>Задание 3. Найдите ошибку</h3>
+<p class="q">В таблице поле Цена объявлено текстовым. Ученик отсортировал книги по цене и получил первым «Властелина колец» за 1290 рублей, а «Маленького принца» за 390 — последним. Объясните причину и предложите исправление.</p>
+<div class="lines"><div></div><div></div><div></div><div></div></div></div>
+<div class="task"><h3>Задание 4. Практическая работа: создаём базу в LibreOffice Base</h3>
+<p class="q">Выполните работу по шагам и покажите учителю результат запроса.</p>
+<p>1. Запустите LibreOffice Base и выберите «Создать новую базу данных»; сохраните файл под именем Библиотека.</p>
+<div class="lines"><div></div><div></div><div></div><div></div><div></div></div></div>
+<div class="foot"><span>Информатика · 9 класс · урок 9 «Разработка однотабличной базы данных. Составление запросов к базе данных»</span><span>задания 1–4</span></div>
+</div>
+<div class="page">
+<div class="head"><div><h1>Справочная страница</h1><div class="sub">Разработка однотабличной базы данных. Составление запросов к базе данных</div></div><div class="mark">МБОУ «СОШ № 108»<br>можно использовать<br>при выполнении заданий<br>лист 2 из 3</div></div>
+<h2 class="sec"><span class="n">1</span>Ключевые определения</h2>
+<div class="def"><b>База данных</b> — организованная совокупность данных, которая хранится по определённым правилам и позволяет находить, изменять и обрабатывать нужные сведения.</div>
+<div class="def"><b>Запись</b> — строка таблицы базы данных со сведениями об одном объекте. Поле — столбец таблицы, описывающий одно свойство всех объектов.</div>
+<div class="def"><b>Тип поля</b> — правило, которое задаёт вид допустимых значений поля и операции, разрешённые над ними.</div>
+<div class="def"><b>Первичный ключ</b> — поле или набор полей, значения которых однозначно определяют каждую запись таблицы.</div>
+<h2 class="sec"><span class="n">2</span>Опорная таблица</h2>
+<table class="k"><tr><th>Часть таблицы</th><th>Что описывает</th><th>Пример в таблице «Книги»</th></tr>
+<tr><td>Запись</td><td>один объект целиком</td><td>книга «Хоббит»</td></tr>
+<tr><td>Поле</td><td>одно свойство всех объектов</td><td>Год издания</td></tr>
+<tr><td>Значение</td><td>характеристика одного объекта</td><td>1937</td></tr>
+<tr><td>Ключ</td><td>поле, уникальное для каждой записи</td><td>Код книги</td></tr>
+</table>
+<h2 class="sec"><span class="n">3</span>Опорный конспект</h2>
+<pre style="font-size:7.4pt;line-height:1.22">ОДНОТАБЛИЧНАЯ БАЗА ДАННЫХ
+
+ТАБЛИЦА = ЗАПИСИ (строки) + ПОЛЯ (столбцы)
+  запись  -&gt; один объект
+  поле    -&gt; одно свойство всех объектов
+  ячейка  -&gt; одно значение, один факт
+
+ТИПЫ ПОЛЕЙ: текст | целое | денежный | дата
+            логический | счётчик
+
+КЛЮЧ (первичный):
+  уникален + не пуст
+  естественный (ISBN) / искусственный (Код-счётчик)
+
+ЗАПРОС: условие проверяется для КАЖДОЙ записи
+  =  &lt;&gt;  &gt;  &lt;</pre>
+<h2 class="sec"><span class="n">4</span>Проверь себя</h2>
+<p style="margin:0 0 1.4mm;font-size:9.4pt"><b>1.</b> Что называют записью и полем таблицы базы данных?</p>
+<p style="margin:0 0 1.4mm;font-size:9.4pt"><b>2.</b> Зачем полю назначают тип?</p>
+<div class="foot"><span>Справочная страница · урок 9</span><span>9 класс</span></div>
+</div>
+<div class="page">
+<div class="head"><div><h1>Ключи и критерии</h1><div class="sub">для учителя · урок 9 · Разработка однотабличной базы данных. Составление запросов к базе данных</div></div><div class="mark">МБОУ «СОШ № 108»<br>не выдаётся<br>обучающимся<br>лист 3 из 3</div></div>
+<h2 class="sec"><span class="n">1</span>Ответы к заданиям</h2>
+<p class="tkey"><b>Задание 1.</b> Ни одно поле не гарантирует уникальности: в школе есть однофамильцы и полные тёзки, даты рождения совпадают, класс повторяется у двадцати пяти человек, телефон может измениться или отсутствовать. Нужен искусственный ключ — поле Код_ученика типа «счётчик».</p>
+<p class="tkey"><b>Задание 2.</b> Условие: Жанр = "сказка", сортировка по полю Цена по возрастанию. В выборку попадут «Маленький принц» (390) и «Незнайка на Луне» (890) — именно в таком порядке.</p>
+<p class="tkey"><b>Задание 3.</b> Текстовые значения сравниваются посимвольно: символ «1» меньше символа «3», поэтому строка «1290» встаёт раньше строки «390». Нужно изменить тип поля на денежный (числовой) и повторить сортировку: тогда порядок будет 390, 480, 540, 620, 750, 890, 1290.</p>
+<p class="tkey"><b>Задание 4.</b> Должно остаться 2 записи: «Дети капитана Гранта» и «Мальчик со шпагой» (если введены коды 1–5). Если записей больше, проверьте, что оба условия стоят в одной строке условия, а не в строке «или».</p>
+<h2 class="sec"><span class="n">2</span>Ответы к тесту (часть А)</h2>
+<table class="k"><tr><th>Вопрос</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th></tr>
+<tr><td>Ответ</td><td><b>б</b></td><td><b>в</b></td><td><b>б</b></td><td><b>в</b></td><td><b>в</b></td></tr></table>
+<h2 class="sec"><span class="n">3</span>Домашнее задание</h2>
+<p class="tkey"><b>1.</b> Выучить определения: база данных, запись, поле, тип поля, первичный ключ, запрос.</p>
+<p class="tkey"><b>2.</b> Спроектировать в тетради структуру таблицы «Мои фильмы»: не менее шести полей, для каждого указать тип, отдельно назвать ключ.</p>
+<p class="tkey"><b>3.</b> Записать условия для таблицы «Книги»: а) фэнтези дороже 700 рублей; б) книги, изданные до 1950 года или имеющие меньше 100 страниц. Указать коды записей и проверить себя по таблице урока.</p>
+<p class="tkey"><b>4.</b> *(По желанию)* Создать в LibreOffice Base базу «Мои книги» из десяти записей и два запроса к ней: с условием И и с сортировкой по двум полям.</p>
+<div class="foot"><span>Ключи · урок 9 «Разработка однотабличной базы данных. Составление запросов к базе данных»</span><span>Следующий урок: Граф. Весовая матрица графа. Длина пути между вершинами графа. Вычисление количества путей в направленном ациклическом графе</span></div>
+</div>
+</body></html>

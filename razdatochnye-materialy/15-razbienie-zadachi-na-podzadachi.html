@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Раздаточный материал · Урок 15 · Разбиение задачи на подзадачи. Составление алгоритмов и программ с использованием ветвлений, циклов и вспомогательных алгоритмов</title>
+<style>
+@page{size:A4 portrait;margin:12mm 13mm 10mm}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:#fff;color:#141824;
+  font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif;font-size:10.5pt;line-height:1.38}
+.page{page-break-after:always;width:184mm;display:flex;flex-direction:column;min-height:262mm}
+.page:last-child{page-break-after:auto}
+.head{display:flex;justify-content:space-between;align-items:flex-end;
+  border-bottom:2px solid #4F46E5;padding-bottom:5px;margin-bottom:9px}
+.head h1{font-size:15pt;margin:0;font-weight:700;letter-spacing:-.2px}
+.head .sub{font-size:9pt;color:#5A6178;margin-top:2px}
+.head .mark{font-size:8.6pt;color:#5A6178;text-align:right;line-height:1.35}
+.name{display:flex;gap:14px;font-size:9pt;color:#5A6178;margin:0 0 9px}
+.name span{flex:1;border-bottom:1px dotted #9AA0B4;padding-bottom:1px}
+h2.sec{font-size:11.5pt;margin:7px 0 4px;font-weight:700;color:#1E2A5A}
+h2.sec .n{display:inline-flex;width:6.4mm;height:6.4mm;border-radius:50%;background:#4F46E5;color:#fff;
+  font-size:8.6pt;align-items:center;justify-content:center;margin-right:6px;vertical-align:1px}
+.hint{font-size:8.8pt;color:#5A6178;margin:0 0 5px}
+.task{border:1px solid #D6D9E6;border-radius:7px;padding:3mm 3.6mm 2mm;margin-bottom:2.4mm;background:#FCFCFE}
+.task h3{font-size:9.6pt;margin:0 0 1.6mm;font-weight:700;color:#141824;line-height:1.2}
+.task p{margin:0 0 1.2mm;font-size:9.1pt;line-height:1.3}
+.task .q{background:#F0F1FA;border-left:3px solid #4F46E5;padding:1.5mm 2.2mm;border-radius:0 4px 4px 0;margin-bottom:1.4mm}
+.lines div{border-bottom:1px solid #C7CBDA;height:5.6mm}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:3mm}
+.def{border-left:3px solid #4F46E5;background:#F4F5FC;padding:2mm 3mm;margin-bottom:2mm;font-size:9.6pt;border-radius:0 4px 4px 0}
+.def b{color:#1E2A5A}
+table.k{width:100%;border-collapse:collapse;font-size:9.2pt}
+table.k th{background:#EEF0FA;text-align:left;padding:1.6mm 2mm;border:1px solid #D6D9E6;font-weight:700;color:#1E2A5A}
+table.k td{padding:1.5mm 2mm;border:1px solid #D6D9E6;vertical-align:top}
+pre{background:#F2F4FA;border:1px solid #D6D9E6;border-radius:5px;padding:2.4mm 3mm;font-size:8.4pt;
+  line-height:1.3;font-family:'Consolas','Courier New',monospace;white-space:pre-wrap;margin:0 0 2mm}
+.foot{margin-top:auto;padding-top:4mm;display:flex;justify-content:space-between;font-size:8.2pt;color:#8A90A6;
+  border-top:1px solid #E3E6F0}
+.tkey{font-size:9pt;color:#141824}
+.tkey b{color:#1E2A5A}
+.cut{font-size:8pt;color:#8A90A6;text-align:center;margin-top:2mm}
+</style>
+</head>
+<body>
+<div class="page">
+<div class="head"><div><h1>Разбиение задачи на подзадачи. Составление алгоритмов и программ с использованием ветвлений, циклов и вспомогательных алгоритмов</h1><div class="sub">Информатика · 9 класс · урок 15 · Разработка алгоритмов и программ</div></div><div class="mark">МБОУ «СОШ № 108»<br>Раздаточный материал<br>лист 1 из 3</div></div>
+<div class="name"><span>ФИО</span><span>Класс 9 «___»</span><span>Дата</span></div>
+<p class="hint">Выполните задания письменно на этом листе. На работу отводится 20–25 минут. Черновики сдавать не нужно.</p>
+<div class="task"><h3>Задание 1. Разбейте задачу на подзадачи</h3>
+<p class="q">Задача: «Вывести все трёхзначные числа, у которых сумма цифр равна 12». Назовите подзадачи, укажите для каждой вход и выход и определите, какая из них оформляется функцией.</p>
+<div class="lines"><div></div><div></div><div></div><div></div></div></div>
+<div class="task"><h3>Задание 2. Запишите функцию по описанию</h3>
+<p class="q">Запишите функцию <code>last_digit(n)</code>, которая возвращает последнюю цифру натурального числа, и функцию <code>first_digit(n)</code>, возвращающую первую цифру (подсказка: последнюю цифру числа n можно найти как n % 10, а первую — делением на 10,</p>
+<div class="lines"><div></div><div></div><div></div><div></div></div></div>
+<div class="task"><h3>Задание 3. Найдите ошибку</h3>
+<p class="q">Ученик написал функцию для суммы цифр числа:</p>
+<p><code>def sum_digits(n): s = 0; while n &gt; 0: s += n % 10; return s; n = n // 10</code></p>
+<div class="lines"><div></div><div></div><div></div><div></div></div></div>
+<div class="task"><h3>Задание 4. Что выведет программа</h3>
+<p class="q">Даны две функции:</p>
+<p><code>def f(a, b):</code> с телом <code>if a &gt; b: return a - b</code> и второй строкой <code>return b - a</code>;</p>
+<div class="lines"><div></div><div></div><div></div><div></div></div></div>
+<div class="foot"><span>Информатика · 9 класс · урок 15 «Разбиение задачи на подзадачи. Составление алгоритмов и программ с использованием ветвлений, циклов и вспомогательных алгоритмов»</span><span>задания 1–4</span></div>
+</div>
+<div class="page">
+<div class="head"><div><h1>Справочная страница</h1><div class="sub">Разбиение задачи на подзадачи. Составление алгоритмов и программ с использованием ветвлений, циклов и вспомогательных алгоритмов</div></div><div class="mark">МБОУ «СОШ № 108»<br>можно использовать<br>при выполнении заданий<br>лист 2 из 3</div></div>
+<h2 class="sec"><span class="n">1</span>Ключевые определения</h2>
+<div class="def"><b>Декомпозиция</b> — разбиение задачи на более простые подзадачи, каждую из которых можно решить и проверить самостоятельно.</div>
+<div class="def"><b>Вспомогательный алгоритм</b> — алгоритм, который решает законченную часть общей задачи и вызывается по имени из другого алгоритма.</div>
+<div class="def"><b>Функция</b> — именованная часть программы, оформленная как вспомогательный алгоритм: у неё есть имя, параметры и, как правило, возвращаемый результат.</div>
+<div class="def"><b>Параметр</b> — переменная в заголовке функции, которая получает значение аргумента при вызове.</div>
+<h2 class="sec"><span class="n">2</span>Опорная таблица</h2>
+<table class="k"><tr><th>Уровень</th><th>Что на нём находится</th><th>Пример</th></tr>
+<tr><td>Задача</td><td>результат, который нужен в итоге</td><td>найти числа Армстронга</td></tr>
+<tr><td>Подзадача</td><td>законченная часть с входом и выходом</td><td>сумма кубов цифр числа n</td></tr>
+<tr><td>Команда</td><td>одна операция языка</td><td>n % 10, n // 10</td></tr>
+</table>
+<h2 class="sec"><span class="n">3</span>Опорный конспект</h2>
+<pre style="font-size:7.4pt;line-height:1.22">ЗАДАЧА -&gt; ПОДЗАДАЧИ -&gt; КОМАНДЫ
+
+ДЕКОМПОЗИЦИЯ: делим, пока часть не станет простой
+  у подзадачи есть ВХОД (что даём) и ВЫХОД (что получаем)
+
+ВСПОМОГАТЕЛЬНЫЙ АЛГОРИТМ = ФУНКЦИЯ
+
+  def имя(параметры):
+      тело с отступом 4
+      return результат
+
+  вызов: имя(аргументы)
+
+ПАРАМЕТР - переменная в заголовке
+АРГУМЕНТ - значение при вызове
+return   - отдаёт значение в точку вызова и кончает функцию</pre>
+<h2 class="sec"><span class="n">4</span>Проверь себя</h2>
+<p style="margin:0 0 1.4mm;font-size:9.4pt"><b>1.</b> Что называют декомпозицией задачи?</p>
+<p style="margin:0 0 1.4mm;font-size:9.4pt"><b>2.</b> Что такое вспомогательный алгоритм?</p>
+<div class="foot"><span>Справочная страница · урок 15</span><span>9 класс</span></div>
+</div>
+<div class="page">
+<div class="head"><div><h1>Ключи и критерии</h1><div class="sub">для учителя · урок 15 · Разбиение задачи на подзадачи. Составление алгоритмов и программ с использованием ветвлений, циклов и вспомогательных алгоритмов</div></div><div class="mark">МБОУ «СОШ № 108»<br>не выдаётся<br>обучающимся<br>лист 3 из 3</div></div>
+<h2 class="sec"><span class="n">1</span>Ответы к заданиям</h2>
+<p class="tkey"><b>Задание 1.</b> Подзадачи: 1) сумма цифр числа — вход число, выход число, оформляется функцией sum_digits(n); 2) перебор трёхзначных чисел — вход границы 100 и 999, выход последовательность; 3) проверка условия и вывод — вход число и его сумма цифр, выход строка на экране. Функцией оформляют первую подзадачу, потому что она используется многократно и имеет ясный вход и выход.</p>
+<p class="tkey"><b>Задание 2.</b> <code>def last_digit(n): return n % 10</code>. Для первой цифры: <code>def first_digit(n):</code> с телом <code>while n &gt; 10: n = n // 10</code> и <code>return n</code>. Проверка: last_digit(2024) = 4, first_digit(2024) = 2.</p>
+<p class="tkey"><b>Задание 3.</b> Команда return стоит внутри цикла, поэтому функция завершается на первом же шаге и возвращает только последнюю цифру. Кроме того, строка <code>n = n // 10</code> оказалась после return и не выполняется никогда. Правильно: сначала <code>n = n // 10</code> внутри цикла, а <code>return s</code> — после цикла, без отступа. Тогда sum_digits(345) = 12.</p>
+<p class="tkey"><b>Задание 4.</b> f(3, 10): условие 3 &gt; 10 ложно, поэтому выполняется return b - a = 10 - 3 = 7. g(5) перемножает числа 1, 2, 3, 4 и возвращает 24. На экран будет выведено: 7 24.</p>
+<h2 class="sec"><span class="n">2</span>Ответы к тесту (часть А)</h2>
+<table class="k"><tr><th>Вопрос</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th></tr>
+<tr><td>Ответ</td><td><b>б</b></td><td><b>б</b></td><td><b>а</b></td><td><b>б</b></td><td><b>в</b></td></tr></table>
+<h2 class="sec"><span class="n">3</span>Домашнее задание</h2>
+<p class="tkey"><b>1.</b> Выучить определения: декомпозиция, вспомогательный алгоритм, функция, параметр, аргумент, возвращаемое значение.</p>
+<p class="tkey"><b>2.</b> Разбить на подзадачи задачу «найти все двузначные числа, у которых произведение цифр больше их суммы», записать подзадачи с входами и выходами.</p>
+<p class="tkey"><b>3.</b> Написать функцию, возвращающую количество цифр натурального числа, и проверить её на числах 7, 42, 1000.</p>
+<p class="tkey"><b>4.</b> *(По желанию)* Написать программу из двух функций: первая возвращает сумму делителей числа, вторая проверяет, является ли число «дружественным» к другому (сумма делителей одного равна другому). Проверить пару 220 и 284.</p>
+<div class="foot"><span>Ключи · урок 15 «Разбиение задачи на подзадачи. Составление алгоритмов и программ с использованием ветвлений, циклов и вспомогательных алгоритмов»</span><span>Следующий урок: Одномерные массивы</span></div>
+</div>
+</body></html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Раздаточный материал · Урок 8 · Табличные модели</title>
+<style>
+@page{size:A4 portrait;margin:12mm 13mm 10mm}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:#fff;color:#141824;
+  font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif;font-size:10.5pt;line-height:1.38}
+.page{page-break-after:always;width:184mm;display:flex;flex-direction:column;min-height:262mm}
+.page:last-child{page-break-after:auto}
+.head{display:flex;justify-content:space-between;align-items:flex-end;
+  border-bottom:2px solid #4F46E5;padding-bottom:5px;margin-bottom:9px}
+.head h1{font-size:15pt;margin:0;font-weight:700;letter-spacing:-.2px}
+.head .sub{font-size:9pt;color:#5A6178;margin-top:2px}
+.head .mark{font-size:8.6pt;color:#5A6178;text-align:right;line-height:1.35}
+.name{display:flex;gap:14px;font-size:9pt;color:#5A6178;margin:0 0 9px}
+.name span{flex:1;border-bottom:1px dotted #9AA0B4;padding-bottom:1px}
+h2.sec{font-size:11.5pt;margin:7px 0 4px;font-weight:700;color:#1E2A5A}
+h2.sec .n{display:inline-flex;width:6.4mm;height:6.4mm;border-radius:50%;background:#4F46E5;color:#fff;
+  font-size:8.6pt;align-items:center;justify-content:center;margin-right:6px;vertical-align:1px}
+.hint{font-size:8.8pt;color:#5A6178;margin:0 0 5px}
+.task{border:1px solid #D6D9E6;border-radius:7px;padding:3mm 3.6mm 2mm;margin-bottom:2.4mm;background:#FCFCFE}
+.task h3{font-size:9.6pt;margin:0 0 1.6mm;font-weight:700;color:#141824;line-height:1.2}
+.task p{margin:0 0 1.2mm;font-size:9.1pt;line-height:1.3}
+.task .q{background:#F0F1FA;border-left:3px solid #4F46E5;padding:1.5mm 2.2mm;border-radius:0 4px 4px 0;margin-bottom:1.4mm}
+.lines div{border-bottom:1px solid #C7CBDA;height:5.6mm}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:3mm}
+.def{border-left:3px solid #4F46E5;background:#F4F5FC;padding:2mm 3mm;margin-bottom:2mm;font-size:9.6pt;border-radius:0 4px 4px 0}
+.def b{color:#1E2A5A}
+table.k{width:100%;border-collapse:collapse;font-size:9.2pt}
+table.k th{background:#EEF0FA;text-align:left;padding:1.6mm 2mm;border:1px solid #D6D9E6;font-weight:700;color:#1E2A5A}
+table.k td{padding:1.5mm 2mm;border:1px solid #D6D9E6;vertical-align:top}
+pre{background:#F2F4FA;border:1px solid #D6D9E6;border-radius:5px;padding:2.4mm 3mm;font-size:8.4pt;
+  line-height:1.3;font-family:'Consolas','Courier New',monospace;white-space:pre-wrap;margin:0 0 2mm}
+.foot{margin-top:auto;padding-top:4mm;display:flex;justify-content:space-between;font-size:8.2pt;color:#8A90A6;
+  border-top:1px solid #E3E6F0}
+.tkey{font-size:9pt;color:#141824}
+.tkey b{color:#1E2A5A}
+.cut{font-size:8pt;color:#8A90A6;text-align:center;margin-top:2mm}
+</style>
+</head>
+<body>
+<div class="page">
+<div class="head"><div><h1>Табличные модели</h1><div class="sub">Информатика · 9 класс · урок 8 · Моделирование как метод познания</div></div><div class="mark">МБОУ «СОШ № 108»<br>Раздаточный материал<br>лист 1 из 4</div></div>
+<div class="name"><span>ФИО</span><span>Класс 9 «___»</span><span>Дата</span></div>
+<p class="hint">Выполните задания письменно на этом листе. На работу отводится 20–25 минут. Черновики сдавать не нужно.</p>
+<div class="task"><h3>Задание 1. Определите тип таблицы</h3>
+<p class="q">Укажите, к какому типу относится каждая таблица: а) каталог книг школьной библиотеки (автор, название, год, цена); б) расстояния между четырьмя городами; в) расписание автобусов (номер рейса, время, маршрут, цена); г) оценки учеников класса по предметам.</p>
+<div class="lines"><div></div><div></div><div></div><div></div><div></div></div></div>
+<div class="task"><h3>Задание 2. Постройте таблицу по описанию</h3>
+<p class="q">В кабинете есть четыре принтера. Первый — лазерный, печатает 30 страниц в минуту, стоимость 12 000 ₽, исправен. Второй — струйный, 8 страниц в минуту, 6 500 ₽, исправен. Третий — лазерный, 25 страниц в минуту, 9 800 ₽, требует ремонта.</p>
+<div class="lines"><div></div><div></div><div></div><div></div><div></div></div></div>
+<div class="task"><h3>Задание 3. Выберите ключ</h3>
+<p class="q">Для таблицы «Книга» предложены поля: Автор, Название, Год издания, Издательство, Инвентарный номер. Какое поле подходит на роль ключа и почему остальные не годятся?</p>
+<div class="lines"><div></div><div></div><div></div></div></div>
+<div class="foot"><span>Информатика · 9 класс · урок 8 «Табличные модели»</span><span>задания 1–3</span></div>
+</div>
+<div class="page">
+<div class="head"><div><h1>Табличные модели · продолжение</h1><div class="sub">Информатика · 9 класс · урок 8 · Моделирование как метод познания</div></div><div class="mark">МБОУ «СОШ № 108»<br>Раздаточный материал<br>лист 2 из 4</div></div>
+<div class="name"><span>ФИО</span><span>Класс 9 «___»</span><span>Дата</span></div>
+<div class="task"><h3>Задание 4. Отбор по условию</h3>
+<p class="q">По таблице товаров из урока определите, сколько строк пройдёт отбор при каждом условии: а) Цена &lt; 100 И Количество &gt; 50; б) Категория = «Техника» И Цена &gt; 800; в) Цена &lt; 100 ИЛИ Количество &lt; 10.</p>
+<div class="lines"><div></div><div></div><div></div><div></div></div></div>
+<div class="foot"><span>Информатика · 9 класс · урок 8 «Табличные модели»</span><span>задания 4–4</span></div>
+</div>
+<div class="page">
+<div class="head"><div><h1>Справочная страница</h1><div class="sub">Табличные модели</div></div><div class="mark">МБОУ «СОШ № 108»<br>можно использовать<br>при выполнении заданий<br>лист 3 из 4</div></div>
+<h2 class="sec"><span class="n">1</span>Ключевые определения</h2>
+<div class="def"><b>Табличная модель</b> — модель, в которой объекты и их свойства представлены в виде строк и столбцов, а значение свойства записано в клетке на их пересечении.</div>
+<div class="def"><b>Таблица «объект</b> — свойство» — таблица, в которой каждая строка описывает отдельный объект, а каждый столбец — одно из его свойств.</div>
+<div class="def"><b>Таблица «объект</b> — объект» — таблица, в которой строки и столбцы соответствуют разным объектам, а в клетке записано значение отношения между ними.</div>
+<div class="def"><b>База данных</b> — организованная совокупность данных, предназначенная для хранения, поиска и обработки информации.</div>
+<h2 class="sec"><span class="n">2</span>Опорная таблица</h2>
+<table class="k"><tr><th>Код</th><th>Товар</th><th>Категория</th><th>Цена, ₽</th><th>Количество</th></tr>
+<tr><td>1</td><td>Ручка</td><td>Канцелярия</td><td>45</td><td>120</td></tr>
+<tr><td>2</td><td>Тетрадь</td><td>Канцелярия</td><td>80</td><td>300</td></tr>
+<tr><td>3</td><td>Линейка</td><td>Канцелярия</td><td>120</td><td>40</td></tr>
+<tr><td>4</td><td>Калькулятор</td><td>Техника</td><td>950</td><td>12</td></tr>
+<tr><td>5</td><td>Флешка</td><td>Техника</td><td>700</td><td>25</td></tr>
+</table>
+<h2 class="sec"><span class="n">3</span>Опорный конспект</h2>
+<pre style="font-size:7.4pt;line-height:1.22">ТАБЛИЧНАЯ МОДЕЛЬ
+  строка = объект, столбец = свойство,
+  клетка = одно значение
+
+ТИПЫ
+  объект - свойство:  товар | категория | цена
+  объект - объект:    ученик \ предмет -&gt; оценка
+
+КЛЮЧ: уникальный, неизменный, короткий
+  фамилия - нет (тёзки), код - да
+  типы полей: текст | число | дата | логический
+
+УСЛОВИЕ ОТБОРА
+  И   - сужает (нужны оба)
+  ИЛИ - расширяет (хватит одного)
+  НЕ  - меняет смысл на противоположный</pre>
+<h2 class="sec"><span class="n">4</span>Проверь себя</h2>
+<p style="margin:0 0 1.4mm;font-size:9.4pt"><b>1.</b> Что называют табличной моделью?</p>
+<p style="margin:0 0 1.4mm;font-size:9.4pt"><b>2.</b> Чем таблица «объект</p>
+<div class="foot"><span>Справочная страница · урок 8</span><span>9 класс</span></div>
+</div>
+<div class="page">
+<div class="head"><div><h1>Ключи и критерии</h1><div class="sub">для учителя · урок 8 · Табличные модели</div></div><div class="mark">МБОУ «СОШ № 108»<br>не выдаётся<br>обучающимся<br>лист 4 из 4</div></div>
+<h2 class="sec"><span class="n">1</span>Ответы к заданиям</h2>
+<p class="tkey"><b>Задание 1.</b> «Объект — свойство»: а) и в) — каждая строка описывает один объект (книгу, рейс). «Объект — объект»: б) и г) — в клетке стоит значение отношения между двумя объектами (расстояние, оценка).</p>
+<p class="tkey"><b>Задание 2.</b> Тип «объект — свойство». Столбцы: Номер, Тип печати, Скорость (стр/мин), Цена (₽), Состояние. Строки: 1 — лазерный — 30 — 12000 — исправен; 2 — струйный — 8 — 6500 — исправен; 3 — лазерный — 25 — 9800 — требует ремонта; 4 — струйный — 12 — 7200 — исправен. Ключ — номер принтера, он уникален.</p>
+<p class="tkey"><b>Задание 3.</b> Ключ — инвентарный номер: он уникален для каждого экземпляра и не меняется. Автор и издательство повторяются у многих книг, название может совпасть у разных изданий, год издания одинаков у сотен книг. Даже пара «Автор + Название» не различает два экземпляра одного и того же издания.</p>
+<p class="tkey"><b>Задание 4.</b> а) Ручка (45, 120) и Тетрадь (80, 300) — 2 строки. б) Калькулятор (950) и Наушники (1500) — 2 строки. в) Ручка (45), Тетрадь (80) и Наушники (количество 8) — 3 строки.</p>
+<h2 class="sec"><span class="n">2</span>Ответы к тесту (часть А)</h2>
+<table class="k"><tr><th>Вопрос</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th></tr>
+<tr><td>Ответ</td><td><b>б</b></td><td><b>в</b></td><td><b>б</b></td><td><b>б</b></td><td><b>в</b></td></tr></table>
+<h2 class="sec"><span class="n">3</span>Домашнее задание</h2>
+<p class="tkey"><b>1.</b> Выучите определения: табличная модель, таблица «объект — свойство» и «объект — объект», ключ, база данных.</p>
+<p class="tkey"><b>2.</b> Постройте таблицу «объект — свойство» для пяти книг из домашней библиотеки: автор, название, год, число страниц, прочитана ли.</p>
+<p class="tkey"><b>3.</b> Придумайте таблицу «объект — объект» для своей семьи (например, расстояния между домом, школой, секцией и магазином) и заполните её.</p>
+<p class="tkey"><b>4.</b> *(По желанию)* Соберите в электронной таблице список из десяти фильмов с оценками и отберите фильмы с оценкой выше 8, выпущенные после 2015 года.</p>
+<div class="foot"><span>Ключи · урок 8 «Табличные модели»</span><span>Следующий урок: Разработка однотабличной базы данных. Составление запросов к базе данных</span></div>
+</div>
+</body></html>

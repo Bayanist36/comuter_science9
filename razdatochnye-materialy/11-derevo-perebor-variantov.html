@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Раздаточный материал · Урок 11 · Дерево. Перебор вариантов с помощью дерева</title>
+<style>
+@page{size:A4 portrait;margin:12mm 13mm 10mm}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:#fff;color:#141824;
+  font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif;font-size:10.5pt;line-height:1.38}
+.page{page-break-after:always;width:184mm;display:flex;flex-direction:column;min-height:262mm}
+.page:last-child{page-break-after:auto}
+.head{display:flex;justify-content:space-between;align-items:flex-end;
+  border-bottom:2px solid #4F46E5;padding-bottom:5px;margin-bottom:9px}
+.head h1{font-size:15pt;margin:0;font-weight:700;letter-spacing:-.2px}
+.head .sub{font-size:9pt;color:#5A6178;margin-top:2px}
+.head .mark{font-size:8.6pt;color:#5A6178;text-align:right;line-height:1.35}
+.name{display:flex;gap:14px;font-size:9pt;color:#5A6178;margin:0 0 9px}
+.name span{flex:1;border-bottom:1px dotted #9AA0B4;padding-bottom:1px}
+h2.sec{font-size:11.5pt;margin:7px 0 4px;font-weight:700;color:#1E2A5A}
+h2.sec .n{display:inline-flex;width:6.4mm;height:6.4mm;border-radius:50%;background:#4F46E5;color:#fff;
+  font-size:8.6pt;align-items:center;justify-content:center;margin-right:6px;vertical-align:1px}
+.hint{font-size:8.8pt;color:#5A6178;margin:0 0 5px}
+.task{border:1px solid #D6D9E6;border-radius:7px;padding:3mm 3.6mm 2mm;margin-bottom:2.4mm;background:#FCFCFE}
+.task h3{font-size:9.6pt;margin:0 0 1.6mm;font-weight:700;color:#141824;line-height:1.2}
+.task p{margin:0 0 1.2mm;font-size:9.1pt;line-height:1.3}
+.task .q{background:#F0F1FA;border-left:3px solid #4F46E5;padding:1.5mm 2.2mm;border-radius:0 4px 4px 0;margin-bottom:1.4mm}
+.lines div{border-bottom:1px solid #C7CBDA;height:5.6mm}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:3mm}
+.def{border-left:3px solid #4F46E5;background:#F4F5FC;padding:2mm 3mm;margin-bottom:2mm;font-size:9.6pt;border-radius:0 4px 4px 0}
+.def b{color:#1E2A5A}
+table.k{width:100%;border-collapse:collapse;font-size:9.2pt}
+table.k th{background:#EEF0FA;text-align:left;padding:1.6mm 2mm;border:1px solid #D6D9E6;font-weight:700;color:#1E2A5A}
+table.k td{padding:1.5mm 2mm;border:1px solid #D6D9E6;vertical-align:top}
+pre{background:#F2F4FA;border:1px solid #D6D9E6;border-radius:5px;padding:2.4mm 3mm;font-size:8.4pt;
+  line-height:1.3;font-family:'Consolas','Courier New',monospace;white-space:pre-wrap;margin:0 0 2mm}
+.foot{margin-top:auto;padding-top:4mm;display:flex;justify-content:space-between;font-size:8.2pt;color:#8A90A6;
+  border-top:1px solid #E3E6F0}
+.tkey{font-size:9pt;color:#141824}
+.tkey b{color:#1E2A5A}
+.cut{font-size:8pt;color:#8A90A6;text-align:center;margin-top:2mm}
+</style>
+</head>
+<body>
+<div class="page">
+<div class="head"><div><h1>Дерево. Перебор вариантов с помощью дерева</h1><div class="sub">Информатика · 9 класс · урок 11 · Моделирование как метод познания</div></div><div class="mark">МБОУ «СОШ № 108»<br>Раздаточный материал<br>лист 1 из 3</div></div>
+<div class="name"><span>ФИО</span><span>Класс 9 «___»</span><span>Дата</span></div>
+<p class="hint">Выполните задания письменно на этом листе. На работу отводится 20–25 минут. Черновики сдавать не нужно.</p>
+<div class="task"><h3>Задание 1. Элементы дерева</h3>
+<p class="q">Дано дерево: корень A, его потомки B, C, D; у B потомки E и F; у C потомок G; у G потомок H. Найдите листья, высоту дерева и число рёбер. Укажите поддерево с корнем G.</p>
+<div class="lines"><div></div><div></div><div></div><div></div></div></div>
+<div class="task"><h3>Задание 2. Обед с изменением условия</h3>
+<p class="q">В столовой три первых блюда, четыре вторых и два напитка, но напиток можно не брать. Сколько теперь различных обедов? Нарисуйте схему и объясните, почему на третьем уровне стало три варианта.</p>
+<div class="lines"><div></div><div></div><div></div><div></div></div></div>
+<div class="task"><h3>Задание 3. Кодовый замок</h3>
+<p class="q">Код состоит из трёх цифр. Первая цифра не может быть нулём, все цифры должны быть различны. Сколько существует таких кодов? Сколько кодов было бы, если разрешить повторение цифр?</p>
+<div class="lines"><div></div><div></div><div></div></div></div>
+<div class="task"><h3>Задание 4. Найдите ошибку</h3>
+<p class="q">Ученик решал задачу про обед (3 первых, 4 вторых, 2 напитка) и записал: «3 + 4 + 2 = 9 обедов». Объясните, в чём ошибка, и покажите на дереве, почему правильный ответ другой.</p>
+<div class="lines"><div></div><div></div><div></div></div></div>
+<div class="foot"><span>Информатика · 9 класс · урок 11 «Дерево. Перебор вариантов с помощью дерева»</span><span>задания 1–4</span></div>
+</div>
+<div class="page">
+<div class="head"><div><h1>Справочная страница</h1><div class="sub">Дерево. Перебор вариантов с помощью дерева</div></div><div class="mark">МБОУ «СОШ № 108»<br>можно использовать<br>при выполнении заданий<br>лист 2 из 3</div></div>
+<h2 class="sec"><span class="n">1</span>Ключевые определения</h2>
+<div class="def"><b>Дерево</b> — связный граф, не содержащий циклов.</div>
+<div class="def"><b>Корень</b> — вершина дерева, от которой начинается обход. Лист — вершина, не имеющая потомков.</div>
+<div class="def"><b>Высота дерева</b> — число рёбер в самом длинном пути от корня до листа. В некоторых учебниках высотой называют число уровней, то есть на единицу больше.</div>
+<div class="def"><b>Дерево вариантов</b> — дерево, в котором вершины уровня k изображают выбор на k-м шаге, а каждый путь от корня к листу задаёт один полный вариант.</div>
+<h2 class="sec"><span class="n">2</span>Опорная таблица</h2>
+<table class="k"><tr><th>Элемент</th><th>Что означает</th><th>Пример на схеме урока</th></tr>
+<tr><td>Корень</td><td>начальная вершина</td><td>A</td></tr>
+<tr><td>Лист</td><td>вершина без потомков</td><td>D, E, F, H</td></tr>
+<tr><td>Родитель</td><td>вершина выше по ветви</td><td>C для G</td></tr>
+<tr><td>Поддерево</td><td>ветвь вместе со всеми потомками</td><td>G и H</td></tr>
+<tr><td>Высота</td><td>число рёбер в самом длинном пути от корня</td><td>3</td></tr>
+</table>
+<h2 class="sec"><span class="n">3</span>Опорный конспект</h2>
+<pre style="font-size:7.4pt;line-height:1.22">ДЕРЕВО
+
+связный граф без циклов; n вершин -&gt; n-1 рёбер
+  КОРЕНЬ    - начало (верхняя вершина)
+  ЛИСТ      - вершина без потомков
+  ПОДДЕРЕВО - ветвь со всеми потомками
+  ВЫСОТА    - рёбер в самом длинном пути от корня
+
+ДЕРЕВО ВАРИАНТОВ
+  уровень = очередной шаг выбора
+  ветвь   = один вариант шага
+  путь корень-&gt;лист = готовый вариант
+  число листьев = число вариантов
+
+ПОДСЧЁТ
+  ровное дерево: N = n1 * n2 * ... * nk</pre>
+<h2 class="sec"><span class="n">4</span>Проверь себя</h2>
+<p style="margin:0 0 1.4mm;font-size:9.4pt"><b>1.</b> Какое свойство отличает дерево от других графов?</p>
+<p style="margin:0 0 1.4mm;font-size:9.4pt"><b>2.</b> Что называют корнем и листом дерева?</p>
+<div class="foot"><span>Справочная страница · урок 11</span><span>9 класс</span></div>
+</div>
+<div class="page">
+<div class="head"><div><h1>Ключи и критерии</h1><div class="sub">для учителя · урок 11 · Дерево. Перебор вариантов с помощью дерева</div></div><div class="mark">МБОУ «СОШ № 108»<br>не выдаётся<br>обучающимся<br>лист 3 из 3</div></div>
+<h2 class="sec"><span class="n">1</span>Ответы к заданиям</h2>
+<p class="tkey"><b>Задание 1.</b> Листья: D, E, F, H (у них нет потомков). Высота равна 3: путь A-C-G-H содержит три ребра. Вершин восемь, значит, рёбер 8 − 1 = 7. Поддерево с корнем G состоит из вершин G и H и одного ребра.</p>
+<p class="tkey"><b>Задание 2.</b> Третий шаг даёт три варианта: первый напиток, второй напиток или отказ. Число обедов 3 · 4 · 3 = 36. Схема: три ветви первого уровня, из каждой четыре ветви, из каждой из них три.</p>
+<p class="tkey"><b>Задание 3.</b> Без повторов: 9 · 9 · 8 = 648 (первая — любая от 1 до 9, вторая — любая из девяти оставшихся, третья — из восьми). С повторами: 9 · 10 · 10 = 900.</p>
+<p class="tkey"><b>Задание 4.</b> Складывать нужно варианты, относящиеся к одному шагу, а здесь шаги последовательные: сначала выбирают первое, потом второе, потом напиток. Поэтому количества перемножаются: 3 · 4 · 2 = 24. На дереве видно, что каждая из трёх ветвей первого уровня даёт по 4 · 2 = 8 продолжений, всего 3 · 8 = 24 листа.</p>
+<h2 class="sec"><span class="n">2</span>Ответы к тесту (часть А)</h2>
+<table class="k"><tr><th>Вопрос</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th></tr>
+<tr><td>Ответ</td><td><b>б</b></td><td><b>б</b></td><td><b>в</b></td><td><b>в</b></td><td><b>в</b></td></tr></table>
+<h2 class="sec"><span class="n">3</span>Домашнее задание</h2>
+<p class="tkey"><b>1.</b> Выучить определения: дерево, корень, лист, высота, поддерево, дерево вариантов, отсечение.</p>
+<p class="tkey"><b>2.</b> Нарисовать дерево вариантов для выбора набора мороженого: 4 вида стаканчика, 3 вида наполнителя, 2 вида посыпки. Посчитать листья и проверить ответ по правилу умножения.</p>
+<p class="tkey"><b>3.</b> Решить задачу: сколько чётных двузначных чисел можно составить из цифр 1, 2, 3, 4 без повторения? Ответ обосновать деревом.</p>
+<p class="tkey"><b>4.</b> *(По желанию)* Найти в задачнике три задачи на перебор, которые решаются деревом, и для одной из них нарисовать дерево целиком.</p>
+<div class="foot"><span>Ключи · урок 11 «Дерево. Перебор вариантов с помощью дерева»</span><span>Следующий урок: Математическое моделирование</span></div>
+</div>
+</body></html>

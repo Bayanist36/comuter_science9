@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Раздаточный материал · Урок 10 · Граф. Весовая матрица графа. Длина пути между вершинами графа. Вычисление количества путей в направленном ациклическом графе</title>
+<style>
+@page{size:A4 portrait;margin:12mm 13mm 10mm}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:#fff;color:#141824;
+  font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif;font-size:10.5pt;line-height:1.38}
+.page{page-break-after:always;width:184mm;display:flex;flex-direction:column;min-height:262mm}
+.page:last-child{page-break-after:auto}
+.head{display:flex;justify-content:space-between;align-items:flex-end;
+  border-bottom:2px solid #4F46E5;padding-bottom:5px;margin-bottom:9px}
+.head h1{font-size:15pt;margin:0;font-weight:700;letter-spacing:-.2px}
+.head .sub{font-size:9pt;color:#5A6178;margin-top:2px}
+.head .mark{font-size:8.6pt;color:#5A6178;text-align:right;line-height:1.35}
+.name{display:flex;gap:14px;font-size:9pt;color:#5A6178;margin:0 0 9px}
+.name span{flex:1;border-bottom:1px dotted #9AA0B4;padding-bottom:1px}
+h2.sec{font-size:11.5pt;margin:7px 0 4px;font-weight:700;color:#1E2A5A}
+h2.sec .n{display:inline-flex;width:6.4mm;height:6.4mm;border-radius:50%;background:#4F46E5;color:#fff;
+  font-size:8.6pt;align-items:center;justify-content:center;margin-right:6px;vertical-align:1px}
+.hint{font-size:8.8pt;color:#5A6178;margin:0 0 5px}
+.task{border:1px solid #D6D9E6;border-radius:7px;padding:3mm 3.6mm 2mm;margin-bottom:2.4mm;background:#FCFCFE}
+.task h3{font-size:9.6pt;margin:0 0 1.6mm;font-weight:700;color:#141824;line-height:1.2}
+.task p{margin:0 0 1.2mm;font-size:9.1pt;line-height:1.3}
+.task .q{background:#F0F1FA;border-left:3px solid #4F46E5;padding:1.5mm 2.2mm;border-radius:0 4px 4px 0;margin-bottom:1.4mm}
+.lines div{border-bottom:1px solid #C7CBDA;height:5.6mm}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:3mm}
+.def{border-left:3px solid #4F46E5;background:#F4F5FC;padding:2mm 3mm;margin-bottom:2mm;font-size:9.6pt;border-radius:0 4px 4px 0}
+.def b{color:#1E2A5A}
+table.k{width:100%;border-collapse:collapse;font-size:9.2pt}
+table.k th{background:#EEF0FA;text-align:left;padding:1.6mm 2mm;border:1px solid #D6D9E6;font-weight:700;color:#1E2A5A}
+table.k td{padding:1.5mm 2mm;border:1px solid #D6D9E6;vertical-align:top}
+pre{background:#F2F4FA;border:1px solid #D6D9E6;border-radius:5px;padding:2.4mm 3mm;font-size:8.4pt;
+  line-height:1.3;font-family:'Consolas','Courier New',monospace;white-space:pre-wrap;margin:0 0 2mm}
+.foot{margin-top:auto;padding-top:4mm;display:flex;justify-content:space-between;font-size:8.2pt;color:#8A90A6;
+  border-top:1px solid #E3E6F0}
+.tkey{font-size:9pt;color:#141824}
+.tkey b{color:#1E2A5A}
+.cut{font-size:8pt;color:#8A90A6;text-align:center;margin-top:2mm}
+</style>
+</head>
+<body>
+<div class="page">
+<div class="head"><div><h1>Граф. Весовая матрица графа. Длина пути между вершинами графа. Вычисление количества путей в направленном ациклическом графе</h1><div class="sub">Информатика · 9 класс · урок 10 · Моделирование как метод познания</div></div><div class="mark">МБОУ «СОШ № 108»<br>Раздаточный материал<br>лист 1 из 3</div></div>
+<div class="name"><span>ФИО</span><span>Класс 9 «___»</span><span>Дата</span></div>
+<p class="hint">Выполните задания письменно на этом листе. На работу отводится 20–25 минут. Черновики сдавать не нужно.</p>
+<div class="task"><h3>Задание 1. Матрица неориентированного графа</h3>
+<p class="q">Постройте весовую матрицу для неориентированного графа с вершинами A, B, C, D и рёбрами: A–B вес 4, A–C вес 2, B–C вес 1, B–D вес 7, C–D вес 6. Объясните, почему матрица получилась симметричной.</p>
+<div class="lines"><div></div><div></div><div></div><div></div><div></div></div></div>
+<div class="task"><h3>Задание 2. Кратчайший путь по матрице</h3>
+<p class="q">Пользуясь матрицей из задания 1, найдите кратчайший путь из A в D и его длину. Проверьте не менее трёх различных путей.</p>
+<div class="lines"><div></div><div></div><div></div></div></div>
+<div class="task"><h3>Задание 3. Сколько путей</h3>
+<p class="q">В графе с вершинами A, B, C, D, E заданы дуги A→B, A→C, B→D, C→D, C→E, D→E. Сколько путей ведёт из A в E? Перечислите их.</p>
+<div class="lines"><div></div><div></div><div></div></div></div>
+<div class="task"><h3>Задание 4. Найдите ошибку</h3>
+<p class="q">Ученик строил матрицу для ориентированного графа с дугами A→B (3), B→C (4), A→C (9) и заполнил её симметрично: клетки (A, B) и (B, A) он сделал равными 3. Затем он «нашёл» путь B→A длиной 3 и заявил, что из B в A есть дорога.</p>
+<div class="lines"><div></div><div></div><div></div><div></div></div></div>
+<div class="foot"><span>Информатика · 9 класс · урок 10 «Граф. Весовая матрица графа. Длина пути между вершинами графа. Вычисление количества путей в направленном ациклическом графе»</span><span>задания 1–4</span></div>
+</div>
+<div class="page">
+<div class="head"><div><h1>Справочная страница</h1><div class="sub">Граф. Весовая матрица графа. Длина пути между вершинами графа. Вычисление количества путей в направленном ациклическом графе</div></div><div class="mark">МБОУ «СОШ № 108»<br>можно использовать<br>при выполнении заданий<br>лист 2 из 3</div></div>
+<h2 class="sec"><span class="n">1</span>Ключевые определения</h2>
+<div class="def"><b>Граф</b> — совокупность вершин и соединяющих их рёбер.</div>
+<div class="def"><b>Ориентированный граф</b> — граф, каждое ребро которого имеет направление; направленное ребро называют дугой.</div>
+<div class="def"><b>Весовая матрица графа</b> — квадратная таблица, в которой элемент на пересечении строки i и столбца j равен весу ребра, ведущего из вершины i в вершину j.</div>
+<div class="def"><b>Длина пути</b> — сумма весов рёбер, входящих в этот путь. В невзвешенном графе длина пути равна числу его рёбер.</div>
+<h2 class="sec"><span class="n">2</span>Опорная таблица</h2>
+<table class="k"><tr><th>Вид графа</th><th>Рёбра</th><th>Что моделирует</th></tr>
+<tr><td>Неориентированный</td><td>без стрелок</td><td>дружба, дороги с двусторонним движением</td></tr>
+<tr><td>Ориентированный</td><td>дуги со стрелками</td><td>ссылки, односторонние дороги</td></tr>
+<tr><td>Взвешенный</td><td>с числами</td><td>расстояния, стоимость, время</td></tr>
+<tr><td>Ациклический</td><td>без замкнутых маршрутов</td><td>зависимости, порядок работ</td></tr>
+</table>
+<h2 class="sec"><span class="n">3</span>Опорный конспект</h2>
+<pre style="font-size:7.4pt;line-height:1.22">ГРАФ
+
+ВЕРШИНЫ (объекты) + РЁБРА (связи)
+  ориентированный: дуги A-&gt;B, порядок важен
+  взвешенный: у ребра есть число (вес)
+  ациклический: нет циклов, есть порядок вершин
+
+ВЕСОВАЯ МАТРИЦА: строка - откуда, столбец - куда
+  диагональ 0 | пусто = ребра нет
+  неориентированный -&gt; симметрична
+
+ДЛИНА ПУТИ = СУММА ВЕСОВ его рёбер
+  кратчайший путь: перебрать все, взять минимум
+
+ЧИСЛО ПУТЕЙ (только в ациклическом графе!)
+  N(A) = 1</pre>
+<h2 class="sec"><span class="n">4</span>Проверь себя</h2>
+<p style="margin:0 0 1.4mm;font-size:9.4pt"><b>1.</b> Что называют вершиной и ребром графа?</p>
+<p style="margin:0 0 1.4mm;font-size:9.4pt"><b>2.</b> Чем дуга отличается от ребра?</p>
+<div class="foot"><span>Справочная страница · урок 10</span><span>9 класс</span></div>
+</div>
+<div class="page">
+<div class="head"><div><h1>Ключи и критерии</h1><div class="sub">для учителя · урок 10 · Граф. Весовая матрица графа. Длина пути между вершинами графа. Вычисление количества путей в направленном ациклическом графе</div></div><div class="mark">МБОУ «СОШ № 108»<br>не выдаётся<br>обучающимся<br>лист 3 из 3</div></div>
+<h2 class="sec"><span class="n">1</span>Ответы к заданиям</h2>
+<p class="tkey"><b>Задание 1.</b> Строки и столбцы A, B, C, D: A — 0, 4, 2, пусто; B — 4, 0, 1, 7; C — 2, 1, 0, 6; D — пусто, 7, 6, 0. Матрица симметрична, потому что ребро одно и то же в обе стороны: вес из A в B равен весу из B в A.</p>
+<p class="tkey"><b>Задание 2.</b> A-C-D: 2 + 6 = 8. A-C-B-D: 2 + 1 + 7 = 10. A-B-D: 4 + 7 = 11. A-B-C-D: 4 + 1 + 6 = 11. Кратчайший — A-C-D, длина 8.</p>
+<p class="tkey"><b>Задание 3.</b> N(A) = 1, N(B) = 1, N(C) = 1, N(D) = N(B) + N(C) = 2, N(E) = N(C) + N(D) = 1 + 2 = 3. Пути: A-B-D-E, A-C-D-E, A-C-E.</p>
+<p class="tkey"><b>Задание 4.</b> В ориентированном графе обратной дуги B→A нет, поэтому клетка (B, A) должна быть пустой. Симметричное заполнение придумало ребро, которого нет, и привело к ложному пути. Матрицу нужно заполнять только по дугам: (A, B) = 3, (A, C) = 9, (B, C) = 4, остальные клетки пустые.</p>
+<h2 class="sec"><span class="n">2</span>Ответы к тесту (часть А)</h2>
+<table class="k"><tr><th>Вопрос</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th></tr>
+<tr><td>Ответ</td><td><b>б</b></td><td><b>б</b></td><td><b>б</b></td><td><b>в</b></td><td><b>б</b></td></tr></table>
+<h2 class="sec"><span class="n">3</span>Домашнее задание</h2>
+<p class="tkey"><b>1.</b> Выучить определения: граф, вершина, ребро, дуга, весовая матрица, длина пути, цикл, направленный ациклический граф.</p>
+<p class="tkey"><b>2.</b> Построить весовую матрицу для графа из задания 1 и отметить в ней степень каждой вершины (число непустых клеток в строке).</p>
+<p class="tkey"><b>3.</b> Нарисовать любой ациклический граф из пяти вершин и восьми дуг, подсчитать число путей от первой вершины к последней по правилу суммы.</p>
+<p class="tkey"><b>4.</b> *(По желанию)* Найти в учебнике или задачнике ОГЭ задание на подсчёт количества путей и оформить его решение таблицей, как в примере 3.</p>
+<div class="foot"><span>Ключи · урок 10 «Граф. Весовая матрица графа. Длина пути между вершинами графа. Вычисление количества путей в направленном ациклическом графе»</span><span>Следующий урок: Дерево. Перебор вариантов с помощью дерева</span></div>
+</div>
+</body></html>

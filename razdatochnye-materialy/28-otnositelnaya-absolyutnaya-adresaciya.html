@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Раздаточный материал · Урок 28 · Относительная, абсолютная и смешанная адресация</title>
+<style>
+@page{size:A4 portrait;margin:12mm 13mm 10mm}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:#fff;color:#141824;
+  font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif;font-size:10.5pt;line-height:1.38}
+.page{page-break-after:always;width:184mm;display:flex;flex-direction:column;min-height:262mm}
+.page:last-child{page-break-after:auto}
+.head{display:flex;justify-content:space-between;align-items:flex-end;
+  border-bottom:2px solid #4F46E5;padding-bottom:5px;margin-bottom:9px}
+.head h1{font-size:15pt;margin:0;font-weight:700;letter-spacing:-.2px}
+.head .sub{font-size:9pt;color:#5A6178;margin-top:2px}
+.head .mark{font-size:8.6pt;color:#5A6178;text-align:right;line-height:1.35}
+.name{display:flex;gap:14px;font-size:9pt;color:#5A6178;margin:0 0 9px}
+.name span{flex:1;border-bottom:1px dotted #9AA0B4;padding-bottom:1px}
+h2.sec{font-size:11.5pt;margin:7px 0 4px;font-weight:700;color:#1E2A5A}
+h2.sec .n{display:inline-flex;width:6.4mm;height:6.4mm;border-radius:50%;background:#4F46E5;color:#fff;
+  font-size:8.6pt;align-items:center;justify-content:center;margin-right:6px;vertical-align:1px}
+.hint{font-size:8.8pt;color:#5A6178;margin:0 0 5px}
+.task{border:1px solid #D6D9E6;border-radius:7px;padding:3mm 3.6mm 2mm;margin-bottom:2.4mm;background:#FCFCFE}
+.task h3{font-size:9.6pt;margin:0 0 1.6mm;font-weight:700;color:#141824;line-height:1.2}
+.task p{margin:0 0 1.2mm;font-size:9.1pt;line-height:1.3}
+.task .q{background:#F0F1FA;border-left:3px solid #4F46E5;padding:1.5mm 2.2mm;border-radius:0 4px 4px 0;margin-bottom:1.4mm}
+.lines div{border-bottom:1px solid #C7CBDA;height:5.6mm}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:3mm}
+.def{border-left:3px solid #4F46E5;background:#F4F5FC;padding:2mm 3mm;margin-bottom:2mm;font-size:9.6pt;border-radius:0 4px 4px 0}
+.def b{color:#1E2A5A}
+table.k{width:100%;border-collapse:collapse;font-size:9.2pt}
+table.k th{background:#EEF0FA;text-align:left;padding:1.6mm 2mm;border:1px solid #D6D9E6;font-weight:700;color:#1E2A5A}
+table.k td{padding:1.5mm 2mm;border:1px solid #D6D9E6;vertical-align:top}
+pre{background:#F2F4FA;border:1px solid #D6D9E6;border-radius:5px;padding:2.4mm 3mm;font-size:8.4pt;
+  line-height:1.3;font-family:'Consolas','Courier New',monospace;white-space:pre-wrap;margin:0 0 2mm}
+.foot{margin-top:auto;padding-top:4mm;display:flex;justify-content:space-between;font-size:8.2pt;color:#8A90A6;
+  border-top:1px solid #E3E6F0}
+.tkey{font-size:9pt;color:#141824}
+.tkey b{color:#1E2A5A}
+.cut{font-size:8pt;color:#8A90A6;text-align:center;margin-top:2mm}
+</style>
+</head>
+<body>
+<div class="page">
+<div class="head"><div><h1>Относительная, абсолютная и смешанная адресация</h1><div class="sub">Информатика · 9 класс · урок 28 · Электронные таблицы</div></div><div class="mark">МБОУ «СОШ № 108»<br>Раздаточный материал<br>лист 1 из 3</div></div>
+<div class="name"><span>ФИО</span><span>Класс 9 «___»</span><span>Дата</span></div>
+<p class="hint">Выполните задания письменно на этом листе. На работу отводится 20–25 минут. Черновики сдавать не нужно.</p>
+<div class="task"><h3>Задание 1. Определите тип ссылки</h3>
+<p class="q">Назовите тип каждой ссылки (относительная, абсолютная, смешанная) и укажите, что именно зафиксировано: а) A1; б) $A$1; в) $A1; г) A$1; д) B$7; е) $C3.</p>
+<div class="lines"><div></div><div></div><div></div><div></div></div></div>
+<div class="task"><h3>Задание 2. Предскажите формулу</h3>
+<p class="q">Формула =B2+C3 записана в ячейке D4. Какие формулы появятся в ячейках E4, D5 и F6 после копирования?</p>
+<div class="lines"><div></div><div></div><div></div></div></div>
+<div class="task"><h3>Задание 3. Найдите значение</h3>
+<p class="q">В ячейке B1 записана формула =$A$1*A2. Известно: A1 = 5, A2 = 3, A3 = 4, A4 = 6. Формулу скопировали в B2 и в B3. Чему равны значения в B1, B2 и B3?</p>
+<div class="lines"><div></div><div></div><div></div></div></div>
+<div class="task"><h3>Задание 4. Найдите ошибку в расчёте</h3>
+<p class="q">В таблице цен столбец B — цена товара, ячейка E1 — ставка налога 0,2. Ученик записал в C2 формулу =B2*E1 и протянул её вниз до C15. В первых строках всё считалось верно, в остальных появились нули. Объясните причину и исправьте формулу.</p>
+<div class="lines"><div></div><div></div><div></div><div></div></div></div>
+<div class="foot"><span>Информатика · 9 класс · урок 28 «Относительная, абсолютная и смешанная адресация»</span><span>задания 1–4</span></div>
+</div>
+<div class="page">
+<div class="head"><div><h1>Справочная страница</h1><div class="sub">Относительная, абсолютная и смешанная адресация</div></div><div class="mark">МБОУ «СОШ № 108»<br>можно использовать<br>при выполнении заданий<br>лист 2 из 3</div></div>
+<h2 class="sec"><span class="n">1</span>Ключевые определения</h2>
+<div class="def"><b>Ссылка (адрес в формуле)</b> — запись, указывающая ячейку или диапазон, значения которых участвуют в вычислении.</div>
+<div class="def"><b>Относительная ссылка</b> — ссылка без знаков доллара, которая при копировании формулы смещается на столько же строк и столбцов, на сколько сместилась сама формула.</div>
+<div class="def"><b>Абсолютная ссылка</b> — ссылка, у которой зафиксированы и столбец, и строка; при копировании формулы она не изменяется.</div>
+<div class="def"><b>Смешанная ссылка</b> — ссылка, у которой зафиксирована только одна часть адреса: столбец ($A1) или строка (A$1).</div>
+<h2 class="sec"><span class="n">2</span>Опорная таблица</h2>
+<table class="k"><tr><th>Запись</th><th>Название</th><th>Строка при копировании вниз</th><th>Столбец при копировании вправо</th></tr>
+<tr><td>A1</td><td>относительная</td><td>увеличивается</td><td>смещается</td></tr>
+<tr><td>$A$1</td><td>абсолютная</td><td>не меняется</td><td>не меняется</td></tr>
+<tr><td>A$1</td><td>смешанная</td><td>не меняется</td><td>смещается</td></tr>
+<tr><td>$A1</td><td>смешанная</td><td>увеличивается</td><td>не меняется</td></tr>
+</table>
+<h2 class="sec"><span class="n">3</span>Опорный конспект</h2>
+<pre style="font-size:7.4pt;line-height:1.22">ССЫЛКА = СМЕЩЕНИЕ ОТ ФОРМУЛЫ К ДАННЫМ
+копируем формулу -&gt; смещение сохраняется
+
+        вниз          вправо
+A1      строка +1     столбец +1     относительная
+$A$1    не меняется   не меняется    абсолютная
+$A1     строка +1     не меняется    смешанная
+A$1     не меняется   столбец +1     смешанная
+
+F4:  A1 -&gt; $A$1 -&gt; A$1 -&gt; $A1 -&gt; A1
+
+ГДЕ НУЖЕН $
+  ставка, курс, коэффициент, норма - один раз в ячейке
+
+ТАБЛИЦА УМНОЖЕНИЯ: =$A2*B$1
+ПРОВЕРКА: Ctrl+ё показывает все формулы</pre>
+<h2 class="sec"><span class="n">4</span>Проверь себя</h2>
+<p style="margin:0 0 1.4mm;font-size:9.4pt"><b>1.</b> Чем относительная ссылка отличается от абсолютной?</p>
+<p style="margin:0 0 1.4mm;font-size:9.4pt"><b>2.</b> Что означает запись $A1?</p>
+<div class="foot"><span>Справочная страница · урок 28</span><span>9 класс</span></div>
+</div>
+<div class="page">
+<div class="head"><div><h1>Ключи и критерии</h1><div class="sub">для учителя · урок 28 · Относительная, абсолютная и смешанная адресация</div></div><div class="mark">МБОУ «СОШ № 108»<br>не выдаётся<br>обучающимся<br>лист 3 из 3</div></div>
+<h2 class="sec"><span class="n">1</span>Ответы к заданиям</h2>
+<p class="tkey"><b>Задание 1.</b> а) относительная, ничего не зафиксировано; б) абсолютная, столбец и строка; в) смешанная, зафиксирован столбец A; г) смешанная, зафиксирована строка 1; д) смешанная, зафиксирована строка 7; е) смешанная, зафиксирован столбец C.</p>
+<p class="tkey"><b>Задание 2.</b> E4: =C2+D3 (сдвиг на столбец вправо); D5: =B3+C4 (сдвиг на строку вниз); F6: =D4+E5 (сдвиг на два столбца вправо и две строки вниз).</p>
+<p class="tkey"><b>Задание 3.</b> B1 = $A$1*A2 = 5 · 3 = 15. В B2 формула примет вид =$A$1*A3 = 5 · 4 = 20, в B3 — =$A$1*A4 = 5 · 6 = 30. Первый множитель не меняется, потому что закреплён абсолютно, второй сдвигается вместе со строкой.</p>
+<p class="tkey"><b>Задание 4.</b> При протягивании вниз относительная ссылка E1 превращалась в E2, E3 и далее, а эти ячейки пусты, поэтому произведение равно нулю. Правильно: =B2*$E$1 — ставка должна быть зафиксирована и столбцом, и строкой.</p>
+<h2 class="sec"><span class="n">2</span>Ответы к тесту (часть А)</h2>
+<table class="k"><tr><th>Вопрос</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th></tr>
+<tr><td>Ответ</td><td><b>г</b></td><td><b>в</b></td><td><b>а</b></td><td><b>б</b></td><td><b>в</b></td></tr></table>
+<h2 class="sec"><span class="n">3</span>Домашнее задание</h2>
+<p class="tkey"><b>1.</b> Выучить четыре вида записи адреса и правило, какая часть адреса меняется при копировании вниз и вправо.</p>
+<p class="tkey"><b>2.</b> Постройте в тетради таблицу умножения от 1 до 6, записав одну формулу с двумя знаками $ и показав, как она выглядит в четырёх разных ячейках.</p>
+<p class="tkey"><b>3.</b> Придумайте две задачи на копирование формулы так, чтобы в одной требовалась абсолютная ссылка, а в другой — смешанная.</p>
+<p class="tkey"><b>4.</b> *(По желанию)* Соберите дома таблицу расходов за неделю с отдельной ячейкой курса валюты и закреплённой ссылкой на неё, принесите файл на следующий урок.</p>
+<div class="foot"><span>Ключи · урок 28 «Относительная, абсолютная и смешанная адресация»</span><span>Следующий урок: Условные вычисления в электронных таблицах</span></div>
+</div>
+</body></html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Раздаточный материал · Урок 23 · Электронные таблицы. Типы данных в ячейках электронной таблицы</title>
+<style>
+@page{size:A4 portrait;margin:12mm 13mm 10mm}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:#fff;color:#141824;
+  font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif;font-size:10.5pt;line-height:1.38}
+.page{page-break-after:always;width:184mm;display:flex;flex-direction:column;min-height:262mm}
+.page:last-child{page-break-after:auto}
+.head{display:flex;justify-content:space-between;align-items:flex-end;
+  border-bottom:2px solid #4F46E5;padding-bottom:5px;margin-bottom:9px}
+.head h1{font-size:15pt;margin:0;font-weight:700;letter-spacing:-.2px}
+.head .sub{font-size:9pt;color:#5A6178;margin-top:2px}
+.head .mark{font-size:8.6pt;color:#5A6178;text-align:right;line-height:1.35}
+.name{display:flex;gap:14px;font-size:9pt;color:#5A6178;margin:0 0 9px}
+.name span{flex:1;border-bottom:1px dotted #9AA0B4;padding-bottom:1px}
+h2.sec{font-size:11.5pt;margin:7px 0 4px;font-weight:700;color:#1E2A5A}
+h2.sec .n{display:inline-flex;width:6.4mm;height:6.4mm;border-radius:50%;background:#4F46E5;color:#fff;
+  font-size:8.6pt;align-items:center;justify-content:center;margin-right:6px;vertical-align:1px}
+.hint{font-size:8.8pt;color:#5A6178;margin:0 0 5px}
+.task{border:1px solid #D6D9E6;border-radius:7px;padding:3mm 3.6mm 2mm;margin-bottom:2.4mm;background:#FCFCFE}
+.task h3{font-size:9.6pt;margin:0 0 1.6mm;font-weight:700;color:#141824;line-height:1.2}
+.task p{margin:0 0 1.2mm;font-size:9.1pt;line-height:1.3}
+.task .q{background:#F0F1FA;border-left:3px solid #4F46E5;padding:1.5mm 2.2mm;border-radius:0 4px 4px 0;margin-bottom:1.4mm}
+.lines div{border-bottom:1px solid #C7CBDA;height:5.6mm}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:3mm}
+.def{border-left:3px solid #4F46E5;background:#F4F5FC;padding:2mm 3mm;margin-bottom:2mm;font-size:9.6pt;border-radius:0 4px 4px 0}
+.def b{color:#1E2A5A}
+table.k{width:100%;border-collapse:collapse;font-size:9.2pt}
+table.k th{background:#EEF0FA;text-align:left;padding:1.6mm 2mm;border:1px solid #D6D9E6;font-weight:700;color:#1E2A5A}
+table.k td{padding:1.5mm 2mm;border:1px solid #D6D9E6;vertical-align:top}
+pre{background:#F2F4FA;border:1px solid #D6D9E6;border-radius:5px;padding:2.4mm 3mm;font-size:8.4pt;
+  line-height:1.3;font-family:'Consolas','Courier New',monospace;white-space:pre-wrap;margin:0 0 2mm}
+.foot{margin-top:auto;padding-top:4mm;display:flex;justify-content:space-between;font-size:8.2pt;color:#8A90A6;
+  border-top:1px solid #E3E6F0}
+.tkey{font-size:9pt;color:#141824}
+.tkey b{color:#1E2A5A}
+.cut{font-size:8pt;color:#8A90A6;text-align:center;margin-top:2mm}
+</style>
+</head>
+<body>
+<div class="page">
+<div class="head"><div><h1>Электронные таблицы. Типы данных в ячейках электронной таблицы</h1><div class="sub">Информатика · 9 класс · урок 23 · Электронные таблицы</div></div><div class="mark">МБОУ «СОШ № 108»<br>Раздаточный материал<br>лист 1 из 3</div></div>
+<div class="name"><span>ФИО</span><span>Класс 9 «___»</span><span>Дата</span></div>
+<p class="hint">Выполните задания письменно на этом листе. На работу отводится 20–25 минут. Черновики сдавать не нужно.</p>
+<div class="task"><h3>Задание 1. Адреса и диапазоны</h3>
+<p class="q">Запишите адреса и укажите число ячеек: а) прямоугольник от B2 до D6; б) вся третья строка с A по H; в) столбец F с 5 по 15 строку; г) одна ячейка в столбце AA, строка 100.</p>
+<div class="lines"><div></div><div></div><div></div><div></div></div></div>
+<div class="task"><h3>Задание 2. Тип данных</h3>
+<p class="q">Определите тип данных: 1) 3,5; 2) Итого за месяц; 3) =СУММ(B2:B8); 4) 29.02.2024; 5) '8 (495) 123-45-67; 6) 45%.</p>
+<div class="lines"><div></div><div></div><div></div><div></div></div></div>
+<div class="task"><h3>Задание 3. Результат формулы</h3>
+<p class="q">В ячейках A1 = 8, A2 = 4, A3 = 2. Вычислите значения формул: а) =A1/A2+A3; б) =(A1+A2)/A3; в) =A1^2/A2; г) =СУММ(A1:A3)/3.</p>
+<div class="lines"><div></div><div></div><div></div></div></div>
+<div class="task"><h3>Задание 4. Найдите ошибку</h3>
+<p class="q">Ученик ввёл в ячейку A1 число 3/4, а в A2 — формулу =A1*2 и получил неожиданный результат. Объясните, что произошло и как исправить запись, чтобы получить 1,5.</p>
+<div class="lines"><div></div><div></div><div></div></div></div>
+<div class="foot"><span>Информатика · 9 класс · урок 23 «Электронные таблицы. Типы данных в ячейках электронной таблицы»</span><span>задания 1–4</span></div>
+</div>
+<div class="page">
+<div class="head"><div><h1>Справочная страница</h1><div class="sub">Электронные таблицы. Типы данных в ячейках электронной таблицы</div></div><div class="mark">МБОУ «СОШ № 108»<br>можно использовать<br>при выполнении заданий<br>лист 2 из 3</div></div>
+<h2 class="sec"><span class="n">1</span>Ключевые определения</h2>
+<div class="def"><b>Электронная таблица</b> — приложение для хранения, обработки и визуализации данных, организованных в виде таблицы из строк и столбцов.</div>
+<div class="def"><b>Ячейка</b> — область листа на пересечении столбца и строки, в которой хранится одно значение или формула.</div>
+<div class="def"><b>Тип данных в ячейке</b> — характеристика значения, определяющая, как программа его хранит, отображает и использует в вычислениях.</div>
+<h2 class="sec"><span class="n">2</span>Опорная таблица</h2>
+<table class="k"><tr><th>Запись</th><th>Что означает</th><th>Сколько ячеек</th></tr>
+<tr><td>B3</td><td>одна ячейка: столбец B, строка 3</td><td>1</td></tr>
+<tr><td>A1:C5</td><td>прямоугольник от A1 до C5</td><td>15</td></tr>
+<tr><td>D2:D10</td><td>столбец D, строки со 2 по 10</td><td>9</td></tr>
+<tr><td>B1:F1</td><td>строка 1, столбцы с B по F</td><td>5</td></tr>
+</table>
+<h2 class="sec"><span class="n">3</span>Опорный конспект</h2>
+<pre style="font-size:7.4pt;line-height:1.22">ЭЛЕКТРОННАЯ ТАБЛИЦА
+  книга -&gt; листы -&gt; столбцы A..XFD + строки 1..1048576
+  ЯЧЕЙКА = пересечение; АДРЕС = столбец + строка (B3)
+  ДИАПАЗОН = A1:C5; СТРОКА ФОРМУЛ показывает содержимое
+
+ТИПЫ ДАННЫХ
+  ЧИСЛО   -&gt; справа, участвует в расчётах
+  ТЕКСТ   -&gt; слева, в расчётах не участвует
+  ФОРМУЛА -&gt; начинается с "=", в ячейке результат
+  ДАТА    -&gt; число дней от точки отсчёта, справа
+
+ФОРМУЛЫ
+  =A1+B1   * умножить   / делить   ^ степень
+  =СУММ(A1:A9)  =СРЗНАЧ(...)  =СЧЁТ(...)
+  копирование: A1 -&gt; A2; фиксация: $A$1
+</pre>
+<h2 class="sec"><span class="n">4</span>Проверь себя</h2>
+<p style="margin:0 0 1.4mm;font-size:9.4pt"><b>1.</b> Из чего состоит адрес ячейки?</p>
+<p style="margin:0 0 1.4mm;font-size:9.4pt"><b>2.</b> Как записывается диапазон ячеек?</p>
+<div class="foot"><span>Справочная страница · урок 23</span><span>9 класс</span></div>
+</div>
+<div class="page">
+<div class="head"><div><h1>Ключи и критерии</h1><div class="sub">для учителя · урок 23 · Электронные таблицы. Типы данных в ячейках электронной таблицы</div></div><div class="mark">МБОУ «СОШ № 108»<br>не выдаётся<br>обучающимся<br>лист 3 из 3</div></div>
+<h2 class="sec"><span class="n">1</span>Ответы к заданиям</h2>
+<p class="tkey"><b>Задание 1.</b> а) B2:D6 — 3 столбца на 5 строк = 15 ячеек; б) A3:H3 — 8 ячеек; в) F5:F15 — 11 ячеек; г) AA100 — 1 ячейка.</p>
+<p class="tkey"><b>Задание 2.</b> 1) число; 2) текст; 3) формула; 4) дата; 5) текст (апостроф сохраняет формат телефона); 6) число 0,45 с процентным форматом.</p>
+<p class="tkey"><b>Задание 3.</b> а) 8 : 4 + 2 = 4; б) (8 + 4) : 2 = 6; в) 64 : 4 = 16; г) (8 + 4 + 2) : 3 = 14 : 3 ≈ 4,67.</p>
+<p class="tkey"><b>Задание 4.</b> Запись 3/4 воспринята как дата 3 апреля и хранится числом дней, поэтому умножение на 2 дало число, соответствующее дате через много лет, а не 0,75. Нужно ввести 0,75 (или 3:4 в виде десятичной дроби), тогда A1*2 даст 1,5. Если требуется именно запись «3/4» на экране, её вводят как текст с апострофом, но тогда вычислять по ней нельзя.</p>
+<h2 class="sec"><span class="n">2</span>Ответы к тесту (часть А)</h2>
+<table class="k"><tr><th>Вопрос</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th></tr>
+<tr><td>Ответ</td><td><b>б</b></td><td><b>в</b></td><td><b>б</b></td><td><b>б</b></td><td><b>в</b></td></tr></table>
+<h2 class="sec"><span class="n">3</span>Домашнее задание</h2>
+<p class="tkey"><b>1.</b> Выучить определения: ячейка, адрес, диапазон, строка формул, типы данных, формула.</p>
+<p class="tkey"><b>2.</b> Нарисовать в тетради фрагмент листа 5 на 6 ячеек, подписать адреса и закрасить диапазон B2:D4; указать, сколько ячеек в него входит.</p>
+<p class="tkey"><b>3.</b> Придумать по три примера записей каждого типа (число, текст, формула, дата) и отметить две записи, которые таблица поймёт не так, как ожидал автор.</p>
+<p class="tkey"><b>4.</b> *(По желанию)* Составить в табличном процессоре список из пяти покупок с ценой и количеством, вычислить стоимость каждой позиции формулой и общую сумму через СУММ.</p>
+<div class="foot"><span>Ключи · урок 23 «Электронные таблицы. Типы данных в ячейках электронной таблицы»</span><span>Следующий урок: Редактирование и форматирование таблиц</span></div>
+</div>
+</body></html>

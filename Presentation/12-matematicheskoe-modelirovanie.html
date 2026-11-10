@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Урок 12 · Математическое моделирование</title>
+
+<!-- ШРИФТЫ -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+<!-- REVEAL.JS 6 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@6/dist/reveal.css">
+<style>
+
+/* ===== ТОКЕНЫ ===== */
+:root{
+  --bg:#070B18; --surface:#101A3C; --ink:#EEF3FF; --muted:#A9B6DC;
+  --accent-1:#38E1FF; --accent-2:#8B7CFF; --accent-3:#FF6EC7;
+  --grad-main:linear-gradient(120deg,#38E1FF,#8B7CFF 52%,#FF6EC7);
+  --font-display:'Unbounded',sans-serif; --font-body:'Manrope',sans-serif; --font-mono:'JetBrains Mono',monospace;
+  --r-background-color:#070B18;
+  --r-main-font:'Manrope',sans-serif;
+  --r-main-font-size:26px;
+  --r-main-color:#EEF3FF;
+  --r-heading-font:'Unbounded',sans-serif;
+  --r-heading-color:#EEF3FF;
+  --r-heading-line-height:1.08;
+  --r-heading-letter-spacing:normal;
+  --r-heading-text-transform:none;
+  --r-heading-text-shadow:none;
+  --r-heading-font-weight:800;
+  --r-heading1-size:2.4em;
+  --r-heading2-size:1.55em;
+  --r-heading3-size:1.15em;
+  --r-heading4-size:1em;
+  --r-block-margin:18px;
+  --r-heading-margin:0 0 18px 0;
+  --r-link-color:#38E1FF;
+  --r-link-color-dark:#8B7CFF;
+  --r-link-color-hover:#FF6EC7;
+  --r-selection-background-color:rgba(255,110,199,.45);
+  --r-selection-color:#071120;
+}
+/* ===== ФОН ДЕКИ ===== */
+html{background:#070B18}
+body, body.reveal-viewport{background:#070B18 !important}
+.reveal{background:transparent}
+.reveal .slides section{color:var(--ink)}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg)}
+body{font-family:var(--font-body);color:var(--ink)}
+
+/* ===== ФОНОВЫЙ ДЕКОР ===== */
+#bg-decor{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.glow{position:absolute;border-radius:50%;filter:blur(90px)}
+#glow-a{width:720px;height:720px;left:-200px;top:-240px;background:radial-gradient(circle,rgba(56,225,255,.30),transparent 65%)}
+#glow-b{width:780px;height:780px;right:-260px;bottom:-280px;background:radial-gradient(circle,rgba(255,110,199,.24),transparent 65%)}
+#glow-c{width:560px;height:560px;left:36%;top:52%;background:radial-gradient(circle,rgba(139,124,255,.22),transparent 62%)}
+#bg-grid{position:absolute;inset:0;
+  background-image:linear-gradient(rgba(148,163,214,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(148,163,214,.06) 1px,transparent 1px);
+  background-size:64px 64px;
+  -webkit-mask-image:radial-gradient(ellipse at 50% 42%,#000 28%,transparent 76%);
+          mask-image:radial-gradient(ellipse at 50% 42%,#000 28%,transparent 76%)}
+#bg-noise{position:absolute;inset:-60%;width:220%;height:220%;opacity:.05;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/></filter><rect width='300' height='300' filter='url(%23n)' opacity='0.7'/></svg>");
+  animation:grain 9s steps(8) infinite}
+@keyframes grain{0%{transform:translate(0,0)}25%{transform:translate(-2%,3%)}50%{transform:translate(3%,-2%)}75%{transform:translate(-3%,-3%)}100%{transform:translate(0,0)}}
+
+.reveal{position:relative;z-index:2;font-family:var(--font-body);font-size:26px;color:var(--ink)}
+.reveal ::selection{background:rgba(255,110,199,.4)}
+.reveal .controls{color:var(--accent-1)}
+.reveal .progress{background:rgba(139,124,255,.22);color:var(--accent-3)}
+.reveal .slides section{text-align:left;overflow:hidden}
+
+/* ===== ТИПОГРАФИКА ===== */
+.reveal h1,.reveal h2,.reveal h3{font-family:var(--font-display);font-weight:800;line-height:1.06;margin:0;text-transform:none;color:var(--ink);text-shadow:none;letter-spacing:normal}
+.reveal .h-title{font-size:66px}
+.reveal .h-ch{font-size:54px;max-width:760px}
+.reveal .h2{font-size:46px;max-width:1060px}
+.kicker{display:inline-flex;align-items:center;gap:10px;font-size:24px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-1)}
+.kicker::before{content:"";width:14px;height:14px;border-radius:50%;background:var(--grad-main);box-shadow:0 0 16px rgba(56,225,255,.9)}
+.lead{font-size:27px;font-weight:600;line-height:1.45}
+.small{font-size:22px;color:var(--muted);line-height:1.45}
+.tiny{font-size:20px;color:var(--muted);line-height:1.4}
+.src{font-size:20px;font-style:italic;color:var(--muted);opacity:.85}
+.mono{font-family:var(--font-mono)}
+.grad-text{background:var(--grad-main);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+@supports not ((-webkit-background-clip:text) or (background-clip:text)){
+  .grad-text,.bignum{background:none;color:var(--accent-2);-webkit-text-fill-color:currentColor}
+}
+.grad-underline{height:9px;width:190px;border-radius:8px;background:var(--grad-main);margin-top:18px;box-shadow:0 6px 26px rgba(139,124,255,.45)}
+.hi-c{color:var(--accent-1)} .hi-v{color:var(--accent-2)} .hi-p{color:var(--accent-3)}
+strong{color:var(--ink)}
+
+/* ===== РАСКЛАДКИ ===== */
+.wrap{position:relative;height:100%;padding:30px 46px 28px;display:flex;flex-direction:column}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center}
+.split-46{display:grid;grid-template-columns:46% 1fr;gap:28px;align-items:center}
+.split-40{display:grid;grid-template-columns:40% 1fr;gap:28px;align-items:center}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.grow{flex:1;display:flex;flex-direction:column;justify-content:center;min-height:0}
+.row{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.col{display:flex;flex-direction:column;gap:12px}
+.foot{margin-top:auto;padding-top:14px;display:flex;justify-content:space-between;align-items:flex-end;gap:24px}
+
+/* ===== КОМПОНЕНТЫ ===== */
+.card{background:linear-gradient(160deg,rgba(24,34,76,.92),rgba(11,17,42,.94));border:1px solid rgba(139,124,255,.30);border-radius:20px;padding:16px 20px;box-shadow:0 20px 54px rgba(2,5,18,.5)}
+.card .ct{font-family:var(--font-display);font-weight:600;font-size:23px;margin:0 0 7px;line-height:1.15}
+.card .cd{font-size:21px;color:var(--muted);line-height:1.4;margin:0}
+.num-badge{width:52px;height:52px;border-radius:50%;background:var(--grad-main);color:#071120;font-family:var(--font-display);font-weight:800;font-size:23px;display:flex;align-items:center;justify-content:center;flex:none}
+.chip{display:inline-flex;align-items:center;gap:9px;padding:6px 14px;border-radius:999px;border:1px solid rgba(56,225,255,.42);background:rgba(56,225,255,.08);font-size:21px;font-weight:600}
+.chip.pink{border-color:rgba(255,110,199,.45);background:rgba(255,110,199,.08)}
+.chip.violet{border-color:rgba(139,124,255,.5);background:rgba(139,124,255,.10)}
+.chip .dot{width:10px;height:10px;border-radius:50%;background:var(--accent-1);box-shadow:0 0 10px var(--accent-1)}
+.chip.pink .dot{background:var(--accent-3);box-shadow:0 0 10px var(--accent-3)}
+.chip.violet .dot{background:var(--accent-2);box-shadow:0 0 10px var(--accent-2)}
+.defbox{border-left:6px solid var(--accent-2);background:linear-gradient(120deg,rgba(56,225,255,.10),rgba(139,124,255,.08) 52%,rgba(255,110,199,.08));padding:14px 22px;border-radius:0 18px 18px 0;font-size:23px;line-height:1.4}
+.bignum{font-family:var(--font-display);font-weight:800;font-size:58px;line-height:1;background:var(--grad-main);-webkit-background-clip:text;background-clip:text;color:transparent}
+.ghost{position:absolute;z-index:0;font-family:var(--font-display);font-weight:800;font-size:400px;line-height:1;color:transparent;-webkit-text-stroke:2px rgba(139,124,255,.16);user-select:none;pointer-events:none}
+.iconbox{width:58px;height:58px;flex:none}
+.illus svg,.iconbox svg{width:100%;height:auto;display:block}
+.chart svg{width:100%;height:auto;display:block}
+.chart .grid line{stroke:rgba(169,182,220,.13)}
+.chart .val{fill:#EEF3FF;font-family:'Manrope',sans-serif;font-weight:800}
+.legend{display:flex;gap:20px;align-items:center;font-size:21px;color:var(--muted);margin-bottom:6px;flex-wrap:wrap}
+.legend .sw{width:26px;height:10px;border-radius:6px;display:inline-block;margin-right:8px;vertical-align:middle}
+.donut{position:relative;display:flex;align-items:center;justify-content:center;max-width:236px;margin:0 auto}
+.donut-c{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;pointer-events:none;gap:0}
+.donut-c .bignum{font-size:44px}
+.donut-c .tiny{font-size:18px}
+
+/* ===== СПИСКИ И ШАГИ ===== */
+.dense-list li{font-size:19px;line-height:1.32}
+.dense .card .cd{font-size:19px}
+.dense-grid .card{padding:12px 16px}
+.dense-grid .card .cd{font-size:19px;line-height:1.32}
+.dense-list li{font-size:19px;line-height:1.32}
+.dense .card .cd{font-size:19px}
+.list{margin:0;padding:0;list-style:none;display:grid;gap:7px}
+.list li{position:relative;padding-left:27px;font-size:21px;color:var(--muted);line-height:1.35}
+.list li::before{content:"";position:absolute;left:6px;top:9px;width:11px;height:11px;border-radius:4px;background:var(--grad-main)}
+.list.pink li::before{background:var(--accent-3)}
+.list.violet li::before{background:var(--accent-2)}
+.step{display:flex;gap:12px;align-items:flex-start}
+.step .sn{width:40px;height:40px;flex:none;border-radius:11px;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:800;font-size:20px;background:rgba(56,225,255,.10);border:1px solid rgba(56,225,255,.45);color:var(--accent-1)}
+.step.p .sn{background:rgba(255,110,199,.10);border-color:rgba(255,110,199,.5);color:var(--accent-3)}
+.step.v .sn{background:rgba(139,124,255,.12);border-color:rgba(139,124,255,.5);color:var(--accent-2)}
+.step .st{font-size:21px;line-height:1.32;color:var(--muted)}
+.step .st b{color:var(--ink)}
+
+/* ===== ПАРОЛИ ===== */
+.meter{height:15px;border-radius:9px;background:rgba(255,255,255,.07);overflow:hidden;margin-top:7px}
+.meter i{display:block;height:100%;width:0;border-radius:9px}
+.m-w{background:linear-gradient(90deg,#FF6EC7,#F43F5E)}
+.m-m{background:linear-gradient(90deg,#FBBF24,#FF6EC7)}
+.m-s{background:linear-gradient(90deg,#FBBF24,#34D399)}
+.m-g{background:linear-gradient(90deg,#38E1FF,#34D399)}
+.pwrow{display:grid;grid-template-columns:290px 1fr 190px;gap:18px;align-items:center}
+.pw{font-family:var(--font-mono);font-size:26px;font-weight:600;color:#EEF3FF}
+.pwbar{display:flex;height:34px;border-radius:10px;overflow:hidden;border:1px solid rgba(139,124,255,.3)}
+.pwbar div{display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:#071120;opacity:0}
+
+/* ===== ФИШИНГОВОЕ ПИСЬМО ===== */
+.mail{background:#050912;border:1px solid rgba(255,110,199,.35);border-radius:16px;padding:14px 18px;font-family:var(--font-mono);font-size:20px;line-height:1.5;color:#BFE9FF}
+.mail .u{color:#7DF9C9}
+.mail .bad{background:rgba(255,110,199,.18);border-radius:6px;padding:2px 7px;color:#FF9AD5;font-weight:600}
+.mail .mail-hdr{color:#7C8BB4}
+
+/* ===== СВОД ПРАВИЛ ===== */
+.tnode{display:flex;align-items:center;justify-content:center;gap:14px;padding:10px 20px;border-radius:16px;background:linear-gradient(120deg,rgba(56,225,255,.14),rgba(139,124,255,.10));border:1px solid rgba(56,225,255,.4);font-family:var(--font-display);font-weight:800;font-size:25px;margin-bottom:14px}
+
+.dense .card{padding:12px 16px}
+.dense .defbox{padding:12px 20px}
+.dense .mail{padding:12px 16px;font-size:19px}
+.dense .card .ct{font-size:21px;margin-bottom:5px}
+.dense .card .cd{font-size:19px;line-height:1.34}
+.dense .tiny{font-size:18px;line-height:1.32}
+.dense .num-badge{width:42px;height:42px;font-size:20px}
+.dense .grid2{gap:14px}
+
+/* ===== ЗАПАСНОЙ РЕЖИМ ===== */
+#cdn-error{display:none;position:fixed;z-index:99;top:16px;left:50%;transform:translateX(-50%);background:#FF6EC7;color:#071120;font-weight:800;font-family:var(--font-body);font-size:20px;padding:14px 26px;border-radius:14px;max-width:80vw;text-align:center}
+body.no-reveal #cdn-error{display:block}
+body.no-reveal .reveal{position:static}
+body.no-reveal .slides{width:auto!important;height:auto!important;transform:none!important;zoom:1!important}
+body.no-reveal .slides section{position:relative!important;display:block!important;opacity:1!important;visibility:visible!important;width:auto!important;height:auto!important;max-width:1200px;margin:30px auto;padding:20px;border:1px solid rgba(139,124,255,.3);border-radius:16px}
+body.no-reveal .ghost{display:none}
+body.no-reveal aside.notes{display:none}
+
+@media (prefers-reduced-motion: reduce){#bg-noise,.live-dot,.flow{animation:none !important}}
+
+/* ==== дополнения к базовой дизайн-системе курса ==== */
+
+/* таблица */
+.tbl{width:100%;border-collapse:separate;border-spacing:0 6px;font-size:20px}
+.tbl th{text-align:left;font-family:var(--font-display);font-weight:600;font-size:17px;
+  color:var(--accent-1);padding:0 14px 2px;letter-spacing:.05em;text-transform:uppercase}
+.tbl td{background:rgba(20,30,66,.74);padding:7px 12px;color:var(--ink);line-height:1.28;
+  border-top:1px solid rgba(139,124,255,.22);border-bottom:1px solid rgba(139,124,255,.22)}
+.tbl td:first-child{border-left:1px solid rgba(139,124,255,.22);border-radius:14px 0 0 14px;
+  color:var(--accent-1);font-weight:700}
+.tbl td:last-child{border-right:1px solid rgba(139,124,255,.22);border-radius:0 14px 14px 0}
+.tbl tr.hl td{background:linear-gradient(100deg,rgba(56,225,255,.18),rgba(139,124,255,.12))}
+
+/* код */
+pre.code{background:#050912;border:1px solid rgba(56,225,255,.26);border-radius:16px;
+  padding:14px 20px;font-family:var(--font-mono);font-size:20px;line-height:1.5;color:#BFE9FF;
+  margin:0;white-space:pre;overflow:hidden;box-shadow:0 18px 40px rgba(2,5,18,.5)}
+pre.code .cm{color:#7C8BB4}
+pre.code .kw{color:#FF9AD5}
+pre.code .st{color:#7DF9C9}
+
+/* вопрос-викторина */
+.quiz{display:grid;gap:12px}
+.quiz .qopt{display:flex;align-items:center;gap:14px;padding:13px 18px;border-radius:14px;
+  border:1px solid rgba(139,124,255,.32);background:rgba(16,25,58,.8);font-size:22px;cursor:pointer;
+  transition:border-color .2s,background .2s}
+.quiz .qopt .ltr{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;
+  justify-content:center;font-family:var(--font-display);font-weight:800;font-size:18px;
+  background:rgba(56,225,255,.12);color:var(--accent-1);flex:none}
+.quiz .qopt.right{border-color:#34D399;background:rgba(52,211,153,.14)}
+.quiz .qopt.right .ltr{background:#34D399;color:#06131a}
+.quiz .qopt.wrong{border-color:#F43F5E;background:rgba(244,63,94,.12);opacity:.75}
+
+/* цитата */
+.quote{font-family:var(--font-display);font-weight:600;font-size:40px;line-height:1.25;max-width:1000px}
+.quote .src{display:block;margin-top:18px;font-family:var(--font-body);font-size:22px;font-style:normal}
+
+/* нумерованный список заданий */
+.steps{display:grid;gap:10px}
+.steps .step .st{font-size:22px}
+
+/* иллюстрация */
+.illus{width:100%;max-width:390px;margin:0 auto;max-height:100%;display:flex;align-items:center;justify-content:center;min-height:0}
+.illus svg{width:100%;height:auto;max-height:100%;display:block}
+
+/* табличка «на полях» */
+.aside-note{font-size:19px;color:var(--muted);border-left:4px solid var(--accent-3);
+  padding-left:14px;line-height:1.35}
+
+/* финальная плашка */
+.big-cta{display:inline-flex;align-items:center;gap:14px;padding:14px 26px;border-radius:16px;
+  background:var(--grad-main);color:#071120;font-family:var(--font-display);font-weight:800;font-size:24px}
+
+.center{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;height:100%}
+
+/* маршрут урока — вертикальный список */
+.rm-list{display:grid;gap:10px;margin-top:6px}
+.rm-row{display:flex;align-items:center;gap:20px;padding:11px 20px;border-radius:16px;
+  background:linear-gradient(100deg,rgba(24,34,76,.92),rgba(11,17,42,.72));
+  border:1px solid rgba(139,124,255,.24)}
+.rm-row .ct{font-family:var(--font-display);font-weight:600;font-size:26px;margin:0;line-height:1.15}
+.grow > .grid2,.grow > .grid3,.grow > .grid4{align-content:center}
+
+/* --- защита от переполнения по вертикали --- */
+.grow{overflow:hidden}
+.reveal .h2{font-size:42px;line-height:1.1}
+.list{gap:6px}
+.list li{font-size:20px;line-height:1.32}
+.lead{font-size:24px;line-height:1.4}
+.wrap{padding:26px 44px 24px}
+.card .cd{font-size:20px;line-height:1.35}
+
+.tiny{color:#B7C3E2}
+.src{color:#AFBCDB}
+
+.card .cd{font-size:22px;line-height:1.35}
+.rm-row .ct{font-size:25px}
+
+/* компактные варианты для плотных слайдов */
+.list.compact li{font-size:19px;line-height:1.28}
+.list.compact{gap:6px}
+.tbl.dense-tbl{font-size:17px}
+.tbl.dense-tbl td{padding:5px 10px}
+.tbl.dense-tbl th{font-size:15.5px}
+.steps.compact .step .st{font-size:20px}
+
+/* вертикальный запас, чтобы содержимое не упиралось в край слайда */
+.wrap{padding:22px 40px 16px}
+.reveal .h2{font-size:44px}
+.reveal .list li{font-size:20px;line-height:1.32}
+.reveal .list.compact li{font-size:18.5px;line-height:1.26}
+.reveal .tbl{font-size:19px;border-spacing:0 5px}
+.reveal .tbl td{padding:6px 11px}
+.reveal .tbl.dense-tbl{font-size:16.5px}
+.reveal .tbl.dense-tbl td{padding:4px 9px}
+
+/* таблица и код — по центру доступной высоты */
+.grow > table.tbl{margin:auto}
+.grow > pre.code{margin:auto}
+.grow > .steps{margin:auto}
+.reveal .tbl{font-size:21px}
+.reveal .tbl.dense-tbl{font-size:18px}
+.reveal .tbl td{padding:8px 13px}
+
+.reveal .tbl td{font-size:1.05em}
+.reveal .tbl.dense-tbl{font-size:19px}
+
+.vcenter{display:flex;align-items:center;justify-content:center;height:100%;width:100%;min-height:0}
+.vcenter > table.tbl{width:100%}
+
+/* каркас слайда фиксирован под 1280x720 (иначе .grow не растягивается) */
+.reveal .slides section > .wrap{height:720px;min-height:720px;max-height:720px}
+
+</style>
+</head>
+<body>
+<div id="cdn-error">Reveal.js не загрузился: проверьте подключение к интернету. Содержимое слайдов показано ниже в линейном режиме.</div>
+
+<!-- ФОНОВЫЙ ДЕКОР -->
+<div id="bg-decor" aria-hidden="true">
+  <div class="glow" id="glow-a"></div>
+  <div class="glow" id="glow-b"></div>
+  <div class="glow" id="glow-c"></div>
+  <div id="bg-grid"></div>
+  <div id="bg-noise"></div>
+</div>
+
+<div class="reveal">
+  <div class="slides">
+<section id="s-title" data-title="Титул" data-anim="title" data-background-gradient="linear-gradient(140deg, rgba(139,124,255,0.12), rgba(56,225,255,0.05) 50%%, rgba(255,110,199,0.10))">
+<div class="wrap">
+<div class="row" style="justify-content:space-between;margin-bottom:4px">
+<div class="kicker" data-anim>Информатика · 9 класс · Урок 12</div>
+<div class="chip violet" data-anim>Моделирование как метод познания</div>
+</div>
+<div class="grow" style="display:grid;grid-template-columns:1.12fr .88fr;gap:30px;align-items:center">
+<div>
+<h1 class="h-title" data-anim style="font-size:66px">Математическое <span class="grad-text">моделирование</span></h1>
+<div class="grad-underline" data-anim></div>
+<p class="lead" data-anim style="margin-top:20px">Модель заменяет объект там, где опыт над оригиналом дорог, долог или опасен</p>
+<div class="row" data-anim style="margin-top:22px">
+<div class="chip"><span class="dot"></span>Теоретические основы информатики</div>
+<div class="chip pink"><span class="dot"></span>Базовый уровень · ФРП</div>
+</div>
+</div>
+<div class="illus" id="ill-title" data-anim></div>
+</div>
+<div class="foot"><div class="tiny">ФРП «Информатика. Базовый уровень», 7–9 классы · урок 12 из 34</div><div class="tiny mono">нажмите S — заметки докладчика</div></div>
+</div>
+<aside class="notes">
+<p><strong>Тезис:</strong> Тема урока: «Математическое моделирование».</p>
+<ul>
+<li>Модель заменяет объект там, где опыт над оригиналом дорог, долог или опасен. Математическая модель делает это описание вычислимым: величины, связи, формула — и вместо эксперимента…</li>
+<li>Спросить класс: где вы уже встречались с этой темой?</li>
+</ul>
+<p><strong>Тайминг:</strong> ~150 с.</p>
+<p><strong>Переход:</strong> Дальше — «Маршрут урока».</p></aside>
+</section>
+<section id="s-roadmap" data-title="Маршрут урока" data-anim="grid">
+<div class="wrap">
+<div class="kicker" data-anim>План на 45 минут</div>
+<div class="row" style="justify-content:space-between;align-items:flex-end">
+<h2 class="h2" data-anim style="margin-top:8px">Что разберём сегодня</h2>
+<div class="chip violet" data-anim><span class="dot"></span>5 шагов</div>
+</div>
+<div class="grow"><div class="rm-list" data-anim>
+<div class="rm-row" data-anim><div class="num-badge">01</div><div class="ct">Модель вместо объекта</div></div>
+<div class="rm-row" data-anim><div class="num-badge">02</div><div class="ct">Язык математической модели</div></div>
+<div class="rm-row" data-anim><div class="num-badge">03</div><div class="ct">Модель движения</div></div>
+<div class="rm-row" data-anim><div class="num-badge">04</div><div class="ct">Модель роста вклада</div></div>
+<div class="rm-row" data-anim><div class="num-badge">05</div><div class="ct">Адекватность, точность, границы применимости</div></div>
+</div></div>
+</div>
+<aside class="notes">
+<p><strong>Тезис:</strong> План урока: Модель вместо объекта; Язык математической модели; Модель движения; Модель роста вклада; Адекватность, точность, границы применимости.</p>
+<ul>
+<li>Обозначить, что каждый блок заканчивается вопросом-проверкой.</li>
+<li>Предупредить: в конце — короткий тест по теме.</li>
+</ul>
+<p><strong>Тайминг:</strong> ~150 с.</p>
+<p><strong>Переход:</strong> Дальше — «Цифры урока».</p></aside>
+</section>
+<section id="s-stats" data-title="Цифры урока" data-anim="grid">
+<div class="wrap">
+<div class="row" style="justify-content:space-between;margin-bottom:6px">
+<div class="kicker" data-anim>Масштаб</div>
+<div class="chip violet" data-anim>факты</div>
+</div>
+<div class="grow">
+<h2 class="h2" data-anim style="margin-bottom:24px">Несколько чисел, которые стоит запомнить</h2>
+<div class="grid4" data-anim>
+<div class="card" data-anim style="text-align:center"><div class="bignum">3</div><div class="cd" style="margin-top:8px">вида моделей: натурная, словесная, информационная</div></div>
+<div class="card" data-anim style="text-align:center"><div class="bignum">1,259712</div><div class="cd" style="margin-top:8px">множитель роста вклада за 3 года при 8%</div></div>
+<div class="card" data-anim style="text-align:center"><div class="bignum">3024</div><div class="cd" style="margin-top:8px">см³ наибольший объём коробки</div></div>
+<div class="card" data-anim style="text-align:center"><div class="bignum">150</div><div class="cd" style="margin-top:8px">км/ч скорость сближения в примере урока</div></div>
+</div>
+</div>
+</div>
+<aside class="notes">
+<p><strong>Тезис:</strong> Четыре числа, задающие контекст темы.</p>
+<ul>
+<li>Проговорить каждое число с примером из жизни.</li>
+<li>Спросить: какое из чисел удивило больше всего?</li>
+</ul>
+<p><strong>Тайминг:</strong> ~150 с.</p>
+<p><strong>Переход:</strong> Дальше — «Инфографика».</p></aside>
+</section>
+<section id="s-chart" data-title="Инфографика" data-anim="chart">
+<div class="wrap">
+<div class="kicker" data-anim>Инфографика</div>
+<h2 class="h2" data-anim style="margin-top:8px">Объём коробки при разной стороне вырезанного квадрата</h2>
+<div class="grow"><div class="chart" id="chart-1" style="max-width:1000px;margin:0 auto"></div></div>
+<div class="foot"><div class="tiny src">расчёт по модели V = x(40−2x)(30−2x)</div><div class="tiny">диаграмма строится при первом показе слайда</div></div></div>
+<aside class="notes">
+<p><strong>Тезис:</strong> Инфографика: Объём коробки при разной стороне вырезанного квадрата.</p>
+<ul>
+<li>Назвать каждое значение и перевести его в понятный пример.</li>
+<li>Подчеркнуть закономерность: зависимость длины записи от основания.</li>
+<li>Источник: расчёт по модели V = x(40−2x)(30−2x)</li>
+</ul>
+<p><strong>Тайминг:</strong> ~150 с.</p>
+<p><strong>Переход:</strong> Дальше — «Часть 1».</p></aside>
+</section>
+<section id="s-ch1" data-title="Часть 1" data-anim="chapter" data-background-gradient="linear-gradient(140deg, rgba(56,225,255,0.10), rgba(139,124,255,0.05) 45%%, rgba(255,110,199,0.10))">
+<div class="wrap">
+<div class="grow" style="justify-content:center">
+<div class="ghost" style="right:40px;top:-30px">01</div>
+<div class="kicker" data-anim>Часть 1</div>
+<h2 class="h-ch" data-anim style="margin-top:14px">Моделирование как метод познания</h2>
+<div class="grad-underline" data-anim></div>
+</div>
+</div>
+<aside class="notes">
+<p><strong>Тезис:</strong> Переходим к части 1: Моделирование как метод познания.</p>
+<ul>
+<li>Короткая пауза, смена темпа — ученики переключают внимание.</li>
+</ul>
+<p><strong>Тайминг:</strong> ~150 с.</p>
+<p><strong>Переход:</strong> Дальше — «Модель вместо объекта».</p></aside>
+</section>
+<section id="s-b1" data-title="Модель вместо объекта" data-anim="def">
+<div class="wrap">
+<div class="row" style="justify-content:space-between"><div class="kicker" data-anim>Определение</div><div class="chip" data-anim><span class="dot"></span>записать в тетрадь</div></div>
+<h2 class="h2" data-anim style="margin-top:12px">Модель вместо объекта</h2>
+<div class="grow" style="display:grid;grid-template-columns:1.1fr .9fr;gap:30px;align-items:center">
+<div>
+<div class="defbox" data-anim style="font-size:24px"><strong>Модель</strong> — объект-заместитель, который сохраняет существенные для данной задачи свойства оригинала и отбрасывает несущественные.</div>
+<ul class="list" data-anim style="margin-top:20px">
+<li>Оригинал дорог, велик, опасен или недоступен</li>
+<li>Модель сохраняет главное для задачи, остальное отбрасывает</li>
+<li>Натурная, словесная, информационная — разные способы замещения</li>
+<li>Модель строят под конкретный вопрос</li>
+</ul>
+</div>
+<div class="illus" id="ill-781" data-anim></div>
+</div>
+</div>
+<aside class="notes">
+<p><strong>Тезис:</strong> Модель вместо объекта: Модель</p>
+<ul>
+<li>объект-заместитель, который сохраняет существенные для данной задачи свойства оригинала и отбрасывает несущественные.</li>
+<li>Строить настоящий мост, чтобы узнать, выдержит ли он нагрузку, — дорого и опасно. Поэтому инженер сначала испытывает уменьшенную копию или считает напряжения по…</li>
+<li>Оригинал дорог, велик, опасен или недоступен</li>
+<li>Модель сохраняет главное для задачи, остальное отбрасывает</li>
+</ul>
+<p><strong>Тайминг:</strong> ~150 с.</p>
+<p><strong>Переход:</strong> Дальше — «Модель вместо объекта».</p></aside>
+</section>
+<section id="s-b1t" data-title="Модель вместо объекта" data-anim="table">
+<div class="wrap">
+<div class="kicker" data-anim>Разбираем таблицу</div>
+<h2 class="h2" data-anim style="margin-top:8px">Модель вместо объекта</h2>
+<div class="grow"><div class="vcenter">
+<table class="tbl dense-tbl" data-anim><thead><tr><th>Вид модели</th><th>Что представляет собой</th><th>Пример</th></tr></thead><tbody><tr class="hl"><td>Натурная</td><td>материальная копия объекта</td><td>макет крыла в трубе</td></tr>
+<tr><td>Словесная</td><td>описание словами</td><td>инструкция по сборке</td></tr>
+<tr><td>Информационная</td><td>описание знаками</td><td>чертёж, таблица, формула</td></tr></tbody></table>
+</div></div></div>
+<aside class="notes">
+<p><strong>Тезис:</strong> Модель вместо объекта — таблица соотношений.</p>
+<ul>
+<li>Первая строка: Натурная; материальная копия объекта; макет крыла в трубе</li>
+<li>Пройти по строкам, каждый раз проговаривая правило.</li>
+<li>Попросить учеников закрыть экран и воспроизвести первую строку по памяти.</li>
+</ul>
+<p><strong>Тайминг:</strong> ~150 с.</p>
+<p><strong>Переход:</strong> Дальше — «Язык математической модели».</p></aside>
+</section>
+<section id="s-b2" data-title="Язык математической модели" data-anim="def">
+<div class="wrap">
+<div class="row" style="justify-content:space-between"><div class="kicker" data-anim>Определение</div><div class="chip" data-anim><span class="dot"></span>записать в тетрадь</div></div>
+<h2 class="h2" data-anim style="margin-top:12px">Язык математической модели</h2>
+<div class="grow" style="display:grid;grid-template-columns:1fr;gap:30px;align-items:center">
+<div>
+<div class="defbox" data-anim style="font-size:24px"><strong>Математическая модель</strong> — описание объекта или процесса набором величин и математических соотношений между ними.</div>
+<ul class="list" data-anim style="margin-top:20px">
+<li>Переменные меняются, параметры задают условия</li>
+<li>Связь между величинами записывается формулой</li>
+<li>Допущения — это сознательно отброшенные детали</li>
+<li>Единицы измерения — часть модели</li>
+</ul>
+</div>
+
+</div>
+</div>
+<aside class="notes">
+<p><strong>Тезис:</strong> Язык математической модели: Математическая модель</p>
+<ul>
+<li>описание объекта или процесса набором величин и математических соотношений между ними.</li>
+<li>Чтобы описать объект математически, нужно сначала назвать величины. Одни из них меняются в ходе процесса — это переменные: время t, путь s, температура. Другие заданы…</li>
+<li>Переменные меняются, параметры задают условия</li>
+<li>Связь между величинами записывается формулой</li>
+</ul>
+<p><strong>Тайминг:</strong> ~150 с.</p>
+<p><strong>Переход:</strong> Дальше — «Язык математической модели».</p></aside>
+</section>
+<section id="s-b2t" data-title="Язык математической модели" data-anim="table">
+<div class="wrap">
+<div class="kicker" data-anim>Разбираем таблицу</div>
+<h2 class="h2" data-anim style="margin-top:8px">Язык математической модели</h2>
+<div class="grow"><div class="vcenter">
+<table class="tbl dense-tbl" data-anim><thead><tr><th>Элемент модели</th><th>Роль</th><th>Пример в задаче о движении</th></tr></thead><tbody><tr class="hl"><td>Переменная</td><td>меняется в ходе процесса</td><td>путь s, время t</td></tr>
+<tr><td>Параметр</td><td>задан условием задачи</td><td>скорость v = 60 км/ч</td></tr>
+<tr><td>Связь</td><td>формула или уравнение</td><td>s = v · t</td></tr>
+<tr><td>Ограничение</td><td>рамки применимости</td><td>t ≥ 0, движение равномерное</td></tr></tbody></table>
+</div></div></div>
+<aside class="notes">
+<p><strong>Тезис:</strong> Язык математической модели — таблица соотношений.</p>
+<ul>
+<li>Первая строка: Переменная; меняется в ходе процесса; путь s, время t</li>
+<li>Пройти по строкам, каждый раз проговаривая правило.</li>
+<li>Попросить учеников закрыть экран и воспроизвести первую строку по памяти.</li>
+</ul>
+<p><strong>Тайминг:</strong> ~150 с.</p>
+<p><strong>Переход:</strong> Дальше — «Язык математической модели».</p></aside>
+</section>
+<section id="s-b2c" data-title="Язык математической модели" data-anim="code">
+<div class="wrap">
+<div class="kicker" data-anim>Показываю на языке text</div>
+<h2 class="h2" data-anim style="margin-top:8px">Язык математической модели</h2>
+<div class="grow"><div class="vcenter">
+<pre class="code" data-anim>Модель равномерного движения:
+  s = v * t          путь
+  t = s / v          время
+  v = s / t          скорость
+
+Проверка размерности:
+  км = (км/ч) * ч    единицы совпали - формула верна</pre>
+</div></div></div>
+<aside class="notes">
+<p><strong>Тезис:</strong> Код, который иллюстрирует правило.</p>
+<ul>
+<li>Читаем код построчно: что происходит на каждой строке.</li>
+<li>Обратить внимание на типичную ошибку новичка.</li>
+</ul>
+<p><strong>Тайминг:</strong> ~150 с.</p>
+<p><strong>Переход:</strong> Дальше — «Часть 2».</p></aside>
+</section>
+<section id="s-ch2" data-title="Часть 2" data-anim="chapter" data-background-gradient="linear-gradient(140deg, rgba(56,225,255,0.10), rgba(139,124,255,0.05) 45%%, rgba(255,110,199,0.10))">
+<div class="wrap">
+<div class="grow" style="justify-content:center">
+<div class="ghost" style="right:40px;top:-30px">02</div>
+<div class="kicker" data-anim>Часть 2</div>
+<h2 class="h-ch" data-anim style="margin-top:14px">Модель движения</h2>
+<div class="grad-underline" data-anim></div>
+</div>
+</div>
+<aside class="notes">
+<p><strong>Тезис:</strong> Переходим к части 2: Модель движения.</p>
+<ul>
+<li>Короткая пауза, смена темпа — ученики переключают внимание.</li>
+</ul>
+<p><strong>Тайминг:</strong> ~150 с.</p>
+<p><strong>Переход:</strong> Дальше — «Модель движения».</p></aside>
+</section>
+<section id="s-b3" data-title="Модель движения" data-anim="list">
+<div class="wrap">
+<div class="kicker" data-anim>9 класс · Информатика</div>
+<h2 class="h2" data-anim style="margin-top:10px">Модель движения</h2>
+<div class="grad-underline" data-anim></div>
+<div class="grow" style="display:grid;grid-template-columns:1fr;gap:28px;align-items:center">
+<div>
+<p class="lead" data-anim style="margin-bottom:18px">Самая простая модель движения — равномерное движение с постоянной скоростью. Она годится и для поезда, и для пешехода, и для самолёта: меняются…</p>
+<ul class="list" data-anim>
+<li>Одна формула s = v · t описывает много ситуаций</li>
+<li>При встречном движении скорости складываются</li>
+<li>При догоне важна разность скоростей</li>
+<li>Разгон и пробки — за границей модели</li>
+</ul></div>
+</div></div>
+<aside class="notes">
+<p><strong>Тезис:</strong> Модель движения</p>
+<ul>
+<li>Самая простая модель движения — равномерное движение с постоянной скоростью. Она годится и для поезда, и для пешехода, и для самолёта: меняются…</li>
+<li>Одна формула s = v · t описывает много ситуаций</li>
+<li>При встречном движении скорости складываются</li>
+<li>При догоне важна разность скоростей</li>
+</ul>
+<p><strong>Тайминг:</strong> ~150 с.</p>
+<p><strong>Переход:</strong> Дальше — «Модель движения».</p></aside>
+</section>
+<section id="s-b3c" data-title="Модель движения" data-anim="code">
+<div class="wrap">
+<div class="kicker" data-anim>Показываю на языке text</div>
+<h2 class="h2" data-anim style="margin-top:8px">Модель движения</h2>
+<div class="grow"><div class="vcenter">
+<pre class="code" data-anim>Встречное движение: S = 300 км, v1 = 60 км/ч, v2 = 90 км/ч
+скорость сближения: 60 + 90 = 150 км/ч
+время до встречи:  t = 300 / 150 = 2 ч
+путь от пункта A:   60 * 2 = 120 км</pre>
+</div></div></div>
+<aside class="notes">
+<p><strong>Тезис:</strong> Код, который иллюстрирует правило.</p>
+<ul>
+<li>Читаем код построчно: что происходит на каждой строке.</li>
+<li>Обратить внимание на типичную ошибку новичка.</li>
+</ul>
+<p><strong>Тайминг:</strong> ~150 с.</p>
+<p><strong>Переход:</strong> Дальше — «Модель роста вклада».</p></aside>
+</section>
+<section id="s-b4" data-title="Модель роста вклада" data-anim="list">
+<div class="wrap">
+<div class="kicker" data-anim>9 класс · Информатика</div>
+<h2 class="h2" data-anim style="margin-top:10px">Модель роста вклада</h2>
+<div class="grad-underline" data-anim></div>
+<div class="grow" style="display:grid;grid-template-columns:1fr;gap:28px;align-items:center">
+<div>
+<p class="lead" data-anim style="margin-bottom:18px">Экономика даёт не менее наглядный пример. Если банк начисляет простой процент, прибавка каждый год одна и та же: 8% от исходных 50 000 рублей — это 4…</p>
+<ul class="list" data-anim>
+<li>Простой процент: прибавка всегда от исходной суммы</li>
+<li>Сложный процент: процент начисляют на накопленное</li>
+<li>A = A₀ · (1 + p/100)ⁿ</li>
+<li>Один процент разницы за годы даёт заметную сумму</li>
+</ul></div>
+</div></div>
+<aside class="notes">
+<p><strong>Тезис:</strong> Модель роста вклада</p>
+<ul>
+<li>Экономика даёт не менее наглядный пример. Если банк начисляет простой процент, прибавка каждый год одна и та же: 8% от исходных 50 000 рублей — это 4…</li>
+<li>Простой процент: прибавка всегда от исходной суммы</li>
+<li>Сложный процент: процент начисляют на накопленное</li>
+<li>A = A₀ · (1 + p/100)ⁿ</li>
+</ul>
+<p><strong>Тайминг:</strong> ~150 с.</p>
+<p><strong>Переход:</strong> Дальше — «Адекватность, точность, границы применимости».</p></aside>
+</section>
+<section id="s-b5" data-title="Адекватность, точность, границы применимости" data-anim="def">
+<div class="wrap">
+<div class="row" style="justify-content:space-between"><div class="kicker" data-anim>Определение</div><div class="chip" data-anim><span class="dot"></span>записать в тетрадь</div></div>
+<h2 class="h2" data-anim style="margin-top:12px">Адекватность, точность, границы применимости</h2>
+<div class="grow" style="display:grid;grid-template-columns:1fr;gap:30px;align-items:center">
+<div>
+<div class="defbox" data-anim style="font-size:24px"><strong>Адекватность модели</strong> — соответствие модели объекту в тех свойствах, которые существенны для поставленной задачи.</div>
+<ul class="list" data-anim style="margin-top:20px">
+<li>Адекватность — совпадение с реальностью в главном</li>
+<li>Точность — близость чисел, а не смысла</li>
+<li>Границы применимости — условия, где модель неверна</li>
+<li>Проверка: сравнение с опытом или с известным случаем</li>
+</ul>
+</div>
+
+</div>
+</div>
+<aside class="notes">
+<p><strong>Тезис:</strong> Адекватность, точность, границы применимости: Адекватность модели</p>
+<ul>
+<li>соответствие модели объекту в тех свойствах, которые существенны для поставленной задачи.</li>
+<li>Построенную модель нужно проверить, и здесь важно различать два свойства. Точность отвечает на вопрос «насколько близко посчитанное число к измеренному». Адекватность —…</li>
+<li>Адекватность — совпадение с реальностью в главном</li>
+<li>Точность — близость чисел, а не смысла</li>
+</ul>
+<p><strong>Тайминг:</strong> ~150 с.</p>
+<p><strong>Переход:</strong> Дальше — «Практикум».</p></aside>
+</section>
+<section id="s-practice" data-title="Практикум" data-anim="steps">
+<div class="wrap">
+<div class="row" style="justify-content:space-between"><div class="kicker" data-anim>Практикум</div><div class="chip pink" data-anim><span class="dot"></span>работа в парах</div></div>
+<h2 class="h2" data-anim style="margin-top:10px">Пробуем сами</h2>
+<div class="grow"><div class="steps compact" data-anim>
+<div class="step" data-anim><div class="sn">1</div><div class="st">Определите вид каждой модели: а) глобус; б) формула площади круга; в) правило «чтобы найти время, надо путь разделить…</div></div>
+<div class="step p" data-anim><div class="sn">2</div><div class="st">Такси берёт 250 рублей за посадку и 20 рублей за каждый километр. Запишите математическую модель стоимости поездки,…</div></div>
+<div class="step v" data-anim><div class="sn">3</div><div class="st">Свободное падение без начальной скорости описывается моделью h = 5t², где h — высота в метрах, t — время в секундах…</div></div>
+<div class="step p" data-anim><div class="sn">4</div><div class="st">Для модели h = 5t² из задания 3 укажите два условия, при которых расчёт разойдётся с опытом, и объясните, в какую…</div></div>
+</div></div>
+<div class="foot"><div class="tiny">Полный набор заданий — на раздаточном листе.</div><div class="tiny mono">7 минут</div></div>
+</div>
+<aside class="notes">
+<p><strong>Тезис:</strong> Практическая часть: ученики выполняют задания самостоятельно.</p>
+<ul>
+<li>Определите вид каждой модели: а) глобус; б) формула площади круга; в) правило «чтобы…</li>
+<li>Такси берёт 250 рублей за посадку и 20 рублей за каждый километр. Запишите математическую…</li>
+<li>Свободное падение без начальной скорости описывается моделью h = 5t², где h — высота в…</li>
+</ul>
+<p><strong>Тайминг:</strong> ~150 с.</p>
+<p><strong>Переход:</strong> Дальше — «Проверка».</p></aside>
+</section>
+<section id="s-quiz" data-title="Проверка" data-anim="quiz">
+<div class="wrap">
+<div class="kicker" data-anim>Проверка на понимание</div>
+<h2 class="h2" data-anim style="margin-top:8px">Что называют моделью объекта?</h2>
+<div class="grow"><div class="quiz" data-anim>
+<div class="qopt" data-ok="0" data-anim onclick="pickOpt(this)"><div class="ltr">A</div><div>точную копию объекта в натуральную величину</div></div>
+<div class="qopt" data-ok="1" data-anim onclick="pickOpt(this)"><div class="ltr">B</div><div>объект-заместитель, сохраняющий существенные для задачи свойства</div></div>
+<div class="qopt" data-ok="0" data-anim onclick="pickOpt(this)"><div class="ltr">C</div><div>формулу, описывающую все свойства объекта</div></div>
+<div class="qopt" data-ok="0" data-anim onclick="pickOpt(this)"><div class="ltr">D</div><div>компьютерную программу для работы с объектом</div></div>
+</div>
+<p class="small" data-anim style="margin-top:16px">Выберите вариант — правильный подсветится зелёным.</p>
+</div></div>
+<aside class="notes">
+<p><strong>Тезис:</strong> Проверочный вопрос по теме.</p>
+<ul>
+<li>Дать 20 секунд на размышление, затем попросить поднять руки по вариантам.</li>
+<li>Разобрать, почему остальные варианты неверны.</li>
+</ul>
+<p><strong>Тайминг:</strong> ~150 с.</p>
+<p><strong>Переход:</strong> Дальше — «Домашнее задание».</p></aside>
+</section>
+<section id="s-hw" data-title="Домашнее задание" data-anim="list">
+<div class="wrap">
+<div class="kicker" data-anim>Домашнее задание</div>
+<h2 class="h2" data-anim style="margin-top:8px">Что сделать к следующему уроку</h2>
+<div class="grow"><ol class="list" data-anim style="counter-reset:none">
+<li>Выучить определения: модель, математическая модель, переменная, параметр, адекватность.</li>
+<li>Составить математическую модель задачи: «Абонемент стоит 1 200 рублей в месяц, разовая поездка — 45 рублей. Сколько поездок нужно совершить, чтобы…</li>
+<li>Для модели вклада A = A₀ · (1 + p/100)ⁿ посчитать, во сколько раз вырастет сумма за 10 лет при 10% годовых; вычисления записать по шагам.</li>
+<li><em>(По желанию)</em> Придумать свою задачу из жизни (спорт, покупки, поездки), построить для неё модель, указать переменные, параметры и два допущения.</li>
+</ol></div>
+<div class="foot"><div class="tiny">Задание проверяется на следующем уроке.</div><div class="tiny mono">записать в дневник</div></div>
+</div>
+<aside class="notes">
+<p><strong>Тезис:</strong> Домашнее задание: 4 пунктов.</p>
+<ul>
+<li>Выучить определения: модель, математическая модель, переменная, параметр, адекватность.</li>
+<li>Составить математическую модель задачи: «Абонемент стоит 1 200 рублей в месяц, разовая…</li>
+<li>Для модели вклада A = A₀ · (1 + p/100)ⁿ посчитать, во сколько раз вырастет сумма за 10…</li>
+</ul>
+<p><strong>Тайминг:</strong> ~150 с.</p>
+<p><strong>Переход:</strong> Дальше — «Итог».</p></aside>
+</section>
+<section id="s-final" data-title="Итог" data-anim="final" data-background-gradient="linear-gradient(140deg, rgba(139,124,255,0.12), rgba(56,225,255,0.05) 50%%, rgba(255,110,199,0.10))">
+<div class="wrap">
+<div class="kicker" data-anim>Итог урока</div>
+<h2 class="h-title" data-anim style="font-size:56px;margin-top:10px">Математическое моделирование</h2>
+<div class="grad-underline" data-anim></div>
+<div class="grow"><div class="grid3" data-anim>
+<div class="card"><div class="ct">1</div><div class="cd">Оригинал дорог, велик, опасен или недоступен</div></div>
+<div class="card"><div class="ct">2</div><div class="cd">Переменные меняются, параметры задают условия</div></div>
+<div class="card"><div class="ct">3</div><div class="cd">Одна формула s = v · t описывает много ситуаций</div></div>
+</div></div>
+<div class="foot"><div class="big-cta" data-anim>Спасибо за работу!</div><div class="tiny">Следующий урок: Этапы компьютерного моделирования</div></div>
+</div>
+<aside class="notes">
+<p><strong>Тезис:</strong> Подводим итог: три главных вывода урока.</p>
+<ul>
+<li>Оригинал дорог, велик, опасен или недоступен</li>
+<li>Переменные меняются, параметры задают условия</li>
+<li>Одна формула s = v · t описывает много ситуаций</li>
+<li>Вопросы класса — 2 минуты, затем домашнее задание.</li>
+</ul>
+<p><strong>Тайминг:</strong> ~150 с.</p>
+</aside>
+</section>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@6/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@6/dist/plugin/notes/notes.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@6/dist/plugin/zoom/zoom.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<script src="https://cdn.jsdelivr.net/npm/@svgdotjs/svg.js@3/dist/svg.min.js"></script>
+<script>
+/* ================= 1. ДАННЫЕ ================= */
+const LESSON = 12, KLASS = 9;
+const CHART = {"type": "bar", "title": "Объём коробки при разной стороне вырезанного квадрата", "source": "расчёт по модели V = x(40−2x)(30−2x)", "data": [{"k": "2 см", "v": 1872.0}, {"k": "3 см", "v": 2448.0}, {"k": "4 см", "v": 2816.0}, {"k": "5 см", "v": 3000.0}, {"k": "6 см", "v": 3024.0}, {"k": "7 см", "v": 2912.0}, {"k": "8 см", "v": 2688.0}]};
+const ILLUS_KIND = "numbers";
+const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const HAS = { gsap: typeof gsap !== 'undefined', d3: typeof d3 !== 'undefined', svgjs: typeof SVG !== 'undefined' };
+const $ = (s, sc) => (sc || document).querySelector(s);
+const $$ = (s, sc) => Array.from((sc || document).querySelectorAll(s));
+
+/* ================= 2. ИЛЛЮСТРАЦИИ (SVG.js) ================= */
+function grad(draw, id, c1, c2) {
+  const g = draw.gradient('linear', add => { add.stop(0, c1); add.stop(1, c2); });
+  g.from(0, 0).to(1, 1);
+  return g;
+}
+
+function illBits(el) {
+  const draw = SVG().addTo(el).viewbox(0, 0, 420, 360);
+  const g1 = grad(draw, 'g1', '#38E1FF', '#8B7CFF');
+  const g2 = grad(draw, 'g2', '#8B7CFF', '#FF6EC7');
+  draw.rect(420, 360).fill('#0A1230').radius(26).attr({ opacity: .55 });
+  draw.text('РАЗРЯДЫ').font({ family: 'Manrope', size: 15, weight: 700 }).fill('#8FA0CC').move(32, 20);
+  const cells = [];
+  const weights = [128, 64, 32, 16, 8, 4, 2, 1];
+  for (let c = 0; c < 8; c++) {
+    const bit = (c % 3 === 0) ? '1' : '0';
+    const on = bit === '1';
+    const sq = draw.rect(40, 46).radius(9).move(26 + c * 47, 44);
+    sq.fill(on ? g1 : 'none').stroke({ width: 2, color: on ? 'none' : 'rgba(139,124,255,.4)' });
+    cells.push(sq);
+    const d = draw.text(bit).font({ family: 'JetBrains Mono', size: 24, weight: 700 })
+      .fill(on ? '#071120' : '#A9B6DC').center(46 + c * 47, 67);
+    cells.push(d);
+    const w = draw.text(weights[c]).font({ family: 'Manrope', size: 13 })
+      .fill('rgba(169,182,220,.75)').center(46 + c * 47, 104);
+    cells.push(w);
+  }
+  draw.line(26, 122, 380, 122).stroke({ width: 1, color: 'rgba(139,124,255,.35)' });
+  const badge = draw.circle(104).center(300, 268).fill(g2).opacity(.95);
+  const t = draw.text('= 146').font({ family: 'Unbounded', size: 32, weight: 800 })
+    .fill('#071120').center(300, 262);
+  draw.text('128 + 16 + 2').font({ family: 'Manrope', size: 16, weight: 700, anchor: 'middle' })
+    .fill('#0B1230').center(300, 296);
+  draw.text('10010010₂ → 146₁₀').font({ family: 'Manrope', size: 16, anchor: 'middle' })
+    .fill('#A9B6DC').center(300, 338);
+  const lab = draw.text('128  64  32  16   8   4   2   1').font({ family: 'Manrope', size: 14 })
+    .fill('rgba(169,182,220,.6)').move(30, 130);
+  return [cells, badge, t, lab];
+}
+
+function illNumbers(el) {
+  const draw = SVG().addTo(el).viewbox(0, 0, 420, 360);
+  const g1 = grad(draw, 'g1', '#38E1FF', '#8B7CFF');
+  const g2 = grad(draw, 'g2', '#8B7CFF', '#FF6EC7');
+  draw.rect(420, 360).fill('#0A1230').radius(26).attr({ opacity: .55 });
+  draw.text('ИНДЕКС').font({ family: 'Manrope', size: 15, weight: 700 }).fill('#8FA0CC').move(30, 28);
+  draw.text('ЗНАЧЕНИЕ').font({ family: 'Manrope', size: 15, weight: 700 }).fill('#8FA0CC').move(268, 28);
+  const vals = [5, 12, 7, 3, 9, 1];
+  const cells = [];
+  vals.forEach((v, i) => {
+    const y = 56 + i * 48;
+    const idx = draw.rect(52, 38).radius(9).move(30, y);
+    idx.fill(i === 1 ? g1 : 'none').stroke({ width: 2, color: i === 1 ? 'none' : 'rgba(139,124,255,.35)' });
+    const t1 = draw.text(String(i)).font({ family: 'JetBrains Mono', size: 20, weight: 700 })
+      .fill(i === 1 ? '#071120' : '#A9B6DC').center(56, y + 19);
+    const box = draw.rect(120, 38).radius(9).move(268, y);
+    box.fill(i === 1 ? g2 : 'none').stroke({ width: 2, color: i === 1 ? 'none' : 'rgba(56,225,255,.4)' });
+    const t2 = draw.text(String(v)).font({ family: 'Unbounded', size: 20, weight: 700 })
+      .fill(i === 1 ? '#071120' : '#EEF3FF').center(328, y + 19);
+    cells.push(idx, t1, box, t2);
+  });
+  const arr = draw.rect(300, 26).radius(8).move(30, 322).fill('rgba(56,225,255,.12)')
+    .stroke({ width: 1, color: 'rgba(56,225,255,.45)' });
+  const lab = draw.text('a — массив, a[0]…a[5] — его элементы').font({ family: 'Manrope', size: 15, anchor: 'start' })
+    .fill('#A9B6DC').move(44, 327);
+  cells.push(arr, lab);
+  return [cells];
+}
+
+function illFlow(el) {
+  const draw = SVG().addTo(el).viewbox(0, 0, 420, 360);
+  const g1 = grad(draw, 'f1', '#38E1FF', '#8B7CFF');
+  const g2 = grad(draw, 'f2', '#8B7CFF', '#FF6EC7');
+  const shapes = [];
+  const boxes = [[70, 40], [70, 140], [70, 240]];
+  boxes.forEach((p, i) => {
+    const r = draw.rect(250, 62).radius(16).move(p[0], p[1]);
+    r.fill(i === 1 ? g1 : 'none').stroke({ width: 2, color: i === 1 ? 'none' : 'rgba(139,124,255,.45)' });
+    const label = ['НАЧАЛО', 'ДЕЙСТВИЕ', 'РЕЗУЛЬТАТ'][i];
+    draw.text(label).font({ family: 'Unbounded', size: 20, weight: 700 }).fill(i === 1 ? '#071120' : '#EEF3FF')
+      .move(p[0] + 24, p[1] + 20);
+    shapes.push(r);
+  });
+  for (let i = 0; i < 2; i++) {
+    const y = 102 + i * 100;
+    const ln = draw.line(195, y, 195, y + 38).stroke({ width: 4, color: '#FF6EC7' });
+    const ar = draw.path('M0,0 L14,7 L0,14 Z').fill('#FF6EC7').move(188, y + 30);
+    shapes.push(ln, ar);
+  }
+  const c = draw.circle(52).center(372, 200).fill('#0A1230').stroke({ width: 3, color: '#FF6EC7' });
+  const dash = draw.circle(30).center(372, 200);
+  dash.fill(g2).opacity(.9);
+  shapes.push(c, dash);
+  return [shapes];
+}
+
+function illNetwork(el) {
+  const draw = SVG().addTo(el).viewbox(0, 0, 420, 360);
+  const g1 = grad(draw, 'n1', '#38E1FF', '#8B7CFF');
+  const nodes = [[210, 180, 54]];
+  for (let i = 0; i < 6; i++) {
+    const a = (-90 + i * 60) * Math.PI / 180;
+    nodes.push([210 + Math.cos(a) * 132, 180 + Math.sin(a) * 132, 30]);
+  }
+  const lines = [];
+  for (let i = 1; i < nodes.length; i++) {
+    lines.push(draw.line(nodes[0][0], nodes[0][1], nodes[i][0], nodes[i][1])
+      .stroke({ width: 3, color: 'rgba(139,124,255,.5)' }));
+  }
+  const circles = nodes.map((n, i) => draw.circle(n[2] * 2).center(n[0], n[1])
+    .fill(i === 0 ? g1 : '#101A3C').stroke({ width: 3, color: i === 0 ? 'none' : '#38E1FF' }));
+  draw.text('1').font({ family: 'Unbounded', size: 26, weight: 800 }).fill('#071120').center(210, 180);
+  return [lines, circles];
+}
+
+function illLogic(el) {
+  const draw = SVG().addTo(el).viewbox(0, 0, 420, 360);
+  const g1 = grad(draw, 'l1', '#38E1FF', '#8B7CFF');
+  const g2 = grad(draw, 'l2', '#FF6EC7', '#8B7CFF');
+  const parts = [];
+  [[40, 60, '1'], [40, 200, '0']].forEach(([x, y, v]) => {
+    const c = draw.circle(58).center(x + 34, y + 40).fill('#101A3C').stroke({ width: 3, color: '#38E1FF' });
+    const t = draw.text(v).font({ family: 'JetBrains Mono', size: 26, weight: 700 }).fill('#38E1FF').center(x + 34, y + 40);
+    parts.push(c, t);
+  });
+  const gate = draw.path('M150,64 L150,236 Q250,236 250,150 Q250,64 150,64 Z').fill(g1).opacity(.9);
+  draw.text('AND').font({ family: 'Unbounded', size: 24, weight: 800 }).fill('#071120').center(196, 150);
+  const ln1 = draw.line(96, 100, 150, 100).stroke({ width: 4, color: '#8B7CFF' });
+  const ln2 = draw.line(96, 240, 150, 240).stroke({ width: 4, color: '#8B7CFF' });
+  const ln3 = draw.line(250, 150, 340, 150).stroke({ width: 4, color: '#FF6EC7' });
+  const out = draw.circle(58).center(370, 150).fill(g2);
+  draw.text('?').font({ family: 'Unbounded', size: 26, weight: 800 }).fill('#071120').center(370, 150);
+  return [parts, [gate, ln1, ln2, ln3, out]];
+}
+
+function illTable(el) {
+  const draw = SVG().addTo(el).viewbox(0, 0, 420, 360);
+  const g1 = grad(draw, 't1', '#38E1FF', '#8B7CFF');
+  const cells = [];
+  const cols = ['p²', 'p¹', 'p⁰'];
+  const rows = [['2', '4', '1'], ['4', '0', '2'], ['1', '0', '0']];
+  draw.text('развёрнутая форма').font({ family: 'Manrope', size: 15, weight: 700 })
+    .fill('#8FA0CC').move(26, 22);
+  for (let c = 0; c < 3; c++) {
+    const head = draw.rect(104, 40).radius(8).move(26 + c * 118, 46);
+    head.fill('#16224A').stroke({ width: 2, color: 'rgba(56,225,255,.4)' });
+    cells.push(head);
+    cells.push(draw.text(cols[c]).font({ family: 'Unbounded', size: 18, weight: 700 })
+      .fill('#38E1FF').center(78 + c * 118, 66));
+  }
+  rows.forEach((r, ri) => {
+    r.forEach((v, ci) => {
+      const hi = ri === 0;
+      const rect = draw.rect(104, 52).radius(8).move(26 + ci * 118, 100 + ri * 62);
+      rect.fill(hi ? g1 : 'none').stroke({ width: 2, color: hi ? 'none' : 'rgba(139,124,255,.35)' });
+      cells.push(rect);
+      cells.push(draw.text(v).font({ family: 'JetBrains Mono', size: 26, weight: 700 })
+        .fill(hi ? '#071120' : '#EEF3FF').center(78 + ci * 118, 126 + ri * 62));
+    });
+  });
+  cells.push(draw.text('402 = 4·p² + 0·p¹ + 2·p⁰').font({ family: 'Manrope', size: 19, weight: 700 })
+    .fill('#FF6EC7').move(26, 316));
+  return [cells];
+}
+
+function illTree(el) {
+  const draw = SVG().addTo(el).viewbox(0, 0, 420, 360);
+  const g1 = grad(draw, 'r1', '#38E1FF', '#8B7CFF');
+  const levels = [[210, 50], [120, 160], [300, 160], [70, 270], [170, 270], [250, 270], [350, 270]];
+  const edges = [];
+  const pairs = [[0, 1], [0, 2], [1, 3], [1, 4], [2, 5], [2, 6]];
+  pairs.forEach(([a, b]) => {
+    edges.push(draw.line(levels[a][0], levels[a][1], levels[b][0], levels[b][1])
+      .stroke({ width: 3, color: 'rgba(139,124,255,.55)' }));
+  });
+  const nodes = levels.map((p, i) => draw.circle(46).center(p[0], p[1])
+    .fill(i === 0 ? g1 : '#101A3C').stroke({ width: 3, color: i === 0 ? 'none' : '#38E1FF' }));
+  return [edges, nodes];
+}
+
+const ILLUS = { numbers: illNumbers, bits: illBits, flow: illFlow, network: illNetwork, logic: illLogic, table: illTable, tree: illTree };
+
+function buildIllus(sel, kind) {
+  const el = typeof sel === 'string' ? $(sel) : sel;
+  if (!el || el.dataset.built) return null;
+  if (!HAS.svgjs) { el.innerHTML = ''; return null; }
+  const parts = (ILLUS[kind] || illNumbers)(el);
+  el.dataset.built = '1';
+  return parts;
+}
+
+/* ================= 3. ИНФОГРАФИКА (D3) ================= */
+function buildChart(host) {
+  if (!host || host.dataset.built || !CHART || !HAS.d3) return;
+  host.dataset.built = '1';
+  const W = 1000, H = 420, M = { t: 26, r: 40, b: 64, l: 66 };
+  const svg = d3.select(host).append('svg')
+    .attr('viewBox', '0 0 ' + W + ' ' + H).attr('width', W).attr('height', H);
+  const defs = svg.append('defs');
+  const lg = defs.append('linearGradient').attr('id', 'barGrad').attr('x1', 0).attr('y1', 1).attr('x2', 0).attr('y2', 0);
+  lg.append('stop').attr('offset', '0%').attr('stop-color', '#8B7CFF');
+  lg.append('stop').attr('offset', '100%').attr('stop-color', '#38E1FF');
+  const data = CHART.data;
+  const x = d3.scaleBand().domain(data.map(d => d.k)).range([M.l, W - M.r]).padding(.38);
+  const y = d3.scaleLinear().domain([0, d3.max(data, d => d.v) * 1.18]).range([H - M.b, M.t]);
+  const g = svg.append('g').attr('class', 'grid');
+  y.ticks(4).forEach(t => {
+    g.append('line').attr('x1', M.l).attr('x2', W - M.r).attr('y1', y(t)).attr('y2', y(t));
+    svg.append('text').attr('x', M.l - 14).attr('y', y(t) + 6).attr('text-anchor', 'end')
+      .attr('fill', '#A9B6DC').attr('font-size', 20).attr('font-family', 'Manrope').text(t);
+  });
+  const bars = svg.append('g');
+  bars.selectAll('rect').data(data).join('rect')
+    .attr('x', d => x(d.k)).attr('width', x.bandwidth())
+    .attr('y', H - M.b).attr('height', 0)
+    .attr('rx', 10).attr('fill', 'url(#barGrad)')
+    .transition().duration(900).delay((d, i) => i * 120).ease(d3.easeCubicOut)
+    .attr('y', d => y(d.v)).attr('height', d => H - M.b - y(d.v));
+  bars.selectAll('text').data(data).join('text')
+    .attr('x', d => x(d.k) + x.bandwidth() / 2).attr('y', d => y(d.v) - 16)
+    .attr('text-anchor', 'middle').attr('class', 'val').attr('font-size', 26)
+    .attr('opacity', 0).text(d => d.v)
+    .transition().delay((d, i) => 300 + i * 120).duration(400).attr('opacity', 1);
+  svg.append('g').selectAll('text').data(data).join('text')
+    .attr('x', d => x(d.k) + x.bandwidth() / 2).attr('y', H - M.b + 32)
+    .attr('text-anchor', 'middle').attr('fill', '#EEF3FF').attr('font-size', 19)
+    .attr('font-family', 'Manrope').attr('font-weight', 600)
+    .each(function (d) {
+      const words = String(d.k).split(' ');
+      const lines = [];
+      let cur = '';
+      words.forEach(w => {
+        if ((cur + ' ' + w).trim().length > 14 && cur) { lines.push(cur.trim()); cur = w; }
+        else cur = (cur + ' ' + w).trim();
+      });
+      if (cur) lines.push(cur);
+      const t = d3.select(this);
+      lines.slice(0, 2).forEach((ln, i) => {
+        t.append('tspan').attr('x', x(d.k) + x.bandwidth() / 2).attr('dy', i === 0 ? 0 : 22).text(ln);
+      });
+    });
+}
+
+/* ================= 4. АНИМАЦИИ (GSAP) ================= */
+const TL = {};
+function genericAnim(scope) {
+  const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+  const items = $$('[data-anim]', scope);
+  tl.fromTo(items, { y: 26, opacity: 0 }, { y: 0, opacity: 1, duration: .7, stagger: .1 }, 0)
+    .fromTo($$('.list li, .steps .step, .tbl tbody tr, .qopt, .card', scope),
+      { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: .5, stagger: .07 }, .25);
+  return tl;
+}
+const animations = {
+  title: scope => {
+    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+    tl.fromTo($$('.kicker, .chip', scope), { y: -16, opacity: 0 }, { y: 0, opacity: 1, duration: .6, stagger: .1 })
+      .fromTo($('.h-title', scope), { y: 34, opacity: 0 }, { y: 0, opacity: 1, duration: .9 }, .15)
+      .fromTo($('.grad-underline', scope), { scaleX: 0, transformOrigin: '0% 50%' }, { scaleX: 1, duration: .8 }, .6)
+      .fromTo($('.lead', scope), { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: .7 }, .7)
+      .fromTo($$('.foot .tiny', scope), { opacity: 0 }, { opacity: 1, duration: .6 }, 1);
+    return tl;
+  },
+  grid: scope => {
+    const tl = gsap.timeline({ defaults: { ease: 'back.out(1.5)' } });
+    tl.fromTo($('h2', scope), { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: .7, ease: 'power3.out' })
+      .fromTo($$('.card', scope), { y: 30, opacity: 0, scale: .96 }, { y: 0, opacity: 1, scale: 1, duration: .6, stagger: .1 }, .2);
+    return tl;
+  },
+  final: scope => {
+    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+    tl.fromTo($('.h-title', scope), { y: 26, opacity: 0 }, { y: 0, opacity: 1, duration: .8 })
+      .fromTo($('.grad-underline', scope), { scaleX: 0 }, { scaleX: 1, duration: .7 }, .3)
+      .fromTo($$('.card', scope), { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: .55, stagger: .12 }, .45)
+      .fromTo($('.big-cta', scope), { scale: .9, opacity: 0 }, { scale: 1, opacity: 1, duration: .6, ease: 'back.out(2)' }, .9);
+    return tl;
+  }
+};
+function playAnim(id) {
+  if (REDUCED) return;
+  if (!HAS.gsap) return;
+  const scope = document.getElementById(id);
+  if (!scope) return;
+  if (!TL[id]) TL[id] = (animations[scope.dataset.anim] || genericAnim)(scope);
+  TL[id].restart();
+  const illus = $$('.illus', scope);
+  illus.forEach(el => {
+    BuildIllusOnSlide(el);
+    const kids = $$('svg > *', el);
+    if (kids.length) gsap.fromTo(kids, { opacity: 0, scale: .94 }, { opacity: 1, scale: 1, duration: .8, stagger: .08, ease: 'power2.out', delay: .3 });
+  });
+}
+function resetAnim(id) { if (TL[id]) TL[id].progress(0).pause(); }
+
+function BuildIllusOnSlide(el) {
+  if (!el || el.dataset.done) return;
+  const kind = el.id === 'ill-title' ? ILLUS_KIND : (el.dataset.kind || ILLUS_KIND);
+  buildIllus(el, kind);
+  el.dataset.done = '1';
+}
+
+/* ================= 4b. ПОДГОНКА СЛАЙДА ================= */
+function fitSlide(sec) {
+  if (!sec) return;
+  const wrap = sec.querySelector('.wrap');
+  if (!wrap) return;
+  wrap.style.transform = '';
+  wrap.style.width = '';
+  wrap.style.height = '';
+  const sr = sec.getBoundingClientRect();
+  if (!sr.height) return;
+  let worst = 0;
+  $$('.wrap *', sec).forEach(el => {
+    if (el.classList.contains('ghost') || el.tagName === 'ASIDE') return;
+    const r = el.getBoundingClientRect();
+    if (r.height === 0 || r.width === 0) return;
+    const d = r.bottom - sr.bottom;
+    if (d > worst) worst = d;
+  });
+  if (worst <= 2) return;
+  const k = Math.max(0.78, sr.height / (sr.height + worst + 4));
+  wrap.style.transformOrigin = 'top left';
+  wrap.style.width = (100 / k) + '%';
+  wrap.style.height = (100 / k) + '%';
+  wrap.style.transform = 'scale(' + k.toFixed(4) + ')';
+}
+
+/* ================= 5. ИНТЕРАКТИВ ================= */
+function pickOpt(el) {
+  $$('.qopt').forEach(o => o.classList.remove('right', 'wrong'));
+  el.classList.add(el.dataset.ok === '1' ? 'right' : 'wrong');
+  if (el.dataset.ok !== '1') {
+    const ok = $$('.qopt').find(o => o.dataset.ok === '1');
+    if (ok) ok.classList.add('right');
+  }
+}
+window.pickOpt = pickOpt;
+
+/* ================= 6. ЗАПУСК ================= */
+function fallbackMode(msg) {
+  document.body.classList.add('no-reveal');
+  console.warn('[deck] fallback:', msg);
+  $$('.illus').forEach(el => { el.dataset.done = '1'; });
+}
+(function boot() {
+  if (typeof Reveal === 'undefined') { fallbackMode('Reveal.js не загрузился'); return; }
+  const plugins = [];
+  if (typeof RevealNotes !== 'undefined') plugins.push(RevealNotes);
+  if (typeof RevealZoom !== 'undefined') plugins.push(RevealZoom);
+  try {
+    const p = Reveal.initialize({
+      hash: true, controls: true, controlsLayout: 'bottom-right', progress: true,
+      transition: 'slide', transitionSpeed: 'default',
+      width: 1280, height: 720, margin: 0.05, center: false,
+      plugins: plugins
+    });
+    if (p && p.catch) p.catch(fallbackMode);
+  } catch (e) { fallbackMode(e); return; }
+
+  Reveal.on('ready', ev => {
+    fitSlide(ev.currentSlide);
+    playAnim(ev.currentSlide.id);
+    const host = $('.chart', ev.currentSlide);
+    if (host) buildChart(host);
+  });
+  Reveal.on('slidechanged', ev => {
+    if (ev.previousSlide) resetAnim(ev.previousSlide.id);
+    fitSlide(ev.currentSlide);
+    playAnim(ev.currentSlide.id);
+    const host = $('.chart', ev.currentSlide);
+    if (host) buildChart(host);
+    const cur = ev.currentSlide;
+    setTimeout(() => fitSlide(cur), 850);
+  });
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(() => fitSlide(Reveal.getCurrentSlide()));
+  }
+  window.addEventListener('resize', () => fitSlide(Reveal.getCurrentSlide()));
+  if (REDUCED) {
+    $$('[data-anim]').forEach(el => { el.style.opacity = 1; });
+  }
+  if (!REDUCED && HAS.gsap) {
+    const qx1 = gsap.quickTo('#glow-a', 'x', { duration: 1.1, ease: 'power2' });
+    const qy1 = gsap.quickTo('#glow-a', 'y', { duration: 1.1, ease: 'power2' });
+    const qx2 = gsap.quickTo('#glow-b', 'x', { duration: 1.3, ease: 'power2' });
+    window.addEventListener('mousemove', e => {
+      const nx = e.clientX / window.innerWidth - .5, ny = e.clientY / window.innerHeight - .5;
+      qx1(nx * 40); qy1(ny * 40); qx2(nx * -50);
+    }, { passive: true });
+  }
+})();
+</script>
+</body>
+</html>

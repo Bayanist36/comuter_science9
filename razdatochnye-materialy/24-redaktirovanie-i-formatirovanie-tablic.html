@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Раздаточный материал · Урок 24 · Редактирование и форматирование таблиц</title>
+<style>
+@page{size:A4 portrait;margin:12mm 13mm 10mm}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:#fff;color:#141824;
+  font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif;font-size:10.5pt;line-height:1.38}
+.page{page-break-after:always;width:184mm;display:flex;flex-direction:column;min-height:262mm}
+.page:last-child{page-break-after:auto}
+.head{display:flex;justify-content:space-between;align-items:flex-end;
+  border-bottom:2px solid #4F46E5;padding-bottom:5px;margin-bottom:9px}
+.head h1{font-size:15pt;margin:0;font-weight:700;letter-spacing:-.2px}
+.head .sub{font-size:9pt;color:#5A6178;margin-top:2px}
+.head .mark{font-size:8.6pt;color:#5A6178;text-align:right;line-height:1.35}
+.name{display:flex;gap:14px;font-size:9pt;color:#5A6178;margin:0 0 9px}
+.name span{flex:1;border-bottom:1px dotted #9AA0B4;padding-bottom:1px}
+h2.sec{font-size:11.5pt;margin:7px 0 4px;font-weight:700;color:#1E2A5A}
+h2.sec .n{display:inline-flex;width:6.4mm;height:6.4mm;border-radius:50%;background:#4F46E5;color:#fff;
+  font-size:8.6pt;align-items:center;justify-content:center;margin-right:6px;vertical-align:1px}
+.hint{font-size:8.8pt;color:#5A6178;margin:0 0 5px}
+.task{border:1px solid #D6D9E6;border-radius:7px;padding:3mm 3.6mm 2mm;margin-bottom:2.4mm;background:#FCFCFE}
+.task h3{font-size:9.6pt;margin:0 0 1.6mm;font-weight:700;color:#141824;line-height:1.2}
+.task p{margin:0 0 1.2mm;font-size:9.1pt;line-height:1.3}
+.task .q{background:#F0F1FA;border-left:3px solid #4F46E5;padding:1.5mm 2.2mm;border-radius:0 4px 4px 0;margin-bottom:1.4mm}
+.lines div{border-bottom:1px solid #C7CBDA;height:5.6mm}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:3mm}
+.def{border-left:3px solid #4F46E5;background:#F4F5FC;padding:2mm 3mm;margin-bottom:2mm;font-size:9.6pt;border-radius:0 4px 4px 0}
+.def b{color:#1E2A5A}
+table.k{width:100%;border-collapse:collapse;font-size:9.2pt}
+table.k th{background:#EEF0FA;text-align:left;padding:1.6mm 2mm;border:1px solid #D6D9E6;font-weight:700;color:#1E2A5A}
+table.k td{padding:1.5mm 2mm;border:1px solid #D6D9E6;vertical-align:top}
+pre{background:#F2F4FA;border:1px solid #D6D9E6;border-radius:5px;padding:2.4mm 3mm;font-size:8.4pt;
+  line-height:1.3;font-family:'Consolas','Courier New',monospace;white-space:pre-wrap;margin:0 0 2mm}
+.foot{margin-top:auto;padding-top:4mm;display:flex;justify-content:space-between;font-size:8.2pt;color:#8A90A6;
+  border-top:1px solid #E3E6F0}
+.tkey{font-size:9pt;color:#141824}
+.tkey b{color:#1E2A5A}
+.cut{font-size:8pt;color:#8A90A6;text-align:center;margin-top:2mm}
+</style>
+</head>
+<body>
+<div class="page">
+<div class="head"><div><h1>Редактирование и форматирование таблиц</h1><div class="sub">Информатика · 9 класс · урок 24 · Электронные таблицы</div></div><div class="mark">МБОУ «СОШ № 108»<br>Раздаточный материал<br>лист 1 из 3</div></div>
+<div class="name"><span>ФИО</span><span>Класс 9 «___»</span><span>Дата</span></div>
+<p class="hint">Выполните задания письменно на этом листе. На работу отводится 20–25 минут. Черновики сдавать не нужно.</p>
+<div class="task"><h3>Задание 1. Выберите формат</h3>
+<p class="q">Для каждой ячейки укажите подходящий числовой формат: а) дата рождения 12.03.2010; б) цена билета 450; в) доля выполненного задания 0,35; г) номер телефона 8-912-345-67-89; д) количество учеников 27.</p>
+<div class="lines"><div></div><div></div><div></div><div></div><div></div></div></div>
+<div class="task"><h3>Задание 2. Что случится с формулой</h3>
+<p class="q">В ячейке D5 стоит формула =СУММ(B2:B4). Пользователь выделил весь столбец B и удалил его. Что появится в ячейке D5 и почему?</p>
+<div class="lines"><div></div><div></div><div></div></div></div>
+<div class="task"><h3>Задание 3. Найдите ошибку</h3>
+<p class="q">Ученик объединил ячейки A1:D1 для заголовка, заполнил таблицу и попытался отсортировать её по столбцу «Фамилия». Программа выдала сообщение об ошибке. В чём причина и как исправить?</p>
+<div class="lines"><div></div><div></div><div></div></div></div>
+<div class="task"><h3>Задание 4. Правило условного форматирования</h3>
+<p class="q">В столбце записана температура воздуха за десять дней: 18, 21, 24, 26, 23, 19, 22, 25, 20, 27. Настроено правило «значение между 20 и 25 — зелёная заливка». Сколько ячеек окажутся зелёными? Изменится ли средняя температура после применения правила?</p>
+<div class="lines"><div></div><div></div><div></div><div></div></div></div>
+<div class="foot"><span>Информатика · 9 класс · урок 24 «Редактирование и форматирование таблиц»</span><span>задания 1–4</span></div>
+</div>
+<div class="page">
+<div class="head"><div><h1>Справочная страница</h1><div class="sub">Редактирование и форматирование таблиц</div></div><div class="mark">МБОУ «СОШ № 108»<br>можно использовать<br>при выполнении заданий<br>лист 2 из 3</div></div>
+<h2 class="sec"><span class="n">1</span>Ключевые определения</h2>
+<div class="def"><b>Числовой формат</b> — правило отображения значения в ячейке: число знаков после запятой, разделитель разрядов, знак валюты, вид записи даты.</div>
+<div class="def"><b>Ссылка</b> — адрес ячейки или диапазона в формуле, по которому программа находит нужные данные при вычислении.</div>
+<div class="def"><b>Объединённая ячейка</b> — ячейка, образованная из нескольких соседних ячеек, которая ведёт себя как одна и хранит только одно значение.</div>
+<div class="def"><b>Условное форматирование</b> — автоматическое изменение оформления ячейки при выполнении заданного условия.</div>
+<h2 class="sec"><span class="n">2</span>Опорная таблица</h2>
+<table class="k"><tr><th>Формат</th><th>Значение в ячейке</th><th>Что видно на экране</th></tr>
+<tr><td>Общий</td><td>1234,567</td><td>1234,567</td></tr>
+<tr><td>Числовой (2 знака)</td><td>1234,567</td><td>1 234,57</td></tr>
+<tr><td>Денежный</td><td>1234,567</td><td>1 234,57 ₽</td></tr>
+<tr><td>Процентный</td><td>0,256</td><td>25,60%</td></tr>
+<tr><td>Дата</td><td>45292</td><td>01.01.2024</td></tr>
+</table>
+<h2 class="sec"><span class="n">3</span>Опорный конспект</h2>
+<pre style="font-size:7.4pt;line-height:1.22">РЕДАКТИРОВАНИЕ И ФОРМАТИРОВАНИЕ
+
+ЗНАЧЕНИЕ  -&gt;  хранится в ячейке    0,256
+ФОРМАТ    -&gt;  только вид на экране 25,60%
+  Числовой | Денежный | Процентный | Дата | Текстовый
+  формат НЕ округляет значение, только изображение
+
+ЛИСТ .xlsx: 1 048 576 строк x 16 384 столбца
+  вставить строку -&gt; сдвиг вниз, диапазон расширяется
+  удалить строку  -&gt; данные исчезают, #ССЫЛКА!
+  ширина 8,43 знака | автоподбор двойным щелчком
+  #### = узкий столбец, а не ошибка
+
+ОБЪЕДИНЕНИЕ: хранится только левое верхнее значение
+ГРАНИЦЫ:    сетка на экране не печатается
+УСЛОВНОЕ ФОРМАТИРОВАНИЕ: правило меняет вид, не значение</pre>
+<h2 class="sec"><span class="n">4</span>Проверь себя</h2>
+<p style="margin:0 0 1.4mm;font-size:9.4pt"><b>1.</b> Чем значение ячейки отличается от её формата?</p>
+<p style="margin:0 0 1.4mm;font-size:9.4pt"><b>2.</b> Что произойдёт со значением 0,256 при включении процентного формата?</p>
+<div class="foot"><span>Справочная страница · урок 24</span><span>9 класс</span></div>
+</div>
+<div class="page">
+<div class="head"><div><h1>Ключи и критерии</h1><div class="sub">для учителя · урок 24 · Редактирование и форматирование таблиц</div></div><div class="mark">МБОУ «СОШ № 108»<br>не выдаётся<br>обучающимся<br>лист 3 из 3</div></div>
+<h2 class="sec"><span class="n">1</span>Ответы к заданиям</h2>
+<p class="tkey"><b>Задание 1.</b> а) Дата; б) Денежный; в) Процентный; г) Текстовый (иначе программа попытается превратить запись в число или дату и потеряет дефисы); д) Числовой или Общий без знаков после запятой.</p>
+<p class="tkey"><b>Задание 2.</b> Появится ошибка #ССЫЛКА!. Формула ссылалась на столбец, которого больше не существует: при удалении целого столбца все ссылки на него теряют адрес, и программа не может найти данные для вычисления. Восстановить результат можно отменой действия или повторным вводом данных и формулы.</p>
+<p class="tkey"><b>Задание 3.</b> В диапазоне есть объединённая ячейка A1:D1, а сортировка требует, чтобы все объединённые ячейки были одинакового размера. Нужно снять объединение с заголовка и оформить его иначе — заливкой, границей или увеличенным шрифтом.</p>
+<p class="tkey"><b>Задание 4.</b> Условию удовлетворяют 21, 24, 23, 22, 25 и 20 — шесть ячеек (границы 20 и 25 включаются). Средняя температура не изменится: правило меняет только оформление, а сумма остаётся 225, среднее 22,5.</p>
+<h2 class="sec"><span class="n">2</span>Ответы к тесту (часть А)</h2>
+<table class="k"><tr><th>Вопрос</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th></tr>
+<tr><td>Ответ</td><td><b>б</b></td><td><b>в</b></td><td><b>в</b></td><td><b>в</b></td><td><b>г</b></td></tr></table>
+<h2 class="sec"><span class="n">3</span>Домашнее задание</h2>
+<p class="tkey"><b>1.</b> Выучить определение числового формата и правило «формат не меняет значение»; уметь объяснить, что означает ####.</p>
+<p class="tkey"><b>2.</b> Составить в тетради таблицу «Формат — пример данных» из пяти строк и подобрать формат для каждой.</p>
+<p class="tkey"><b>3.</b> Описать по шагам, как подготовить к печати таблицу на 50 строк и 7 столбцов с повторяющимся заголовком.</p>
+<p class="tkey"><b>4.</b> *(По желанию)* Найти в учебнике или интернете, какие форматы даты существуют в табличном процессоре, и записать три примера записи одной и той же даты.</p>
+<div class="foot"><span>Ключи · урок 24 «Редактирование и форматирование таблиц»</span><span>Следующий урок: Встроенные функции для поиска максимума, минимума, суммы и среднего арифметического</span></div>
+</div>
+</body></html>

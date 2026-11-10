@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Раздаточный материал · Урок 25 · Встроенные функции для поиска максимума, минимума, суммы и среднего арифметического</title>
+<style>
+@page{size:A4 portrait;margin:12mm 13mm 10mm}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:#fff;color:#141824;
+  font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif;font-size:10.5pt;line-height:1.38}
+.page{page-break-after:always;width:184mm;display:flex;flex-direction:column;min-height:262mm}
+.page:last-child{page-break-after:auto}
+.head{display:flex;justify-content:space-between;align-items:flex-end;
+  border-bottom:2px solid #4F46E5;padding-bottom:5px;margin-bottom:9px}
+.head h1{font-size:15pt;margin:0;font-weight:700;letter-spacing:-.2px}
+.head .sub{font-size:9pt;color:#5A6178;margin-top:2px}
+.head .mark{font-size:8.6pt;color:#5A6178;text-align:right;line-height:1.35}
+.name{display:flex;gap:14px;font-size:9pt;color:#5A6178;margin:0 0 9px}
+.name span{flex:1;border-bottom:1px dotted #9AA0B4;padding-bottom:1px}
+h2.sec{font-size:11.5pt;margin:7px 0 4px;font-weight:700;color:#1E2A5A}
+h2.sec .n{display:inline-flex;width:6.4mm;height:6.4mm;border-radius:50%;background:#4F46E5;color:#fff;
+  font-size:8.6pt;align-items:center;justify-content:center;margin-right:6px;vertical-align:1px}
+.hint{font-size:8.8pt;color:#5A6178;margin:0 0 5px}
+.task{border:1px solid #D6D9E6;border-radius:7px;padding:3mm 3.6mm 2mm;margin-bottom:2.4mm;background:#FCFCFE}
+.task h3{font-size:9.6pt;margin:0 0 1.6mm;font-weight:700;color:#141824;line-height:1.2}
+.task p{margin:0 0 1.2mm;font-size:9.1pt;line-height:1.3}
+.task .q{background:#F0F1FA;border-left:3px solid #4F46E5;padding:1.5mm 2.2mm;border-radius:0 4px 4px 0;margin-bottom:1.4mm}
+.lines div{border-bottom:1px solid #C7CBDA;height:5.6mm}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:3mm}
+.def{border-left:3px solid #4F46E5;background:#F4F5FC;padding:2mm 3mm;margin-bottom:2mm;font-size:9.6pt;border-radius:0 4px 4px 0}
+.def b{color:#1E2A5A}
+table.k{width:100%;border-collapse:collapse;font-size:9.2pt}
+table.k th{background:#EEF0FA;text-align:left;padding:1.6mm 2mm;border:1px solid #D6D9E6;font-weight:700;color:#1E2A5A}
+table.k td{padding:1.5mm 2mm;border:1px solid #D6D9E6;vertical-align:top}
+pre{background:#F2F4FA;border:1px solid #D6D9E6;border-radius:5px;padding:2.4mm 3mm;font-size:8.4pt;
+  line-height:1.3;font-family:'Consolas','Courier New',monospace;white-space:pre-wrap;margin:0 0 2mm}
+.foot{margin-top:auto;padding-top:4mm;display:flex;justify-content:space-between;font-size:8.2pt;color:#8A90A6;
+  border-top:1px solid #E3E6F0}
+.tkey{font-size:9pt;color:#141824}
+.tkey b{color:#1E2A5A}
+.cut{font-size:8pt;color:#8A90A6;text-align:center;margin-top:2mm}
+</style>
+</head>
+<body>
+<div class="page">
+<div class="head"><div><h1>Встроенные функции для поиска максимума, минимума, суммы и среднего арифметического</h1><div class="sub">Информатика · 9 класс · урок 25 · Электронные таблицы</div></div><div class="mark">МБОУ «СОШ № 108»<br>Раздаточный материал<br>лист 1 из 3</div></div>
+<div class="name"><span>ФИО</span><span>Класс 9 «___»</span><span>Дата</span></div>
+<p class="hint">Выполните задания письменно на этом листе. На работу отводится 20–25 минут. Черновики сдавать не нужно.</p>
+<div class="task"><h3>Задание 1. Запишите формулы</h3>
+<p class="q">Дан столбец B2:B11 с ценами товаров. Запишите формулы, которые: а) находят суммарную стоимость всех товаров; б) находят среднюю цену; в) находят самый дорогой товар; г) находят самый дешёвый товар; д) показывают, сколько цен внесено в таблицу.</p>
+<div class="lines"><div></div><div></div><div></div><div></div><div></div></div></div>
+<div class="task"><h3>Задание 2. Вычислите вручную</h3>
+<p class="q">В ячейках C1:C6 записаны значения: 14, 27, 9, 32, 18, 20. Найдите СУММ, СРЗНАЧ, МИН и МАКС, не используя компьютер.</p>
+<div class="lines"><div></div><div></div><div></div></div></div>
+<div class="task"><h3>Задание 3. СЧЁТ или СЧЁТЗ</h3>
+<p class="q">В диапазоне A1:A8 записаны: 15, «нет данных», 22, пусто, 7, «—», 30, 18. Чему равны СЧЁТ и СЧЁТЗ? Чему равно СРЗНАЧ?</p>
+<div class="lines"><div></div><div></div><div></div></div></div>
+<div class="task"><h3>Задание 4. Найдите ошибку</h3>
+<p class="q">Ученик записал формулы и получил странные результаты: а) =СУММ(B2;B10) вместо суммы всего столбца; б) =СУМ(B2:B10) — сообщение #ИМЯ?; в) =СРЗНАЧ(D1:D5), где в столбце только подписи, — сообщение #ДЕЛ/0!. Объясните каждую ситуацию.</p>
+<div class="lines"><div></div><div></div><div></div><div></div></div></div>
+<div class="foot"><span>Информатика · 9 класс · урок 25 «Встроенные функции для поиска максимума, минимума, суммы и среднего арифметического»</span><span>задания 1–4</span></div>
+</div>
+<div class="page">
+<div class="head"><div><h1>Справочная страница</h1><div class="sub">Встроенные функции для поиска максимума, минимума, суммы и среднего арифметического</div></div><div class="mark">МБОУ «СОШ № 108»<br>можно использовать<br>при выполнении заданий<br>лист 2 из 3</div></div>
+<h2 class="sec"><span class="n">1</span>Ключевые определения</h2>
+<div class="def"><b>Встроенная функция</b> — готовая формула с именем, которая выполняет вычисление над указанными данными и возвращает результат.</div>
+<div class="def"><b>Диапазон</b> — прямоугольный блок ячеек, заданный адресами левой верхней и правой нижней ячейки через двоеточие.</div>
+<h2 class="sec"><span class="n">2</span>Опорная таблица</h2>
+<table class="k"><tr><th>Запись</th><th>Что означает</th><th>Результат на данных урока</th></tr>
+<tr><td>=СУММ(B2:B8)</td><td>все ячейки от B2 до B8</td><td>3890</td></tr>
+<tr><td>=СУММ(B2;B8)</td><td>только две крайние ячейки</td><td>800</td></tr>
+<tr><td>=СУММ(B2:B4;B6)</td><td>два аргумента: три ячейки и одна</td><td>2180</td></tr>
+<tr><td>=СУММ(B2:B8)/7</td><td>функция внутри выражения</td><td>555,71</td></tr>
+<tr><td>=МАКС(B2:B8)-МИН(B2:B8)</td><td>размах значений</td><td>660</td></tr>
+</table>
+<h2 class="sec"><span class="n">3</span>Опорный конспект</h2>
+<pre style="font-size:7.4pt;line-height:1.22">ВСТРОЕННЫЕ ФУНКЦИИ
+
+=ИМЯ(аргументы)
+   B2:B8  диапазон  "и всё между ними"
+   B2;B8  перечисление "и ещё"
+   аргумент: число, ссылка, диапазон, функция
+
+СУММ(B2:B8)    -&gt; 3890    складывает числа
+СРЗНАЧ(B2:B8)  -&gt; 555,71  сумма / КОЛИЧЕСТВО ЧИСЕЛ
+МИН(B2:B8)     -&gt; 320     наименьшее
+МАКС(B2:B8)    -&gt; 980     наибольшее
+СЧЁТ(B2:B8)    -&gt; 7       только числа
+СЧЁТЗ(B2:B8)   -&gt; 7       все непустые, включая текст
+
+ТЕКСТ и ПУСТО в диапазоне пропускаются
+#ДЕЛ/0!  - СРЗНАЧ без чисел</pre>
+<h2 class="sec"><span class="n">4</span>Проверь себя</h2>
+<p style="margin:0 0 1.4mm;font-size:9.4pt"><b>1.</b> Чем встроенная функция отличается от формулы, записанной адресами?</p>
+<p style="margin:0 0 1.4mm;font-size:9.4pt"><b>2.</b> Что означает двоеточие в записи B2:B8?</p>
+<div class="foot"><span>Справочная страница · урок 25</span><span>9 класс</span></div>
+</div>
+<div class="page">
+<div class="head"><div><h1>Ключи и критерии</h1><div class="sub">для учителя · урок 25 · Встроенные функции для поиска максимума, минимума, суммы и среднего арифметического</div></div><div class="mark">МБОУ «СОШ № 108»<br>не выдаётся<br>обучающимся<br>лист 3 из 3</div></div>
+<h2 class="sec"><span class="n">1</span>Ответы к заданиям</h2>
+<p class="tkey"><b>Задание 1.</b> а) =СУММ(B2:B11); б) =СРЗНАЧ(B2:B11); в) =МАКС(B2:B11); г) =МИН(B2:B11); д) =СЧЁТ(B2:B11).</p>
+<p class="tkey"><b>Задание 2.</b> Сумма 14 + 27 + 9 + 32 + 18 + 20 = 120; количество чисел 6; среднее 120 / 6 = 20; минимум 9; максимум 32.</p>
+<p class="tkey"><b>Задание 3.</b> Числа: 15, 22, 7, 30, 18 — пять чисел, СЧЁТ = 5. Непустые ячейки: эти пять чисел плюс «нет данных» и «—», итого 7, СЧЁТЗ = 7. Сумма чисел 92, среднее 92 / 5 = 18,4.</p>
+<p class="tkey"><b>Задание 4.</b> а) Точка с запятой перечисляет ячейки, поэтому сложились только B2 и B10, а не весь столбец; нужен диапазон B2:B10. б) Имя функции искажено, программа не знает функции СУМ; правильное имя — СУММ. в) В диапазоне нет ни одного числа, делить не на что; СРЗНАЧ требует хотя бы одного числового значения.</p>
+<h2 class="sec"><span class="n">2</span>Ответы к тесту (часть А)</h2>
+<table class="k"><tr><th>Вопрос</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th></tr>
+<tr><td>Ответ</td><td><b>б</b></td><td><b>в</b></td><td><b>в</b></td><td><b>б</b></td><td><b>в</b></td></tr></table>
+<h2 class="sec"><span class="n">3</span>Домашнее задание</h2>
+<p class="tkey"><b>1.</b> Выучить назначение шести функций: СУММ, СРЗНАЧ, МИН, МАКС, СЧЁТ, СЧЁТЗ.</p>
+<p class="tkey"><b>2.</b> Записать в тетради формулы для таблицы из 12 строк, которая считает сумму, среднее, максимум и минимум по столбцу оценок.</p>
+<p class="tkey"><b>3.</b> Придумать набор из шести ячеек, где СЧЁТ и СЧЁТЗ различаются, и вычислить для него все шесть функций.</p>
+<p class="tkey"><b>4.</b> *(По желанию)* Выяснить, как в табличном процессоре найти среднее только для чисел, больших заданного порога, и записать пример формулы.</p>
+<div class="foot"><span>Ключи · урок 25 «Встроенные функции для поиска максимума, минимума, суммы и среднего арифметического»</span><span>Следующий урок: Сортировка и фильтрация данных в выделенном диапазоне</span></div>
+</div>
+</body></html>

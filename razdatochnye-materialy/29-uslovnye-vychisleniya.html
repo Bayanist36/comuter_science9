@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Раздаточный материал · Урок 29 · Условные вычисления в электронных таблицах</title>
+<style>
+@page{size:A4 portrait;margin:12mm 13mm 10mm}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:#fff;color:#141824;
+  font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif;font-size:10.5pt;line-height:1.38}
+.page{page-break-after:always;width:184mm;display:flex;flex-direction:column;min-height:262mm}
+.page:last-child{page-break-after:auto}
+.head{display:flex;justify-content:space-between;align-items:flex-end;
+  border-bottom:2px solid #4F46E5;padding-bottom:5px;margin-bottom:9px}
+.head h1{font-size:15pt;margin:0;font-weight:700;letter-spacing:-.2px}
+.head .sub{font-size:9pt;color:#5A6178;margin-top:2px}
+.head .mark{font-size:8.6pt;color:#5A6178;text-align:right;line-height:1.35}
+.name{display:flex;gap:14px;font-size:9pt;color:#5A6178;margin:0 0 9px}
+.name span{flex:1;border-bottom:1px dotted #9AA0B4;padding-bottom:1px}
+h2.sec{font-size:11.5pt;margin:7px 0 4px;font-weight:700;color:#1E2A5A}
+h2.sec .n{display:inline-flex;width:6.4mm;height:6.4mm;border-radius:50%;background:#4F46E5;color:#fff;
+  font-size:8.6pt;align-items:center;justify-content:center;margin-right:6px;vertical-align:1px}
+.hint{font-size:8.8pt;color:#5A6178;margin:0 0 5px}
+.task{border:1px solid #D6D9E6;border-radius:7px;padding:3mm 3.6mm 2mm;margin-bottom:2.4mm;background:#FCFCFE}
+.task h3{font-size:9.6pt;margin:0 0 1.6mm;font-weight:700;color:#141824;line-height:1.2}
+.task p{margin:0 0 1.2mm;font-size:9.1pt;line-height:1.3}
+.task .q{background:#F0F1FA;border-left:3px solid #4F46E5;padding:1.5mm 2.2mm;border-radius:0 4px 4px 0;margin-bottom:1.4mm}
+.lines div{border-bottom:1px solid #C7CBDA;height:5.6mm}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:3mm}
+.def{border-left:3px solid #4F46E5;background:#F4F5FC;padding:2mm 3mm;margin-bottom:2mm;font-size:9.6pt;border-radius:0 4px 4px 0}
+.def b{color:#1E2A5A}
+table.k{width:100%;border-collapse:collapse;font-size:9.2pt}
+table.k th{background:#EEF0FA;text-align:left;padding:1.6mm 2mm;border:1px solid #D6D9E6;font-weight:700;color:#1E2A5A}
+table.k td{padding:1.5mm 2mm;border:1px solid #D6D9E6;vertical-align:top}
+pre{background:#F2F4FA;border:1px solid #D6D9E6;border-radius:5px;padding:2.4mm 3mm;font-size:8.4pt;
+  line-height:1.3;font-family:'Consolas','Courier New',monospace;white-space:pre-wrap;margin:0 0 2mm}
+.foot{margin-top:auto;padding-top:4mm;display:flex;justify-content:space-between;font-size:8.2pt;color:#8A90A6;
+  border-top:1px solid #E3E6F0}
+.tkey{font-size:9pt;color:#141824}
+.tkey b{color:#1E2A5A}
+.cut{font-size:8pt;color:#8A90A6;text-align:center;margin-top:2mm}
+</style>
+</head>
+<body>
+<div class="page">
+<div class="head"><div><h1>Условные вычисления в электронных таблицах</h1><div class="sub">Информатика · 9 класс · урок 29 · Электронные таблицы</div></div><div class="mark">МБОУ «СОШ № 108»<br>Раздаточный материал<br>лист 1 из 3</div></div>
+<div class="name"><span>ФИО</span><span>Класс 9 «___»</span><span>Дата</span></div>
+<p class="hint">Выполните задания письменно на этом листе. На работу отводится 20–25 минут. Черновики сдавать не нужно.</p>
+<div class="task"><h3>Задание 1. Вычислите результат формулы</h3>
+<p class="q">Определите, что вернут формулы: а) =ЕСЛИ(15&gt;10;"да";"нет"); б) =ЕСЛИ(И(15&gt;10;15&lt;20);1;0); в) =ЕСЛИ(ИЛИ(15&gt;20;15&gt;10);"прошёл";"нет").</p>
+<div class="lines"><div></div><div></div><div></div><div></div></div></div>
+<div class="task"><h3>Задание 2. Составьте условие</h3>
+<p class="q">Запишите формулы: а) «отличник», если балл не меньше 90 и посещаемость не меньше 80 процентов; б) «нужна пересдача», если балл меньше 40 или пропущено больше 10 уроков; в) «пустая строка», если фамилия не указана.</p>
+<div class="lines"><div></div><div></div><div></div><div></div></div></div>
+<div class="task"><h3>Задание 3. Вложенные ЕСЛИ</h3>
+<p class="q">Тариф на интернет: до 10 гигабайт включительно — 300 рублей, больше 10 и до 30 — 450, больше 30 — 700. Запишите формулу для ячейки с объёмом трафика в B2 и определите плату при 8, 25 и 40 гигабайтах.</p>
+<div class="lines"><div></div><div></div><div></div><div></div></div></div>
+<div class="task"><h3>Задание 4. Условные итоги</h3>
+<p class="q">По ведомости из десяти баллов (87, 64, 45, 92, 58, 73, 39, 81, 66, 50) найдите: а) количество учеников с баллом 80 и выше; б) сумму их баллов; в) количество учеников с баллом меньше 40.</p>
+<div class="lines"><div></div><div></div><div></div></div></div>
+<div class="foot"><span>Информатика · 9 класс · урок 29 «Условные вычисления в электронных таблицах»</span><span>задания 1–4</span></div>
+</div>
+<div class="page">
+<div class="head"><div><h1>Справочная страница</h1><div class="sub">Условные вычисления в электронных таблицах</div></div><div class="mark">МБОУ «СОШ № 108»<br>можно использовать<br>при выполнении заданий<br>лист 2 из 3</div></div>
+<h2 class="sec"><span class="n">1</span>Ключевые определения</h2>
+<div class="def"><b>Логическое выражение</b> — выражение, результатом вычисления которого является одно из двух значений: ИСТИНА или ЛОЖЬ.</div>
+<div class="def"><b>ЕСЛИ</b> — функция, которая проверяет условие и возвращает одно из двух значений: первое, если условие истинно, второе, если ложно.</div>
+<div class="def">И — функция, возвращающая ИСТИНУ только тогда, когда истинны все её аргументы; ИЛИ — когда истинен хотя бы один.</div>
+<div class="def"><b>Вложенный ЕСЛИ</b> — условная функция, записанная внутри ветви другой функции ЕСЛИ; позволяет выбрать один вариант из нескольких.</div>
+<h2 class="sec"><span class="n">2</span>Опорная таблица</h2>
+<table class="k"><tr><th>Оператор</th><th>Смысл</th><th>Пример</th><th>Ответ при B2 = 64</th></tr>
+<tr><td>=</td><td>равно</td><td>=B2=60</td><td>ЛОЖЬ</td></tr>
+<tr><td>&lt;&gt;</td><td>не равно</td><td>=B2&lt;&gt;60</td><td>ИСТИНА</td></tr>
+<tr><td>&gt;</td><td>больше</td><td>=B2&gt;60</td><td>ИСТИНА</td></tr>
+<tr><td>&lt;</td><td>меньше</td><td>=B2&lt;60</td><td>ЛОЖЬ</td></tr>
+<tr><td>&gt;=</td><td>больше или равно</td><td>=B2&gt;=64</td><td>ИСТИНА</td></tr>
+</table>
+<h2 class="sec"><span class="n">3</span>Опорный конспект</h2>
+<pre style="font-size:7.4pt;line-height:1.22">УСЛОВИЕ = СРАВНЕНИЕ -&gt; ИСТИНА или ЛОЖЬ
+  =  &lt;&gt;  &gt;  &lt;  &gt;=  &lt;=
+
+ЕСЛИ(условие; истина; ложь)
+  три аргумента, разделитель ;
+
+И(...)  - все истинны
+ИЛИ(...) - хотя бы одна
+НЕ(...) - наоборот
+
+ВЛОЖЕННЫЕ ЕСЛИ: шкала
+  ЕСЛИ(b&gt;=80;5;ЕСЛИ(b&gt;=60;4;ЕСЛИ(b&gt;=40;3;2)))
+  проверки идут СВЕРХУ ВНИЗ
+  первая истинная -&gt; выход
+  порядок: от строгого к мягкому
+</pre>
+<h2 class="sec"><span class="n">4</span>Проверь себя</h2>
+<p style="margin:0 0 1.4mm;font-size:9.4pt"><b>1.</b> Что такое логическое выражение?</p>
+<p style="margin:0 0 1.4mm;font-size:9.4pt"><b>2.</b> Сколько аргументов у функции ЕСЛИ и что они означают?</p>
+<div class="foot"><span>Справочная страница · урок 29</span><span>9 класс</span></div>
+</div>
+<div class="page">
+<div class="head"><div><h1>Ключи и критерии</h1><div class="sub">для учителя · урок 29 · Условные вычисления в электронных таблицах</div></div><div class="mark">МБОУ «СОШ № 108»<br>не выдаётся<br>обучающимся<br>лист 3 из 3</div></div>
+<h2 class="sec"><span class="n">1</span>Ответы к заданиям</h2>
+<p class="tkey"><b>Задание 1.</b> а) да; б) 1, так как оба условия истинны; в) прошёл, так как второе условие истинно.</p>
+<p class="tkey"><b>Задание 2.</b> а) =ЕСЛИ(И(B2&gt;=90;C2&gt;=80);"отличник";""); б) =ЕСЛИ(ИЛИ(B2&lt;40;C2&gt;10);"нужна пересдача";""); в) =ЕСЛИ(B2="";"пустая строка";"").</p>
+<p class="tkey"><b>Задание 3.</b> =ЕСЛИ(B2&lt;=10;300;ЕСЛИ(B2&lt;=30;450;700)). При 8 — 300, при 25 — 450, при 40 — 700. Проверки идут от меньшего порога к большему: условие «не больше 10» должно стоять первым, иначе все значения до 30 попадут в среднюю ветвь и тариф 300 не сработает никогда.</p>
+<p class="tkey"><b>Задание 4.</b> а) 87, 92, 81 — три ученика; б) 87 + 92 + 81 = 260; в) 39 — один ученик. Формулы: =СЧЁТЕСЛИ(B2:B11;"&gt;=80"), =СУММЕСЛИ(B2:B11;"&gt;=80"), =СЧЁТЕСЛИ(B2:B11;"&lt;40").</p>
+<h2 class="sec"><span class="n">2</span>Ответы к тесту (часть А)</h2>
+<table class="k"><tr><th>Вопрос</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th></tr>
+<tr><td>Ответ</td><td><b>б</b></td><td><b>в</b></td><td><b>а</b></td><td><b>б</b></td><td><b>в</b></td></tr></table>
+<h2 class="sec"><span class="n">3</span>Домашнее задание</h2>
+<p class="tkey"><b>1.</b> Выучить синтаксис функций ЕСЛИ, И, ИЛИ, СЧЁТЕСЛИ, СУММЕСЛИ и правило порядка проверок.</p>
+<p class="tkey"><b>2.</b> Составьте в тетради шкалу скидок магазина (0–5 процентов при покупке до 1000 рублей, 10 процентов при покупке от 1000 до 5000, 15 процентов при покупке дороже 5000) и запишите её одной формулой с вложенным ЕСЛИ.</p>
+<p class="tkey"><b>3.</b> Для семи своих оценок по любому предмету посчитайте вручную количество оценок выше четвёрки и их сумму, затем запишите формулы, которые дадут те же результаты.</p>
+<p class="tkey"><b>4.</b> *(По желанию)* Разберите, как устроена условная формула в электронном журнале вашей школы или в калькуляторе скидок интернет-магазина, и опишите её правило в пяти предложениях.</p>
+<div class="foot"><span>Ключи · урок 29 «Условные вычисления в электронных таблицах»</span><span>Следующий урок: Обработка больших наборов данных</span></div>
+</div>
+</body></html>

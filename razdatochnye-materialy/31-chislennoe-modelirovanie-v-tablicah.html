@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Раздаточный материал · Урок 31 · Численное моделирование в электронных таблицах</title>
+<style>
+@page{size:A4 portrait;margin:12mm 13mm 10mm}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:#fff;color:#141824;
+  font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif;font-size:10.5pt;line-height:1.38}
+.page{page-break-after:always;width:184mm;display:flex;flex-direction:column;min-height:262mm}
+.page:last-child{page-break-after:auto}
+.head{display:flex;justify-content:space-between;align-items:flex-end;
+  border-bottom:2px solid #4F46E5;padding-bottom:5px;margin-bottom:9px}
+.head h1{font-size:15pt;margin:0;font-weight:700;letter-spacing:-.2px}
+.head .sub{font-size:9pt;color:#5A6178;margin-top:2px}
+.head .mark{font-size:8.6pt;color:#5A6178;text-align:right;line-height:1.35}
+.name{display:flex;gap:14px;font-size:9pt;color:#5A6178;margin:0 0 9px}
+.name span{flex:1;border-bottom:1px dotted #9AA0B4;padding-bottom:1px}
+h2.sec{font-size:11.5pt;margin:7px 0 4px;font-weight:700;color:#1E2A5A}
+h2.sec .n{display:inline-flex;width:6.4mm;height:6.4mm;border-radius:50%;background:#4F46E5;color:#fff;
+  font-size:8.6pt;align-items:center;justify-content:center;margin-right:6px;vertical-align:1px}
+.hint{font-size:8.8pt;color:#5A6178;margin:0 0 5px}
+.task{border:1px solid #D6D9E6;border-radius:7px;padding:3mm 3.6mm 2mm;margin-bottom:2.4mm;background:#FCFCFE}
+.task h3{font-size:9.6pt;margin:0 0 1.6mm;font-weight:700;color:#141824;line-height:1.2}
+.task p{margin:0 0 1.2mm;font-size:9.1pt;line-height:1.3}
+.task .q{background:#F0F1FA;border-left:3px solid #4F46E5;padding:1.5mm 2.2mm;border-radius:0 4px 4px 0;margin-bottom:1.4mm}
+.lines div{border-bottom:1px solid #C7CBDA;height:5.6mm}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:3mm}
+.def{border-left:3px solid #4F46E5;background:#F4F5FC;padding:2mm 3mm;margin-bottom:2mm;font-size:9.6pt;border-radius:0 4px 4px 0}
+.def b{color:#1E2A5A}
+table.k{width:100%;border-collapse:collapse;font-size:9.2pt}
+table.k th{background:#EEF0FA;text-align:left;padding:1.6mm 2mm;border:1px solid #D6D9E6;font-weight:700;color:#1E2A5A}
+table.k td{padding:1.5mm 2mm;border:1px solid #D6D9E6;vertical-align:top}
+pre{background:#F2F4FA;border:1px solid #D6D9E6;border-radius:5px;padding:2.4mm 3mm;font-size:8.4pt;
+  line-height:1.3;font-family:'Consolas','Courier New',monospace;white-space:pre-wrap;margin:0 0 2mm}
+.foot{margin-top:auto;padding-top:4mm;display:flex;justify-content:space-between;font-size:8.2pt;color:#8A90A6;
+  border-top:1px solid #E3E6F0}
+.tkey{font-size:9pt;color:#141824}
+.tkey b{color:#1E2A5A}
+.cut{font-size:8pt;color:#8A90A6;text-align:center;margin-top:2mm}
+</style>
+</head>
+<body>
+<div class="page">
+<div class="head"><div><h1>Численное моделирование в электронных таблицах</h1><div class="sub">Информатика · 9 класс · урок 31 · Электронные таблицы</div></div><div class="mark">МБОУ «СОШ № 108»<br>Раздаточный материал<br>лист 1 из 3</div></div>
+<div class="name"><span>ФИО</span><span>Класс 9 «___»</span><span>Дата</span></div>
+<p class="hint">Выполните задания письменно на этом листе. На работу отводится 20–25 минут. Черновики сдавать не нужно.</p>
+<div class="task"><h3>Задание 1. Модель стоимости поездки</h3>
+<p class="q">Поездка на такси стоит 150 ₽ за посадку плюс 12 ₽ за километр. Постройте в таблице модель: параметры в отдельных ячейках, результат — формулой. Найдите стоимость поездки на 5, 10 и 30 км и расстояние, начиная с которого поездка стоит больше 500 ₽.</p>
+<div class="lines"><div></div><div></div><div></div><div></div><div></div></div></div>
+<div class="task"><h3>Задание 2. Сетка экспериментов</h3>
+<p class="q">Для вклада 100 000 ₽ постройте таблицу «ставка × срок»: строки — ставки 5 %, 8 %, 10 %, столбцы — сроки 3, 5 и 7 лет. Заполните девять ячеек формулой и определите, во сколько раз отличается лучший результат от худшего.</p>
+<div class="lines"><div></div><div></div><div></div><div></div></div></div>
+<div class="task"><h3>Задание 3. Подбор параметра для цели 300 000</h3>
+<p class="q">На счёте 100 000 ₽ под 8 % годовых. Сколько лет нужно до 300 000 ₽? Проверьте ответ по таблице серии и объясните, как округлять результат подбора.</p>
+<div class="lines"><div></div><div></div><div></div></div></div>
+<div class="task"><h3>Задание 4. Какой график выбрать</h3>
+<p class="q">Ученик построил по серии экспериментов линейчатую диаграмму с подписями «0 с, 0,4 с, 0,8 с...». Объясните, почему для модели нужна точечная диаграмма, и что именно изменится на графике.</p>
+<div class="lines"><div></div><div></div><div></div></div></div>
+<div class="foot"><span>Информатика · 9 класс · урок 31 «Численное моделирование в электронных таблицах»</span><span>задания 1–4</span></div>
+</div>
+<div class="page">
+<div class="head"><div><h1>Справочная страница</h1><div class="sub">Численное моделирование в электронных таблицах</div></div><div class="mark">МБОУ «СОШ № 108»<br>можно использовать<br>при выполнении заданий<br>лист 2 из 3</div></div>
+<h2 class="sec"><span class="n">1</span>Ключевые определения</h2>
+<div class="def"><b>Численная модель</b> — описание объекта или процесса набором величин и формул, связывающих эти величины, которое позволяет вычислять значения одних величин по известным значениям других.</div>
+<div class="def"><b>Точечная диаграмма</b> — вид диаграммы, в котором обе оси являются числовыми, поэтому она показывает зависимость одной величины от другой, а не сравнение категорий.</div>
+<h2 class="sec"><span class="n">2</span>Опорная таблица</h2>
+<table class="k"><tr><th>Задача</th><th>Что моделируем</th><th>Существенные величины</th></tr>
+<tr><td>Рост вклада в банке</td><td>накопление денег</td><td>сумма, ставка, срок</td></tr>
+<tr><td>Полёт мяча</td><td>движение тела</td><td>начальная скорость, ускорение, время</td></tr>
+<tr><td>Стоимость поездки</td><td>плата за услугу</td><td>посадка, цена километра, расстояние</td></tr>
+<tr><td>Остывание чая</td><td>изменение температуры</td><td>начальная температура, время, скорость остывания</td></tr>
+</table>
+<h2 class="sec"><span class="n">3</span>Опорный конспект</h2>
+<pre style="font-size:7.4pt;line-height:1.22">ЧИСЛЕННАЯ МОДЕЛЬ В ТАБЛИЦЕ
+
+ПАРАМЕТРЫ  -&gt;  ФОРМУЛЫ  -&gt;  РЕЗУЛЬТАТ
+ B2 сумма      =B2*(1+B3)^B4     B6 итог
+ B3 ставка
+ B4 срок
+
+ПРАВИЛО: в формуле нет чисел из условия
+ =B2*(1+B3)^B4   верно для любых параметров
+ =100000*(1+0,08)^5   верно один раз
+
+СЕРИЯ: меняем ОДИН параметр, ссылки на прочие - в долларах
+ Год | Сумма
+  0  | 100 000,00
+  5  | 146 932,81
+</pre>
+<h2 class="sec"><span class="n">4</span>Проверь себя</h2>
+<p style="margin:0 0 1.4mm;font-size:9.4pt"><b>1.</b> Что такое численная модель?</p>
+<p style="margin:0 0 1.4mm;font-size:9.4pt"><b>2.</b> Какие три вида ячеек есть в табличной модели?</p>
+<div class="foot"><span>Справочная страница · урок 31</span><span>9 класс</span></div>
+</div>
+<div class="page">
+<div class="head"><div><h1>Ключи и критерии</h1><div class="sub">для учителя · урок 31 · Численное моделирование в электронных таблицах</div></div><div class="mark">МБОУ «СОШ № 108»<br>не выдаётся<br>обучающимся<br>лист 3 из 3</div></div>
+<h2 class="sec"><span class="n">1</span>Ответы к заданиям</h2>
+<p class="tkey"><b>Задание 1.</b> Формула =B2+B3*A6, где B2 = 150, B3 = 12, A6 — расстояние. Для 5 км — 210 ₽, для 10 км — 270 ₽, для 30 км — 510 ₽. Условие 150 + 12d &gt; 500 даёт d &gt; 29,17, значит, с 30 км.</p>
+<p class="tkey"><b>Задание 2.</b> 5 %: 115 762,50; 127 628,16; 140 710,04. 8 %: 125 971,20; 146 932,81; 171 382,43. 10 %: 133 100,00; 161 051,00; 194 871,71. Лучший — 194 871,71 (10 %, 7 лет), худший — 115 762,50 (5 %, 3 года); отношение ≈ 1,68 раза.</p>
+<p class="tkey"><b>Задание 3.</b> Подбор параметра даёт около 14,27 года. Проверка: 100 000 · 1,08¹⁴ = 293 719,36 ₽ (меньше цели), 100 000 · 1,08¹⁵ = 317 216,91 ₽ (больше). Округляем вверх: цель будет достигнута в течение 15-го года.</p>
+<p class="tkey"><b>Задание 4.</b> Линейчатая диаграмма воспринимает ось X как список категорий и ставит подписи на равных расстояниях, поэтому наклон линии перестаёт отражать скорость изменения. Точечная диаграмма использует числовую ось: точки встают по координатам (t; h), наклон показывает реальную скорость, а вершина параболы видна как максимум.</p>
+<h2 class="sec"><span class="n">2</span>Ответы к тесту (часть А)</h2>
+<table class="k"><tr><th>Вопрос</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th></tr>
+<tr><td>Ответ</td><td><b>б</b></td><td><b>б</b></td><td><b>б</b></td><td><b>в</b></td><td><b>в</b></td></tr></table>
+<h2 class="sec"><span class="n">3</span>Домашнее задание</h2>
+<p class="tkey"><b>1.</b> Выучить определения: модель, численная модель, точечная диаграмма; записать в тетрадь структуру модели «параметры — формулы — результат».</p>
+<p class="tkey"><b>2.</b> Построить в таблице модель «стоимость поездки» из задания 1 для 10 расстояний и определить, при каком расстоянии поездка дороже 1000 ₽.</p>
+<p class="tkey"><b>3.</b> Придумать свою модель из жизни (расход бензина, траты на школьные обеды, рост числа просмотров) и записать её параметры, формулу и результат.</p>
+<p class="tkey"><b>4.</b> *(По желанию)* Построить модель остывания чая по формуле T = T₀ · 0,9ⁿ, где n — число пятиминуток, и определить, через сколько времени температура опустится ниже 40 °C при T₀ = 90 °C.</p>
+<div class="foot"><span>Ключи · урок 31 «Численное моделирование в электронных таблицах»</span><span>Следующий урок: Обобщение и систематизация знаний по теме «Электронные таблицы»</span></div>
+</div>
+</body></html>

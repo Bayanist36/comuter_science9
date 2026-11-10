@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Раздаточный материал · Урок 19 · Обработка потока данных</title>
+<style>
+@page{size:A4 portrait;margin:12mm 13mm 10mm}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:#fff;color:#141824;
+  font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif;font-size:10.5pt;line-height:1.38}
+.page{page-break-after:always;width:184mm;display:flex;flex-direction:column;min-height:262mm}
+.page:last-child{page-break-after:auto}
+.head{display:flex;justify-content:space-between;align-items:flex-end;
+  border-bottom:2px solid #4F46E5;padding-bottom:5px;margin-bottom:9px}
+.head h1{font-size:15pt;margin:0;font-weight:700;letter-spacing:-.2px}
+.head .sub{font-size:9pt;color:#5A6178;margin-top:2px}
+.head .mark{font-size:8.6pt;color:#5A6178;text-align:right;line-height:1.35}
+.name{display:flex;gap:14px;font-size:9pt;color:#5A6178;margin:0 0 9px}
+.name span{flex:1;border-bottom:1px dotted #9AA0B4;padding-bottom:1px}
+h2.sec{font-size:11.5pt;margin:7px 0 4px;font-weight:700;color:#1E2A5A}
+h2.sec .n{display:inline-flex;width:6.4mm;height:6.4mm;border-radius:50%;background:#4F46E5;color:#fff;
+  font-size:8.6pt;align-items:center;justify-content:center;margin-right:6px;vertical-align:1px}
+.hint{font-size:8.8pt;color:#5A6178;margin:0 0 5px}
+.task{border:1px solid #D6D9E6;border-radius:7px;padding:3mm 3.6mm 2mm;margin-bottom:2.4mm;background:#FCFCFE}
+.task h3{font-size:9.6pt;margin:0 0 1.6mm;font-weight:700;color:#141824;line-height:1.2}
+.task p{margin:0 0 1.2mm;font-size:9.1pt;line-height:1.3}
+.task .q{background:#F0F1FA;border-left:3px solid #4F46E5;padding:1.5mm 2.2mm;border-radius:0 4px 4px 0;margin-bottom:1.4mm}
+.lines div{border-bottom:1px solid #C7CBDA;height:5.6mm}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:3mm}
+.def{border-left:3px solid #4F46E5;background:#F4F5FC;padding:2mm 3mm;margin-bottom:2mm;font-size:9.6pt;border-radius:0 4px 4px 0}
+.def b{color:#1E2A5A}
+table.k{width:100%;border-collapse:collapse;font-size:9.2pt}
+table.k th{background:#EEF0FA;text-align:left;padding:1.6mm 2mm;border:1px solid #D6D9E6;font-weight:700;color:#1E2A5A}
+table.k td{padding:1.5mm 2mm;border:1px solid #D6D9E6;vertical-align:top}
+pre{background:#F2F4FA;border:1px solid #D6D9E6;border-radius:5px;padding:2.4mm 3mm;font-size:8.4pt;
+  line-height:1.3;font-family:'Consolas','Courier New',monospace;white-space:pre-wrap;margin:0 0 2mm}
+.foot{margin-top:auto;padding-top:4mm;display:flex;justify-content:space-between;font-size:8.2pt;color:#8A90A6;
+  border-top:1px solid #E3E6F0}
+.tkey{font-size:9pt;color:#141824}
+.tkey b{color:#1E2A5A}
+.cut{font-size:8pt;color:#8A90A6;text-align:center;margin-top:2mm}
+</style>
+</head>
+<body>
+<div class="page">
+<div class="head"><div><h1>Обработка потока данных</h1><div class="sub">Информатика · 9 класс · урок 19 · Разработка алгоритмов и программ</div></div><div class="mark">МБОУ «СОШ № 108»<br>Раздаточный материал<br>лист 1 из 4</div></div>
+<div class="name"><span>ФИО</span><span>Класс 9 «___»</span><span>Дата</span></div>
+<p class="hint">Выполните задания письменно на этом листе. На работу отводится 20–25 минут. Черновики сдавать не нужно.</p>
+<div class="task"><h3>Задание 1. Трассировка накопителей</h3>
+<p class="q">Последовательность 6, −3, 14, 0 (0 — конец) обрабатывается программой, которая считает сумму, количество, минимум и максимум. Заполните таблицу значений после каждого шага и найдите итоговые величины.</p>
+<div class="lines"><div></div><div></div><div></div><div></div><div></div></div></div>
+<div class="task"><h3>Задание 2. Среднее без массива</h3>
+<p class="q">Напишите фрагмент программы, которая читает числа до нуля и выводит их среднее арифметическое. Что выведет программа, если первым придёт ноль? Как нужно изменить программу, чтобы в этом случае выводилось сообщение «данных нет»?</p>
+<div class="lines"><div></div><div></div><div></div><div></div></div></div>
+<div class="task"><h3>Задание 3. Минимум и максимум на лету</h3>
+<p class="q">Последовательность состоит только из отрицательных чисел: −5, −2, −9, −1 (последнее — конец). Ученик нашёл минимум, начав со значения 0, и получил верный ответ. Затем он тем же способом стал искать максимум и получил 0.</p>
+<div class="lines"><div></div><div></div><div></div><div></div></div></div>
+<div class="foot"><span>Информатика · 9 класс · урок 19 «Обработка потока данных»</span><span>задания 1–3</span></div>
+</div>
+<div class="page">
+<div class="head"><div><h1>Обработка потока данных · продолжение</h1><div class="sub">Информатика · 9 класс · урок 19 · Разработка алгоритмов и программ</div></div><div class="mark">МБОУ «СОШ № 108»<br>Раздаточный материал<br>лист 2 из 4</div></div>
+<div class="name"><span>ФИО</span><span>Класс 9 «___»</span><span>Дата</span></div>
+<div class="task"><h3>Задание 4. Выбор условия остановки</h3>
+<p class="q">Вам нужно обработать результаты измерений температуры за сутки: значения могут быть любыми, в том числе нулевыми и отрицательными, количество измерений известно и равно 1440. Предложите условие остановки и объясните, почему сторожевой ноль здесь не подходит.</p>
+<div class="lines"><div></div><div></div><div></div><div></div></div></div>
+<div class="foot"><span>Информатика · 9 класс · урок 19 «Обработка потока данных»</span><span>задания 4–4</span></div>
+</div>
+<div class="page">
+<div class="head"><div><h1>Справочная страница</h1><div class="sub">Обработка потока данных</div></div><div class="mark">МБОУ «СОШ № 108»<br>можно использовать<br>при выполнении заданий<br>лист 3 из 4</div></div>
+<h2 class="sec"><span class="n">1</span>Ключевые определения</h2>
+<div class="def"><b>Поток данных</b> — последовательность значений, которые поступают по одному, обрабатываются сразу и не сохраняются целиком.</div>
+<h2 class="sec"><span class="n">2</span>Опорная таблица</h2>
+<table class="k"><tr><th>Свойство</th><th>Массив</th><th>Поток</th></tr>
+<tr><td>Доступ к элементам</td><td>к любому по индексу</td><td>только к текущему</td></tr>
+<tr><td>Длина</td><td>известна заранее</td><td>часто неизвестна</td></tr>
+<tr><td>Память</td><td>пропорциональна числу элементов</td><td>несколько переменных</td></tr>
+<tr><td>Число проходов</td><td>сколько нужно</td><td>ровно один</td></tr>
+<tr><td>Пример</td><td>оценки за четверть</td><td>показания датчика</td></tr>
+</table>
+<h2 class="sec"><span class="n">3</span>Опорный конспект</h2>
+<pre style="font-size:7.4pt;line-height:1.22">ОБРАБОТКА ПОТОКА ДАННЫХ
+
+МАССИВ: все n значений в памяти, проходов сколько угодно
+ПОТОК:  только текущее значение, ОДИН проход, память O(1)
+
+КАРКАС ПРОГРАММЫ
+  total = 0   count = 0        &lt;- до цикла
+  while True:
+      x = ввод
+      if x == СТОП: break      &lt;- проверка ДО обработки
+      total += x
+      count += 1               &lt;- обновление в цикле
+  среднее = total / count      &lt;- после цикла (count &gt; 0!)
+
+РЕКОРДЫ
+  mx = ПЕРВЫЙ элемент (не 0!)</pre>
+<h2 class="sec"><span class="n">4</span>Проверь себя</h2>
+<p style="margin:0 0 1.4mm;font-size:9.4pt"><b>1.</b> Чем поток данных отличается от массива?</p>
+<p style="margin:0 0 1.4mm;font-size:9.4pt"><b>2.</b> Зачем счётчик и сумму инициализируют нулём?</p>
+<div class="foot"><span>Справочная страница · урок 19</span><span>9 класс</span></div>
+</div>
+<div class="page">
+<div class="head"><div><h1>Ключи и критерии</h1><div class="sub">для учителя · урок 19 · Обработка потока данных</div></div><div class="mark">МБОУ «СОШ № 108»<br>не выдаётся<br>обучающимся<br>лист 4 из 4</div></div>
+<h2 class="sec"><span class="n">1</span>Ответы к заданиям</h2>
+<p class="tkey"><b>Задание 1.</b> Шаг 1: x = 6, total = 6, count = 1, min = 6, max = 6. Шаг 2: x = −3, total = 3, count = 2, min = −3, max = 6. Шаг 3: x = 14, total = 17, count = 3, min = −3, max = 14. Шаг 4: x = 0 — сторож, остановка. Итог: сумма 17, количество 3, минимум −3, максимум 14, среднее 17/3 ≈ 5,67.</p>
+<p class="tkey"><b>Задание 2.</b> Нужны две переменные: total и count; после цикла — проверка if count &gt; 0: print(total / count) else: print("данных нет"). Если первым придёт ноль, цикл сразу прервётся, count = 0, и без проверки произойдёт деление на ноль — программа завершится с ошибкой. С проверкой будет выведено «данных нет».</p>
+<p class="tkey"><b>Задание 3.</b> Верный максимум равен −1. Начальное значение 0 больше любого элемента данных, поэтому условие «элемент больше текущего максимума» ни разу не выполнится при строгом сравнении, и в ответе останется число, которого в данных не было. Для минимума ноль случайно оказался безвредным: любое отрицательное число меньше нуля, и рекорд обновляется. Надёжное решение одно — брать начальное значение у первого элемента…</p>
+<p class="tkey"><b>Задание 4.</b> Лучше использовать количество: for i in range(1440). Ноль не подходит как сторож, потому что 0 °C — реальное допустимое измерение, и первое же такое значение оборвало бы обработку, потеряв остальные данные. Сторожевое значение должно быть невозможным в данных, а для температуры такого удобного числа нет.</p>
+<h2 class="sec"><span class="n">2</span>Ответы к тесту (часть А)</h2>
+<table class="k"><tr><th>Вопрос</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th></tr>
+<tr><td>Ответ</td><td><b>б</b></td><td><b>в</b></td><td><b>а</b></td><td><b>б</b></td><td><b>б</b></td></tr></table>
+<h2 class="sec"><span class="n">3</span>Домашнее задание</h2>
+<p class="tkey"><b>1.</b> Выучить определения: поток данных, сторожевой признак, накопитель; запомнить каркас программы обработки потока из трёх частей.</p>
+<p class="tkey"><b>2.</b> Выполнить трассировку программы для последовательности 10, 25, 7, 18, 0, заполнив таблицу значений суммы, количества, минимума и максимума после каждого шага.</p>
+<p class="tkey"><b>3.</b> Записать в тетрадь программу, которая находит количество чисел, кратных 3, и сумму отрицательных чисел в потоке до нуля.</p>
+<p class="tkey"><b>4.</b> *(По желанию)* Придумать, как за один проход найти второй по величине элемент последовательности, и проверить идею на последовательности 4, 9, 9, 2.</p>
+<div class="foot"><span>Ключи · урок 19 «Обработка потока данных»</span><span>Следующий урок: Обобщение и систематизация знаний. Контрольная работа по теме «Разработка алгоритмов и программ»</span></div>
+</div>
+</body></html>
